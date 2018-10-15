@@ -6,6 +6,7 @@ public class EnemyManager : MonoBehaviour {
 
     public GameObject EnemyPrefab;
     public float CreateEnemyInterval;
+    public Transform SpawnPoint;
 
 	// Use this for initialization
 	void Start () {
@@ -19,7 +20,7 @@ public class EnemyManager : MonoBehaviour {
             if (TerrainManager.Instance.finishedInit && GameManager.Instance.playerPointPosition != null)
             {
                 print("instantiating enemy...");
-                Instantiate(EnemyPrefab, new Vector3(8f, 0.65f, 5.75f), Quaternion.identity);
+                Instantiate(EnemyPrefab, SpawnPoint.position, Quaternion.identity);
             }
             yield return new WaitForSeconds(t);
         }

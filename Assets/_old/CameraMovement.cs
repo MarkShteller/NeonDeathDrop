@@ -14,6 +14,7 @@ public class CameraMovement : MonoBehaviour {
 	void Update () 
 	{
         float oSize = Camera.main.orthographicSize;
-        transform.localPosition = new Vector3(target.localPosition.x - oSize, transform.localPosition.y, target.localPosition.z - oSize);
+        //transform.localPosition = new Vector3(target.localPosition.x - oSize, transform.localPosition.y, target.localPosition.z - oSize);
+        transform.localPosition = new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z -1.5f * oSize);
 	}
 }

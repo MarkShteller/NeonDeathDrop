@@ -36,6 +36,8 @@ public class TerrainManager : MonoBehaviour {
         }
         finishedInit = true;
         regeneratingTiles = new List<GridNode>();
+
+        transform.rotation = Quaternion.Euler(0, -45, 0);
 	}
 
     void Update()

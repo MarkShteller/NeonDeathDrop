@@ -5,20 +5,14 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
 
+    public static UIManager Instance;
+
     public Slider manaSlider;
     public Slider healthSlider;
 
-    /*
-	// Use this for initialization
-	void Start () {
-		
+	void Awake () {
+        Instance = this;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-    */
 
     public void SetMana(float value)
     {
