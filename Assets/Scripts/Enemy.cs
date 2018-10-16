@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour {
     public float findPlayerInterval = 0.5f;
     public float damage;
 
+    public float stunnedTimer = 1;
+    private float stunnedRemaining;
+
     private Point playerPointPos;
     private bool isMovingTowardsPlayer;
     private LinkedList<GridNode> pathList;
@@ -21,7 +24,7 @@ public class Enemy : MonoBehaviour {
 
 
     private MovementType movementStatus;
-    enum MovementType { Static, TrackingPlayer, Pushed, Falling }
+    enum MovementType { Static, TrackingPlayer, Pushed, Stunned, Falling }
 
     void Start()
     {
@@ -112,9 +115,17 @@ public class Enemy : MonoBehaviour {
                 //recover from push and continue following the player
                 if (rigidBody.velocity.x < 0.1f && rigidBody.velocity.y < 0.1f)
                 {
-                    movementStatus = MovementType.TrackingPlayer;
+                    movementStatus = MovementType.Stunned;
+                    stunnedRemaining = stunnedTimer;
                 }
                 break;
+
+            case MovementType.Stunned:
+                stunnedRemaining -= Time.deltaTime;
+                if (stunnedRemaining <= 0)
+                    movementStatus = MovementType.TrackingPlayer;
+                break;
+
             case MovementType.Falling:
                 print("Enemy is falling...");
                 Destroy(gameObject);

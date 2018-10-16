@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4034636670262688}
   - component: {fileID: 33048608558049224}
   - component: {fileID: 23752678466890866}
+  - component: {fileID: 65060972803943054}
   m_Layer: 2
-  m_Name: Cylinder
-  m_TagString: Untagged
+  m_Name: Visuals
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,6 +189,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1725814024299628}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65060972803943054
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1053488544224604}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.02, y: 2.21, z: 0.98}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65435504500432348
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -196,7 +209,7 @@ BoxCollider:
   m_GameObject: {fileID: 1428434147840538}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.61, y: 1.28, z: 0.63}
   m_Center: {x: 0, y: 0, z: 0}
@@ -218,6 +231,7 @@ MonoBehaviour:
   holeTimeToRegen: 10
   pushManaCost: 2
   holeManaCost: 4
+  forcePushTriggerCollider: {fileID: 65060972803943054}
   gridHolder: {fileID: 0}
   visualsHolder: {fileID: 4034636670262688}
 --- !u!135 &135619092921005878

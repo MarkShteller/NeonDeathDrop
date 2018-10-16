@@ -25,15 +25,15 @@ public class PlayerBehaviour : MonoBehaviour
     private float pushRadius = 3;
     private float defaultRadius = 0.35f;
     private Vector3 defaultForcePushTriggerSize;
-    private float pushForce = 1000;
-    private BoxCollider forcePushTriggerCollider;
+    [HideInInspector] public float pushForce = 1000;
+    public BoxCollider forcePushTriggerCollider;
 
     public TerrainManager gridHolder;
     public Transform visualsHolder;
 
     void Start()
     {
-        forcePushTriggerCollider = GetComponent<BoxCollider>();
+        //forcePushTriggerCollider = GetComponent<BoxCollider>();
         defaultForcePushTriggerSize = forcePushTriggerCollider.size;
         manaPoints = totalManaPoints;
         healthPoints = totalHealthPoints;
@@ -43,18 +43,32 @@ public class PlayerBehaviour : MonoBehaviour
     {
         float xMove = Input.GetAxis("HorizontalMove");
         float yMove = Input.GetAxis("VerticalMove");
+
+        if (xMove == 0 && yMove == 0)
+        {
+            xMove = Input.GetAxis("Horizontal");
+            yMove = Input.GetAxis("Vertical");
+        }
         transform.Translate(xMove * movementSpeed, 0, yMove * movementSpeed);
 
-        if (Input.GetAxis("HorizontalLook") != 0)
-            print("looking horizontal " + Input.GetAxis("HorizontalLook"));
+        float xLook = Input.GetAxis("HorizontalLook");
+        float yLook = Input.GetAxis("VerticalLook");
+        float angle = AngleFromJoystick(xLook, yLook);
+
+        //rotate only if there is an input
+        if(angle != 0)
+            this.visualsHolder.rotation = Quaternion.AngleAxis(angle - 90, Vector3.up);
+
+
         DetectPlayerPositionOnGrid();
 
-        Vector2 mousepos = Input.mousePosition;
+       /* Vector2 mousepos = Input.mousePosition;
         Vector2 screenCenter = Camera.main.WorldToScreenPoint(this.transform.position);
 
         float angle = AngleBetweenTwoPoints(screenCenter, mousepos) + 180;
 
         this.visualsHolder.rotation = Quaternion.AngleAxis(angle - 90, Vector3.up);
+        */
     }
 
     void Update()
@@ -66,7 +80,10 @@ public class PlayerBehaviour : MonoBehaviour
         //forcePushTrigger.radius = defaultRadius;
         forcePushTriggerCollider.center = Vector3.zero;
         forcePushTriggerCollider.size = defaultForcePushTriggerSize;
-        if (Input.GetMouseButtonDown(1))
+
+        //print("R2: " + Input.GetAxis("RightTrigger"));
+
+        if (Input.GetMouseButtonDown(1) || Input.GetAxis("RightTrigger") == 1)
         {
             //print(" MouseButtonDown(1)");
             //forcePushTrigger.radius = pushRadius;
@@ -75,23 +92,10 @@ public class PlayerBehaviour : MonoBehaviour
                 forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + 1, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius);
                 forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius / 2);
                 manaPoints -= pushManaCost;
+                print(forcePushTriggerCollider.size);
             }
         }
 
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        //print("In radius: " + other.name);
-        Enemy enemy = other.GetComponent<Enemy>();
-        if (enemy != null)
-        {
-            Vector3 dir = transform.position - other.transform.position;
-            // We then get the opposite (-Vector3) and normalize it
-            dir = -dir.normalized;
-            enemy.ForcePush(dir, pushForce);
-        }
-        else print("Collition did not contain enemy.");
     }
 
     void OnCollisionEnter(Collision collision)
@@ -173,6 +177,15 @@ public class PlayerBehaviour : MonoBehaviour
                     gridHolder.SetGridNodeType(pPoint.x, pPoint.y, GridNode.TileType.Occupied);
             }
         }
+    }
+
+    float AngleFromJoystick(float x, float y)
+    {
+        if (x != 0.0f || y != 0.0f)
+        {
+            return Mathf.Atan2(y, x) * Mathf.Rad2Deg; // flip x and y for 90 deg result
+        }
+        return 0;
     }
 
     float AngleBetweenTwoPoints(Vector2 a, Vector2 b)
