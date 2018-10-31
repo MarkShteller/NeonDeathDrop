@@ -13,8 +13,10 @@ public class Enemy : MonoBehaviour {
     public float stunnedTimer = 1;
     private float stunnedRemaining;
 
+    public int pointsReward = 10;
+
     private Point playerPointPos;
-    private bool isMovingTowardsPlayer;
+    //private bool isMovingTowardsPlayer;
     private LinkedList<GridNode> pathList;
 
     private Vector3 pushedTargetPos;
@@ -29,7 +31,7 @@ public class Enemy : MonoBehaviour {
     void Start()
     {
         playerPointPos = GameManager.Instance.playerPointPosition;
-        isMovingTowardsPlayer = true;
+        //isMovingTowardsPlayer = true;
         gridHolder = TerrainManager.Instance;//GameObject.FindGameObjectWithTag("TerrainManager").GetComponent<TerrainBuilder>();
         DetectEnemyPositionOnGrid();
         StartCoroutine(FindPathEverySeconds(findPlayerInterval));
@@ -128,6 +130,7 @@ public class Enemy : MonoBehaviour {
 
             case MovementType.Falling:
                 print("Enemy is falling...");
+                GameManager.Instance.AddScore(pointsReward);
                 Destroy(gameObject);
                 break;
         }

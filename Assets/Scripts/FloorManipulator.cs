@@ -10,7 +10,7 @@ public class FloorManipulator : MonoBehaviour {
     private GameObject prevHoveredObject;
 
     private float pushRadius = 3;
-    private float pushForce = 10;
+    //private float pushForce = 10;
     private SphereCollider forcePushTrigger;
     //public GameObject forcePushTriggerObject;
 

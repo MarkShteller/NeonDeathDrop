@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
@@ -9,10 +7,18 @@ public class UIManager : MonoBehaviour {
 
     public Slider manaSlider;
     public Slider healthSlider;
+    public Text scoreText;
+
+    public GameOverDialog gameOverDialog;
 
 	void Awake () {
         Instance = this;
 	}
+
+    public void SetScore(int value)
+    {
+        scoreText.text = value.ToString("N0");
+    }
 
     public void SetMana(float value)
     {
@@ -24,4 +30,9 @@ public class UIManager : MonoBehaviour {
         healthSlider.value = value;
     }
 
+    public void ShowGameOverScreen(int score)
+    {
+        GameOverDialog dialog = Instantiate(gameOverDialog, this.transform);
+        dialog.Init(score);
+    }
 }

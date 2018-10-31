@@ -8,6 +8,7 @@ public class TerrainManager : MonoBehaviour {
 
     public GameObject cube;
     public GameObject barrierCube;
+
     private GridNode[,] grid;
     private int gridSizeX = 50;
     private int gridSizeY = 10;
@@ -67,7 +68,7 @@ public class TerrainManager : MonoBehaviour {
             grid[x, y].TimeToNormal = regenTime;
 
             //place a collider on the pit so the player would not fall in
-            //todo
+            
         }
     }
 

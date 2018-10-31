@@ -17,15 +17,19 @@ public class PlayerBehaviour : MonoBehaviour
 
     public float pushManaCost;
     public float holeManaCost;
+    public float fallDamage = 1;
 
     private RaycastHit hit;
     private Ray ray;
-    private GameObject prevHoveredObject;
+    [HideInInspector] public GameObject prevHoveredObject;
+    [HideInInspector] public GameObject currHoveredObject;
+
+    [HideInInspector] public bool enableControlls = true;
 
     private float pushRadius = 3;
-    private float defaultRadius = 0.35f;
+    //private float defaultRadius = 0.35f;
     private Vector3 defaultForcePushTriggerSize;
-    [HideInInspector] public float pushForce = 1000;
+    [HideInInspector] public float pushForce = 2000;
     public BoxCollider forcePushTriggerCollider;
 
     public TerrainManager gridHolder;
@@ -41,26 +45,33 @@ public class PlayerBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-        float xMove = Input.GetAxis("HorizontalMove");
-        float yMove = Input.GetAxis("VerticalMove");
-
-        if (xMove == 0 && yMove == 0)
+        if (enableControlls)
         {
-            xMove = Input.GetAxis("Horizontal");
-            yMove = Input.GetAxis("Vertical");
+            float xMove = Input.GetAxis("HorizontalMove");
+            float yMove = Input.GetAxis("VerticalMove");
+
+            if (xMove == 0 && yMove == 0)
+            {
+                xMove = Input.GetAxis("Horizontal");
+                yMove = Input.GetAxis("Vertical");
+            }
+            transform.Translate(xMove * movementSpeed, 0, yMove * movementSpeed);
+
+            float xLook = Input.GetAxis("HorizontalLook");
+            float yLook = Input.GetAxis("VerticalLook");
+            float angle = AngleFromJoystick(xLook, yLook);
+
+            //rotate only if there is an input
+            if (angle != 0)
+                this.visualsHolder.rotation = Quaternion.AngleAxis(angle - 90, Vector3.up);
+
+            DetectPlayerPositionOnGrid();
         }
-        transform.Translate(xMove * movementSpeed, 0, yMove * movementSpeed);
 
-        float xLook = Input.GetAxis("HorizontalLook");
-        float yLook = Input.GetAxis("VerticalLook");
-        float angle = AngleFromJoystick(xLook, yLook);
-
-        //rotate only if there is an input
-        if(angle != 0)
-            this.visualsHolder.rotation = Quaternion.AngleAxis(angle - 90, Vector3.up);
-
-
-        DetectPlayerPositionOnGrid();
+        if (transform.position.y < -1f)
+        {
+            FellIntoAPit();
+        }
 
        /* Vector2 mousepos = Input.mousePosition;
         Vector2 screenCenter = Camera.main.WorldToScreenPoint(this.transform.position);
@@ -73,7 +84,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Update()
     {
-        DetectAndManipulateFloor();
+        ManipulateFloor();
         RegenMana();
 
         //force push
@@ -83,7 +94,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         //print("R2: " + Input.GetAxis("RightTrigger"));
 
-        if (Input.GetMouseButtonDown(1) || Input.GetAxis("RightTrigger") == 1)
+        if (Input.GetMouseButtonDown(1) || ControllerInputDevice.GetRightTriggerDown())
         {
             //print(" MouseButtonDown(1)");
             //forcePushTrigger.radius = pushRadius;
@@ -103,9 +114,34 @@ public class PlayerBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            healthPoints -= enemy.damage;
-            UIManager.Instance.SetHealth(healthPoints / totalHealthPoints);
+            TakeDamage(enemy.damage);
         }
+    }
+
+    private void TakeDamage(float damage)
+    {
+        healthPoints -= damage;
+        UIManager.Instance.SetHealth(healthPoints / totalHealthPoints);
+        if (healthPoints <= 0)
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
+
+    private void FellIntoAPit()
+    {
+        enableControlls = false;
+        Transform respawnPoint = prevHoveredObject.transform;
+        transform.position = new Vector3(respawnPoint.position.x, 10, respawnPoint.position.z);
+        TakeDamage(fallDamage);
+        StartCoroutine(WaitToRecover());
+    }
+
+    private IEnumerator WaitToRecover()
+    {
+        //SphereCollider sc = GetComponent<SphereCollider>();
+        yield return new WaitForSeconds(1);
+        enableControlls = true;
     }
 
     private void RegenMana()
@@ -114,6 +150,36 @@ public class PlayerBehaviour : MonoBehaviour
         {
             manaPoints += Time.deltaTime * manaRegenAmount;
             UIManager.Instance.SetMana(manaPoints / totalManaPoints);
+        }
+    }
+
+    private void ManipulateFloor()
+    {
+        if (prevHoveredObject != null)
+            prevHoveredObject.GetComponent<Renderer>().material.color = Color.white;
+        if (prevHoveredObject != null)
+            currHoveredObject.GetComponent<Renderer>().material.color = Color.red;
+
+        //make a hole
+        if (Input.GetMouseButtonDown(0) || ControllerInputDevice.GetLeftTriggerDown())
+        {
+            if (manaPoints >= holeManaCost)
+            {
+                Transform tileTransform = currHoveredObject.transform;
+                string name = tileTransform.name;
+                Debug.Log("pressed on grid cube: " + name);
+                string[] posArr = name.Split(',');
+                if (gridHolder.GetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1])) != GridNode.TileType.Occupied)
+                {
+                    tileTransform.position = new Vector3(tileTransform.position.x, tileTransform.position.y - 2, tileTransform.position.z);
+                    gridHolder.SetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1]), GridNode.TileType.Pit, holeTimeToRegen);
+                    manaPoints -= holeManaCost;
+                }
+                else
+                {
+                    print("Pressed on occupied tile! tile: " + name);
+                }
+            }
         }
     }
 
