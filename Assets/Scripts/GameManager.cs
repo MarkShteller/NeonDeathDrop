@@ -6,13 +6,20 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance;
     public Point playerPointPosition;
     public int score;
+    public GameObject PlayerObject;
 
 	// Use this for initialization
 	void Awake ()
     {
         Instance = this;
         score = 0;
+        print("game manager ready");
 	}
+
+    public void SetPlayerPosition(Vector3 position)
+    {
+        PlayerObject.transform.position = position;
+    }
 
     internal void RestartLevel()
     {

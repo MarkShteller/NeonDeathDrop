@@ -3,11 +3,11 @@ using System.Collections;
 using SettlersEngine;
 using System;
 
+
+public enum TileType { Pit, Normal, Wall, Occupied, PlayerOrigin = 10, EnemySpawn, Goal }
+
 public class GridNode : IPathNode<GridNode>
 {
-
-    public enum TileType { Normal, Wall, Pit, Occupied }
-
     private TileType type { get; set; }
     private GameObject gameNodeRef;
     public float TimeToNormal { get; set; }
@@ -18,8 +18,18 @@ public class GridNode : IPathNode<GridNode>
         type = TileType.Normal;
     }
 
+    public GridNode(int tileId)
+    {
+        type = (TileType) tileId;
+    }
+
     public GameObject GetGameNodeRef()
     { return gameNodeRef; }
+
+    public void SetGameNodeRef(GameObject go)
+    {
+        gameNodeRef = go;
+    }
 
     //public bool IsWalkable()
     //{

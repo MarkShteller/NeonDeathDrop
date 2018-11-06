@@ -59,19 +59,19 @@ public class Enemy : MonoBehaviour {
             if (hit.transform.tag == "FloorCube")
             {
                 //if the old pointpos is occupied, set it to normal.
-                if(pointPos != null && gridHolder.GetGridNodeType(pointPos.x, pointPos.y) == GridNode.TileType.Occupied)
-                    gridHolder.SetGridNodeType(pointPos.x, pointPos.y, GridNode.TileType.Normal);
+                if(pointPos != null && gridHolder.GetGridNodeType(pointPos.x, pointPos.y) == TileType.Occupied)
+                    gridHolder.SetGridNodeType(pointPos.x, pointPos.y, TileType.Normal);
                 //then set a new pointpos
                 string name = hit.transform.name;
                 string[] posArr = name.Split(',');
                 pointPos = new Point(int.Parse(posArr[0]), int.Parse(posArr[1]));
 
-                if (gridHolder.GetGridNodeType(pointPos.x, pointPos.y) == GridNode.TileType.Pit)
+                if (gridHolder.GetGridNodeType(pointPos.x, pointPos.y) == TileType.Pit)
                 {
                     movementStatus = MovementType.Falling;
                 }
                 else
-                    gridHolder.SetGridNodeType(pointPos.x, pointPos.y, GridNode.TileType.Occupied);
+                    gridHolder.SetGridNodeType(pointPos.x, pointPos.y, TileType.Occupied);
             }
         }
     }

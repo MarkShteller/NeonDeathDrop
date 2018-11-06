@@ -42,7 +42,7 @@ public class FloorManipulator : MonoBehaviour {
                     hit.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y - 2, hit.transform.position.z);
                     string name = hit.transform.name;
                     string[] posArr = name.Split(',');
-                    gridHolder.SetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1]), GridNode.TileType.Pit);
+                    gridHolder.SetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1]), TileType.Pit);
                 }
             }
         }

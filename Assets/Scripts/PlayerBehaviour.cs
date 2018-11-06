@@ -169,10 +169,10 @@ public class PlayerBehaviour : MonoBehaviour
                 string name = tileTransform.name;
                 Debug.Log("pressed on grid cube: " + name);
                 string[] posArr = name.Split(',');
-                if (gridHolder.GetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1])) != GridNode.TileType.Occupied)
+                if (gridHolder.GetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1])) != TileType.Occupied)
                 {
                     tileTransform.position = new Vector3(tileTransform.position.x, tileTransform.position.y - 2, tileTransform.position.z);
-                    gridHolder.SetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1]), GridNode.TileType.Pit, holeTimeToRegen);
+                    gridHolder.SetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1]), TileType.Pit, holeTimeToRegen);
                     manaPoints -= holeManaCost;
                 }
                 else
@@ -205,10 +205,10 @@ public class PlayerBehaviour : MonoBehaviour
                         string name = hit.transform.name;
                         Debug.Log("pressed on grid cube: " + name);
                         string[] posArr = name.Split(',');
-                        if (gridHolder.GetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1])) != GridNode.TileType.Occupied)
+                        if (gridHolder.GetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1])) != TileType.Occupied)
                         {
                             hit.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y - 2, hit.transform.position.z);
-                            gridHolder.SetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1]), GridNode.TileType.Pit, holeTimeToRegen);
+                            gridHolder.SetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1]), TileType.Pit, holeTimeToRegen);
                             manaPoints -= holeManaCost;
                         }
                         else
@@ -232,15 +232,15 @@ public class PlayerBehaviour : MonoBehaviour
                 string name = hit.transform.name;
                 string[] posArr = name.Split(',');
                 Point pPoint = GameManager.Instance.playerPointPosition;
-                if (pPoint != null && gridHolder.GetGridNodeType(pPoint.x, pPoint.y) == GridNode.TileType.Occupied)
-                    gridHolder.SetGridNodeType(pPoint.x, pPoint.y, GridNode.TileType.Normal);
+                if (pPoint != null && gridHolder.GetGridNodeType(pPoint.x, pPoint.y) == TileType.Occupied)
+                    gridHolder.SetGridNodeType(pPoint.x, pPoint.y, TileType.Normal);
 
                 GameManager.Instance.playerPointPosition = new Point(int.Parse(posArr[0]), int.Parse(posArr[1]));
                 //this is a temp if
                 pPoint = GameManager.Instance.playerPointPosition;
-                if (pPoint != null && gridHolder.GetGridNodeType(pPoint.x, pPoint.y) != GridNode.TileType.Pit)
+                if (pPoint != null && gridHolder.GetGridNodeType(pPoint.x, pPoint.y) != TileType.Pit)
                     //
-                    gridHolder.SetGridNodeType(pPoint.x, pPoint.y, GridNode.TileType.Occupied);
+                    gridHolder.SetGridNodeType(pPoint.x, pPoint.y, TileType.Occupied);
             }
         }
     }
