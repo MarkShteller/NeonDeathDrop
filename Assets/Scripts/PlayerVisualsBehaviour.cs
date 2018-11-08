@@ -18,6 +18,5 @@ public class PlayerVisualsBehaviour : MonoBehaviour
             dir = -dir.normalized;
             enemy.ForcePush(dir, PlayerBehaviour.pushForce);
         }
-        else print("Collition did not contain enemy.");
     }
 }

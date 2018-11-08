@@ -1,20 +1,18 @@
 ﻿using Newtonsoft.Json;
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-
-    public string levelName;
+    public TextAsset[] levelNames;
 
     private LevelData levelData;
     private GridNode[,] levelGridNodes;
 
-
-    void Awake ()
+    public void Init (int levelIndex)
     {
-        TextAsset json = Resources.Load<TextAsset>("Levels/" + levelName);
+        TextAsset json = levelNames[levelIndex];
         LevelData levelData = JsonConvert.DeserializeObject<LevelData>(json.text);
 
         levelGridNodes = new GridNode[levelData.levelTiles.Count, levelData.levelTiles[0].Length];
@@ -26,16 +24,18 @@ public class LevelManager : MonoBehaviour
                 levelGridNodes[row.Key, i] = new GridNode(rowValues[i]);
             }
         }
-	}
 
-    private void Start()
-    {
-        TerrainManager.Instance.SetGridAndBuild(levelGridNodes);
+        StartCoroutine(BuildLevel());
     }
 
+    private IEnumerator BuildLevel()
+    {
+        yield return null;
+        TerrainManager.Instance.SetGridAndBuild(levelGridNodes);
+    }
 }
 
-[Serializable]
+[System.Serializable]
 public class LevelData
 {
     public Dictionary<int, int[]> levelTiles;

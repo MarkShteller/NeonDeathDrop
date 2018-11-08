@@ -12,7 +12,7 @@ public class GameOverDialog : MonoBehaviour {
 
     public void RestartButton()
     {
-        GameManager.Instance.RestartLevel();
+        GameManager.Instance.RestartLevel(true);
     }
 
 }

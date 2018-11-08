@@ -38,6 +38,8 @@ public class PlayerBehaviour : MonoBehaviour
     void Start()
     {
         //forcePushTriggerCollider = GetComponent<BoxCollider>();
+        gridHolder = GameObject.FindGameObjectWithTag("TerrainManager").GetComponent<TerrainManager>();
+
         defaultForcePushTriggerSize = forcePushTriggerCollider.size;
         manaPoints = totalManaPoints;
         healthPoints = totalHealthPoints;
@@ -115,6 +117,10 @@ public class PlayerBehaviour : MonoBehaviour
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             TakeDamage(enemy.damage);
+        }
+        if (collision.gameObject.CompareTag("GoalCube"))
+        {
+            GameManager.Instance.NextLevel();
         }
     }
 
@@ -231,7 +237,9 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 string name = hit.transform.name;
                 string[] posArr = name.Split(',');
+
                 Point pPoint = GameManager.Instance.playerPointPosition;
+
                 if (pPoint != null && gridHolder.GetGridNodeType(pPoint.x, pPoint.y) == TileType.Occupied)
                     gridHolder.SetGridNodeType(pPoint.x, pPoint.y, TileType.Normal);
 
@@ -239,7 +247,6 @@ public class PlayerBehaviour : MonoBehaviour
                 //this is a temp if
                 pPoint = GameManager.Instance.playerPointPosition;
                 if (pPoint != null && gridHolder.GetGridNodeType(pPoint.x, pPoint.y) != TileType.Pit)
-                    //
                     gridHolder.SetGridNodeType(pPoint.x, pPoint.y, TileType.Occupied);
             }
         }
