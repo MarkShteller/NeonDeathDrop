@@ -2,6 +2,7 @@
 using System.Collections;
 using SettlersEngine;
 using System.Collections.Generic;
+using EZCameraShake;
 
 public class Enemy : MonoBehaviour {
 
@@ -131,6 +132,7 @@ public class Enemy : MonoBehaviour {
             case MovementType.Falling:
                 print("Enemy is falling...");
                 GameManager.Instance.AddScore(pointsReward);
+                CameraShaker.Instance.ShakeOnce(2f, 4f, 0.1f, 1f);
                 Destroy(gameObject);
                 break;
         }
