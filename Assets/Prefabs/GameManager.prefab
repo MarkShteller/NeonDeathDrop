@@ -55,6 +55,7 @@ MonoBehaviour:
   score: 0
   PlayerObject: {fileID: 1428434147840538, guid: c11869bf44791aa4496c025511bcd662,
     type: 2}
+  PlayerInstance: {fileID: 0}
   levelManager: {fileID: 114524042694302210}
   CurrentLevelIndex: 0
 --- !u!114 &114524042694302210
@@ -71,4 +72,5 @@ MonoBehaviour:
   levelNames:
   - {fileID: 4900000, guid: d536590013a918b4380c61e2baa24715, type: 3}
   - {fileID: 4900000, guid: 36d53b4c55a1b2e4787b7e19ecd93191, type: 3}
+  - {fileID: 4900000, guid: 2f4082afa060d704cb7df9d1e99910ea, type: 3}
   - {fileID: 4900000, guid: 22e69d5dd9ed10a47b34761e9e9f0616, type: 3}
