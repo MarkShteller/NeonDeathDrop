@@ -124,7 +124,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    private void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         healthPoints -= damage;
         UIManager.Instance.SetHealth(healthPoints / totalHealthPoints);
@@ -240,8 +240,9 @@ public class PlayerBehaviour : MonoBehaviour
 
                 Point pPoint = GameManager.Instance.playerPointPosition;
 
-                if (pPoint != null && gridHolder.GetGridNodeType(pPoint.x, pPoint.y) == TileType.Occupied)
-                    gridHolder.SetGridNodeType(pPoint.x, pPoint.y, TileType.Normal);
+                if (pPoint != null)
+                    if(gridHolder.GetGridNodeType(pPoint.x, pPoint.y) == TileType.Occupied)
+                        gridHolder.SetGridNodeType(pPoint.x, pPoint.y, TileType.Normal);
 
                 GameManager.Instance.playerPointPosition = new Point(int.Parse(posArr[0]), int.Parse(posArr[1]));
                 //this is a temp if

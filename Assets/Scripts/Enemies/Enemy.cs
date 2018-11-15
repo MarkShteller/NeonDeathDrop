@@ -3,6 +3,7 @@ using System.Collections;
 using SettlersEngine;
 using System.Collections.Generic;
 using EZCameraShake;
+using System;
 
 public class Enemy : MonoBehaviour {
 
@@ -15,30 +16,36 @@ public class Enemy : MonoBehaviour {
     private float stunnedRemaining;
 
     public int pointsReward = 10;
+    public bool shouldFollowPlayer = true;
 
     private Point playerPointPos;
-    //private bool isMovingTowardsPlayer;
     private LinkedList<GridNode> pathList;
 
-    private Vector3 pushedTargetPos;
+    //private Vector3 pushedTargetPos;
 
     private Rigidbody rigidBody;
-    public TerrainManager gridHolder;
+    [HideInInspector] public TerrainManager gridHolder;
 
 
-    private MovementType movementStatus;
-    enum MovementType { Static, TrackingPlayer, Pushed, Stunned, Falling }
+    internal MovementType movementStatus;
+    internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, Falling, Shooting }
 
     void Start()
     {
         playerPointPos = GameManager.Instance.playerPointPosition;
-        //isMovingTowardsPlayer = true;
-        gridHolder = TerrainManager.Instance;//GameObject.FindGameObjectWithTag("TerrainManager").GetComponent<TerrainBuilder>();
+        gridHolder = TerrainManager.Instance;
         DetectEnemyPositionOnGrid();
-        StartCoroutine(FindPathEverySeconds(findPlayerInterval));
+
+        if (shouldFollowPlayer)
+            StartCoroutine(FindPathEverySeconds(findPlayerInterval));
+
         movementStatus = MovementType.Static;
         rigidBody = GetComponent<Rigidbody>();
+
+        Init();
     }
+
+    internal virtual void Init() { }
 
     IEnumerator FindPathEverySeconds(float t)
     {
@@ -81,14 +88,13 @@ public class Enemy : MonoBehaviour {
     {
         DetectEnemyPositionOnGrid();
         //if the enemy is over a pit, fall down
-        
+
+        LookAtPlayer();
+
         switch (movementStatus)
         {
             case MovementType.Static:
-                if (pathList != null && pathList.Count > 0)
-                {
-                    movementStatus = MovementType.TrackingPlayer;
-                }
+                StaticAction();
                 break;
 
             case MovementType.TrackingPlayer:
@@ -97,12 +103,7 @@ public class Enemy : MonoBehaviour {
                     movementStatus = MovementType.Static;
                     break;
                 }
-                /*if (pathList == null)
-                    print("pathlist is null");
-                if (pathList.First == null)
-                    print("pathlist.first is null");
-                if (pathList.First.Value == null)
-                    print("pathList.First.Value is null");*/
+
                 Vector3 targetPos = pathList.First.Value.GetGameNodeRef().transform.position;
                 targetPos.y = transform.position.y;
                 float step = speed * Time.deltaTime;
@@ -113,6 +114,10 @@ public class Enemy : MonoBehaviour {
                     pathList.RemoveFirst();
                 }
 
+                break;
+
+            case MovementType.Shooting:
+                ShootingAction();
                 break;
             case MovementType.Pushed:
                 //recover from push and continue following the player
@@ -137,6 +142,18 @@ public class Enemy : MonoBehaviour {
                 break;
         }
     }
+
+    internal virtual void ShootingAction() {}
+
+    internal virtual void StaticAction()
+    {
+        if (pathList != null && pathList.Count > 0)
+        {
+            movementStatus = MovementType.TrackingPlayer;
+        }
+    }
+
+    internal virtual void LookAtPlayer() {}
 
     public void ForcePush(Vector3 direction, float force)
     {

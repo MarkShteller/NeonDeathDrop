@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
 
     public Point playerPointPosition;
     public int score = 0;
-    public GameObject PlayerObject;
+    private GameObject PlayerObject;
 
     public PlayerBehaviour PlayerInstance;
 
