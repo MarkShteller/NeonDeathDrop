@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,25 +7,33 @@ public class EnemyManager : MonoBehaviour {
 
     public static EnemyManager Instance;
 
-    public GameObject EnemyPrefab;
-    public float CreateEnemyInterval;
-    public List<Transform> SpawnPoints;
+    //public GameObject EnemyPrefab;
+    //public float CreateEnemyInterval;
+    public List<EnemySpawner> SpawnPoints;
 
     private void Awake()
     {
         Instance = this;
     }
 
-    // Use this for initialization
-    void Start () {
-        StartCoroutine(CreateEnemyEvery(CreateEnemyInterval));
-	}
+    IEnumerator SpawnCoroutine(EnemySpawner spawner)
+    {
+        int quantity = spawner.quantity;
+        while (quantity > 0 || quantity <= -1)
+        {
+            print("spawner "+spawner.name+" spawning enemy... quantity: "+quantity);
+            //Instantiate(spawner.enemy, spawner.spawnPoint.position, Quaternion.identity);
+            ObjectPooler.Instance.SpawnFromPool(spawner.enemyName, spawner.spawnPoint.position, Quaternion.identity);
+            quantity--;
+            yield return new WaitForSeconds(spawner.interval);
+        }
+    }
 
-    IEnumerator CreateEnemyEvery(float t)
+    /*IEnumerator CreateEnemyEvery(float t)
     {
         while (true)
         {
-            if (SpawnPoints.Count > 0 && TerrainManager.Instance.finishedInit && GameManager.Instance.playerPointPosition != null)
+            if (SpawnPoints.Count > 0 && LevelGenerator.Instance.finishedInit && GameManager.Instance.playerPointPosition != null)
             {
                 int rndPos = Random.Range(0, SpawnPoints.Count);
                 print("Instantiating enemy on point index: "+ rndPos);
@@ -32,10 +41,21 @@ public class EnemyManager : MonoBehaviour {
             }
             yield return new WaitForSeconds(t);
         }
+    }*/
+
+    public void AddSpawnPoint(EnemySpawner spawner)
+    {
+        SpawnPoints.Add(spawner);
     }
 
-    public void AddSpawnPoint(Transform spawnTransform)
+    public void Init()
     {
-        SpawnPoints.Add(spawnTransform);
+        print("## inting spawn points count: " + SpawnPoints.Count);
+
+        foreach (EnemySpawner spawner in SpawnPoints)
+        {
+            print("inting spawn point "+ spawner.spawnPoint.position);
+            StartCoroutine(SpawnCoroutine(spawner));
+        }
     }
 }

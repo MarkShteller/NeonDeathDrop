@@ -53,10 +53,10 @@ public class TerrainManager : MonoBehaviour {
                         break;
                     case TileType.EnemySpawn:
                         {
-                            GameObject go = CreateTile(i, j, NORMAL_TILE_HEIGHT, cube);
+                            /*GameObject go = CreateTile(i, j, NORMAL_TILE_HEIGHT, cube);
                             grid[i, j].SetGameNodeRef(go);
                             Vector3 pos = go.transform.position;
-                            EnemyManager.Instance.AddSpawnPoint(CreateSpawnPoint("EmemySpawn", pos).transform);
+                            EnemyManager.Instance.AddSpawnPoint(CreateSpawnPoint("EmemySpawn", pos).transform);*/
                         }
                         break;
                     case TileType.Goal:

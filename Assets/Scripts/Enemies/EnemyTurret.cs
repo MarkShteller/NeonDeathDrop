@@ -4,41 +4,35 @@ using UnityEngine;
 
 public class EnemyTurret : Enemy
 {
-
-    public float minDistanceShooting;
-    public float maxDistanceShooting;
-
     public float shootInterval;
     private float timeToShoot;
 
-    public GameObject bullet;
+    public string bulletNameInPool;
     public Transform bulletSpawnPoint;
-
-    private Transform playerObject;
 
     internal override void Init()
     {
         base.Init();
         timeToShoot = shootInterval;
-        playerObject = GameManager.Instance.PlayerInstance.transform;
     }
 
     internal override void LookAtPlayer()
     {
-        transform.LookAt(playerObject);
+        Vector3 lookPosition = new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z);
+        transform.LookAt(lookPosition);
     }
 
     internal override void StaticAction()
     {
         float distanceFromPlayer = Vector3.Distance(transform.position, playerObject.position);
-        if (distanceFromPlayer > minDistanceShooting && distanceFromPlayer < maxDistanceShooting)
+        if (distanceFromPlayer > minDistanceTargeting && distanceFromPlayer < maxDistanceTargeting)
             movementStatus = MovementType.Shooting;
     }
 
     internal override void ShootingAction()
     {
         float distanceFromPlayer = Vector3.Distance(transform.position, playerObject.position);
-        if (distanceFromPlayer < minDistanceShooting || distanceFromPlayer > maxDistanceShooting)
+        if (distanceFromPlayer < minDistanceTargeting || distanceFromPlayer > maxDistanceTargeting)
         {
             movementStatus = MovementType.Static;
             return;
@@ -48,7 +42,7 @@ public class EnemyTurret : Enemy
         if (timeToShoot <= 0)
         {
             timeToShoot = shootInterval;
-            GameObject newBullet = Instantiate(bullet, bulletSpawnPoint.position, transform.rotation);
+            GameObject newBullet = ObjectPooler.Instance.SpawnFromPool(bulletNameInPool, bulletSpawnPoint.position, transform.rotation);
             newBullet.GetComponent<EnemyBullet>().damage = this.damage;
         }
     }

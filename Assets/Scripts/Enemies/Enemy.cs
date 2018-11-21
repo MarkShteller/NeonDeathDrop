@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using EZCameraShake;
 using System;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour, IPooledObject {
 
     Point pointPos;
     public float speed;
@@ -18,26 +18,31 @@ public class Enemy : MonoBehaviour {
     public int pointsReward = 10;
     public bool shouldFollowPlayer = true;
 
+    public float minDistanceTargeting;
+    public float maxDistanceTargeting;
+
+    internal Transform playerObject;
+
     private Point playerPointPos;
     private LinkedList<GridNode> pathList;
 
     //private Vector3 pushedTargetPos;
 
     private Rigidbody rigidBody;
-    [HideInInspector] public TerrainManager gridHolder;
+    [HideInInspector] public LevelGenerator gridHolder;
 
 
     internal MovementType movementStatus;
     internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, Falling, Shooting }
 
-    void Start()
+    public void OnObjectSpawn()
     {
         playerPointPos = GameManager.Instance.playerPointPosition;
-        gridHolder = TerrainManager.Instance;
+        playerObject = GameManager.Instance.PlayerInstance.transform;
+        gridHolder = LevelGenerator.Instance;
         DetectEnemyPositionOnGrid();
 
-        if (shouldFollowPlayer)
-            StartCoroutine(FindPathEverySeconds(findPlayerInterval));
+        StartCoroutine(FindPathEverySeconds(findPlayerInterval));
 
         movementStatus = MovementType.Static;
         rigidBody = GetComponent<Rigidbody>();
@@ -51,10 +56,14 @@ public class Enemy : MonoBehaviour {
     {
         while (true)
         {
-            playerPointPos = GameManager.Instance.playerPointPosition;
-            GridNode[,] grid = gridHolder.GetGrid();
-            SpatialAStar<GridNode, GridNode> aStar = new SpatialAStar<GridNode, GridNode>(grid);
-            pathList = aStar.Search(pointPos, playerPointPos, null);
+            if (shouldFollowPlayer)
+            {
+                playerPointPos = GameManager.Instance.playerPointPosition;
+                //GridNode[,] grid = gridHolder.GetGridPortion(pointPos, (int)maxDistanceTargeting * 2, (int)maxDistanceTargeting * 2);
+                GridNode[,] grid = gridHolder.GetGrid();
+                SpatialAStar<GridNode, GridNode> aStar = new SpatialAStar<GridNode, GridNode>(grid);
+                pathList = aStar.Search(pointPos, playerPointPos, null);
+            }
             yield return new WaitForSeconds(t);
         }
     }
@@ -98,27 +107,13 @@ public class Enemy : MonoBehaviour {
                 break;
 
             case MovementType.TrackingPlayer:
-                if (pathList == null || pathList.Count == 0)
-                {
-                    movementStatus = MovementType.Static;
-                    break;
-                }
-
-                Vector3 targetPos = pathList.First.Value.GetGameNodeRef().transform.position;
-                targetPos.y = transform.position.y;
-                float step = speed * Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
-
-                if (IsNear(targetPos, transform.position, 0.5f))
-                {
-                    pathList.RemoveFirst();
-                }
-
+                TrackingAction();
                 break;
 
             case MovementType.Shooting:
                 ShootingAction();
                 break;
+
             case MovementType.Pushed:
                 //recover from push and continue following the player
                 if (rigidBody.velocity.x < 0.1f && rigidBody.velocity.y < 0.1f)
@@ -138,7 +133,7 @@ public class Enemy : MonoBehaviour {
                 print("Enemy is falling...");
                 GameManager.Instance.AddScore(pointsReward);
                 CameraShaker.Instance.ShakeOnce(2f, 4f, 0.1f, 1f);
-                Destroy(gameObject);
+                gameObject.SetActive(false);
                 break;
         }
     }
@@ -147,9 +142,45 @@ public class Enemy : MonoBehaviour {
 
     internal virtual void StaticAction()
     {
-        if (pathList != null && pathList.Count > 0)
+        float distanceFromPlayer = Vector3.Distance(transform.position, playerObject.position);
+        if (distanceFromPlayer > minDistanceTargeting && distanceFromPlayer < maxDistanceTargeting)
         {
-            movementStatus = MovementType.TrackingPlayer;
+            //if (pathList != null && pathList.Count > 0)
+            {
+                movementStatus = MovementType.TrackingPlayer;
+            }
+        }
+        else
+        {
+            shouldFollowPlayer = false;
+        }
+    }
+
+    internal virtual void TrackingAction()
+    {
+        shouldFollowPlayer = true;
+
+        float distanceFromPlayer = Vector3.Distance(transform.position, playerObject.position);
+        if (distanceFromPlayer < minDistanceTargeting || distanceFromPlayer > maxDistanceTargeting)
+        {
+            movementStatus = MovementType.Static;
+            return;
+        }
+
+        if (pathList == null || pathList.Count == 0)
+        {
+            movementStatus = MovementType.Static;
+            return;
+        }
+
+        Vector3 targetPos = pathList.First.Value.GetGameNodeRef().transform.position;
+        targetPos.y = transform.position.y;
+        float step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
+
+        if (IsNear(targetPos, transform.position, 0.5f))
+        {
+            pathList.RemoveFirst();
         }
     }
 

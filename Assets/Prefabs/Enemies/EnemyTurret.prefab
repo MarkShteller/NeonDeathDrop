@@ -262,11 +262,11 @@ MonoBehaviour:
   stunnedTimer: 1
   pointsReward: 5
   shouldFollowPlayer: 0
+  minDistanceTargeting: 1
+  maxDistanceTargeting: 10
   gridHolder: {fileID: 0}
-  minDistanceShooting: 2.5
-  maxDistanceShooting: 10
-  shootInterval: 1
-  bullet: {fileID: 1251283752625272, guid: ec6a46b836240b448af7787a9cfd3bd0, type: 2}
+  shootInterval: 2
+  bulletNameInPool: Projectile
   bulletSpawnPoint: {fileID: 4549616636117594}
 --- !u!136 &136450231305252236
 CapsuleCollider:

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
+  m_Name: Level 0-3
+  m_EditorClassIdentifier: 
+  map: {fileID: 2800000, guid: bc002ec368f722048affd8398bbb1211, type: 3}
+  Spawners:
+  - {fileID: 11400000, guid: b5817390fe814824facbe11a8e466ef3, type: 2}
+  - {fileID: 11400000, guid: 1fadf30ba7e34214d804cbda1fff6e74, type: 2}
+  - {fileID: 11400000, guid: fc5e156f4f9059249853d8fb6d5f74ee, type: 2}
+  fieldRotationAngle: -45

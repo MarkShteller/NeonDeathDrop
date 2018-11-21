@@ -26,19 +26,19 @@ public class PlayerBehaviour : MonoBehaviour
 
     [HideInInspector] public bool enableControlls = true;
 
-    private float pushRadius = 3;
+    private float pushRadius = 3.5f;
     //private float defaultRadius = 0.35f;
     private Vector3 defaultForcePushTriggerSize;
-    [HideInInspector] public float pushForce = 2000;
+    public float pushForce;
     public BoxCollider forcePushTriggerCollider;
 
-    public TerrainManager gridHolder;
+    public LevelGenerator gridHolder;
     public Transform visualsHolder;
 
     void Start()
     {
         //forcePushTriggerCollider = GetComponent<BoxCollider>();
-        gridHolder = GameObject.FindGameObjectWithTag("TerrainManager").GetComponent<TerrainManager>();
+        gridHolder = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>();
 
         defaultForcePushTriggerSize = forcePushTriggerCollider.size;
         manaPoints = totalManaPoints;

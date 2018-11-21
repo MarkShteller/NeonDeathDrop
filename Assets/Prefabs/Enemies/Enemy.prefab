@@ -118,6 +118,8 @@ MonoBehaviour:
   stunnedTimer: 1
   pointsReward: 10
   shouldFollowPlayer: 1
+  minDistanceTargeting: 0
+  maxDistanceTargeting: 10
   gridHolder: {fileID: 0}
 --- !u!136 &136000011910473328
 CapsuleCollider:
