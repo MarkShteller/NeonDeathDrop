@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
+  scoreMultiplier: 1
   PlayerInstance: {fileID: 0}
   levelManager: {fileID: 114524042694302210}
   CurrentLevelIndex: 0
@@ -70,4 +71,4 @@ MonoBehaviour:
   levelDatas:
   - {fileID: 11400000, guid: 58221f42f099c854697e6ec8f0c483e4, type: 2}
   - {fileID: 11400000, guid: ae0616869cc37f845b3cadea275260a9, type: 2}
-  - {fileID: 11400000, guid: 82cd5f95d86bc014286f2b972896c022, type: 2}
+  - {fileID: 11400000, guid: d7ccc29005789e8439d85d609ba8e24b, type: 2}

@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
     private float stunnedRemaining;
 
     public int pointsReward = 10;
+    public float deathScoreMultiplier = 0.1f;
     public bool shouldFollowPlayer = true;
 
     public float minDistanceTargeting;
@@ -88,7 +89,9 @@ public class Enemy : MonoBehaviour, IPooledObject {
                     movementStatus = MovementType.Falling;
                 }
                 else
+                {
                     gridHolder.SetGridNodeType(pointPos.x, pointPos.y, TileType.Occupied);
+                }
             }
         }
     }
@@ -131,6 +134,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
             case MovementType.Falling:
                 print("Enemy is falling...");
+                GameManager.Instance.AddScoreMultiplier(deathScoreMultiplier);
                 GameManager.Instance.AddScore(pointsReward);
                 CameraShaker.Instance.ShakeOnce(2f, 4f, 0.1f, 1f);
                 gameObject.SetActive(false);

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
@@ -7,6 +8,8 @@ public class GameManager : MonoBehaviour {
 
     public Point playerPointPosition;
     public int score = 0;
+    public float scoreMultiplier = 1;
+
     private GameObject PlayerObject;
 
     public PlayerBehaviour PlayerInstance;
@@ -34,6 +37,13 @@ public class GameManager : MonoBehaviour {
         PlayerObject = Resources.Load("Player 2.0") as GameObject;
         GameObject go = Instantiate(PlayerObject);
         PlayerInstance = go.GetComponent<PlayerBehaviour>();
+        playerPointPosition = null;
+
+        score = 0;
+        scoreMultiplier = 1;
+        UIManager.Instance.SetScore(score);
+        UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
+
         levelManager.Init(CurrentLevelIndex);
     }
 
@@ -66,7 +76,7 @@ public class GameManager : MonoBehaviour {
 
     public void AddScore(int points)
     {
-        score += points;
+        score += (int) Math.Round(points * scoreMultiplier);
         UIManager.Instance.SetScore(score);
     }
 
@@ -76,4 +86,15 @@ public class GameManager : MonoBehaviour {
         UIManager.Instance.ShowGameOverScreen(score);
     }
 
+    public void AddScoreMultiplier(float value)
+    {
+        scoreMultiplier += value;
+        UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
+    }
+
+    public void SetScoreMultiplier(int value)
+    {
+        scoreMultiplier = value;
+        UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
+    }
 }

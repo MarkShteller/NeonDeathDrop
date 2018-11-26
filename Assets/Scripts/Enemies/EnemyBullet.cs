@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBullet : MonoBehaviour {
+public class EnemyBullet : MonoBehaviour, IPooledObject {
 
     public float damage;
     public float speed = 0.5f;
     public float lifetime;
+    private float lifetimeRemaining;
 
 	void Update ()
     {
         transform.position += transform.forward * speed * Time.deltaTime;
 
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0)
+        lifetimeRemaining -= Time.deltaTime;
+        if (lifetimeRemaining <= 0)
             gameObject.SetActive(false);
 	}
 
@@ -24,5 +25,10 @@ public class EnemyBullet : MonoBehaviour {
             other.GetComponent<PlayerBehaviour>().TakeDamage(damage);
             gameObject.SetActive(false);
         }
+    }
+
+    public void OnObjectSpawn()
+    {
+        lifetimeRemaining = lifetime;
     }
 }

@@ -17,7 +17,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     public float pushManaCost;
     public float holeManaCost;
+    public float dashManaCost;
+    public float dashDuration;
     public float fallDamage = 1;
+
 
     private RaycastHit hit;
     private Ray ray;
@@ -67,6 +70,20 @@ public class PlayerBehaviour : MonoBehaviour
             if (angle != 0)
                 this.visualsHolder.rotation = Quaternion.AngleAxis(angle - 90, Vector3.up);
 
+            if (ControllerInputDevice.GetDashButtonDown())
+            {
+                if (manaPoints >= dashManaCost)
+                {
+                    manaPoints -= dashManaCost;
+
+                    Vector3 dashDir = new Vector3(xMove, 0, yMove).normalized;
+                    if (dashDir == Vector3.zero)
+                        dashDir = this.visualsHolder.forward *-1;//this.visualsHolder.rotation.eulerAngles.normalized;
+                    print("DASH! dir: "+dashDir);
+                    StartCoroutine(DashCoroutine(dashDir, dashDuration));
+                }
+            }
+
             DetectPlayerPositionOnGrid();
         }
 
@@ -82,6 +99,19 @@ public class PlayerBehaviour : MonoBehaviour
 
         this.visualsHolder.rotation = Quaternion.AngleAxis(angle - 90, Vector3.up);
         */
+    }
+
+    private IEnumerator DashCoroutine(Vector3 direction, float duration)
+    {
+        float time = duration;
+        while (time > 0)
+        {
+            time -= Time.deltaTime;
+            enableControlls = false;
+            transform.Translate(direction * movementSpeed * 2);
+            yield return null;
+        }
+        enableControlls = true;
     }
 
     void Update()
@@ -105,10 +135,11 @@ public class PlayerBehaviour : MonoBehaviour
                 forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + 1, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius);
                 forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius / 2);
                 manaPoints -= pushManaCost;
-                print(forcePushTriggerCollider.size);
+                //print(forcePushTriggerCollider.size);
             }
         }
 
+        
     }
 
     void OnCollisionEnter(Collision collision)
@@ -127,6 +158,8 @@ public class PlayerBehaviour : MonoBehaviour
     public void TakeDamage(float damage)
     {
         healthPoints -= damage;
+
+        GameManager.Instance.SetScoreMultiplier(1);
         UIManager.Instance.SetHealth(healthPoints / totalHealthPoints);
         if (healthPoints <= 0)
         {

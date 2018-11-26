@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
@@ -8,6 +9,7 @@ public class UIManager : MonoBehaviour {
     public Slider manaSlider;
     public Slider healthSlider;
     public Text scoreText;
+    public Text scoreMultiplierText;
 
     public GameOverDialog gameOverDialog;
 
@@ -34,5 +36,10 @@ public class UIManager : MonoBehaviour {
     {
         GameOverDialog dialog = Instantiate(gameOverDialog, this.transform);
         dialog.Init(score);
+    }
+
+    public void SetScoreMultiplier(float scoreMultiplier)
+    {
+        scoreMultiplierText.text = "x"+scoreMultiplier;
     }
 }
