@@ -63,7 +63,10 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 //GridNode[,] grid = gridHolder.GetGridPortion(pointPos, (int)maxDistanceTargeting * 2, (int)maxDistanceTargeting * 2);
                 GridNode[,] grid = gridHolder.GetGrid();
                 SpatialAStar<GridNode, GridNode> aStar = new SpatialAStar<GridNode, GridNode>(grid);
-                pathList = aStar.Search(pointPos, playerPointPos, null);
+                if (playerPointPos != null)
+                    pathList = aStar.Search(pointPos, playerPointPos, null);
+                else
+                    Debug.LogWarning("Enemy trying to pathfind the player but his pos is null.");
             }
             yield return new WaitForSeconds(t);
         }

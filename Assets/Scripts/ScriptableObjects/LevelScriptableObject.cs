@@ -8,5 +8,6 @@ public class LevelScriptableObject : ScriptableObject
     public Texture2D map;
     public EnemySpawner[] Spawners;
     public float fieldRotationAngle;
+    public string musicName;
 
 }

@@ -214,7 +214,7 @@ public class LevelGenerator : MonoBehaviour {
         {
             //The index in the spawner ref array is the RED int value in opposite order (255 = 0, 254 = 1...)
             int spawnerIndex = 255 - Mathf.CeilToInt(pixelColor.r * 255);
-            print("spawner index: " +spawnerIndex);
+            //print("spawner index: " +spawnerIndex);
             EnemySpawner enemySpawner = new EnemySpawner(levelData.Spawners[spawnerIndex]);
 
 
