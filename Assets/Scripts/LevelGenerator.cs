@@ -156,6 +156,10 @@ public class LevelGenerator : MonoBehaviour {
         else
             Debug.LogWarning("Trying to create a level without a player origin!");
 
+        //Create the backdrop
+        Instantiate(levelData.backdrop, Vector3.zero, Quaternion.identity);
+
+        //Start spawning enemies
         EnemyManager.Instance.Init();
     }
 
