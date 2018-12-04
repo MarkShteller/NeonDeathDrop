@@ -6,6 +6,7 @@ public static class ControllerInputDevice
     private static bool isLeftTriggerPressed = false;
     private static bool isRightTriggerPressed = false;
     private static bool isDashPressed = false;
+    private static bool isSpecialPressed = false;
 
     public static bool GetLeftTriggerDown()
     {
@@ -45,6 +46,20 @@ public static class ControllerInputDevice
 
         if (Input.GetAxis("Dash") == 0)
             isDashPressed = false;
+
+        return false;
+    }
+
+    public static bool GetSpecialButtonDown()
+    {
+        if (Input.GetAxis("Special") == 1 && !isSpecialPressed)
+        {
+            isSpecialPressed = true;
+            return true;
+        }
+
+        if (Input.GetAxis("Special") == 0)
+            isSpecialPressed = false;
 
         return false;
     }

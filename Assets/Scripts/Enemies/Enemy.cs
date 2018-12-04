@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 if(pointPos != null && gridHolder.GetGridNodeType(pointPos.x, pointPos.y) == TileType.Occupied)
                     gridHolder.SetGridNodeType(pointPos.x, pointPos.y, TileType.Normal);
                 //then set a new pointpos
-                string name = hit.transform.name;
+                string name = hit.transform.parent.name;
                 string[] posArr = name.Split(',');
                 pointPos = new Point(int.Parse(posArr[0]), int.Parse(posArr[1]));
 
@@ -97,6 +97,11 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 }
             }
         }
+    }
+
+    public void Die()
+    {
+        movementStatus = MovementType.Falling;
     }
 
     void Update()

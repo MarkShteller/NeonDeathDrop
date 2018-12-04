@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 65000013720044430}
   - component: {fileID: 95885935914934458}
   m_Layer: 0
-  m_Name: Base Cube
-  m_TagString: FloorCube
+  m_Name: Gate Cube
+  m_TagString: GateCube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 23843901521047462}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: FloorCube
+  m_TagString: GateCube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,7 +88,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 127d994aac77c354a89ff481db310fd4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

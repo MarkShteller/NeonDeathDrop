@@ -12,6 +12,7 @@ public class LevelGenerator : MonoBehaviour {
 
     public GameObject cube;
     public GameObject cubeGoal;
+    public GameObject cubeGate;
 
     private LevelScriptableObject levelData;
 
@@ -206,6 +207,10 @@ public class LevelGenerator : MonoBehaviour {
                         break;
                     case TileType.Goal:
                         grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, cubeGoal));
+                        break;
+                    case TileType.Gate:
+                        print("### making a gate");
+                        grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT, cubeGate));
                         break;
                     case TileType.None:
                         grid[x, y] = new GridNode(TileType.None);
