@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour {
     public Slider healthSlider;
     public Text scoreText;
     public Text scoreMultiplierText;
+    public Text coreCount;
 
     public GameOverDialog gameOverDialog;
 
@@ -30,6 +31,11 @@ public class UIManager : MonoBehaviour {
     public void SetHealth(float value)
     {
         healthSlider.value = value;
+    }
+
+    public void SetCoreCount(int value)
+    {
+        coreCount.text = "CORES: " + value;
     }
 
     public void ShowGameOverScreen(int score)

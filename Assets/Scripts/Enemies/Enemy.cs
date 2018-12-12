@@ -7,7 +7,8 @@ using System;
 
 public class Enemy : MonoBehaviour, IPooledObject {
 
-    Point pointPos;
+    private Point pointPos;
+    public Point prevPointPos;
     public float speed;
     public float findPlayerInterval = 0.5f;
     public float damage;
@@ -85,11 +86,13 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 //then set a new pointpos
                 string name = hit.transform.parent.name;
                 string[] posArr = name.Split(',');
+
+                prevPointPos = pointPos;
                 pointPos = new Point(int.Parse(posArr[0]), int.Parse(posArr[1]));
 
                 if (gridHolder.GetGridNodeType(pointPos.x, pointPos.y) == TileType.Pit)
                 {
-                    movementStatus = MovementType.Falling;
+                    Die();
                 }
                 else
                 {
@@ -102,6 +105,15 @@ public class Enemy : MonoBehaviour, IPooledObject {
     public void Die()
     {
         movementStatus = MovementType.Falling;
+        PowerUpObject powerup = PowerupFactory.Instance.RollPowerup();
+        if (powerup != null)
+        {
+            //TODO: instantiate powerup from pool
+            Vector3 pos = gridHolder.GetGridNode(prevPointPos.x, prevPointPos.y).GetGameNodeRef().transform.position;
+            Vector3 actualPos = new Vector3(pos.x, 0.6f, pos.z);
+            Instantiate(powerup.prefab, actualPos, powerup.prefab.transform.rotation);
+            print("creaing a powerup! "+powerup.name);
+        }
     }
 
     void Update()

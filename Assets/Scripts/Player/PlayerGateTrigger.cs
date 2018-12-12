@@ -8,11 +8,11 @@ public class PlayerGateTrigger : MonoBehaviour {
     {
         if (other.tag == "GateCube")
         {
-            Animator animator = other.transform.parent.GetComponent<Animator>();
-            if (animator != null)
-                animator.SetBool("ShouldSlideDown", true);
+            BaseTileBehaviour anim = other.transform.GetComponent<BaseTileBehaviour>();
+            if (anim != null)
+                anim.SlideDown();
             else
-                Debug.LogError("Could not find animator on GateCube");
+                Debug.LogError("Could not find BaseTileBehaviour on GateCube");
         }
     }
 }

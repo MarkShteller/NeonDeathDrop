@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4000010518898392}
   - component: {fileID: 65000013720044430}
-  - component: {fileID: 95885935914934458}
   m_Layer: 0
   m_Name: Base Cube
   m_TagString: FloorCube
@@ -39,6 +38,7 @@ GameObject:
   - component: {fileID: 65730644169546784}
   - component: {fileID: 33971394476482762}
   - component: {fileID: 23843901521047462}
+  - component: {fileID: 114286857962977460}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: FloorCube
@@ -53,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011195351270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: -52.522743, y: 41.166058, z: 5.304271}
   m_LocalScale: {x: 1, y: 10, z: 1}
   m_Children:
   - {fileID: 4319032174234174}
@@ -139,21 +139,107 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &95885935914934458
-Animator:
-  serializedVersion: 3
+--- !u!114 &114286857962977460
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011195351270}
+  m_GameObject: {fileID: 1593849628208470}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fed4b1d7eab890d4bafa3ea07b845104, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccdbea2796eae1c47a866c7b8ff57231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropAnim:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.001246883
+      value: 0.002267574
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99522233
+      value: -2.500131
+      inSlope: -6.3872185
+      outSlope: -6.3872185
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.051357478
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dropDuration: 0.2
+  riseAnim:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0045274696
+      value: -2.4953094
+      inSlope: 8.285477
+      outSlope: 8.285477
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.050674025
+    - serializedVersion: 3
+      time: 0.99987805
+      value: 0.0003601642
+      inSlope: 0.017420843
+      outSlope: 0.017420843
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.016959542
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  riseDuration: 0.2
+  pulseAnim:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.8196957
+      outSlope: 1.8196957
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.08373925
+    - serializedVersion: 3
+      time: 0.29867023
+      value: 0.22718024
+      inSlope: 0.00034125918
+      outSlope: 0.00034125918
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.63205737
+      value: -0.19255134
+      inSlope: 0.00034125918
+      outSlope: 0.00034125918
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0010664
+      value: 0.0003416231
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  pulseDuration: 0.5

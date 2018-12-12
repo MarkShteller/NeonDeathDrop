@@ -98,12 +98,19 @@ public class LevelGenerator : MonoBehaviour {
             {
                 tileToRemove = tile;
                 tile.SetType(TileType.Normal);
+                
                 //set back to original height
                 tile.GetGameNodeRef().transform.position = new Vector3(tile.GetGameNodeRef().transform.position.x, -cube.transform.localScale.y / 2, tile.GetGameNodeRef().transform.position.z);
+                tile.GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>().Rise();
             }
         }
         if (tileToRemove != null)
             regeneratingTiles.Remove(tileToRemove);
+    }
+
+    internal GridNode GetGridNode(int x, int y)
+    {
+        return grid[x, y];
     }
 
     public void SetGridNodeType(int x, int y, TileType type, float regenTime = 0)

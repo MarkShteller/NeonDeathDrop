@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using EZCameraShake;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,9 +19,13 @@ public class PlayerBehaviour : MonoBehaviour
     public float pushManaCost;
     public float holeManaCost;
     public float dashManaCost;
+    public int shockwaveCoreCost;
     public float dashDuration;
     public float fallDamage = 1;
 
+    public int coresCount;
+
+    private List<PowerUpObject> activePowerUps;
 
     private RaycastHit hit;
     private Ray ray;
@@ -48,6 +53,8 @@ public class PlayerBehaviour : MonoBehaviour
         defaultForcePushTriggerSize = forcePushTriggerCollider.size;
         manaPoints = totalManaPoints;
         healthPoints = totalHealthPoints;
+        coresCount = 0;
+        activePowerUps = new List<PowerUpObject>();
     }
 
     void FixedUpdate()
@@ -88,9 +95,15 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (ControllerInputDevice.GetSpecialButtonDown())
             {
-                print("SHOCKWAVE!");
-                shockwaveBehavior.gameObject.SetActive(true);
-                StartCoroutine(shockwaveBehavior.Shockwave(10));
+                if (coresCount >= shockwaveCoreCost)
+                {
+                    coresCount -= shockwaveCoreCost;
+                    UIManager.Instance.SetCoreCount(coresCount);
+                    print("SHOCKWAVE!");
+                    CameraShaker.Instance.ShakeOnce(2f, 8f, 0.1f, 2.5f);
+                    shockwaveBehavior.gameObject.SetActive(true);
+                    StartCoroutine(shockwaveBehavior.Shockwave(10));
+                }
             }
 
             DetectPlayerPositionOnGrid();
@@ -147,8 +160,38 @@ public class PlayerBehaviour : MonoBehaviour
                 //print(forcePushTriggerCollider.size);
             }
         }
-
         
+    }
+
+    public void AddPowerup(PowerUpObject powerUp)
+    {
+        switch (powerUp.type)
+        {
+            case PowerUpType.Health:
+                healthPoints += powerUp.bonus;
+                if (healthPoints > totalHealthPoints)
+                    healthPoints = totalHealthPoints;
+                UIManager.Instance.SetHealth(healthPoints / totalHealthPoints);
+                break;
+            case PowerUpType.Core:
+                coresCount += powerUp.count;
+                UIManager.Instance.SetCoreCount(coresCount);
+                break;
+
+            case PowerUpType.PushForceBoost:
+            case PowerUpType.RegenBoost:
+            case PowerUpType.PushRangeBoost:
+                if (activePowerUps.Count == 0 || !activePowerUps.Exists(p => p.name == powerUp.name))
+                {
+                    activePowerUps.Add(powerUp);
+                }
+                else
+                {
+                    PowerUpObject pu = activePowerUps.Find(p => p.name == powerUp.name);
+                    pu.effectTime += powerUp.effectTime;
+                }
+                break;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -163,6 +206,7 @@ public class PlayerBehaviour : MonoBehaviour
             GameManager.Instance.NextLevel();
         }
     }
+
 
     public void TakeDamage(float damage)
     {
@@ -220,12 +264,15 @@ public class PlayerBehaviour : MonoBehaviour
                 if (gridHolder.GetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1])) != TileType.Occupied)
                 {
                     //move the tile down
+                    tileTransform.GetComponent<BaseTileBehaviour>().Drop();
+
                     //tileTransform.position = new Vector3(tileTransform.position.x, tileTransform.position.y - 2, tileTransform.position.z);
-                    Animator animator = tileTransform.parent.GetComponent<Animator>();
+                    
+                    /*Animator animator = tileTransform.parent.GetComponent<Animator>();
                     if (animator != null)
                         animator.SetBool("IsHole", true);
                     else
-                        Debug.LogError("Could not find animator on Cube");
+                        Debug.LogError("Could not find animator on Cube");*/
 
                     gridHolder.SetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1]), TileType.Pit, holeTimeToRegen);
                     manaPoints -= holeManaCost;

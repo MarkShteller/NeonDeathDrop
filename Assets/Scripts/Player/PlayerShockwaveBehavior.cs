@@ -10,11 +10,11 @@ public class PlayerShockwaveBehavior : MonoBehaviour
     {
         if (other.tag == "FloorCube")
         {
-            Animator animator = other.transform.parent.GetComponent<Animator>();
-            if (animator != null)
-                animator.SetTrigger("Pulse");
+            BaseTileBehaviour tile = other.transform.GetComponent<BaseTileBehaviour>();
+            if (tile != null)
+                tile.Pulse();
             else
-                Debug.LogError("Could not find animator on GateCube");
+                Debug.LogError("Could not animate on GateCube");
         }
         if (other.tag == "Enemy")
         {
