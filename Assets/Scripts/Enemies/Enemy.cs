@@ -7,7 +7,7 @@ using System;
 
 public class Enemy : MonoBehaviour, IPooledObject {
 
-    private Point pointPos;
+    internal Point pointPos;
     public Point prevPointPos;
     public float speed;
     public float findPlayerInterval = 0.5f;
@@ -121,7 +121,6 @@ public class Enemy : MonoBehaviour, IPooledObject {
         DetectEnemyPositionOnGrid();
         //if the enemy is over a pit, fall down
 
-        LookAtPlayer();
 
         switch (movementStatus)
         {
@@ -131,9 +130,11 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
             case MovementType.TrackingPlayer:
                 TrackingAction();
+                LookAtPlayer();
                 break;
 
             case MovementType.Shooting:
+                LookAtPlayer();
                 ShootingAction();
                 break;
 
@@ -147,9 +148,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 break;
 
             case MovementType.Stunned:
-                stunnedRemaining -= Time.deltaTime;
-                if (stunnedRemaining <= 0)
-                    movementStatus = MovementType.TrackingPlayer;
+                StunnedAction();
                 break;
 
             case MovementType.Falling:
@@ -160,6 +159,13 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 gameObject.SetActive(false);
                 break;
         }
+    }
+
+    internal virtual void StunnedAction()
+    {
+        stunnedRemaining -= Time.deltaTime;
+        if (stunnedRemaining <= 0)
+            movementStatus = MovementType.TrackingPlayer;
     }
 
     internal virtual void ShootingAction() {}
@@ -208,7 +214,11 @@ public class Enemy : MonoBehaviour, IPooledObject {
         }
     }
 
-    internal virtual void LookAtPlayer() {}
+    internal virtual void LookAtPlayer()
+    {
+        Vector3 lookPosition = new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z);
+        transform.LookAt(lookPosition);
+    }
 
     public void ForcePush(Vector3 direction, float force)
     {

@@ -260,21 +260,14 @@ public class PlayerBehaviour : MonoBehaviour
                 Transform tileTransform = currHoveredObject.transform;
                 string name = tileTransform.parent.name;
                 Debug.Log("pressed on grid cube: " + name);
-                string[] posArr = name.Split(',');
-                if (gridHolder.GetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1])) != TileType.Occupied)
+
+                GridNode node = gridHolder.GetGridNode(name);
+                if (node.GetTileType() != TileType.Occupied)
                 {
                     //move the tile down
                     tileTransform.GetComponent<BaseTileBehaviour>().Drop();
 
-                    //tileTransform.position = new Vector3(tileTransform.position.x, tileTransform.position.y - 2, tileTransform.position.z);
-                    
-                    /*Animator animator = tileTransform.parent.GetComponent<Animator>();
-                    if (animator != null)
-                        animator.SetBool("IsHole", true);
-                    else
-                        Debug.LogError("Could not find animator on Cube");*/
-
-                    gridHolder.SetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1]), TileType.Pit, holeTimeToRegen);
+                    gridHolder.SetGridNodeType(node, TileType.Pit, holeTimeToRegen);
                     manaPoints -= holeManaCost;
                 }
                 else

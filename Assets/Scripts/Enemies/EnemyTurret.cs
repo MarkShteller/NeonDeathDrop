@@ -16,11 +16,11 @@ public class EnemyTurret : Enemy
         timeToShoot = shootInterval;
     }
 
-    internal override void LookAtPlayer()
+    /*internal override void LookAtPlayer()
     {
         Vector3 lookPosition = new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z);
         transform.LookAt(lookPosition);
-    }
+    }*/
 
     internal override void StaticAction()
     {

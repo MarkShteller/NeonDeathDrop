@@ -27,7 +27,7 @@ public class LevelGenerator : MonoBehaviour {
     private const float NORMAL_TILE_HEIGHT = 0.5f;
     private const float WALL_TILE_HEIGHT = 0.4f;
     private const float PIT_TILE_HEIGHT = 3f;
-    private const float CHARACTER_POS_HEIGHT = 0.65f;
+    private const float CHARACTER_POS_HEIGHT = 1;//0.65f;
 
     void Awake()
     {
@@ -113,6 +113,12 @@ public class LevelGenerator : MonoBehaviour {
         return grid[x, y];
     }
 
+    public GridNode GetGridNode(string name)
+    {
+        string[] posArr = name.Split(',');
+        return GetGridNode(int.Parse(posArr[0]), int.Parse(posArr[1]));
+    }
+
     public void SetGridNodeType(int x, int y, TileType type, float regenTime = 0)
     {
         grid[x, y].SetType(type);
@@ -120,6 +126,16 @@ public class LevelGenerator : MonoBehaviour {
         {
             regeneratingTiles.Add(grid[x, y]);
             grid[x, y].TimeToNormal = regenTime;
+        }
+    }
+
+    public void SetGridNodeType(GridNode node, TileType type, float regenTime = 0)
+    {
+        node.SetType(type);
+        if (type == TileType.Pit)
+        {
+            regeneratingTiles.Add(node);
+            node.TimeToNormal = regenTime;
         }
     }
 

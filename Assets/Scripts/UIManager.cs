@@ -46,6 +46,6 @@ public class UIManager : MonoBehaviour {
 
     public void SetScoreMultiplier(float scoreMultiplier)
     {
-        scoreMultiplierText.text = "x"+scoreMultiplier;
+        scoreMultiplierText.text = "x"+scoreMultiplier.ToString("N1");
     }
 }
