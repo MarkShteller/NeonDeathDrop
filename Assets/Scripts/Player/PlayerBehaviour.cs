@@ -130,7 +130,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             time -= Time.deltaTime;
             enableControlls = false;
-            transform.Translate(direction * movementSpeed * 2);
+            transform.Translate(direction * movementSpeed * 2.5f);
             yield return null;
         }
         enableControlls = true;
@@ -204,6 +204,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("GoalCube"))
         {
             GameManager.Instance.NextLevel();
+            gameObject.SetActive(false);
         }
     }
 

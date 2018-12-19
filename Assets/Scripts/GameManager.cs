@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour {
 
     public void RestartLevel(bool isDead)
     {
+        print("## restarting level");
         Time.timeScale = 1;
         if (isDead)
         {
