@@ -13,6 +13,7 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject cube;
     public GameObject cubeGoal;
     public GameObject cubeGate;
+    public GameObject checkpointCube;
 
     private LevelScriptableObject levelData;
 
@@ -176,9 +177,14 @@ public class LevelGenerator : MonoBehaviour {
         transform.rotation = Quaternion.Euler(0, levelData.fieldRotationAngle, 0);
 
         if (PlayerSpawnObj != null)
+        {
             GameManager.Instance.SetPlayerPosition(PlayerSpawnObj.transform.position);
+            GameManager.Instance.SetPlayerSpawnPosition(PlayerSpawnObj.transform.position);
+        }
         else
+        {
             Debug.LogWarning("Trying to create a level without a player origin!");
+        }
 
         //Create the backdrop
         Instantiate(levelData.backdrop, Vector3.zero, Quaternion.identity);
@@ -234,6 +240,9 @@ public class LevelGenerator : MonoBehaviour {
                     case TileType.Gate:
                         print("### making a gate");
                         grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT, cubeGate));
+                        break;
+                    case TileType.Checkpoint:
+                        grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, checkpointCube));
                         break;
                     case TileType.None:
                         grid[x, y] = new GridNode(TileType.None);

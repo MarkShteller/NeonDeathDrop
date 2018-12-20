@@ -60,6 +60,16 @@ public class GameManager : MonoBehaviour {
         PlayerInstance.transform.position = position;
     }
 
+    public void SetPlayerSpawnPosition(Vector3 position)
+    {
+        if (PlayerInstance == null)
+        {
+            GameObject go = Instantiate(PlayerObject);
+            PlayerInstance = go.GetComponent<PlayerBehaviour>();
+        }
+        PlayerInstance.spawnPosition = position;
+    }
+
     public void RestartLevel(bool isDead)
     {
         print("## restarting level");

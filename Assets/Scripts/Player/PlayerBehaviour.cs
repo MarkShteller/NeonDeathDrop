@@ -27,6 +27,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     private List<PowerUpObject> activePowerUps;
 
+    private Transform checkpoint;
+    [HideInInspector] public Vector3 spawnPosition;
+
     private RaycastHit hit;
     private Ray ray;
     [HideInInspector] public GameObject prevHoveredObject;
@@ -208,6 +211,15 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("CheckpointCube"))
+        {
+            print("# setting new checkpoint: "+other.name);
+            SetCheckpoint(other.transform);
+        }
+    }
+
 
     public void TakeDamage(float damage)
     {
@@ -221,11 +233,21 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    public void SetCheckpoint(Transform checkpointTransform)
+    {
+        this.checkpoint = checkpointTransform;
+    }
+
     private void FellIntoAPit()
     {
         enableControlls = false;
-        Transform respawnPoint = prevHoveredObject.transform;
-        transform.position = new Vector3(respawnPoint.position.x, 10, respawnPoint.position.z);
+
+        //Transform respawnPoint = prevHoveredObject.transform;
+        //transform.position = new Vector3(respawnPoint.position.x, 10, respawnPoint.position.z);
+        if(checkpoint != null)
+            transform.position = new Vector3(checkpoint.position.x, 10, checkpoint.position.z);
+        else
+            transform.position = new Vector3(spawnPosition.x, 10, spawnPosition.z);
         TakeDamage(fallDamage);
         StartCoroutine(WaitToRecover());
     }
@@ -278,44 +300,6 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
-
-    /*private void DetectAndManipulateFloor()
-    {
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.transform.tag == "FloorCube")
-            {
-                if (prevHoveredObject != null)
-                {
-                    prevHoveredObject.GetComponent<Renderer>().material.color = Color.white;
-                }
-                prevHoveredObject = hit.transform.gameObject;
-                hit.transform.GetComponent<Renderer>().material.color = Color.red;
-
-                //make a hole
-                if (Input.GetMouseButtonDown(0))
-                {
-                    if (manaPoints >= holeManaCost)
-                    {
-                        string name = hit.transform.name;
-                        Debug.Log("pressed on grid cube: " + name);
-                        string[] posArr = name.Split(',');
-                        if (gridHolder.GetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1])) != TileType.Occupied)
-                        {
-                            hit.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y - 2, hit.transform.position.z);
-                            gridHolder.SetGridNodeType(int.Parse(posArr[0]), int.Parse(posArr[1]), TileType.Pit, holeTimeToRegen);
-                            manaPoints -= holeManaCost;
-                        }
-                        else
-                        {
-                            print("Pressed on occupied tile! tile: " + name);
-                        }
-                    }
-                }
-            }
-        }
-    }*/
 
     private void DetectPlayerPositionOnGrid()
     {
