@@ -25,6 +25,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public int coresCount;
 
+    public AudioSource soundEffectSource;
+
     private List<PowerUpObject> activePowerUps;
 
     private Transform checkpoint;
@@ -32,6 +34,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     private RaycastHit hit;
     private Ray ray;
+
+    private bool enableDash = true;
+
     [HideInInspector] public GameObject prevHoveredObject;
     [HideInInspector] public GameObject currHoveredObject;
 
@@ -78,13 +83,15 @@ public class PlayerBehaviour : MonoBehaviour
             float yLook = Input.GetAxis("VerticalLook");
             float angle = AngleFromJoystick(xLook, yLook);
 
+            //Debug.LogFormat("x: {0} y: {1} angle: {2}",xLook, yLook, angle);
+
             //rotate only if there is an input
-            if (angle != 0)
+            if (xLook != 0 || yLook != 0)
                 this.visualsHolder.rotation = Quaternion.AngleAxis(angle - 90, Vector3.up);
 
             if (ControllerInputDevice.GetDashButtonDown())
             {
-                if (manaPoints >= dashManaCost)
+                if (manaPoints >= dashManaCost && enableDash)
                 {
                     manaPoints -= dashManaCost;
 
@@ -92,6 +99,7 @@ public class PlayerBehaviour : MonoBehaviour
                     if (dashDir == Vector3.zero)
                         dashDir = this.visualsHolder.forward *-1;//this.visualsHolder.rotation.eulerAngles.normalized;
                     print("DASH! dir: "+dashDir);
+                    AudioManager.Instance.PlayEffect(soundEffectSource, 3);
                     StartCoroutine(DashCoroutine(dashDir, dashDuration));
                 }
             }
@@ -129,7 +137,7 @@ public class PlayerBehaviour : MonoBehaviour
     private IEnumerator DashCoroutine(Vector3 direction, float duration)
     {
         float time = duration;
-        while (time > 0)
+        while (time > 0 && enableDash)
         {
             time -= Time.deltaTime;
             enableControlls = false;
@@ -208,6 +216,18 @@ public class PlayerBehaviour : MonoBehaviour
         {
             GameManager.Instance.NextLevel();
             gameObject.SetActive(false);
+        }
+        if (collision.gameObject.CompareTag("WallCube") || collision.gameObject.CompareTag("GateCube"))
+        {
+            enableDash = false;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("WallCube") || collision.gameObject.CompareTag("GateCube"))
+        {
+            enableDash = true;
         }
     }
 

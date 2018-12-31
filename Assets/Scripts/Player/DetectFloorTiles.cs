@@ -11,7 +11,7 @@ public class DetectFloorTiles : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "FloorCube")
+        if (other.gameObject.CompareTag("FloorCube") || other.gameObject.CompareTag("WallCube"))
         {
             if(playerBehaviour.currHoveredObject != null)
                 playerBehaviour.prevHoveredObject = playerBehaviour.currHoveredObject;
@@ -21,7 +21,7 @@ public class DetectFloorTiles : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "FloorCube")
+        if (other.gameObject.CompareTag("FloorCube") || other.gameObject.CompareTag("WallCube"))
         {
             other.GetComponent<Renderer>().material.color = Color.white;
         }

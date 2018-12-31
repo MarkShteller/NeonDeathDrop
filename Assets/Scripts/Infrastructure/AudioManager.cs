@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour {
 
     public AudioSource MusicSource1;
     public AudioSource MusicSource2;
+    //public AudioSource EffectSource;
 
 
     public static AudioManager Instance;
@@ -35,7 +36,7 @@ public class AudioManager : MonoBehaviour {
 
     void Start ()
     {
-        Play(0);
+        PlayMusic(0);
 	}
 
     public void LoadMusicToSecondarySource(string name)
@@ -78,7 +79,7 @@ public class AudioManager : MonoBehaviour {
         MusicSource2.Stop();
     }
 
-    public void Play(int index)
+    public void PlayMusic(int index)
     {
         MusicSource1.clip = sounds[index].clip;
         MusicSource1.Play();
@@ -113,5 +114,15 @@ public class AudioManager : MonoBehaviour {
         }
         print("## finished crossfading");
         sourceA.Stop();
+    }
+
+    public void PlayEffect(AudioSource source, int index)
+    {
+        Sound s = sounds[index];
+        source.clip = s.clip;
+        source.volume = s.volume;
+        source.loop = s.loop;
+
+        source.Play(0);
     }
 }
