@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour, IPooledObject {
     public float minDistanceTargeting;
     public float maxDistanceTargeting;
 
+    public GameObject ZapEffect;
+
     internal Transform playerObject;
 
     private Point playerPointPos;
@@ -212,6 +214,22 @@ public class Enemy : MonoBehaviour, IPooledObject {
         {
             pathList.RemoveFirst();
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (ZapEffect != null)
+                StartCoroutine(Zap(0.5f));
+        }
+    }
+
+    private IEnumerator Zap(float duration)
+    {
+        ZapEffect.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        ZapEffect.SetActive(false);
     }
 
     internal virtual void LookAtPlayer()

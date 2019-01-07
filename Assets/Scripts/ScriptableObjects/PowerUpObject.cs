@@ -20,4 +20,4 @@ public class PowerUpObject : ScriptableObject
     public DropRange dropRange;
     
 }
-public enum PowerUpType { Health, RegenBoost, PushForceBoost, PushRangeBoost, Core }
+public enum PowerUpType { Health, RegenBoost, PushForceBoost, PushRangeBoost, DashBoost, MoveSpeedBoost, Core }

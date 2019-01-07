@@ -21,13 +21,14 @@ public class PlayerBehaviour : MonoBehaviour
     public float dashManaCost;
     public int shockwaveCoreCost;
     public float dashDuration;
+    public float dashSpeed;
     public float fallDamage = 1;
 
     public int coresCount;
 
     public AudioSource soundEffectSource;
 
-    private List<PowerUpObject> activePowerUps;
+    private List<BasePowerupBehaviour> activePowerUps;
 
     private Transform checkpoint;
     [HideInInspector] public Vector3 spawnPosition;
@@ -47,6 +48,7 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector3 defaultForcePushTriggerSize;
     public float pushForce;
     public BoxCollider forcePushTriggerCollider;
+    public GameObject forcePushEffect;
 
     public LevelGenerator gridHolder;
     public Transform visualsHolder;
@@ -62,7 +64,7 @@ public class PlayerBehaviour : MonoBehaviour
         manaPoints = totalManaPoints;
         healthPoints = totalHealthPoints;
         coresCount = 0;
-        activePowerUps = new List<PowerUpObject>();
+        activePowerUps = new List<BasePowerupBehaviour>();
     }
 
     void FixedUpdate()
@@ -79,6 +81,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
             transform.Translate(xMove * movementSpeed, 0, yMove * movementSpeed);
 
+            /*
             float xLook = Input.GetAxis("HorizontalLook");
             float yLook = Input.GetAxis("VerticalLook");
             float angle = AngleFromJoystick(xLook, yLook);
@@ -88,6 +91,13 @@ public class PlayerBehaviour : MonoBehaviour
             //rotate only if there is an input
             if (xLook != 0 || yLook != 0)
                 this.visualsHolder.rotation = Quaternion.AngleAxis(angle - 90, Vector3.up);
+                */
+
+            Vector3 playerRotation = Vector3.right * -Input.GetAxisRaw("HorizontalLook") + Vector3.forward * Input.GetAxisRaw("VerticalLook");
+            if (playerRotation.sqrMagnitude > 0.0f)
+            {
+                this.visualsHolder.rotation = Quaternion.LookRotation(playerRotation, Vector3.up);
+            }
 
             if (ControllerInputDevice.GetDashButtonDown())
             {
@@ -99,7 +109,7 @@ public class PlayerBehaviour : MonoBehaviour
                     if (dashDir == Vector3.zero)
                         dashDir = this.visualsHolder.forward *-1;//this.visualsHolder.rotation.eulerAngles.normalized;
                     print("DASH! dir: "+dashDir);
-                    AudioManager.Instance.PlayEffect(soundEffectSource, 3);
+                    //AudioManager.Instance.PlayEffect(soundEffectSource, 3);
                     StartCoroutine(DashCoroutine(dashDir, dashDuration));
                 }
             }
@@ -120,7 +130,7 @@ public class PlayerBehaviour : MonoBehaviour
             DetectPlayerPositionOnGrid();
         }
 
-        if (transform.position.y < -1f)
+        if (transform.position.y < -0.2f)
         {
             FellIntoAPit();
         }
@@ -141,7 +151,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             time -= Time.deltaTime;
             enableControlls = false;
-            transform.Translate(direction * movementSpeed * 2.5f);
+            transform.Translate(direction * movementSpeed * dashSpeed);
             yield return null;
         }
         enableControlls = true;
@@ -168,14 +178,40 @@ public class PlayerBehaviour : MonoBehaviour
                 forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + 1, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius);
                 forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius / 2);
                 manaPoints -= pushManaCost;
+                StartCoroutine(ShowForcePushEffect(0.1f));
                 //print(forcePushTriggerCollider.size);
             }
         }
-        
+
+        BasePowerupBehaviour powerupToRemove = null;
+        foreach (BasePowerupBehaviour powerUp in activePowerUps)
+        {
+            powerUp.effectTime -= Time.deltaTime;
+            print(powerUp.powerUpName + " time: "+powerUp.effectTime);
+            if (powerUp.effectTime <= 0)
+            {
+                powerupToRemove = powerUp;
+                break;
+            }
+        }
+        if (powerupToRemove != null)
+        {
+            print("removing powerup "+ powerupToRemove.powerUpName);
+            activePowerUps.Remove(powerupToRemove);
+            RemovePowerupBonus(powerupToRemove);
+        }
     }
 
-    public void AddPowerup(PowerUpObject powerUp)
+    private IEnumerator ShowForcePushEffect(float duration)
     {
+        forcePushEffect.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        forcePushEffect.SetActive(false);
+    }
+
+    public void AddPowerup(BasePowerupBehaviour powerUp)
+    {
+        Debug.Log("Picked up: "+powerUp.name);
         switch (powerUp.type)
         {
             case PowerUpType.Health:
@@ -188,21 +224,61 @@ public class PlayerBehaviour : MonoBehaviour
                 coresCount += powerUp.count;
                 UIManager.Instance.SetCoreCount(coresCount);
                 break;
+        }
 
+        if (powerUp.type != PowerUpType.Health && powerUp.type != PowerUpType.Core)
+        {
+            if (activePowerUps.Count == 0 || !activePowerUps.Exists(p => p.powerUpName == powerUp.powerUpName))
+            {
+                activePowerUps.Add(powerUp);
+                switch (powerUp.type)
+                {
+                    case PowerUpType.PushForceBoost:
+                        pushForce += powerUp.bonus;
+                        break;
+                    case PowerUpType.RegenBoost:
+                        manaRegenAmount += powerUp.bonus;
+                        break;
+                    case PowerUpType.PushRangeBoost:
+                        pushRadius += powerUp.bonus;
+                        break;
+                    case PowerUpType.MoveSpeedBoost:
+                        movementSpeed += powerUp.bonus;
+                        break;
+                    case PowerUpType.DashBoost:
+                        dashSpeed += powerUp.bonus;
+                        break;
+                }
+            }
+            else
+            {
+                BasePowerupBehaviour pu = activePowerUps.Find(p => p.powerUpName == powerUp.powerUpName);
+                pu.effectTime += powerUp.effectTime;
+            }
+        }
+    }
+
+    private void RemovePowerupBonus(BasePowerupBehaviour powerUp)
+    {
+        switch (powerUp.type)
+        {
             case PowerUpType.PushForceBoost:
+                pushForce -= powerUp.bonus;
+                break;
             case PowerUpType.RegenBoost:
+                manaRegenAmount -= powerUp.bonus;
+                break;
             case PowerUpType.PushRangeBoost:
-                if (activePowerUps.Count == 0 || !activePowerUps.Exists(p => p.name == powerUp.name))
-                {
-                    activePowerUps.Add(powerUp);
-                }
-                else
-                {
-                    PowerUpObject pu = activePowerUps.Find(p => p.name == powerUp.name);
-                    pu.effectTime += powerUp.effectTime;
-                }
+                pushRadius -= powerUp.bonus;
+                break;
+            case PowerUpType.MoveSpeedBoost:
+                movementSpeed -= powerUp.bonus;
+                break;
+            case PowerUpType.DashBoost:
+                dashSpeed -= powerUp.bonus;
                 break;
         }
+        Destroy(powerUp.gameObject);
     }
 
     void OnCollisionEnter(Collision collision)
