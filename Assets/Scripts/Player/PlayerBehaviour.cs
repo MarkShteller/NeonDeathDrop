@@ -94,6 +94,10 @@ public class PlayerBehaviour : MonoBehaviour
                 */
 
             Vector3 playerRotation = Vector3.right * -Input.GetAxisRaw("HorizontalLook") + Vector3.forward * Input.GetAxisRaw("VerticalLook");
+
+            if (Input.GetAxis("AltVLook") != 0 || Input.GetAxis("AltHLook") != 0)
+                playerRotation = Vector3.right * -Input.GetAxis("AltHLook") + Vector3.forward * (Input.GetAxis("AltVLook"));
+
             if (playerRotation.sqrMagnitude > 0.0f)
             {
                 this.visualsHolder.rotation = Quaternion.LookRotation(playerRotation, Vector3.up);
