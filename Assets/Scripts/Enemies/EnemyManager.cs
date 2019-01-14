@@ -54,8 +54,16 @@ public class EnemyManager : MonoBehaviour {
 
         foreach (EnemySpawner spawner in SpawnPoints)
         {
-            print("inting spawn point "+ spawner.spawnPoint.position);
+            print("Inting spawn point "+ spawner.spawnPoint.position);
             StartCoroutine(SpawnCoroutine(spawner));
+        }
+    }
+
+    public void SpawnEnemiesForBossBattle(BossEnemySpawnPoint[] enemySpawners)
+    {
+        foreach (BossEnemySpawnPoint spawner in enemySpawners)
+        {
+            ObjectPooler.Instance.SpawnFromPool(spawner.enemySpawner.enemyName, spawner.transform.position, Quaternion.identity);
         }
     }
 }

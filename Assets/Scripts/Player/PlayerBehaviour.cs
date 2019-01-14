@@ -23,6 +23,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float dashDuration;
     public float dashSpeed;
     public float fallDamage = 1;
+    public float takenDamageCooldown;
 
     public int coresCount;
 
@@ -36,6 +37,7 @@ public class PlayerBehaviour : MonoBehaviour
     private RaycastHit hit;
     private Ray ray;
 
+    private float lastTimeDamageTaken=0;
     private bool enableDash = true;
 
     [HideInInspector] public GameObject prevHoveredObject;
@@ -46,6 +48,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float pushRadius = 3.5f;
     //private float defaultRadius = 0.35f;
     private Vector3 defaultForcePushTriggerSize;
+
     public float pushForce;
     public BoxCollider forcePushTriggerCollider;
     public GameObject forcePushEffect;
@@ -204,6 +207,7 @@ public class PlayerBehaviour : MonoBehaviour
             activePowerUps.Remove(powerupToRemove);
             RemovePowerupBonus(powerupToRemove);
         }
+
     }
 
     private IEnumerator ShowForcePushEffect(float duration)
@@ -318,18 +322,29 @@ public class PlayerBehaviour : MonoBehaviour
             print("# setting new checkpoint: "+other.name);
             SetCheckpoint(other.transform);
         }
+        /*if (other.CompareTag("EnemyPulseTrigger"))
+        {
+            Enemy enemy = other.transform.parent.GetComponent<Enemy>();
+            TakeDamage(enemy.damage);
+            print("taken damage from pulse");
+        }*/
     }
 
 
     public void TakeDamage(float damage)
     {
-        healthPoints -= damage;
-
-        GameManager.Instance.SetScoreMultiplier(1);
-        UIManager.Instance.SetHealth(healthPoints / totalHealthPoints);
-        if (healthPoints <= 0)
+        if (Time.time - lastTimeDamageTaken > takenDamageCooldown)
         {
-            GameManager.Instance.GameOver();
+            lastTimeDamageTaken = Time.time;
+
+            healthPoints -= damage;
+
+            GameManager.Instance.SetScoreMultiplier(1);
+            UIManager.Instance.SetHealth(healthPoints / totalHealthPoints);
+            if (healthPoints <= 0)
+            {
+                GameManager.Instance.GameOver();
+            }
         }
     }
 

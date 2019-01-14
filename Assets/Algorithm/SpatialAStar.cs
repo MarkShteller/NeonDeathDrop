@@ -109,7 +109,10 @@ namespace SettlersEngine
                 for (int y = 0; y < Height; y++)
                 {
                     if (inGrid[x, y] == null)
+                    {
+                        Debug.Log("NULL in grid: " + x + "," + y);
                         throw new ArgumentNullException();
+                    }
 
                     m_SearchSpace[x, y] = new PathNode(x, y, inGrid[x, y]);
                 }

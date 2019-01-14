@@ -25,19 +25,30 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
     public GameObject ZapEffect;
 
+    public Animator animator;
+
     internal Transform playerObject;
 
     private Point playerPointPos;
     private LinkedList<GridNode> pathList;
 
-    //private Vector3 pushedTargetPos;
+    internal Rigidbody rrigidBody;
+    internal float savedDrag;
+    private float onFloorYPos = 1;
 
-    private Rigidbody rigidBody;
     [HideInInspector] public LevelGenerator gridHolder;
 
 
     internal MovementType movementStatus;
-    internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, Falling, Shooting }
+    internal RigidbodyConstraints constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
+    internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, Falling, Shooting, Pulse }
+
+    /*private void Awake()
+    {
+        gridHolder = LevelGenerator.Instance;
+
+    }*/
 
     public void OnObjectSpawn()
     {
@@ -49,7 +60,10 @@ public class Enemy : MonoBehaviour, IPooledObject {
         StartCoroutine(FindPathEverySeconds(findPlayerInterval));
 
         movementStatus = MovementType.Static;
-        rigidBody = GetComponent<Rigidbody>();
+        rrigidBody = GetComponent<Rigidbody>();
+
+        savedDrag = rrigidBody.drag;
+        rrigidBody.drag = 0;
 
         Init();
     }
@@ -75,7 +89,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
         }
     }
 
-    private void DetectEnemyPositionOnGrid()
+    internal virtual void DetectEnemyPositionOnGrid()
     {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit))
@@ -100,6 +114,16 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 {
                     gridHolder.SetGridNodeType(pointPos.x, pointPos.y, TileType.Occupied);
                 }
+            }
+        }
+
+        if (rrigidBody != null)
+        {
+            if (transform.position.y <= onFloorYPos && rrigidBody.drag == 0)
+            {
+                print("enemy landed on the floor");
+                rrigidBody.drag = savedDrag;
+                rrigidBody.constraints = constraints;
             }
         }
     }
@@ -140,9 +164,13 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 ShootingAction();
                 break;
 
+            case MovementType.Pulse:
+                PulseAction();
+                break;
+
             case MovementType.Pushed:
                 //recover from push and continue following the player
-                if (rigidBody.velocity.x < 0.1f && rigidBody.velocity.y < 0.1f)
+                if (rrigidBody.velocity.x < 0.1f && rrigidBody.velocity.y < 0.1f)
                 {
                     movementStatus = MovementType.Stunned;
                     stunnedRemaining = stunnedTimer;
@@ -162,6 +190,8 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 break;
         }
     }
+
+    internal virtual void PulseAction() { }
 
     internal virtual void StunnedAction()
     {
@@ -223,6 +253,11 @@ public class Enemy : MonoBehaviour, IPooledObject {
             if (ZapEffect != null)
                 StartCoroutine(Zap(0.5f));
         }
+        /*if (collision.gameObject.CompareTag("FloorCube"))
+        {
+            //print("enemy colides with floor tile");
+            rrigidBody.drag = savedDrag;
+        }*/
     }
 
     private IEnumerator Zap(float duration)
@@ -241,7 +276,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
     public void ForcePush(Vector3 direction, float force)
     {
         movementStatus = MovementType.Pushed;
-        rigidBody.AddForce(direction * force);
+        rrigidBody.AddForce(direction * force);
     }
 
     private bool IsNear(Vector3 pos1, Vector3 pos2, float threshold)
