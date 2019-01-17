@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
     internal Rigidbody rrigidBody;
     internal float savedDrag;
-    private float onFloorYPos = 1;
+    private float onFloorYPos = 1.5f;
 
     [HideInInspector] public LevelGenerator gridHolder;
 
@@ -186,6 +186,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 GameManager.Instance.AddScoreMultiplier(deathScoreMultiplier);
                 GameManager.Instance.AddScore(pointsReward);
                 CameraShaker.Instance.ShakeOnce(2f, 4f, 0.1f, 1f);
+                GameManager.Instance.IncrementEnemyKillCount();
                 gameObject.SetActive(false);
                 break;
         }

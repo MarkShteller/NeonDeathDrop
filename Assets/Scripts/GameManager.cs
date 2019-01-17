@@ -111,4 +111,10 @@ public class GameManager : MonoBehaviour {
         scoreMultiplier = value;
         UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
     }
+
+    public void IncrementEnemyKillCount()
+    {
+        PlayerInstance.enemyDefeatedCount++;
+        Debug.Log("# enemy kill count: "+ PlayerInstance.enemyDefeatedCount);
+    }
 }

@@ -7,6 +7,7 @@ public class LevelScriptableObject : ScriptableObject
 {
     public Texture2D map;
     public EnemySpawner[] Spawners;
+    public int[] enemyDefeatedCountGoals;
     public float fieldRotationAngle;
     public string musicName;
     public GameObject backdrop;

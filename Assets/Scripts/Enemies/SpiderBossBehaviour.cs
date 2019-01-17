@@ -27,9 +27,11 @@ public class SpiderBossBehaviour : MonoBehaviour
     void Start ()
     {
         playerObject = GameManager.Instance.PlayerInstance.transform;
-        ActionsQueue = new List<SpiderBossState>() { SpiderBossState.Idle, SpiderBossState.SpawnEnemies };
+        ActionsQueue = new List<SpiderBossState>() { SpiderBossState.Idle, SpiderBossState.Wave };
         timeToNextState = 7;
         timeToShoot = 0;
+
+        currentState = ActionsQueue[0];
 
         foreach (SpiderLegBehaviour spiderLeg in spiderLegs)
         {

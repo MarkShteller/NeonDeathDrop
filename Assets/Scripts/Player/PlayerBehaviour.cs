@@ -26,6 +26,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float takenDamageCooldown;
 
     public int coresCount;
+    public int enemyDefeatedCount;
 
     public AudioSource soundEffectSource;
 
@@ -67,6 +68,7 @@ public class PlayerBehaviour : MonoBehaviour
         manaPoints = totalManaPoints;
         healthPoints = totalHealthPoints;
         coresCount = 0;
+        enemyDefeatedCount = 0;
         activePowerUps = new List<BasePowerupBehaviour>();
     }
 

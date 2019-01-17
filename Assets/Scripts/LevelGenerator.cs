@@ -239,7 +239,7 @@ public class LevelGenerator : MonoBehaviour {
                         grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, cubeGoal));
                         break;
                     case TileType.Gate:
-                        print("### making a gate");
+                        //print("### making a gate");
                         grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT, cubeGate));
                         break;
                     case TileType.Checkpoint:
@@ -268,6 +268,18 @@ public class LevelGenerator : MonoBehaviour {
             enemySpawner.spawnPoint = CreateSpawnPoint("EnemySpawn " + spawnerIndex, pos).transform;
 
             EnemyManager.Instance.AddSpawnPoint(enemySpawner);
+        }
+
+        if (pixelColor.r > 0.35f && pixelColor.g == 0 && pixelColor.b > 0.8f) // RGB:(100,0,255-i) means gate
+        {
+            //Get the index of the gate and apply it to the specific tile
+            int index = 255 - Mathf.CeilToInt(pixelColor.b * 255);
+
+            GameObject gateTile = CreateTile(x, y, WALL_TILE_HEIGHT, cubeGate);
+            grid[x, y] = new GridNode(TileType.Gate);
+            grid[x, y].SetGameNodeRef(gateTile);
+            int gateGoal = levelData.enemyDefeatedCountGoals[index];
+            gateTile.GetComponentInChildren<GateTileBehaviour>().gateEnemyDeathGoal = gateGoal;
         }
     }
 	
