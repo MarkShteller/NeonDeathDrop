@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     private GameObject PlayerObject;
 
     public PlayerBehaviour PlayerInstance;
+    public CameraMovement cameraRef;
 
     public LevelManager levelManager;
     public int CurrentLevelIndex = 0;
@@ -46,6 +47,8 @@ public class GameManager : MonoBehaviour {
         scoreMultiplier = 1;
         UIManager.Instance.SetScore(score);
         UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
+
+        cameraRef = Camera.main.transform.parent.GetComponent<CameraMovement>();
 
         levelManager.Init(CurrentLevelIndex);
     }

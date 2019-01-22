@@ -33,4 +33,18 @@ public class SpiderLegBehaviour : EnemyPulsing
         }
     }
 
+    public void Stopm()
+    {
+        movementStatus = MovementType.Pulse;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("EnemyBombTrigger"))
+        {
+            //override die?
+            gameObject.SetActive(false);
+        }
+    }
+
 }

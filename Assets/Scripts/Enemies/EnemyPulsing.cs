@@ -34,7 +34,6 @@ public class EnemyPulsing : Enemy
         {
             animator.SetTrigger("Stomp");
             pulseIntervalLocal = pulseInterval;
-            print("pulse start");
         }
     }
 
@@ -49,7 +48,6 @@ public class EnemyPulsing : Enemy
 
         yield return new WaitForSeconds(duration);
 
-        print("pulse end");
         pulseEffect.SetActive(false);
         movementStatus = MovementType.Static;
     }

@@ -25,6 +25,8 @@ public class LevelManager : MonoBehaviour
             AudioManager.Instance.CrossfadeMusic(0.02f);
         }
         prevLevelIndex = index;
+
+        PowerupFactory.Instance.SetWeights(levelData.powerupWeights);
     }
 
 }

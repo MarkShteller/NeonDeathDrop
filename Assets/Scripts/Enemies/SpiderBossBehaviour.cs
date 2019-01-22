@@ -12,6 +12,10 @@ public class SpiderBossBehaviour : MonoBehaviour
 
     private float timeToNextState;
     private float timeToShoot;
+    private float timeToStomp;
+
+    private int stompingLegA;
+    private int stompingLegB;
 
     public Transform bodyVisuals;
     public Transform[] pulseBulletSpawnPoints;
@@ -27,9 +31,13 @@ public class SpiderBossBehaviour : MonoBehaviour
     void Start ()
     {
         playerObject = GameManager.Instance.PlayerInstance.transform;
-        ActionsQueue = new List<SpiderBossState>() { SpiderBossState.Idle, SpiderBossState.Wave };
+        ActionsQueue = new List<SpiderBossState>() { SpiderBossState.Idle, SpiderBossState.PulseStomp };
         timeToNextState = 7;
         timeToShoot = 0;
+        timeToStomp = 0;
+
+        stompingLegA = -1;
+        stompingLegB = -1;
 
         currentState = ActionsQueue[0];
 
@@ -37,6 +45,8 @@ public class SpiderBossBehaviour : MonoBehaviour
         {
             spiderLeg.Init();
         }
+
+        GameManager.Instance.cameraRef.SetSecondTargerAndInterpolate(transform);
 
         print("# Boss finish init");
     }
@@ -48,10 +58,14 @@ public class SpiderBossBehaviour : MonoBehaviour
         {
             currentState = ActionsQueue[1];
             ActionsQueue.RemoveAt(0);
+
             SpiderBossState nextState = (SpiderBossState) Random.Range(2, 9);
+            while(nextState == currentState) //make sure to have a different state every time 
+                nextState = (SpiderBossState)Random.Range(2, 9);
             ActionsQueue.Add(nextState);
 
-            //ActionsQueue.Add(SpiderBossState.Idle);
+            hasSpawnedEnemies = false;
+
             print("Boss changed state: " +currentState.ToString());
         }
 
@@ -111,8 +125,30 @@ public class SpiderBossBehaviour : MonoBehaviour
                 break;
             case SpiderBossState.PulseStomp:
                 if (timeToNextState <= 0)
-                    timeToNextState = 0;
+                    timeToNextState = 5;
+
+                if (timeToStomp <= 0)
+                {
+                    int rndLegA = Random.Range(0, spiderLegs.Length / 2); ;
+                    while (rndLegA == stompingLegA) //make sure to have a different leg every time 
+                        rndLegA = Random.Range(0, spiderLegs.Length / 2);
+
+                    stompingLegA = rndLegA;
+
+                    int rndLegB = Random.Range(spiderLegs.Length / 2, spiderLegs.Length); ;
+                    while (rndLegB == stompingLegA) //make sure to have a different leg every time 
+                        rndLegB = Random.Range(spiderLegs.Length / 2, spiderLegs.Length);
+
+                    stompingLegB = rndLegB;
+
+                    spiderLegs[stompingLegA].Stopm();
+                    spiderLegs[stompingLegB].Stopm();
+
+                    timeToStomp = 1;
+                }
+                timeToStomp -= Time.deltaTime;
                 break;
+
             case SpiderBossState.SpawnEnemies:
                 if (timeToNextState <= 0)
                     timeToNextState = 5;

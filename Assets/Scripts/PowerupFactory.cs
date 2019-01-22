@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PowerupFactory : MonoBehaviour {
 
@@ -33,7 +35,7 @@ public class PowerupFactory : MonoBehaviour {
             lowTemp = powerup.dropRange.high;
             Debug.LogFormat("{0} powerup range: {1}-{2}", powerup.name, powerup.dropRange.low, powerup.dropRange.high);
         }
-    }
+    } 
 
     public PowerUpObject RollPowerup()
     {
@@ -50,6 +52,20 @@ public class PowerupFactory : MonoBehaviour {
         }
 
         return null;
+    }
+
+    internal void SetWeights(int[] powerupWeights)
+    {
+        if(powerupWeights.Length != powerupList.Count)
+        {
+            Debug.LogError("Powerup list and powerup weights list are not aligned.");
+            return;
+        }
+        for (int i = 0; i < powerupList.Count; i++)
+        {
+            powerupList[i].weight = powerupWeights[i];
+        }
+        CalcRanges();
     }
 }
 

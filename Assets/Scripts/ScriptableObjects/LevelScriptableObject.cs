@@ -11,4 +11,5 @@ public class LevelScriptableObject : ScriptableObject
     public float fieldRotationAngle;
     public string musicName;
     public GameObject backdrop;
+    public int[] powerupWeights;
 }

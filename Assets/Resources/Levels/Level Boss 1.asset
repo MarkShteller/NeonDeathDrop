@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -17,6 +18,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b5817390fe814824facbe11a8e466ef3, type: 2}
   - {fileID: 11400000, guid: 0706b85e7a91b6f4392068977d564fc8, type: 2}
   - {fileID: 11400000, guid: 592eb8bcd1931f7439955f39cac59076, type: 2}
+  enemyDefeatedCountGoals: 
   fieldRotationAngle: 45
   musicName: Giant_Impact
-  backdrop: {fileID: 1865185899418700, guid: 56ce68dc8b962c343830c93fc039a004, type: 2}
+  backdrop: {fileID: 1865185899418700, guid: 56ce68dc8b962c343830c93fc039a004, type: 3}
+  powerupWeights: 1e00000005000000140000000500000005000000050000000500000005000000
