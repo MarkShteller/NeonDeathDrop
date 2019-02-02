@@ -59,10 +59,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     public PlayerShockwaveBehavior shockwaveBehavior;
 
+    public bool IsTestMode = false;
+
     void Start()
     {
-        //forcePushTriggerCollider = GetComponent<BoxCollider>();
-        gridHolder = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>();
+        if(!IsTestMode)
+            gridHolder = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>();
 
         defaultForcePushTriggerSize = forcePushTriggerCollider.size;
         manaPoints = totalManaPoints;
@@ -193,14 +195,17 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         BasePowerupBehaviour powerupToRemove = null;
-        foreach (BasePowerupBehaviour powerUp in activePowerUps)
+        if (activePowerUps.Count > 0)
         {
-            powerUp.effectTime -= Time.deltaTime;
-            print(powerUp.powerUpName + " time: "+powerUp.effectTime);
-            if (powerUp.effectTime <= 0)
+            foreach (BasePowerupBehaviour powerUp in activePowerUps)
             {
-                powerupToRemove = powerUp;
-                break;
+                powerUp.effectTime -= Time.deltaTime;
+                print(powerUp.powerUpName + " time: " + powerUp.effectTime);
+                if (powerUp.effectTime <= 0)
+                {
+                    powerupToRemove = powerUp;
+                    break;
+                }
             }
         }
         if (powerupToRemove != null)

@@ -121,7 +121,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
         {
             if (transform.position.y <= onFloorYPos && rrigidBody.drag == 0)
             {
-                print("enemy landed on the floor");
+                //print("enemy landed on the floor");
                 rrigidBody.drag = savedDrag;
                 rrigidBody.constraints = constraints;
             }

@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LevelGenerator : MonoBehaviour {
 
     public static LevelGenerator Instance;
 
-	public Texture2D map;
-	public ColorToEnum[] colorMappings;
+    public Texture2D map;
+    public ColorToEnum[] colorMappings;
 
 
     public GameObject cube;
@@ -31,6 +32,8 @@ public class LevelGenerator : MonoBehaviour {
     private const float PIT_TILE_HEIGHT = 3f;
     private const float CHARACTER_POS_HEIGHT = 1;//0.65f;
 
+    private readonly float[] ROTATIONS = { 0f, 90f, 180f, 270f };
+
     void Awake()
     {
         Instance = this;
@@ -51,7 +54,10 @@ public class LevelGenerator : MonoBehaviour {
         Vector3 position = new Vector3(i * origin.transform.localScale.x + i * cubeDistance,
                                          -origin.transform.localScale.y * height,
                                          j * origin.transform.localScale.z + j * cubeDistance);
-        Quaternion rotation = Quaternion.Euler(0, 0, 0);
+
+        float rndYRotation = ROTATIONS[Random.Range(0,4)];
+
+        Quaternion rotation = Quaternion.Euler(0, rndYRotation, 0);
         GameObject go = Instantiate(origin, position, rotation, this.transform) as GameObject;
         go.name = i + "," + j;
         return go;
