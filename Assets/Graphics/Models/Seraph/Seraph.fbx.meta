@@ -1058,8 +1058,8 @@ ModelImporter:
     4300034: Seraph_Rig:Feather_Card_Layer3
     7400000: Hover_Default
     7400002: Take Idle temp
-    7400004: Force_Push_Right_Arm
-    7400006: Force_Push_Double
+    7400004: Force_Push_Right_1
+    7400006: Force_Push_Right_2
     7400008: Hover_Idle
     7400010: Dash01
     9500000: //RootNode
@@ -1171,10 +1171,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Force_Push_Right_Arm
+      name: Force_Push_Right_1
       takeName: Take 001
       firstFrame: 3
-      lastFrame: 22
+      lastFrame: 19
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1199,10 +1199,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Force_Push_Double
+      name: Force_Push_Right_2
       takeName: Take 001
-      firstFrame: 23
-      lastFrame: 46
+      firstFrame: 28.12
+      lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

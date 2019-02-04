@@ -60,6 +60,8 @@ public class PlayerBehaviour : MonoBehaviour
     public PlayerShockwaveBehavior shockwaveBehavior;
     public ForcePushFloorTrigger forcePushFloorTrigger;
 
+    public Animator animator;
+
     public bool IsTestMode = false;
 
     void Start()
@@ -186,6 +188,8 @@ public class PlayerBehaviour : MonoBehaviour
                     forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + 1, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius);
                     forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius / 2);
                     manaPoints -= pushManaCost;
+
+                    animator.SetTrigger("PushA");
                     StartCoroutine(ShowForcePushEffect(0.1f));
                     StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(0.1f));
                 }

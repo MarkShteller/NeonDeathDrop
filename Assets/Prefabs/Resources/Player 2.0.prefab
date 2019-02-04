@@ -5034,6 +5034,7 @@ MonoBehaviour:
   visualsHolder: {fileID: 4034636670262688}
   shockwaveBehavior: {fileID: 114396184773858024}
   forcePushFloorTrigger: {fileID: 4876727618746287658}
+  animator: {fileID: 8006480085634030332}
   IsTestMode: 0
 --- !u!54 &54492051674860394
 Rigidbody:
@@ -7814,6 +7815,12 @@ GameObject:
 --- !u!1 &8006480085641455158 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100778, guid: 1ece86fca43beb44383d0300d2179d4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8006480085641359260}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8006480085634030332 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: 1ece86fca43beb44383d0300d2179d4c,
     type: 3}
   m_PrefabInstance: {fileID: 8006480085641359260}
   m_PrefabAsset: {fileID: 0}
