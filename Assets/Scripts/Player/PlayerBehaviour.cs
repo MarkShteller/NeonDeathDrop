@@ -58,6 +58,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Transform visualsHolder;
 
     public PlayerShockwaveBehavior shockwaveBehavior;
+    public ForcePushFloorTrigger forcePushFloorTrigger;
 
     public bool IsTestMode = false;
 
@@ -137,9 +138,9 @@ public class PlayerBehaviour : MonoBehaviour
                     StartCoroutine(shockwaveBehavior.Shockwave(10));
                 }
             }
-
-            DetectPlayerPositionOnGrid();
         }
+        DetectPlayerPositionOnGrid();
+
 
         if (transform.position.y < -0.2f)
         {
@@ -173,24 +174,21 @@ public class PlayerBehaviour : MonoBehaviour
         ManipulateFloor();
         RegenMana();
 
-        //force push
-        //forcePushTrigger.radius = defaultRadius;
         forcePushTriggerCollider.center = Vector3.zero;
         forcePushTriggerCollider.size = defaultForcePushTriggerSize;
 
-        //print("R2: " + Input.GetAxis("RightTrigger"));
-
-        if (Input.GetMouseButtonDown(1) || ControllerInputDevice.GetRightTriggerDown())
+        if (enableControlls)
         {
-            //print(" MouseButtonDown(1)");
-            //forcePushTrigger.radius = pushRadius;
-            if (manaPoints >= pushManaCost)
+            if (Input.GetMouseButtonDown(1) || ControllerInputDevice.GetRightTriggerDown())
             {
-                forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + 1, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius);
-                forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius / 2);
-                manaPoints -= pushManaCost;
-                StartCoroutine(ShowForcePushEffect(0.1f));
-                //print(forcePushTriggerCollider.size);
+                if (manaPoints >= pushManaCost)
+                {
+                    forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + 1, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius);
+                    forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius / 2);
+                    manaPoints -= pushManaCost;
+                    StartCoroutine(ShowForcePushEffect(0.1f));
+                    StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(0.1f));
+                }
             }
         }
 

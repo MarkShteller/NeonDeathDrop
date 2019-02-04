@@ -12,6 +12,8 @@ public class BaseTileBehaviour : MonoBehaviour {
     public float slideDownDuration;
     public AnimationCurve pulseAnim;
     public float pulseDuration;
+    public AnimationCurve smallPulseAnim;
+    public float smallPulseDuration;
 
     public void Drop()
     {
@@ -31,6 +33,11 @@ public class BaseTileBehaviour : MonoBehaviour {
     public void Pulse()
     {
         StartCoroutine(Animate(pulseAnim, pulseDuration));
+    }
+
+    public void SmallPulse()
+    {
+        StartCoroutine(Animate(smallPulseAnim, smallPulseDuration));
     }
 
     private IEnumerator Animate(AnimationCurve curve, float duration)

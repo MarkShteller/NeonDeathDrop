@@ -23,3 +23,4 @@ public class PlayerVisualsBehaviour : MonoBehaviour
         }
     }
 }
+

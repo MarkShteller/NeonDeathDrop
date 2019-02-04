@@ -6,6 +6,11 @@ public class PlayerShockwaveBehavior : MonoBehaviour
 {
     public SphereCollider capsuleCollider;
 
+    private void Awake()
+    {
+        capsuleCollider.enabled = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "FloorCube")
@@ -28,6 +33,8 @@ public class PlayerShockwaveBehavior : MonoBehaviour
 
     public IEnumerator Shockwave(float radius)
     {
+        capsuleCollider.enabled = true;
+
         float ogRadius = capsuleCollider.radius;
         while (capsuleCollider.radius < radius)
         {
@@ -36,6 +43,8 @@ public class PlayerShockwaveBehavior : MonoBehaviour
         }
 
         capsuleCollider.radius = ogRadius;
+        capsuleCollider.enabled = false;
+
         gameObject.SetActive(false);
     }
 
