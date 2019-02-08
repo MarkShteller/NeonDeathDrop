@@ -127,6 +127,8 @@ public class PlayerBehaviour : MonoBehaviour
                         dashDir = this.visualsHolder.forward *-1;//this.visualsHolder.rotation.eulerAngles.normalized;
                     print("DASH! dir: "+dashDir);
                     //AudioManager.Instance.PlayEffect(soundEffectSource, 3);
+
+                    animator.SetTrigger("Dash");
                     StartCoroutine(DashCoroutine(dashDir, dashDuration));
                 }
             }
