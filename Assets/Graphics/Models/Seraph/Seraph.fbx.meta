@@ -1062,6 +1062,7 @@ ModelImporter:
     7400006: Force_Push_Right_2
     7400008: Hover_Idle
     7400010: Dash01
+    7400012: Dash02
     9500000: //RootNode
     13700000: Body
     13700002: Boots
@@ -1104,7 +1105,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    importAnimatedCustomProperties: 1
+    importAnimatedCustomProperties: 0
     importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
@@ -1174,7 +1175,7 @@ ModelImporter:
       name: Force_Push_Right_1
       takeName: Take 001
       firstFrame: 3
-      lastFrame: 19
+      lastFrame: 21
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1201,7 +1202,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Force_Push_Right_2
       takeName: Take 001
-      firstFrame: 28.12
+      firstFrame: 23
       lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
@@ -1229,15 +1230,15 @@ ModelImporter:
     - serializedVersion: 16
       name: Hover_Idle
       takeName: Take 001
-      firstFrame: 78
-      lastFrame: 111
+      firstFrame: 67
+      lastFrame: 98
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -1258,7 +1259,35 @@ ModelImporter:
       name: Dash01
       takeName: Take 001
       firstFrame: 47
-      lastFrame: 77
+      lastFrame: 56
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Dash02
+      takeName: Take 001
+      firstFrame: 57
+      lastFrame: 66
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
