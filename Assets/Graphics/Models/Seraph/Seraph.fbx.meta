@@ -1194,7 +1194,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.19387756
+        functionName: PreformPush
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 8ec75a390c254fd41a5f46646bdbdbf6,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -1202,7 +1210,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Force_Push_Right_2
       takeName: Take 001
-      firstFrame: 23
+      firstFrame: 31
       lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
@@ -1222,7 +1230,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.24697344
+        functionName: PreformPush
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 8ec75a390c254fd41a5f46646bdbdbf6,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

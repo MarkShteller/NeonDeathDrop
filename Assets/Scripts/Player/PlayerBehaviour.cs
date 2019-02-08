@@ -40,15 +40,18 @@ public class PlayerBehaviour : MonoBehaviour
 
     private float lastTimeDamageTaken=0;
     private bool enableDash = true;
+    private bool isDashing = false;
+
+    private float timeOverPit = 0;
 
     [HideInInspector] public GameObject prevHoveredObject;
     [HideInInspector] public GameObject currHoveredObject;
 
     [HideInInspector] public bool enableControlls = true;
 
-    private float pushRadius = 3.5f;
     //private float defaultRadius = 0.35f;
     private Vector3 defaultForcePushTriggerSize;
+    public float pushRadius = 4f;
 
     public float pushForce;
     public BoxCollider forcePushTriggerCollider;
@@ -144,7 +147,7 @@ public class PlayerBehaviour : MonoBehaviour
         DetectPlayerPositionOnGrid();
 
 
-        if (transform.position.y < -0.2f)
+        if (transform.position.y < -1f)
         {
             FellIntoAPit();
         }
@@ -160,6 +163,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private IEnumerator DashCoroutine(Vector3 direction, float duration)
     {
+        isDashing = true;
         float time = duration;
         while (time > 0 && enableDash)
         {
@@ -168,7 +172,16 @@ public class PlayerBehaviour : MonoBehaviour
             transform.Translate(direction * movementSpeed * dashSpeed);
             yield return null;
         }
+        isDashing = false;
         enableControlls = true;
+    }
+
+    public void PreformPush()
+    {
+        forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + 1, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius);
+        forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius / 2);
+        StartCoroutine(ShowForcePushEffect(0.1f));
+        StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(0.1f));
     }
 
     void Update()
@@ -185,13 +198,10 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 if (manaPoints >= pushManaCost)
                 {
-                    forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + 1, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius);
-                    forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius / 2);
                     manaPoints -= pushManaCost;
 
+                    //the animation triggers PreformPush()
                     animator.SetTrigger("PushA");
-                    StartCoroutine(ShowForcePushEffect(0.1f));
-                    StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(0.1f));
                 }
             }
         }
@@ -439,14 +449,26 @@ public class PlayerBehaviour : MonoBehaviour
                 Point pPoint = GameManager.Instance.playerPointPosition;
 
                 if (pPoint != null)
-                    if(gridHolder.GetGridNodeType(pPoint.x, pPoint.y) == TileType.Occupied)
+                {
+                    if (gridHolder.GetGridNodeType(pPoint.x, pPoint.y) == TileType.Occupied)
                         gridHolder.SetGridNodeType(pPoint.x, pPoint.y, TileType.Normal);
+                }
 
                 GameManager.Instance.playerPointPosition = new Point(int.Parse(posArr[0]), int.Parse(posArr[1]));
                 //this is a temp if
                 pPoint = GameManager.Instance.playerPointPosition;
                 if (pPoint != null && gridHolder.GetGridNodeType(pPoint.x, pPoint.y) != TileType.Pit)
+                {
                     gridHolder.SetGridNodeType(pPoint.x, pPoint.y, TileType.Occupied);
+                    timeOverPit = 0;
+                }
+
+                if (pPoint != null && gridHolder.GetGridNodeType(pPoint.x, pPoint.y) == TileType.Pit)
+                {
+                    timeOverPit += Time.deltaTime;
+                    if (!isDashing && timeOverPit >= 0.3f)
+                        FellIntoAPit();
+                }
             }
         }
     }
