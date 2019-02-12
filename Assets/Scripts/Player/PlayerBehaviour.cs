@@ -129,6 +129,17 @@ public class PlayerBehaviour : MonoBehaviour
                     //AudioManager.Instance.PlayEffect(soundEffectSource, 3);
 
                     animator.SetTrigger("Dash");
+
+                    Vector3 rotation = this.visualsHolder.forward;//this.visualsHolder.rotation.eulerAngles.normalized * -1;
+                    print("dash vis dir: " + rotation);
+
+                    float dashx, dashy;
+                    dashx = rotation.z < 0 ? xMove : -xMove;
+                    dashy = rotation.x < 0 ? yMove : -yMove;
+
+                    animator.SetFloat("DashX", dashx);
+                    animator.SetFloat("DashY", dashy);
+
                     StartCoroutine(DashCoroutine(dashDir, dashDuration));
                 }
             }
