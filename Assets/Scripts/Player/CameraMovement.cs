@@ -3,7 +3,8 @@ using System.Collections;
 
 public class CameraMovement : MonoBehaviour {
 
-	private Transform target;
+	public Transform target;
+    public Vector3 targetPosition;
 
     public enum CameraState { Point, Interpolate, Triangulate }
     public CameraState currentState;
@@ -12,20 +13,22 @@ public class CameraMovement : MonoBehaviour {
     private void Start()
     {
         GameObject go = GameObject.FindGameObjectWithTag("Player");
-        if(go != null)
+        if (go != null)
+        {
             target = go.transform;
-
+            targetPosition = new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z - 17);
+        }
         currentState = CameraState.Point;
     }
 
     // Update is called once per frame
-    void Update () 
+    void FixedUpdate () 
 	{
         switch (currentState)
         {
             case CameraState.Point:
                 if (target != null)
-                    transform.localPosition = new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z - 17);
+                    targetPosition = new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z - 17);
                 else
                     target = GameObject.FindGameObjectWithTag("Player").transform;
                 break;
@@ -33,10 +36,12 @@ public class CameraMovement : MonoBehaviour {
                 if (target != null && targetB != null)
                 {
                     Vector3 lerpedPos = Vector3.Lerp(target.localPosition, targetB.localPosition, 0.3f);
-                    transform.localPosition = new Vector3(lerpedPos.x, transform.localPosition.y, lerpedPos.z - 20);
+                    targetPosition = new Vector3(lerpedPos.x, transform.localPosition.y, lerpedPos.z - 20);
                 }
                 break;
         }
+        Vector3 lerpedCamPos = Vector3.Lerp(transform.position, targetPosition, 0.2f);
+        transform.position = new Vector3(lerpedCamPos.x, transform.localPosition.y, lerpedCamPos.z);
     }
 
     public void SetSecondTargerAndInterpolate(Transform targetB)

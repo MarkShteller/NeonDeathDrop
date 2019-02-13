@@ -30234,10 +30234,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1156265336, guid: 56ce68dc8b962c343830c93fc039a004, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56ce68dc8b962c343830c93fc039a004, type: 3}
 --- !u!1 &1311396114
@@ -44223,75 +44219,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1936565182}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &1944630646
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2012045740}
-    m_Modifications:
-    - target: {fileID: 100012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_Name
-      value: SpiderBossBody
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2.27
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.25616
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.25616
-      objectReference: {fileID: 0}
-    - target: {fileID: 400012, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.25616
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 809bb5cdb36d4db428813c2eea6cc578, type: 3}
 --- !u!1 &1945130371
 GameObject:
   m_ObjectHideFlags: 0
@@ -45908,12 +45835,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998695022}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &2012045740 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1038458623296549360, guid: 56ce68dc8b962c343830c93fc039a004,
-    type: 3}
-  m_PrefabInstance: {fileID: 1311358049}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2013127491
 GameObject:
   m_ObjectHideFlags: 0

@@ -133,12 +133,22 @@ public class PlayerBehaviour : MonoBehaviour
                     Vector3 rotation = this.visualsHolder.forward;//this.visualsHolder.rotation.eulerAngles.normalized * -1;
                     print("dash vis dir: " + rotation);
 
-                    float dashx, dashy;
-                    dashx = rotation.z < 0 ? xMove : -xMove;
-                    dashy = rotation.x < 0 ? yMove : -yMove;
+                    /*
+                    float dashX, dashY;
+                    dashX = rotation.z < 0 ? xMove : -xMove;
+                    dashY = rotation.x < 0 && rotation.z < 0 ? yMove : -yMove;
 
-                    animator.SetFloat("DashX", dashx);
-                    animator.SetFloat("DashY", dashy);
+                    if (dashX == 0 && dashY == 0)
+                    {
+                        dashY = 1;
+                    }
+                    */
+
+                    Vector2 dashAnimDirection = GetMovementDirection(new Vector2(xMove, yMove), new Vector2(rotation.x, rotation.z));
+                    animator.SetFloat("DashX", dashAnimDirection.x);
+                    animator.SetFloat("DashY", dashAnimDirection.y);
+
+                    print("dashAnimDirection: "+ dashAnimDirection);
 
                     StartCoroutine(DashCoroutine(dashDir, dashDuration));
                 }
@@ -484,6 +494,20 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             }
         }
+    }
+
+    private Vector2 GetMovementDirection(Vector2 moveDir, Vector2 lookDir)
+    {
+        float angleDiff = GetAngle(moveDir.x, moveDir.y) - GetAngle(lookDir.x, lookDir.y)-90;
+        return new Vector2(Mathf.Cos(angleDiff), Mathf.Sin(angleDiff));
+    }
+
+    float GetAngle(float x, float y)
+    {
+        float angle = Mathf.Atan(y / x);
+        if (x < 0)
+            angle = angle + Mathf.PI;
+        return angle;
     }
 
     float AngleFromJoystick(float x, float y)
