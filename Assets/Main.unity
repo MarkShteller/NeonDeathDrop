@@ -39065,6 +39065,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d53d95c26917b46b7ad6484c9d288f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
   currentState: 0
   targetB: {fileID: 0}
 --- !u!114 &1686871192
@@ -48431,6 +48433,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d53d95c26917b46b7ad6484c9d288f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
   currentState: 0
   targetB: {fileID: 0}
 --- !u!1 &2127023751
