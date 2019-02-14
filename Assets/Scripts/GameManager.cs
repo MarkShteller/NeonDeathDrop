@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,12 +32,15 @@ public class GameManager : MonoBehaviour {
 
         DontDestroyOnLoad(gameObject);
 
-        InitLevel();
+        StartCoroutine(InitLevel());
         print("## GameManager ready");
 	}
 
-    private void InitLevel()
+    private IEnumerator InitLevel()
     {
+        //wait frame for the scene to load.
+        yield return null;
+
         print("Init level number "+CurrentLevelIndex);
         PlayerObject = Resources.Load("Player 2.0") as GameObject;
         GameObject go = Instantiate(PlayerObject);
@@ -49,7 +53,7 @@ public class GameManager : MonoBehaviour {
         UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
 
         cameraRef = Camera.main.transform.parent.GetComponent<CameraMovement>();
-
+        print(cameraRef.currentState);
         levelManager.Init(CurrentLevelIndex);
     }
 
@@ -82,7 +86,7 @@ public class GameManager : MonoBehaviour {
             score = 0;
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        InitLevel();
+        StartCoroutine(InitLevel());
     }
 
     public void NextLevel()

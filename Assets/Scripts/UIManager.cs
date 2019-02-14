@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour {
 
     public void SetCoreCount(int value)
     {
-        coreCount.text = "CORES: " + value;
+        coreCount.text = value.ToString("N0");
     }
 
     public void ShowGameOverScreen(int score)

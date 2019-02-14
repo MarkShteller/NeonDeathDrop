@@ -387,6 +387,8 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 GameManager.Instance.GameOver();
             }
+
+            GameManager.Instance.cameraRef.GlitchScreen();
         }
     }
 

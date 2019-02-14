@@ -9,6 +9,8 @@ public class CameraMovement : MonoBehaviour {
     public enum CameraState { Point, Interpolate, Triangulate }
     public CameraState currentState;
     public Transform targetB;
+
+    public Animation screenGlitchAnim;
     
     private void Start()
     {
@@ -19,6 +21,10 @@ public class CameraMovement : MonoBehaviour {
             targetPosition = new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z - 17);
         }
         currentState = CameraState.Point;
+
+        screenGlitchAnim = GetComponentInChildren<Animation>();
+        if (screenGlitchAnim == null)
+            Debug.LogError("Could not find glitch animation.");
     }
 
     // Update is called once per frame
@@ -50,5 +56,10 @@ public class CameraMovement : MonoBehaviour {
         currentState = CameraState.Interpolate;
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 3, transform.localPosition.z);
         Debug.Log("# camera set to interpolate.");
+    }
+
+    public void GlitchScreen()
+    {
+        screenGlitchAnim.Play();
     }
 }
