@@ -112,7 +112,7 @@ MonoBehaviour:
   findPlayerInterval: 0.5
   damage: 1
   stunnedTimer: 1
-  pointsReward: 10
+  pointsReward: 100
   deathScoreMultiplier: 0.1
   shouldFollowPlayer: 1
   minDistanceTargeting: 0
@@ -5065,6 +5065,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 2300004, guid: af8dc16621adcd242bf39f850c8d830d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bd6bb26d51a30134eb5bc4e6e5b6271b, type: 2}
     - target: {fileID: 2300000, guid: af8dc16621adcd242bf39f850c8d830d, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -5074,10 +5078,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 763603d55326b2d40878ed2e9d34fced, type: 2}
     - target: {fileID: 2300002, guid: af8dc16621adcd242bf39f850c8d830d, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: bd6bb26d51a30134eb5bc4e6e5b6271b, type: 2}
-    - target: {fileID: 2300004, guid: af8dc16621adcd242bf39f850c8d830d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bd6bb26d51a30134eb5bc4e6e5b6271b, type: 2}

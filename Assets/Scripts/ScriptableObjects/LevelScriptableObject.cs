@@ -12,4 +12,21 @@ public class LevelScriptableObject : ScriptableObject
     public string musicName;
     public GameObject backdrop;
     public int[] powerupWeights;
+
+    public bool showEndLevelReport;
+
+    public int targetScore;
+    public float targetScoreRankMod;
+
+    public float targetMaxMultiplier;
+    public float targetMaxMultiplierRankMod;
+
+    public float targetTime;
+    public float targetTimeRankMod;
+
+    public int targetEnemyCount;
+    public float targetEnemyCountRankMod;
+
+    public float targetDamage;
+    public float targetDamageRankMod;
 }

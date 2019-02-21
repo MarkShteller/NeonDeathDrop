@@ -340,7 +340,8 @@ public class PlayerBehaviour : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("GoalCube"))
         {
-            GameManager.Instance.NextLevel();
+            //GameManager.Instance.NextLevel();
+            GameManager.Instance.LevelFinished();
             gameObject.SetActive(false);
         }
         if (collision.gameObject.CompareTag("WallCube") || collision.gameObject.CompareTag("GateCube"))
@@ -382,6 +383,7 @@ public class PlayerBehaviour : MonoBehaviour
             healthPoints -= damage;
 
             GameManager.Instance.SetScoreMultiplier(1);
+            GameManager.Instance.AddDamageCount(damage);
             UIManager.Instance.SetHealth(healthPoints / totalHealthPoints);
             if (healthPoints <= 0)
             {

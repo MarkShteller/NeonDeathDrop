@@ -19,6 +19,12 @@ public class GameManager : MonoBehaviour {
     public LevelManager levelManager;
     public int CurrentLevelIndex = 0;
 
+    private LevelScriptableObject currentLevelData;
+
+    private float maxScoreMultiplier;
+    private float timeLevelStarted;
+    private float damageTaken;
+
 	// Use this for initialization
 	void Awake ()
     {
@@ -49,12 +55,16 @@ public class GameManager : MonoBehaviour {
 
         score = 0;
         scoreMultiplier = 1;
+        maxScoreMultiplier = scoreMultiplier;
+        timeLevelStarted = Time.time;
+        damageTaken = 0;
+
         UIManager.Instance.SetScore(score);
         UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
 
         cameraRef = Camera.main.transform.parent.GetComponent<CameraMovement>();
         print(cameraRef.currentState);
-        levelManager.Init(CurrentLevelIndex);
+        currentLevelData = levelManager.Init(CurrentLevelIndex);
     }
 
     public void SetPlayerPosition(Vector3 position)
@@ -104,12 +114,14 @@ public class GameManager : MonoBehaviour {
     public void GameOver()
     {
         Time.timeScale = 0;
-        UIManager.Instance.ShowGameOverScreen(score);
+        UIManager.Instance.OpenGameOverScreen(score);
     }
 
     public void AddScoreMultiplier(float value)
     {
         scoreMultiplier += value;
+        if (scoreMultiplier > maxScoreMultiplier)
+            maxScoreMultiplier = scoreMultiplier;
         UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
     }
 
@@ -124,4 +136,21 @@ public class GameManager : MonoBehaviour {
         PlayerInstance.enemyDefeatedCount++;
         Debug.Log("# enemy kill count: "+ PlayerInstance.enemyDefeatedCount);
     }
+
+    public void AddDamageCount(float damage)
+    {
+        damageTaken += damage;
+    }
+
+    public void LevelFinished()
+    {
+        Time.timeScale = 0;
+        float levelTime = Time.time - timeLevelStarted;
+
+        if (currentLevelData.showEndLevelReport)
+            UIManager.Instance.OpenEndLevelDialog(score, maxScoreMultiplier, levelTime, PlayerInstance.enemyDefeatedCount, damageTaken, currentLevelData);
+        else
+            NextLevel();
+    }
+
 }

@@ -44,6 +44,10 @@ public class CameraMovement : MonoBehaviour {
                     Vector3 lerpedPos = Vector3.Lerp(target.localPosition, targetB.localPosition, 0.3f);
                     targetPosition = new Vector3(lerpedPos.x, transform.localPosition.y, lerpedPos.z - 20);
                 }
+                else if (target == null)
+                    target = GameObject.FindGameObjectWithTag("Player").transform;
+                else
+                    Debug.LogError("Cant find camera target B.");
                 break;
         }
         Vector3 lerpedCamPos = Vector3.Lerp(transform.position, targetPosition, 0.2f);

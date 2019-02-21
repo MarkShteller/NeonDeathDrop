@@ -7,9 +7,10 @@ public class LevelManager : MonoBehaviour
 
     private int prevLevelIndex = 0;
 
-    public void Init(int levelIndex)
+    public LevelScriptableObject Init(int levelIndex)
     {
         StartCoroutine(GenerateLevel(levelDatas[levelIndex], levelIndex));
+        return levelDatas[levelIndex];
     }
 
 

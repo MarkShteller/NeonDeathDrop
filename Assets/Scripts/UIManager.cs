@@ -12,9 +12,11 @@ public class UIManager : MonoBehaviour {
     public Text scoreMultiplierText;
     public Text coreCount;
 
-    public GameOverDialog gameOverDialog;
+    [SerializeField] private GameOverDialog gameOverDialog;
+    [SerializeField] private EndLevelReportDialog endLevelReportDialog;
 
-	void Awake () {
+
+    void Awake () {
         Instance = this;
 	}
 
@@ -38,7 +40,7 @@ public class UIManager : MonoBehaviour {
         coreCount.text = value.ToString("N0");
     }
 
-    public void ShowGameOverScreen(int score)
+    public void OpenGameOverScreen(int score)
     {
         GameOverDialog dialog = Instantiate(gameOverDialog, this.transform);
         dialog.Init(score);
@@ -47,5 +49,11 @@ public class UIManager : MonoBehaviour {
     public void SetScoreMultiplier(float scoreMultiplier)
     {
         scoreMultiplierText.text = "x"+scoreMultiplier.ToString("N1");
+    }
+
+    public void OpenEndLevelDialog(int score, float maxMultiplier, float time, int enemyCount, float damage, LevelScriptableObject level)
+    {
+        EndLevelReportDialog dialog = Instantiate(endLevelReportDialog, this.transform);
+        dialog.Init(score, maxMultiplier, time, enemyCount, damage, level);
     }
 }
