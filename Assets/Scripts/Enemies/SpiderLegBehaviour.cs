@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class SpiderLegBehaviour : EnemyPulsing
 {
+    public float maxRotation;
+    public float minRotation;
+
+    private bool shouldLookAtPlayer;
+
     internal override void DetectEnemyPositionOnGrid()
     {
         //base.DetectEnemyPositionOnGrid();
@@ -13,6 +18,7 @@ public class SpiderLegBehaviour : EnemyPulsing
     {
         base.Init();
         print("initing leg");
+        shouldFollowPlayer = false;
         playerObject = GameManager.Instance.PlayerInstance.transform;
         gridHolder = LevelGenerator.Instance;
 
@@ -36,6 +42,16 @@ public class SpiderLegBehaviour : EnemyPulsing
     public void Stopm()
     {
         movementStatus = MovementType.Pulse;
+    }
+
+    internal override void PulseAction()
+    {
+        base.PulseAction();
+
+        //float yLookRotation = transform.localRotation.eulerAngles.y;
+        //print("yLookRotation: "+ yLookRotation + " minRotation: " + minRotation + " maxRotation: "+ maxRotation);
+
+        LookAtPlayer(minRotation - 90, maxRotation - 90); // 90 deg compensation for local to global rotation conversion
     }
 
     private void OnTriggerEnter(Collider other)

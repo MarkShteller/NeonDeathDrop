@@ -268,10 +268,23 @@ public class Enemy : MonoBehaviour, IPooledObject {
         ZapEffect.SetActive(false);
     }
 
-    internal virtual void LookAtPlayer()
+    internal virtual void LookAtPlayer(float minClamp=0, float maxClamp=0)
     {
         Vector3 lookPosition = new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z);
-        transform.LookAt(lookPosition);
+        //transform.LookAt(lookPosition);
+
+        Vector3 direction = lookPosition - transform.position;
+        Quaternion toRotation = Quaternion.LookRotation(direction);
+        toRotation = Quaternion.Lerp(transform.rotation, toRotation, 0.5f);
+
+        if (minClamp != 0 && maxClamp != 0)
+        {
+            Vector3 er = toRotation.eulerAngles;
+            //print(" yRot: "+er.y +" "+gameObject.name);
+            float clampedY = Mathf.Clamp(er.y, minClamp, maxClamp);
+            toRotation.eulerAngles = new Vector3(er.x, clampedY, er.z);
+        }
+        transform.rotation = toRotation;
     }
 
     public void ForcePush(Vector3 direction, float force)
