@@ -275,7 +275,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
         Vector3 direction = lookPosition - transform.position;
         Quaternion toRotation = Quaternion.LookRotation(direction);
-        toRotation = Quaternion.Lerp(transform.rotation, toRotation, 0.5f);
+        toRotation = Quaternion.Lerp(transform.rotation, toRotation, 0.3f);
 
         if (minClamp != 0 && maxClamp != 0)
         {

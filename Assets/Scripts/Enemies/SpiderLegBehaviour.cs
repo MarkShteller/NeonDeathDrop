@@ -9,6 +9,8 @@ public class SpiderLegBehaviour : EnemyPulsing
 
     private bool shouldLookAtPlayer;
 
+    public bool isDead;
+
     internal override void DetectEnemyPositionOnGrid()
     {
         //base.DetectEnemyPositionOnGrid();
@@ -18,6 +20,7 @@ public class SpiderLegBehaviour : EnemyPulsing
     {
         base.Init();
         print("initing leg");
+        isDead = false;
         shouldFollowPlayer = false;
         playerObject = GameManager.Instance.PlayerInstance.transform;
         gridHolder = LevelGenerator.Instance;
@@ -60,6 +63,7 @@ public class SpiderLegBehaviour : EnemyPulsing
         {
             //override die?
             gameObject.SetActive(false);
+            isDead = true;
         }
     }
 
