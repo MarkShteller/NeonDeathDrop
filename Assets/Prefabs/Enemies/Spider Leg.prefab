@@ -387,6 +387,9 @@ MonoBehaviour:
   pulseDistanceFromPlayer: 4
   pulseInterval: 3
   pulseEffect: {fileID: 7782104621743173314}
+  maxRotation: 0
+  minRotation: 0
+  isDead: 0
 --- !u!95 &8597947543905660814
 Animator:
   serializedVersion: 3

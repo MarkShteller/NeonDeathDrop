@@ -30,6 +30,8 @@ public class SpiderBossBehaviour : MonoBehaviour
     public string bulletANameInPool;
     public string bulletBNameInPool;
 
+    public Transform FinalLegPoint;
+
     private float bulletDamage = 1;
     private bool hasSpawnedEnemies = false;
     private bool isTransitioning = false;
@@ -94,6 +96,7 @@ public class SpiderBossBehaviour : MonoBehaviour
                 }
                 break;
             case SpiderBossPhase.PhaseC:
+
                 break;
         }
     }
@@ -101,17 +104,34 @@ public class SpiderBossBehaviour : MonoBehaviour
     private void ShouldMoveToNextStage(int countLegs)
     {
         int aliveLegs = 0;
+        SpiderLegBehaviour lastAliveLeg = null;
         foreach (SpiderLegBehaviour leg in spiderLegs)
         {
             if (!leg.isDead)
+            {
                 aliveLegs++;
+                lastAliveLeg = leg;
+            }
         }
 
         if (aliveLegs <= countLegs)
         {
             currentPhase++;
             isTransitioning = true;
-            animator.SetTrigger("Jump");
+            if (countLegs > 1)
+            {
+                animator.SetTrigger("Jump");
+            }
+            else
+            {
+                animator.SetTrigger("Falling");
+                if (lastAliveLeg != null)
+                {
+                    lastAliveLeg.transform.position = FinalLegPoint.position;
+                    lastAliveLeg.transform.rotation = FinalLegPoint.rotation;
+                    lastAliveLeg.animator.SetTrigger("Cling");
+                }
+            }
             print("# Changing boss phase!");
         }
     }
