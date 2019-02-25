@@ -45130,12 +45130,15 @@ MonoBehaviour:
   - tag: TrackingEnemySmall
     prefab: {fileID: 1000012726947038, guid: c36a277cd8c672343898590e5c275bc3, type: 3}
     size: 70
-  - tag: ProjectileSpider
+  - tag: ProjectileSpiderA
     prefab: {fileID: 1251283752625272, guid: 44a024966af8f88479e7b5be2a08dd3a, type: 3}
     size: 35
   - tag: TrackingEnemyBig
     prefab: {fileID: 1000012726947038, guid: f2dd911ea9eb11f4fb2d3f28d0c56c63, type: 3}
     size: 20
+  - tag: ProjectileSpiderB
+    prefab: {fileID: 1251283752625272, guid: a34278c6cb4ea5e4685522a617da69b2, type: 3}
+    size: 35
 --- !u!4 &1974147713
 Transform:
   m_ObjectHideFlags: 0
