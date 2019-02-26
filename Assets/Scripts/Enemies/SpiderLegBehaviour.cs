@@ -10,6 +10,7 @@ public class SpiderLegBehaviour : EnemyPulsing
     private bool shouldLookAtPlayer;
 
     public bool isDead;
+    public bool isActive; 
 
     internal override void DetectEnemyPositionOnGrid()
     {
@@ -21,6 +22,7 @@ public class SpiderLegBehaviour : EnemyPulsing
         base.Init();
         print("initing leg");
         isDead = false;
+        isActive = true;
         shouldFollowPlayer = false;
         playerObject = GameManager.Instance.PlayerInstance.transform;
         gridHolder = LevelGenerator.Instance;
@@ -35,11 +37,23 @@ public class SpiderLegBehaviour : EnemyPulsing
 
     internal override void StaticAction()
     {
-        float distanceFromPlayer = Vector3.Distance(transform.position, playerObject.position);
-        if (distanceFromPlayer < pulseDistanceFromPlayer)
+        if (isActive)
         {
-            movementStatus = MovementType.Pulse;
+            float distanceFromPlayer = Vector3.Distance(transform.position, playerObject.position);
+            if (distanceFromPlayer < pulseDistanceFromPlayer)
+            {
+                movementStatus = MovementType.Pulse;
+            }
         }
+    }
+
+    public void ClingForYourLife(Transform FinalLegPoint)
+    {
+        movementStatus = MovementType.Static;
+        isActive = false;
+        transform.position = FinalLegPoint.position;
+        transform.rotation = FinalLegPoint.rotation;
+        animator.SetTrigger("Cling");
     }
 
     public void Stopm()

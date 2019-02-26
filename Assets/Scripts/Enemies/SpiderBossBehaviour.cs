@@ -127,9 +127,7 @@ public class SpiderBossBehaviour : MonoBehaviour
                 animator.SetTrigger("Falling");
                 if (lastAliveLeg != null)
                 {
-                    lastAliveLeg.transform.position = FinalLegPoint.position;
-                    lastAliveLeg.transform.rotation = FinalLegPoint.rotation;
-                    lastAliveLeg.animator.SetTrigger("Cling");
+                    lastAliveLeg.ClingForYourLife(FinalLegPoint);
                 }
             }
             print("# Changing boss phase!");
