@@ -115,4 +115,12 @@ public class EndLevelReportDialog : MonoBehaviour
         GameManager.Instance.NextLevel();
     }
 
+    private void Update()
+    {
+        if (ControllerInputDevice.GetConfirmButtonDown())
+        {
+            NextLevelAction();
+        }
+    }
+
 }

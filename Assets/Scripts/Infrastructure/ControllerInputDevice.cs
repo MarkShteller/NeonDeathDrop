@@ -7,6 +7,7 @@ public static class ControllerInputDevice
     private static bool isRightTriggerPressed = false;
     private static bool isDashPressed = false;
     private static bool isSpecialPressed = false;
+    private static bool isConfirmPressed = false;
 
     public static bool GetLeftTriggerDown()
     {
@@ -32,6 +33,21 @@ public static class ControllerInputDevice
 
         if (Input.GetAxis("RightTrigger") == 0)
             isRightTriggerPressed = false;
+
+        return false;
+    }
+
+    public static bool GetConfirmButtonDown()
+    {
+        if (Input.GetButtonDown("Submit") && !isConfirmPressed)
+        {
+            //Debug.Log("ConfirmButtonDown");
+            isConfirmPressed = true;
+            return true;
+        }
+
+        if (Input.GetButtonDown("Submit"))
+            isConfirmPressed = false;
 
         return false;
     }

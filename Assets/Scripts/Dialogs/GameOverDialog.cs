@@ -15,4 +15,12 @@ public class GameOverDialog : MonoBehaviour {
         GameManager.Instance.RestartLevel(true);
     }
 
+
+    private void Update()
+    {
+        if (ControllerInputDevice.GetConfirmButtonDown())
+        {
+            RestartButton();
+        }
+    }
 }
