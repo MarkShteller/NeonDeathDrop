@@ -85,14 +85,14 @@ public class PlayerBehaviour : MonoBehaviour
         if (enableControlls)
         {
             float xMove = Input.GetAxis("HorizontalMove");
-            float yMove = Input.GetAxis("VerticalMove");
+            float zMove = Input.GetAxis("VerticalMove");
 
-            if (xMove == 0 && yMove == 0)
+            if (xMove == 0 && zMove == 0)
             {
                 xMove = Input.GetAxis("Horizontal");
-                yMove = Input.GetAxis("Vertical");
+                zMove = Input.GetAxis("Vertical");
             }
-            transform.Translate(xMove * movementSpeed, 0, yMove * movementSpeed);
+            transform.Translate(xMove * movementSpeed, 0, zMove * movementSpeed);
 
             /*
             float xLook = Input.GetAxis("HorizontalLook");
@@ -116,13 +116,16 @@ public class PlayerBehaviour : MonoBehaviour
                 this.visualsHolder.rotation = Quaternion.LookRotation(playerRotation, Vector3.up);
             }
 
+            //Vector2 hoverAnimDir = GetMovementDirection(new Vector2(xMove, zMove), new Vector2(visualsHolder.forward.x, visualsHolder.forward.z));
+            //animator.SetFloat("HoverZ", hoverAnimDir.x);
+
             if (ControllerInputDevice.GetDashButtonDown())
             {
                 if (manaPoints >= dashManaCost && enableDash)
                 {
                     manaPoints -= dashManaCost;
 
-                    Vector3 dashDir = new Vector3(xMove, 0, yMove).normalized;
+                    Vector3 dashDir = new Vector3(xMove, 0, zMove).normalized;
                     if (dashDir == Vector3.zero)
                         dashDir = this.visualsHolder.forward *-1;//this.visualsHolder.rotation.eulerAngles.normalized;
                     print("DASH! dir: "+dashDir);
@@ -133,18 +136,7 @@ public class PlayerBehaviour : MonoBehaviour
                     Vector3 rotation = this.visualsHolder.forward;//this.visualsHolder.rotation.eulerAngles.normalized * -1;
                     print("dash vis dir: " + rotation);
 
-                    /*
-                    float dashX, dashY;
-                    dashX = rotation.z < 0 ? xMove : -xMove;
-                    dashY = rotation.x < 0 && rotation.z < 0 ? yMove : -yMove;
-
-                    if (dashX == 0 && dashY == 0)
-                    {
-                        dashY = 1;
-                    }
-                    */
-
-                    Vector2 dashAnimDirection = GetMovementDirection(new Vector2(xMove, yMove), new Vector2(rotation.x, rotation.z));
+                    Vector2 dashAnimDirection = GetMovementDirection(new Vector2(xMove, zMove), new Vector2(rotation.x, rotation.z));
                     animator.SetFloat("DashX", dashAnimDirection.x);
                     animator.SetFloat("DashY", dashAnimDirection.y);
 

@@ -114,6 +114,13 @@ public class SpiderBossBehaviour : MonoBehaviour
             }
         }
 
+        if (lastAliveLeg == null)
+        {
+            lastAliveLeg = spiderLegs[0];
+            lastAliveLeg.gameObject.SetActive(true);
+            lastAliveLeg.isDead = false;
+        }
+
         if (aliveLegs <= countLegs)
         {
             currentPhase++;
