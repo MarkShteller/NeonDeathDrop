@@ -273,6 +273,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (activePowerUps.Count == 0 || !activePowerUps.Exists(p => p.powerUpName == powerUp.powerUpName))
             {
                 activePowerUps.Add(powerUp);
+                UIManager.Instance.AddPowerup(powerUp.powerUpData);
                 switch (powerUp.type)
                 {
                     case PowerUpType.PushForceBoost:
@@ -296,6 +297,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 BasePowerupBehaviour pu = activePowerUps.Find(p => p.powerUpName == powerUp.powerUpName);
                 pu.effectTime += powerUp.effectTime;
+                UIManager.Instance.UpdatePowerupTimer(powerUp.powerUpData, pu.effectTime);
             }
         }
     }

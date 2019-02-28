@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviour {
     public Text scoreMultiplierText;
     public Text coreCount;
 
+    public Transform powerupsGrid;
+    public PowerupUIBehaviour powerupUIPrefab;
+
     [SerializeField] private GameOverDialog gameOverDialog;
     [SerializeField] private EndLevelReportDialog endLevelReportDialog;
 
@@ -56,4 +59,23 @@ public class UIManager : MonoBehaviour {
         EndLevelReportDialog dialog = Instantiate(endLevelReportDialog, this.transform);
         dialog.Init(score, maxMultiplier, time, enemyCount, damage, level);
     }
+
+    public void AddPowerup(PowerUpObject powerupData)
+    {
+        PowerupUIBehaviour pub = Instantiate(powerupUIPrefab, powerupsGrid);
+        pub.Init(powerupData);
+    }
+
+    public void UpdatePowerupTimer(PowerUpObject powerupData, float newTime)
+    {
+        foreach (PowerupUIBehaviour pub in powerupsGrid.GetComponentsInChildren<PowerupUIBehaviour>())
+        {
+            if (pub.powerUpData.Equals(powerupData))
+            {
+                pub.UpdateTimer(newTime);
+                break;
+            }
+        }
+    }
+
 }
