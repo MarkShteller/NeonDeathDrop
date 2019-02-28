@@ -227,7 +227,7 @@ public class PlayerBehaviour : MonoBehaviour
             foreach (BasePowerupBehaviour powerUp in activePowerUps)
             {
                 powerUp.effectTime -= Time.deltaTime;
-                print(powerUp.powerUpName + " time: " + powerUp.effectTime);
+                //print(powerUp.powerUpName + " time: " + powerUp.effectTime);
                 if (powerUp.effectTime <= 0)
                 {
                     powerupToRemove = powerUp;

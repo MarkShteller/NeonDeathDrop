@@ -23,13 +23,13 @@ MonoBehaviour:
   backdrop: {fileID: 1553529043616714, guid: 9bec7594d03f5494084df6621ad6e47e, type: 3}
   powerupWeights: 1e00000005000000140000000500000005000000050000000500000005000000
   showEndLevelReport: 1
-  targetScore: 0
-  targetScoreRankMod: 0
-  targetMaxMultiplier: 0
-  targetMaxMultiplierRankMod: 0
-  targetTime: 0
-  targetTimeRankMod: 0
-  targetEnemyCount: 0
-  targetEnemyCountRankMod: 0
-  targetDamage: 0
-  targetDamageRankMod: 0
+  targetScore: 20000
+  targetScoreRankMod: 0.2
+  targetMaxMultiplier: 6
+  targetMaxMultiplierRankMod: 0.2
+  targetTime: 165
+  targetTimeRankMod: 0.4
+  targetEnemyCount: 84
+  targetEnemyCountRankMod: 0.2
+  targetDamage: 1
+  targetDamageRankMod: 2

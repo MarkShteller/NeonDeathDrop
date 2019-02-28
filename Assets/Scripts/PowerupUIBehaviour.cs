@@ -9,6 +9,7 @@ public class PowerupUIBehaviour : MonoBehaviour
     public PowerUpObject powerUpData;
 
     public Image powerupImage;
+    public Image timerMask;
     public Text timer;
 
     private float totalTime;
@@ -24,12 +25,15 @@ public class PowerupUIBehaviour : MonoBehaviour
     public void UpdateTimer(float newTime)
     {
         totalTime = currentTimer = newTime;
+        timerMask.rectTransform.sizeDelta = new Vector2(timerMask.rectTransform.sizeDelta.x, 110);
     }
 
     private void Update()
     {
         currentTimer -= Time.deltaTime;
-        if(currentTimer < 10)
+        timerMask.rectTransform.sizeDelta = new Vector2(timerMask.rectTransform.sizeDelta.x, currentTimer / totalTime * 110);
+
+        if (currentTimer < 10)
             timer.text = currentTimer.ToString("F1");
         else
             timer.text = currentTimer.ToString("N0");

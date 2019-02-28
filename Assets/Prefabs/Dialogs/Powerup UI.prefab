@@ -356,7 +356,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4351445248337089557}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -383,5 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf6986795e6e6745a4e967ccbe1174b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpData: {fileID: 0}
   powerupImage: {fileID: 4351445248243689440}
+  timerMask: {fileID: 4351445246611115278}
   timer: {fileID: 4351445246389791608}
