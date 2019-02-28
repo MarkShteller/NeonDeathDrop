@@ -49,6 +49,7 @@ public class SpiderLegBehaviour : EnemyPulsing
 
     public void ClingForYourLife(Transform FinalLegPoint)
     {
+        print("Leg clinging for its life!");
         movementStatus = MovementType.Static;
         isActive = false;
         transform.position = FinalLegPoint.position;

@@ -17,6 +17,7 @@ public class EnemyBomb : Enemy
     public IEnumerator Explode(float radius)
     {
         yield return new WaitForSeconds(stunnedTimer);
+        sphereCollider.gameObject.SetActive(true);
         float ogRadius = sphereCollider.radius;
         while (sphereCollider.radius < radius)
         {
@@ -25,7 +26,6 @@ public class EnemyBomb : Enemy
         }
 
         sphereCollider.radius = ogRadius;
-        //gameObject.SetActive(false);
         Die();
     }
 

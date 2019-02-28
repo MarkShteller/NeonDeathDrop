@@ -58,6 +58,8 @@ public class SpiderBossBehaviour : MonoBehaviour
 
         GameManager.Instance.cameraRef.SetSecondTargerAndInterpolate(transform);
 
+        //ReorderLegs();
+
         print("# Boss finish init");
     }
 	
@@ -114,13 +116,6 @@ public class SpiderBossBehaviour : MonoBehaviour
             }
         }
 
-        if (lastAliveLeg == null)
-        {
-            lastAliveLeg = spiderLegs[0];
-            lastAliveLeg.gameObject.SetActive(true);
-            lastAliveLeg.isDead = false;
-        }
-
         if (aliveLegs <= countLegs)
         {
             currentPhase++;
@@ -132,10 +127,14 @@ public class SpiderBossBehaviour : MonoBehaviour
             else
             {
                 animator.SetTrigger("Falling");
-                if (lastAliveLeg != null)
+                if (lastAliveLeg == null || aliveLegs == 0)
                 {
-                    lastAliveLeg.ClingForYourLife(FinalLegPoint);
+                    lastAliveLeg = spiderLegs[0];
+                    lastAliveLeg.gameObject.SetActive(true);
+                    lastAliveLeg.isDead = false;
                 }
+
+                lastAliveLeg.ClingForYourLife(FinalLegPoint);
             }
             print("# Changing boss phase!");
         }
@@ -258,15 +257,15 @@ public class SpiderBossBehaviour : MonoBehaviour
                 break;
             case SpiderBossState.MachineGun:
                 if (timeToNextState <= 0)
-                    timeToNextState = 0;
+                    timeToNextState = 4;
 
-                /*LookAtPlayer();
+                LookAtPlayer();
                 if (timeToShoot <= 0)
                 {
                     ShootFromPoint(pulseBulletSpawnPoints[0]);
                     timeToShoot = 0.3f;
                 }
-                timeToShoot -= Time.deltaTime;*/
+                timeToShoot -= Time.deltaTime;
                 break;
             case SpiderBossState.Pulse:
                 if (timeToNextState <= 0)
