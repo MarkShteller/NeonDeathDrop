@@ -94,7 +94,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit))
         {
-            if (hit.transform.tag == "FloorCube")
+            if (hit.transform.CompareTag("FloorCube") || hit.transform.CompareTag("WallCube"))
             {
                 //if the old pointpos is occupied, set it to normal.
                 if(pointPos != null && gridHolder.GetGridNodeType(pointPos.x, pointPos.y) == TileType.Occupied)
