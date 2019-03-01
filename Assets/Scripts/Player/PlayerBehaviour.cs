@@ -375,6 +375,7 @@ public class PlayerBehaviour : MonoBehaviour
             lastTimeDamageTaken = Time.time;
 
             healthPoints -= damage;
+            animator.SetTrigger("TakeDamage");
 
             GameManager.Instance.SetScoreMultiplier(1);
             GameManager.Instance.AddDamageCount(damage);

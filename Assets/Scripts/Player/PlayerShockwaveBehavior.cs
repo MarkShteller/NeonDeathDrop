@@ -38,7 +38,7 @@ public class PlayerShockwaveBehavior : MonoBehaviour
         float ogRadius = capsuleCollider.radius;
         while (capsuleCollider.radius < radius)
         {
-            capsuleCollider.radius += Time.deltaTime * 20;
+            capsuleCollider.radius += Time.deltaTime * 15;
             yield return null;
         }
 
