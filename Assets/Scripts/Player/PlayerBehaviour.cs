@@ -184,7 +184,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             time -= Time.deltaTime;
             enableControlls = false;
-            transform.Translate(direction * movementSpeed * dashSpeed);
+            transform.Translate(direction * movementSpeed * dashSpeed * Time.deltaTime);
             yield return null;
         }
         isDashing = false;
