@@ -24,6 +24,7 @@ public class SpiderLegBehaviour : EnemyPulsing
         isDead = false;
         isActive = true;
         shouldFollowPlayer = false;
+        shakeScreen = true;
         playerObject = GameManager.Instance.PlayerInstance.transform;
         gridHolder = LevelGenerator.Instance;
 

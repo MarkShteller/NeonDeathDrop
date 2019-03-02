@@ -185,7 +185,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 print("Enemy is falling...");
                 GameManager.Instance.AddScoreMultiplier(deathScoreMultiplier);
                 GameManager.Instance.AddScore(pointsReward);
-                CameraShaker.Instance.ShakeOnce(2f, 4f, 0.1f, 1f);
+                //CameraShaker.Instance.ShakeOnce(2f, 4f, 0.1f, 1f);
                 GameManager.Instance.IncrementEnemyKillCount();
                 gameObject.SetActive(false);
                 break;

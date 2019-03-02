@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using EZCameraShake;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +11,13 @@ public class EnemyPulsing : Enemy
     public GameObject pulseEffect;
 
     private float pulseIntervalLocal = 0;
+    internal bool shakeScreen;
 
     internal override void Init()
     {
         base.Init();
         constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
+        shakeScreen = false;
     }
 
     internal override void StaticAction()
@@ -40,13 +43,17 @@ public class EnemyPulsing : Enemy
     //triggered by animation
     public void PulseTrigger()
     {
-        StartCoroutine(Pulse(1.5f));
+        StartCoroutine(Pulse(1.5f, shakeScreen));
     }
 
-    private IEnumerator Pulse(float duration)
+    private IEnumerator Pulse(float duration, bool shakeScreen = false)
     {
         pulseEffect.SetActive(true);
 
+        if (shakeScreen)
+        {
+            CameraShaker.Instance.ShakeOnce(2f, 4f, 0.1f, 1f);
+        }
         yield return new WaitForSeconds(duration);
 
         pulseEffect.SetActive(false);
