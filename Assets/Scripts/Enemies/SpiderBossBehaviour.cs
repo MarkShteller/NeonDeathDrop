@@ -365,6 +365,17 @@ public class SpiderBossBehaviour : MonoBehaviour
         //bodyVisuals.LookAt(lookPosition, Vector3.up);
     }
 
+    public void TriggerLegsJumping()
+    {
+        foreach (SpiderLegBehaviour leg in spiderLegs)
+        {
+            if (!leg.isDead)
+            {
+                leg.animator.SetTrigger("Jump");
+            }
+        }
+    }
+
     public void FinishedJump()
     {
         print("#### finished jumping");
