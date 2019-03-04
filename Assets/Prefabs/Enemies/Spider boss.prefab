@@ -1546,6 +1546,7 @@ MonoBehaviour:
   bulletANameInPool: ProjectileSpiderA
   bulletBNameInPool: ProjectileSpiderB
   FinalLegPoint: {fileID: 3690977881097732306}
+  shouldSpawnEnemies: 0
 --- !u!95 &6707385144978533887
 Animator:
   serializedVersion: 3
@@ -2419,6 +2420,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spider Leg (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: maxRotation
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: minRotation
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2484,16 +2500,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0000002
       objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: maxRotation
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: minRotation
-      value: -25
-      objectReference: {fileID: 0}
     - target: {fileID: 7778856254351299446, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2513,11 +2519,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7491cceef987514a86d31ebf6af3d25, type: 3}
@@ -2550,6 +2551,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spider Leg (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: minRotation
+      value: 155
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: maxRotation
+      value: 205
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
@@ -2616,16 +2632,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0000011
       objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: minRotation
-      value: 155
-      objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: maxRotation
-      value: 205
-      objectReference: {fileID: 0}
     - target: {fileID: 7778856254351299446, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2645,11 +2651,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7491cceef987514a86d31ebf6af3d25, type: 3}
@@ -2682,6 +2683,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spider Leg
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: minRotation
+      value: 175
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: maxRotation
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
@@ -2747,16 +2758,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: minRotation
-      value: 175
-      objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: maxRotation
-      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 8507464177121724662, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
@@ -2905,6 +2906,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spider Leg (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: minRotation
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: maxRotation
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2970,16 +2986,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0000006
       objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: minRotation
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: maxRotation
-      value: 75
-      objectReference: {fileID: 0}
     - target: {fileID: 7778856254351299446, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3000,13 +3006,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7491cceef987514a86d31ebf6af3d25, type: 3}
+--- !u!4 &6584484351671504729 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 3274472661627198563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6550624298618812717 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
@@ -3019,12 +3026,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a74a3003074cae44b109ff8981393fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &6584484351671504729 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
-    type: 3}
-  m_PrefabInstance: {fileID: 3274472661627198563}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4189969145604569363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3036,6 +3037,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spider Leg (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: maxRotation
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: minRotation
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
@@ -3102,16 +3118,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0000005
       objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: maxRotation
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: minRotation
-      value: -5
-      objectReference: {fileID: 0}
     - target: {fileID: 7778856254351299446, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3131,11 +3137,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7491cceef987514a86d31ebf6af3d25, type: 3}
@@ -3168,6 +3169,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spider Leg (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: minRotation
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: maxRotation
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
@@ -3234,16 +3250,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0000011
       objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: minRotation
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: maxRotation
-      value: 150
-      objectReference: {fileID: 0}
     - target: {fileID: 7778856254351299446, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3264,13 +3270,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7491cceef987514a86d31ebf6af3d25, type: 3}
+--- !u!4 &3510377874599228948 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 5090989786569336110}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3548811915275288672 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
@@ -3283,12 +3290,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a74a3003074cae44b109ff8981393fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &3510377874599228948 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
-    type: 3}
-  m_PrefabInstance: {fileID: 5090989786569336110}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5655060527981977152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3300,6 +3301,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spider Leg (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: maxRotation
+      value: 175
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: minRotation
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
@@ -3366,16 +3382,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0000011
       objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: maxRotation
-      value: 175
-      objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: minRotation
-      value: 125
-      objectReference: {fileID: 0}
     - target: {fileID: 7778856254351299446, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3396,13 +3402,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7491cceef987514a86d31ebf6af3d25, type: 3}
+--- !u!4 &4065419772937440634 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 5655060527981977152}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4171443796158053134 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
@@ -3415,12 +3422,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a74a3003074cae44b109ff8981393fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &4065419772937440634 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
-    type: 3}
-  m_PrefabInstance: {fileID: 5655060527981977152}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5825747940979733661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3432,6 +3433,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spider Leg (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: maxRotation
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: minRotation
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
@@ -3498,16 +3514,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0000002
       objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: maxRotation
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: minRotation
-      value: -45
-      objectReference: {fileID: 0}
     - target: {fileID: 7778856254351299446, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3528,11 +3534,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 7782104621743173314, guid: f7491cceef987514a86d31ebf6af3d25,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 154757945673811770, guid: f7491cceef987514a86d31ebf6af3d25,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3540,6 +3541,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c5ed31d07e45bfd4ab75b8f6efdba403, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7491cceef987514a86d31ebf6af3d25, type: 3}
+--- !u!4 &2794691144694671271 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 5825747940979733661}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2828273195243295187 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8617987113569428814, guid: f7491cceef987514a86d31ebf6af3d25,
@@ -3552,9 +3559,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a74a3003074cae44b109ff8981393fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &2794691144694671271 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8507733079064564538, guid: f7491cceef987514a86d31ebf6af3d25,
-    type: 3}
-  m_PrefabInstance: {fileID: 5825747940979733661}
-  m_PrefabAsset: {fileID: 0}
