@@ -32,6 +32,8 @@ public class SpiderBossBehaviour : MonoBehaviour
 
     public Transform FinalLegPoint;
 
+    public bool shouldSpawnEnemies;
+
     private float bulletDamage = 1;
     private bool hasSpawnedEnemies = false;
     private bool isTransitioning = false;
@@ -223,13 +225,16 @@ public class SpiderBossBehaviour : MonoBehaviour
                 break;
 
             case SpiderBossState.SpawnEnemies:
-                if (timeToNextState <= 0)
-                    timeToNextState = 5;
-
-                if (!hasSpawnedEnemies)
+                if (shouldSpawnEnemies)
                 {
-                    hasSpawnedEnemies = true;
-                    EnemyManager.Instance.SpawnEnemiesForBossBattle(EnemySpawnPoints);
+                    if (timeToNextState <= 0)
+                        timeToNextState = 5;
+
+                    if (!hasSpawnedEnemies)
+                    {
+                        hasSpawnedEnemies = true;
+                        EnemyManager.Instance.SpawnEnemiesForBossBattle(EnemySpawnPoints);
+                    }
                 }
                 break;
             case SpiderBossState.Stomp:
@@ -325,13 +330,16 @@ public class SpiderBossBehaviour : MonoBehaviour
                 break;
 
             case SpiderBossState.SpawnEnemies:
-                if (timeToNextState <= 0)
-                    timeToNextState = 5;
-
-                if (!hasSpawnedEnemies)
+                if (shouldSpawnEnemies)
                 {
-                    hasSpawnedEnemies = true;
-                    EnemyManager.Instance.SpawnEnemiesForBossBattle(EnemySpawnPoints);
+                    if (timeToNextState <= 0)
+                        timeToNextState = 5;
+
+                    if (!hasSpawnedEnemies)
+                    {
+                        hasSpawnedEnemies = true;
+                        EnemyManager.Instance.SpawnEnemiesForBossBattle(EnemySpawnPoints);
+                    }
                 }
                 break;
             case SpiderBossState.Stomp:
