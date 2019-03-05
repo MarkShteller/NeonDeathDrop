@@ -48,6 +48,11 @@ public class SpiderLegBehaviour : EnemyPulsing
         }
     }
 
+    public override void ForcePush(Vector3 direction, float force)
+    {
+        animator.SetTrigger("Pushed");
+    }
+
     public void ClingForYourLife(Transform FinalLegPoint)
     {
         print("Leg clinging for its life!");
@@ -78,9 +83,15 @@ public class SpiderLegBehaviour : EnemyPulsing
         if (other.CompareTag("EnemyBombTrigger"))
         {
             //override die?
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            animator.SetTrigger("Dead");
             isDead = true;
         }
+    }
+
+    public void Dead()
+    {
+        gameObject.SetActive(false);
     }
 
 }

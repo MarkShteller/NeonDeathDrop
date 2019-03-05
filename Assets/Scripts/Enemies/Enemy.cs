@@ -287,7 +287,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
         transform.rotation = toRotation;
     }
 
-    public void ForcePush(Vector3 direction, float force)
+    public virtual void ForcePush(Vector3 direction, float force)
     {
         movementStatus = MovementType.Pushed;
         rrigidBody.AddForce(direction * force);
