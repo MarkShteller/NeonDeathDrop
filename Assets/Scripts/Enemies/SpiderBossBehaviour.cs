@@ -400,11 +400,15 @@ public class SpiderBossBehaviour : MonoBehaviour
 
         spiderLegs[0].isDead = false;
         spiderLegs[0].gameObject.SetActive(true);
+        spiderLegs[0].animator.SetTrigger("Land");
         spiderLegs[3].isDead = false;
         spiderLegs[3].gameObject.SetActive(true);
+        spiderLegs[3].animator.SetTrigger("Land");
         spiderLegs[4].isDead = false;
         spiderLegs[4].gameObject.SetActive(true);
+        spiderLegs[4].animator.SetTrigger("Land");
         spiderLegs[7].isDead = false;
         spiderLegs[7].gameObject.SetActive(true);
+        spiderLegs[7].animator.SetTrigger("Land");
     }
 }
