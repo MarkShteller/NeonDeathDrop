@@ -65,6 +65,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public Animator animator;
 
+    public Color tileHighlightColor;
+
     public bool IsTestMode = false;
 
     void Start()
@@ -129,7 +131,7 @@ public class PlayerBehaviour : MonoBehaviour
                     if (dashDir == Vector3.zero)
                         dashDir = this.visualsHolder.forward *-1;//this.visualsHolder.rotation.eulerAngles.normalized;
                     print("DASH! dir: "+dashDir);
-                    //AudioManager.Instance.PlayEffect(soundEffectSource, 3);
+                    AudioManager.Instance.PlayEffect(soundEffectSource, 3);
 
                     animator.SetTrigger("Dash");
 
@@ -429,7 +431,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (prevHoveredObject != null)
             prevHoveredObject.GetComponent<Renderer>().material.color = Color.white;
         if (prevHoveredObject != null)
-            currHoveredObject.GetComponent<Renderer>().material.color = Color.red;
+            currHoveredObject.GetComponent<Renderer>().material.color = tileHighlightColor;
 
         //make a hole
         if (Input.GetMouseButtonDown(0) || ControllerInputDevice.GetLeftTriggerDown())
