@@ -29,7 +29,7 @@ public class LevelGenerator : MonoBehaviour {
     private GameObject PlayerSpawnObj = null;
     private const float NORMAL_TILE_HEIGHT = 0.5f;
     private const float WALL_TILE_HEIGHT = 0.4f;
-    private const float PIT_TILE_HEIGHT = 3f;
+    private const float PIT_TILE_HEIGHT = 10f;
     private const float CHARACTER_POS_HEIGHT = 1;//0.65f;
 
     private readonly float[] ROTATIONS = { 0f, 90f, 180f, 270f };
