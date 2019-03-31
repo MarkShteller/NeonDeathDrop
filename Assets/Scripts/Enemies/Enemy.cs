@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
     internal Rigidbody rrigidBody;
     internal float savedDrag;
-    private float onFloorYPos = 1.5f;
+    private float onFloorYPos = 4f;
 
     [HideInInspector] public LevelGenerator gridHolder;
 
@@ -132,11 +132,11 @@ public class Enemy : MonoBehaviour, IPooledObject {
     {
         movementStatus = MovementType.Falling;
         PowerUpObject powerup = PowerupFactory.Instance.RollPowerup();
-        if (powerup != null)
+        if (powerup != null && prevPointPos != null)
         {
             //TODO: instantiate powerup from pool
             Vector3 pos = gridHolder.GetGridNode(prevPointPos.x, prevPointPos.y).GetGameNodeRef().transform.position;
-            Vector3 actualPos = new Vector3(pos.x, 0.6f, pos.z);
+            Vector3 actualPos = new Vector3(pos.x, onFloorYPos -1, pos.z);
             Instantiate(powerup.prefab, actualPos, powerup.prefab.transform.rotation);
             print("creaing a powerup! "+powerup.name);
         }

@@ -34,7 +34,7 @@ public class CameraMovement : MonoBehaviour {
         {
             case CameraState.Point:
                 if (target != null)
-                    targetPosition = new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z - 17);
+                    targetPosition = new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z - 14.5f); //-8
                 else
                     target = GameObject.FindGameObjectWithTag("Player").transform;
                 break;

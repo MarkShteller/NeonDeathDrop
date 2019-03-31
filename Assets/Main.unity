@@ -2127,7 +2127,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 85389414}
-  - component: {fileID: 85389415}
   - component: {fileID: 85389416}
   m_Layer: 0
   m_Name: LevelGenerator
@@ -2150,21 +2149,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &85389415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 85389413}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4858c5c3bbc50194da1d50b7df1d0844, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cube: {fileID: 1000011195351270, guid: d41408fc664f74e41b6fa76018a9af8b, type: 3}
-  cubeGoal: {fileID: 1868131461983634, guid: 5784ca9da759f4046ae343d9a365dc36, type: 3}
-  finishedInit: 0
 --- !u!114 &85389416
 MonoBehaviour:
   m_ObjectHideFlags: 0

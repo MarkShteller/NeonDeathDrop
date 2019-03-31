@@ -27,10 +27,10 @@ public class LevelGenerator : MonoBehaviour {
     private List<GridNode> regeneratingTiles;
 
     private GameObject PlayerSpawnObj = null;
-    private const float NORMAL_TILE_HEIGHT = 0.5f;
-    private const float WALL_TILE_HEIGHT = 0.4f;
-    private const float PIT_TILE_HEIGHT = 10f;
-    private const float CHARACTER_POS_HEIGHT = 1;//0.65f;
+    private const float NORMAL_TILE_HEIGHT = 0f;
+    private const float WALL_TILE_HEIGHT = 1f;
+    private const float PIT_TILE_HEIGHT = -60f;
+    private const float CHARACTER_POS_HEIGHT = 3.265f;//0.65f;
 
     private readonly float[] ROTATIONS = { 0f, 90f, 180f, 270f };
 
@@ -52,7 +52,7 @@ public class LevelGenerator : MonoBehaviour {
     private GameObject CreateTile(int i, int j, float height, GameObject origin)
     {
         Vector3 position = new Vector3(i * origin.transform.localScale.x + i * cubeDistance,
-                                         -origin.transform.localScale.y * height,
+                                         height,
                                          j * origin.transform.localScale.z + j * cubeDistance);
 
         float rndYRotation = ROTATIONS[Random.Range(0,4)];
@@ -106,10 +106,11 @@ public class LevelGenerator : MonoBehaviour {
             {
                 tileToRemove = tile;
                 tile.SetType(TileType.Normal);
-                
+
                 //set back to original height
-                tile.GetGameNodeRef().transform.position = new Vector3(tile.GetGameNodeRef().transform.position.x, -cube.transform.localScale.y / 2, tile.GetGameNodeRef().transform.position.z);
-                tile.GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>().Rise();
+                Transform tileTransform = tile.GetGameNodeRef().transform;
+                tileTransform.position = new Vector3(tileTransform.position.x, NORMAL_TILE_HEIGHT, tileTransform.position.z);
+                tileTransform.GetComponentInChildren<BaseTileBehaviour>().Rise();
             }
         }
         if (tileToRemove != null)

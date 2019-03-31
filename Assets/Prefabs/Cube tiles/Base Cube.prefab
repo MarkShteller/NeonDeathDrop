@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000011195351270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -52.522743, y: 41.166058, z: 5.304271}
-  m_LocalScale: {x: 1, y: 10, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 4.5, z: 1}
   m_Children:
   - {fileID: 4319032174234174}
   m_Father: {fileID: 0}
@@ -73,8 +73,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593849628208470}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2739, z: 0}
-  m_LocalScale: {x: 1, y: 0.45, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000010518898392}
   m_RootOrder: 0
@@ -163,12 +163,12 @@ MonoBehaviour:
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.99522233
-      value: -2.500131
-      inSlope: -6.3872185
-      outSlope: -6.3872185
+      value: -10.008248
+      inSlope: -19.986958
+      outSlope: -19.986958
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.051357478
+      inWeight: 0.054206252
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2

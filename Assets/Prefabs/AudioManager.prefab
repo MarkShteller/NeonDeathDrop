@@ -174,15 +174,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Club_low
-    clip: {fileID: 8300000, guid: 0dda88dfc3b222d4aa57d0424c994b08, type: 3}
+    clip: {fileID: 8300000, guid: bdeb541f981d9094286ce5c82ab4795c, type: 3}
     volume: 0.506
     loop: 1
   - name: Club_high1
-    clip: {fileID: 8300000, guid: 35da9e1a4c3da2f42ac07cfdb035e353, type: 3}
+    clip: {fileID: 8300000, guid: 59c223f883cad984b9f4af1b2872fdaf, type: 3}
     volume: 0.31
     loop: 1
   - name: Club_high2
-    clip: {fileID: 8300000, guid: f8aad940bfb717947892fa7a20ff1f84, type: 3}
+    clip: {fileID: 8300000, guid: de1ae7167dc5392429d626c2824246c4, type: 3}
     volume: 0.31
     loop: 1
   - name: Dash
@@ -190,7 +190,7 @@ MonoBehaviour:
     volume: 0.55
     loop: 0
   - name: Giant_Impact
-    clip: {fileID: 8300000, guid: cf13486d62a8d204183bff4eb359125b, type: 3}
+    clip: {fileID: 8300000, guid: 935837a8292ea524c874efb010af14a5, type: 3}
     volume: 0.55
     loop: 1
   MusicSource1: {fileID: 82529548209684300}
