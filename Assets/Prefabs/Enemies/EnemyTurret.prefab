@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 136450231305252236}
   - component: {fileID: 54439717523520774}
   - component: {fileID: 114546808685782856}
+  - component: {fileID: 6086610726445503127}
   m_Layer: 2
   m_Name: EnemyTurret
   m_TagString: Enemy
@@ -88,11 +89,30 @@ MonoBehaviour:
   minDistanceTargeting: 1
   maxDistanceTargeting: 10
   ZapEffect: {fileID: 1253215109533916}
-  animator: {fileID: 0}
+  animator: {fileID: 6086610726445503127}
   gridHolder: {fileID: 0}
   shootInterval: 2
   bulletNameInPool: Projectile
   bulletSpawnPoint: {fileID: 4549616636117594}
+--- !u!95 &6086610726445503127
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193038803940318}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f2a207b754e826d48a9a4643dc5a82d3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1253215109533916
 GameObject:
   m_ObjectHideFlags: 0

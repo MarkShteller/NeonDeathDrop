@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
     internal MovementType movementStatus;
     internal RigidbodyConstraints constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
-    internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, Falling, Shooting, Pulse }
+    internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, Falling, Shooting, Pulse, Dead }
 
     /*private void Awake()
     {
@@ -130,15 +130,18 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
     public void Die()
     {
-        movementStatus = MovementType.Falling;
-        PowerUpObject powerup = PowerupFactory.Instance.RollPowerup();
-        if (powerup != null && prevPointPos != null)
+        if (movementStatus != MovementType.Dead)
         {
-            //TODO: instantiate powerup from pool
-            Vector3 pos = gridHolder.GetGridNode(prevPointPos.x, prevPointPos.y).GetGameNodeRef().transform.position;
-            Vector3 actualPos = new Vector3(pos.x, onFloorYPos -1, pos.z);
-            Instantiate(powerup.prefab, actualPos, powerup.prefab.transform.rotation);
-            print("creaing a powerup! "+powerup.name);
+            movementStatus = MovementType.Falling;
+            PowerUpObject powerup = PowerupFactory.Instance.RollPowerup();
+            if (powerup != null && prevPointPos != null)
+            {
+                //TODO: instantiate powerup from pool
+                Vector3 pos = gridHolder.GetGridNode(prevPointPos.x, prevPointPos.y).GetGameNodeRef().transform.position;
+                Vector3 actualPos = new Vector3(pos.x, onFloorYPos - 1, pos.z);
+                Instantiate(powerup.prefab, actualPos, powerup.prefab.transform.rotation);
+                print("creaing a powerup! " + powerup.name);
+            }
         }
     }
 
@@ -182,14 +185,24 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 break;
 
             case MovementType.Falling:
-                print("Enemy is falling...");
-                GameManager.Instance.AddScoreMultiplier(deathScoreMultiplier);
-                GameManager.Instance.AddScore(pointsReward);
-                //CameraShaker.Instance.ShakeOnce(2f, 4f, 0.1f, 1f);
-                GameManager.Instance.IncrementEnemyKillCount();
-                gameObject.SetActive(false);
+                DyingAction();
+                break;
+
+            case MovementType.Dead:
                 break;
         }
+    }
+
+    internal virtual void DyingAction()
+    {
+        print("Enemy is falling...");
+        GameManager.Instance.AddScoreMultiplier(deathScoreMultiplier);
+        GameManager.Instance.AddScore(pointsReward);
+        //CameraShaker.Instance.ShakeOnce(2f, 4f, 0.1f, 1f);
+        GameManager.Instance.IncrementEnemyKillCount();
+        //gameObject.SetActive(false);
+        animator.SetTrigger("Dead");
+        movementStatus = MovementType.Dead;
     }
 
     internal virtual void PulseAction() { }
@@ -291,6 +304,12 @@ public class Enemy : MonoBehaviour, IPooledObject {
     {
         movementStatus = MovementType.Pushed;
         rrigidBody.AddForce(direction * force);
+        animator.SetTrigger("TakeHit");
+    }
+
+    public void DeathEvent()
+    {
+        gameObject.SetActive(false);
     }
 
     private bool IsNear(Vector3 pos1, Vector3 pos2, float threshold)

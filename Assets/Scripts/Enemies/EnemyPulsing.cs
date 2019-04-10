@@ -40,6 +40,12 @@ public class EnemyPulsing : Enemy
         }
     }
 
+    internal override void DyingAction()
+    {
+        base.DyingAction();
+        gameObject.SetActive(false);
+    }
+
     //triggered by animation
     public void PulseTrigger()
     {

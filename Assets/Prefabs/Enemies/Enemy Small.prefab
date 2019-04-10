@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 23000013626841110}
   - component: {fileID: 114139202628495816}
   - component: {fileID: 54346744687011062}
+  - component: {fileID: 6277374556112385189}
   m_Layer: 2
   m_Name: Enemy Small
   m_TagString: Enemy
@@ -117,7 +118,7 @@ MonoBehaviour:
   minDistanceTargeting: 0
   maxDistanceTargeting: 10
   ZapEffect: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 6277374556112385189}
   gridHolder: {fileID: 0}
 --- !u!54 &54346744687011062
 Rigidbody:
@@ -135,6 +136,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!95 &6277374556112385189
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012726947038}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3d4cba8378ffe084db5c2900eae8fbbc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1056150341344344
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,4 +47,10 @@ public class EnemyTurret : Enemy
         }
     }
 
+    internal override void DyingAction()
+    {
+        base.DyingAction();
+        gameObject.SetActive(false);
+    }
+
 }

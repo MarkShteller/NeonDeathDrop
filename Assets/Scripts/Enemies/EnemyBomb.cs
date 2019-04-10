@@ -46,4 +46,10 @@ public class EnemyBomb : Enemy
             LevelGenerator.Instance.SetGridNodeType(node, TileType.Pit, holeTimeToRegen);
         }
     }
+
+    internal override void DyingAction()
+    {
+        base.DyingAction();
+        gameObject.SetActive(false);
+    }
 }

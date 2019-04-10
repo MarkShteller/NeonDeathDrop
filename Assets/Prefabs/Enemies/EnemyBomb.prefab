@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 136304190263266670}
   - component: {fileID: 54273542037627344}
   - component: {fileID: 114151630905955260}
+  - component: {fileID: 6412908939367656932}
   m_Layer: 2
   m_Name: EnemyBomb
   m_TagString: Enemy
@@ -232,11 +233,30 @@ MonoBehaviour:
   minDistanceTargeting: 0
   maxDistanceTargeting: 10
   ZapEffect: {fileID: 1998928073894030}
-  animator: {fileID: 0}
+  animator: {fileID: 6412908939367656932}
   gridHolder: {fileID: 0}
   explotionRadius: 2
   holeTimeToRegen: 4
   sphereCollider: {fileID: 135527861883461222}
+--- !u!95 &6412908939367656932
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866288139915432}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 402705d5766793a40b81167947d982f2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1998771093570040
 GameObject:
   m_ObjectHideFlags: 0
