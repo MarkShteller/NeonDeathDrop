@@ -429,9 +429,11 @@ public class PlayerBehaviour : MonoBehaviour
     private void ManipulateFloor()
     {
         if (prevHoveredObject != null)
-            prevHoveredObject.GetComponent<Renderer>().material.color = Color.white;
-        if (prevHoveredObject != null)
-            currHoveredObject.GetComponent<Renderer>().material.color = tileHighlightColor;
+            if(prevHoveredObject.tag != "WeakCube")
+                prevHoveredObject.GetComponent<Renderer>().material.color = Color.white;
+        if (currHoveredObject != null)
+            if(currHoveredObject.tag != "WeakCube")
+                currHoveredObject.GetComponent<Renderer>().material.color = tileHighlightColor;
 
         //make a hole
         if (Input.GetMouseButtonDown(0) || ControllerInputDevice.GetLeftTriggerDown())
@@ -465,7 +467,7 @@ public class PlayerBehaviour : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit))
         {
-            if (hit.transform.tag == "FloorCube")
+            if (hit.transform.tag == "FloorCube" || hit.transform.tag == "WeakCube")
             {
                 string name = hit.transform.parent.name;
                 string[] posArr = name.Split(',');
@@ -474,24 +476,35 @@ public class PlayerBehaviour : MonoBehaviour
 
                 if (pPoint != null)
                 {
-                    if (gridHolder.GetGridNodeType(pPoint.x, pPoint.y) == TileType.Occupied)
-                        gridHolder.SetGridNodeType(pPoint.x, pPoint.y, TileType.Normal);
+                    GridNode gNode = gridHolder.GetGridNode(pPoint.x, pPoint.y);
+                    if (gNode.GetTileType() == TileType.Occupied)
+                        gNode.SetType(TileType.Normal);
                 }
 
                 GameManager.Instance.playerPointPosition = new Point(int.Parse(posArr[0]), int.Parse(posArr[1]));
-                //this is a temp if
                 pPoint = GameManager.Instance.playerPointPosition;
-                if (pPoint != null && gridHolder.GetGridNodeType(pPoint.x, pPoint.y) != TileType.Pit)
-                {
-                    gridHolder.SetGridNodeType(pPoint.x, pPoint.y, TileType.Occupied);
-                    timeOverPit = 0;
-                }
 
-                if (pPoint != null && gridHolder.GetGridNodeType(pPoint.x, pPoint.y) == TileType.Pit)
+                if (pPoint != null)
                 {
-                    timeOverPit += Time.deltaTime;
-                    if (!isDashing && timeOverPit >= 0.3f)
-                        FellIntoAPit();
+                    GridNode gNode = gridHolder.GetGridNode(pPoint.x, pPoint.y);
+
+                    if (gNode.GetTileType() == TileType.Weak)
+                    {
+                        gNode.GetGameNodeRef().GetComponentInChildren<WeakTileBehaviour>().StepOnTile(()=> gNode.SetType(TileType.Pit));
+                    }
+
+                    if (gNode.GetTileType() != TileType.Pit)
+                    {
+                        gridHolder.SetGridNodeType(pPoint.x, pPoint.y, TileType.Occupied);
+                        timeOverPit = 0;
+                    }
+
+                    if (gNode.GetTileType() == TileType.Pit)
+                    {
+                        timeOverPit += Time.deltaTime;
+                        if (!isDashing && timeOverPit >= 0.3f)
+                            FellIntoAPit();
+                    }
                 }
             }
         }

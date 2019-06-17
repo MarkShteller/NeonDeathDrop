@@ -4,7 +4,7 @@ using SettlersEngine;
 using System;
 
 
-public enum TileType { Pit, Normal, Wall, Occupied, PlayerOrigin = 10, EnemySpawn, Goal, Gate, Checkpoint, None = 99}
+public enum TileType { Pit, Normal, Wall, Occupied, PlayerPit, PlayerOrigin = 10, EnemySpawn, Goal, Gate, Checkpoint, Weak, None = 99}
 
 public class GridNode : IPathNode<GridNode>
 {
@@ -43,7 +43,7 @@ public class GridNode : IPathNode<GridNode>
 
     public bool IsWalkable(GridNode inContext)
     {
-        return type == TileType.Normal || type == TileType.Occupied;
+        return type == TileType.Normal || type == TileType.Occupied || type == TileType.Weak;
     }
 
     public void SetType(TileType type)

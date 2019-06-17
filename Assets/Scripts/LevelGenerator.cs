@@ -16,6 +16,7 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject cubeGoal;
     public GameObject cubeGate;
     public GameObject checkpointCube;
+    public GameObject weakCube;
 
     private LevelScriptableObject levelData;
 
@@ -251,6 +252,9 @@ public class LevelGenerator : MonoBehaviour {
                         break;
                     case TileType.Checkpoint:
                         grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, checkpointCube));
+                        break;
+                    case TileType.Weak:
+                        grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, weakCube));
                         break;
                     case TileType.None:
                         grid[x, y] = new GridNode(TileType.None);

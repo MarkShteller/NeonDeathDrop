@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour, IPooledObject {
     public float minDistanceTargeting;
     public float maxDistanceTargeting;
 
+    public bool shouldEvadePlayerPits;
+
     public GameObject ZapEffect;
 
     public Animator animator;
@@ -94,7 +96,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit))
         {
-            if (hit.transform.CompareTag("FloorCube") || hit.transform.CompareTag("WallCube"))
+            if (hit.transform.CompareTag("FloorCube") || hit.transform.CompareTag("WallCube") || hit.transform.CompareTag("WeakCube"))
             {
                 //if the old pointpos is occupied, set it to normal.
                 if(pointPos != null && gridHolder.GetGridNodeType(pointPos.x, pointPos.y) == TileType.Occupied)
@@ -106,13 +108,20 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 prevPointPos = pointPos;
                 pointPos = new Point(int.Parse(posArr[0]), int.Parse(posArr[1]));
 
-                if (gridHolder.GetGridNodeType(pointPos.x, pointPos.y) == TileType.Pit)
+
+                GridNode gNode = gridHolder.GetGridNode(pointPos.x, pointPos.y);
+
+                if (gNode.GetTileType() == TileType.Weak)
+                {
+                    gNode.GetGameNodeRef().GetComponentInChildren<WeakTileBehaviour>().StepOnTile(() => gNode.SetType(TileType.Pit));
+                }
+                else if (gNode.GetTileType() == TileType.Pit)
                 {
                     Die();
                 }
                 else
                 {
-                    gridHolder.SetGridNodeType(pointPos.x, pointPos.y, TileType.Occupied);
+                    gNode.SetType(TileType.Occupied);
                 }
             }
         }
