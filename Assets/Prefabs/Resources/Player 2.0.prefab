@@ -5037,6 +5037,7 @@ MonoBehaviour:
   forcePushFloorTrigger: {fileID: 4876727618746287658}
   animator: {fileID: 8006480085634030332}
   tileHighlightColor: {r: 1, g: 0.24313726, b: 0.5647059, a: 1}
+  tileOriginalColor: {r: 1, g: 0.9662642, b: 0.8820755, a: 1}
   IsTestMode: 0
 --- !u!54 &54492051674860394
 Rigidbody:
@@ -5465,6 +5466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capsuleCollider: {fileID: 135198502196442920}
+  playerBehaviour: {fileID: 114213319975187512}
 --- !u!135 &135198502196442920
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5572,7 +5574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1182166636108811714
 Transform:
   m_ObjectHideFlags: 0

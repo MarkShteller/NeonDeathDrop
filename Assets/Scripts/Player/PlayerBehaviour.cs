@@ -41,6 +41,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float lastTimeDamageTaken=0;
     private bool enableDash = true;
     private bool isDashing = false;
+    private Vector3 lastDashDir;
 
     private float timeOverPit = 0;
 
@@ -48,6 +49,7 @@ public class PlayerBehaviour : MonoBehaviour
     [HideInInspector] public GameObject currHoveredObject;
 
     [HideInInspector] public bool enableControlls = true;
+    private bool isFalling;
 
     //private float defaultRadius = 0.35f;
     private Vector3 defaultForcePushTriggerSize;
@@ -66,6 +68,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Animator animator;
 
     public Color tileHighlightColor;
+    public Color tileOriginalColor;
 
     public bool IsTestMode = false;
 
@@ -79,6 +82,7 @@ public class PlayerBehaviour : MonoBehaviour
         healthPoints = totalHealthPoints;
         coresCount = 0;
         enemyDefeatedCount = 0;
+        isFalling = false;
         activePowerUps = new List<BasePowerupBehaviour>();
     }
 
@@ -115,7 +119,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (playerRotation.sqrMagnitude > 0.0f)
             {
-                this.visualsHolder.rotation = Quaternion.LookRotation(playerRotation, Vector3.up);
+                this.visualsHolder.rotation = Quaternion.Slerp(visualsHolder.rotation, Quaternion.LookRotation(playerRotation, Vector3.up), 0.5f);
             }
 
             //Vector2 hoverAnimDir = GetMovementDirection(new Vector2(xMove, zMove), new Vector2(visualsHolder.forward.x, visualsHolder.forward.z));
@@ -155,6 +159,7 @@ public class PlayerBehaviour : MonoBehaviour
                     coresCount -= shockwaveCoreCost;
                     UIManager.Instance.SetCoreCount(coresCount);
                     print("SHOCKWAVE!");
+                    GameManager.Instance.ShockwaveSlomo(8);
                     CameraShaker.Instance.ShakeOnce(2f, 8f, 0.1f, 2.5f);
                     shockwaveBehavior.gameObject.SetActive(true);
                     StartCoroutine(shockwaveBehavior.Shockwave(10));
@@ -180,9 +185,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private IEnumerator DashCoroutine(Vector3 direction, float duration)
     {
+        lastDashDir = direction;
         isDashing = true;
         float time = duration;
-        while (time > 0 && enableDash)
+        while (time > 0 && enableDash && isDashing)
         {
             time -= Time.deltaTime;
             enableControlls = false;
@@ -198,7 +204,7 @@ public class PlayerBehaviour : MonoBehaviour
         forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + 1, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius);
         forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius / 2);
         StartCoroutine(ShowForcePushEffect(0.1f));
-        StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(0.1f));
+        StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(0.2f));
     }
 
     void Update()
@@ -332,7 +338,19 @@ public class PlayerBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            TakeDamage(enemy.damage);
+            if (isDashing)
+            {
+                isDashing = false;
+
+                enemy.ForcePush(lastDashDir, pushForce * 1.5f);
+
+                GameManager.Instance.DashSlomo(2f);
+                ObjectPooler.Instance.SpawnFromPool("HitEffect", enemy.transform.position, enemy.transform.rotation);
+            }
+            else
+            {
+                TakeDamage(enemy.damage);
+            }
         }
         if (collision.gameObject.CompareTag("GoalCube"))
         {
@@ -343,6 +361,12 @@ public class PlayerBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("WallCube") || collision.gameObject.CompareTag("GateCube"))
         {
             enableDash = false;
+        }
+        if (isFalling && collision.gameObject.CompareTag("FloorCube"))
+        {
+            shockwaveBehavior.gameObject.SetActive(true);
+            StartCoroutine(shockwaveBehavior.Shockwave(3, true));
+            isFalling = false;
         }
     }
 
@@ -399,7 +423,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void FellIntoAPit()
     {
         enableControlls = false;
-
+        isFalling = true;
         //Transform respawnPoint = prevHoveredObject.transform;
         //transform.position = new Vector3(respawnPoint.position.x, 10, respawnPoint.position.z);
         if(checkpoint != null)
@@ -414,6 +438,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         //SphereCollider sc = GetComponent<SphereCollider>();
         yield return new WaitForSeconds(1);
+
+        
+
         enableControlls = true;
     }
 
@@ -430,17 +457,17 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (prevHoveredObject != null)
             if(prevHoveredObject.tag != "WeakCube")
-                prevHoveredObject.GetComponent<Renderer>().material.color = Color.white;
+                prevHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileOriginalColor);
         if (currHoveredObject != null)
-            if(currHoveredObject.tag != "WeakCube")
-                currHoveredObject.GetComponent<Renderer>().material.color = tileHighlightColor;
+            if (currHoveredObject.tag != "WeakCube")
+                currHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileHighlightColor);
 
         //make a hole
         if (Input.GetMouseButtonDown(0) || ControllerInputDevice.GetLeftTriggerDown())
         {
             if (manaPoints >= holeManaCost)
             {
-                Transform tileTransform = currHoveredObject.transform;
+                Transform tileTransform = currHoveredObject.transform.parent;
                 string name = tileTransform.parent.name;
                 Debug.Log("pressed on grid cube: " + name);
 

@@ -13,7 +13,7 @@ public class EnemyTurret : Enemy
     internal override void Init()
     {
         base.Init();
-        timeToShoot = shootInterval;
+        timeToShoot = 0.5f;
     }
 
     /*internal override void LookAtPlayer()

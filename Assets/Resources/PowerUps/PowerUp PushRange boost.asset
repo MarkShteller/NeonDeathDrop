@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -13,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpName: Push Range Boost
   type: 3
-  bonus: 1.5
+  bonus: 2
   effectTime: 20
   count: -1
   weight: 5
-  prefab: {fileID: 1297170229001578, guid: 9ba69982164337f4caa47641a64b8f82, type: 2}
+  prefab: {fileID: 1297170229001578, guid: 9ba69982164337f4caa47641a64b8f82, type: 3}
+  powerupImage: {fileID: 0}

@@ -50,7 +50,72 @@ MonoBehaviour:
   PlayerInstance: {fileID: 0}
   cameraRef: {fileID: 0}
   levelManager: {fileID: 114524042694302210}
-  CurrentLevelIndex: 12
+  slomoCurves:
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1.3547992
+      outSlope: -1.3547992
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.089242235
+    - serializedVersion: 3
+      time: 0.10069408
+      value: 0.22063237
+      inSlope: -0.7671993
+      outSlope: -0.7671993
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.42431688
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.3398508
+      outSlope: 0.3398508
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.11231097
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1.3547992
+      outSlope: -1.3547992
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.089242235
+    - serializedVersion: 3
+      time: 0.38195935
+      value: 0.3500269
+      inSlope: -0.7671993
+      outSlope: -0.7671993
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.42431688
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.3398508
+      outSlope: 0.3398508
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.11231097
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  CurrentLevelIndex: 13
 --- !u!114 &114524042694302210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,6 +142,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 20e5273ddccff36419290fab218d7554, type: 2}
   - {fileID: 11400000, guid: 8d7f860ec14474344a068c0882ca5b89, type: 2}
   - {fileID: 11400000, guid: ac3e23c35dc6a5a47a79f95821213407, type: 2}
+  - {fileID: 11400000, guid: 06ad3605cd485164ca0498383ca30c6a, type: 2}
   - {fileID: 11400000, guid: b6ccd9f0d5ca822469b01003694c5b17, type: 2}
 --- !u!114 &114770275826884334
 MonoBehaviour:

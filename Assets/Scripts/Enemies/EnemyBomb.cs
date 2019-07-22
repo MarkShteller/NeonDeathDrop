@@ -21,7 +21,7 @@ public class EnemyBomb : Enemy
         float ogRadius = sphereCollider.radius;
         while (sphereCollider.radius < radius)
         {
-            sphereCollider.radius += Time.deltaTime * 1;
+            sphereCollider.radius += Time.deltaTime * 0.2f; ///
             yield return null;
         }
 

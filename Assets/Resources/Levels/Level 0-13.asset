@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
+  m_Name: Level 0-13
+  m_EditorClassIdentifier: 
+  map: {fileID: 2800000, guid: f9d0d6c6715281c4387f4725db90994e, type: 3}
+  Spawners:
+  - {fileID: 11400000, guid: 8d5f2a36915320f49afdf69f17e661fe, type: 2}
+  - {fileID: 11400000, guid: 592eb8bcd1931f7439955f39cac59076, type: 2}
+  - {fileID: 11400000, guid: b5817390fe814824facbe11a8e466ef3, type: 2}
+  - {fileID: 11400000, guid: 0706b85e7a91b6f4392068977d564fc8, type: 2}
+  - {fileID: 11400000, guid: 1fadf30ba7e34214d804cbda1fff6e74, type: 2}
+  - {fileID: 11400000, guid: d19566828332efe43a3c3ee9fcd2a8f0, type: 2}
+  enemyDefeatedCountGoals: 0000000032000000320000003200000032000000
+  fieldRotationAngle: -45
+  musicName: Club_high3
+  backdrop: {fileID: 1672696130396096, guid: 0b39517a651c6bb459fc03a64afff70e, type: 3}
+  powerupWeights: 1e00000005000000320000000f00000005000000050000000500000005000000
+  showEndLevelReport: 0
+  targetScore: 0
+  targetScoreRankMod: 0
+  targetMaxMultiplier: 0
+  targetMaxMultiplierRankMod: 0
+  targetTime: 0
+  targetTimeRankMod: 0
+  targetEnemyCount: 0
+  targetEnemyCountRankMod: 0
+  targetDamage: 0
+  targetDamageRankMod: 0

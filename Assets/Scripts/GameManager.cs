@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour {
     public CameraMovement cameraRef;
 
     public LevelManager levelManager;
+
+    public AnimationCurve[] slomoCurves;
+
     public int CurrentLevelIndex = 0;
 
     private LevelScriptableObject currentLevelData;
@@ -37,6 +40,8 @@ public class GameManager : MonoBehaviour {
         }
 
         DontDestroyOnLoad(gameObject);
+
+        Application.targetFrameRate = 60;
 
         StartCoroutine(InitLevel());
         print("## GameManager ready");
@@ -151,6 +156,29 @@ public class GameManager : MonoBehaviour {
             UIManager.Instance.OpenEndLevelDialog(score, maxScoreMultiplier, levelTime, PlayerInstance.enemyDefeatedCount, damageTaken, currentLevelData);
         else
             NextLevel();
+    }
+
+    public void DashSlomo(float duration)
+    {
+        StartCoroutine(SlomoCoroutine(duration, slomoCurves[0]));
+    }
+
+    public void ShockwaveSlomo(float duration)
+    {
+        StartCoroutine(SlomoCoroutine(duration, slomoCurves[1]));
+    }
+
+    private IEnumerator SlomoCoroutine(float duration, AnimationCurve curve)
+    {
+        float time = 0;
+        float timeStarted = Time.time;
+        while (time <= duration)
+        {
+            Time.timeScale = curve.Evaluate(time / duration);
+
+            time += Time.time - timeStarted;
+            yield return null;
+        }
     }
 
 }
