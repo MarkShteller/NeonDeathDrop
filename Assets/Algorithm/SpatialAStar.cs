@@ -55,6 +55,7 @@ namespace SettlersEngine
         public TPathNode[,] SearchSpace { get; private set; }
         public int Width { get; private set; }
         public int Height { get; private set; }
+        public bool shouldEvadePlayerPits;
 
         protected class PathNode : IPathNode<TUserContext>, IComparer<PathNode>, IIndexedObject
         {
@@ -65,10 +66,11 @@ namespace SettlersEngine
             public Double H { get; internal set; }
             public Double F { get; internal set; }
             public int Index { get; set; }
+            public bool shouldEvadePlayerPits;
 
             public Boolean IsWalkable(TUserContext inContext)
             {
-                return UserContext.IsWalkable(inContext);
+                return UserContext.IsWalkable(inContext);// && (shouldEvadePlayerPits && );
             }
 
             public int X { get; internal set; }

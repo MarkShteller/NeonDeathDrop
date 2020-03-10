@@ -100,17 +100,14 @@ public class PlayerBehaviour : MonoBehaviour
             }
             transform.Translate(xMove * movementSpeed, 0, zMove * movementSpeed);
 
-            /*
-            float xLook = Input.GetAxis("HorizontalLook");
-            float yLook = Input.GetAxis("VerticalLook");
-            float angle = AngleFromJoystick(xLook, yLook);
+            Vector3 rotation = this.visualsHolder.forward;
+            /*Vector2 moveDirection = GetMovementDirection(new Vector2(xMove, zMove), new Vector2(rotation.x, rotation.z));
 
-            //Debug.LogFormat("x: {0} y: {1} angle: {2}",xLook, yLook, angle);
+            Vector3 euler = visualsHolder.transform.localEulerAngles;
+            euler.z = Mathf.Lerp(euler.z, moveDirection.y * 10, Time.deltaTime * 2);
+            euler.x = Mathf.Lerp(euler.x, moveDirection.x * 10, Time.deltaTime * 2);
+            visualsHolder.transform.localEulerAngles = euler;*/
 
-            //rotate only if there is an input
-            if (xLook != 0 || yLook != 0)
-                this.visualsHolder.rotation = Quaternion.AngleAxis(angle - 90, Vector3.up);
-                */
 
             Vector3 playerRotation = Vector3.right * -Input.GetAxisRaw("HorizontalLook") + Vector3.forward * Input.GetAxisRaw("VerticalLook");
 
@@ -122,9 +119,6 @@ public class PlayerBehaviour : MonoBehaviour
                 this.visualsHolder.rotation = Quaternion.Slerp(visualsHolder.rotation, Quaternion.LookRotation(playerRotation, Vector3.up), 0.5f);
             }
 
-            //Vector2 hoverAnimDir = GetMovementDirection(new Vector2(xMove, zMove), new Vector2(visualsHolder.forward.x, visualsHolder.forward.z));
-            //animator.SetFloat("HoverZ", hoverAnimDir.x);
-
             if (ControllerInputDevice.GetDashButtonDown())
             {
                 if (manaPoints >= dashManaCost && enableDash)
@@ -133,13 +127,13 @@ public class PlayerBehaviour : MonoBehaviour
 
                     Vector3 dashDir = new Vector3(xMove, 0, zMove).normalized;
                     if (dashDir == Vector3.zero)
-                        dashDir = this.visualsHolder.forward *-1;//this.visualsHolder.rotation.eulerAngles.normalized;
+                        dashDir = this.visualsHolder.forward *-1;
                     print("DASH! dir: "+dashDir);
                     AudioManager.Instance.PlayEffect(soundEffectSource, 3);
 
                     animator.SetTrigger("Dash");
 
-                    Vector3 rotation = this.visualsHolder.forward;//this.visualsHolder.rotation.eulerAngles.normalized * -1;
+                    //Vector3 rotation = this.visualsHolder.forward;//this.visualsHolder.rotation.eulerAngles.normalized * -1;
                     print("dash vis dir: " + rotation);
 
                     Vector2 dashAnimDirection = GetMovementDirection(new Vector2(xMove, zMove), new Vector2(rotation.x, rotation.z));
@@ -201,7 +195,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void PreformPush()
     {
-        forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + 1, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius);
+        forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + 2, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius);
         forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius / 2);
         StartCoroutine(ShowForcePushEffect(0.1f));
         StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(0.2f));
@@ -266,8 +260,12 @@ public class PlayerBehaviour : MonoBehaviour
         {
             case PowerUpType.Health:
                 healthPoints += powerUp.bonus;
+
                 if (healthPoints > totalHealthPoints)
                     healthPoints = totalHealthPoints;
+                if (healthPoints > 2)
+                    GameManager.Instance.cameraRef.SetLowHealth(false);
+
                 UIManager.Instance.SetHealth(healthPoints / totalHealthPoints);
                 break;
             case PowerUpType.Core:
@@ -345,6 +343,7 @@ public class PlayerBehaviour : MonoBehaviour
                 enemy.ForcePush(lastDashDir, pushForce * 1.5f);
 
                 GameManager.Instance.DashSlomo(2f);
+                GameManager.Instance.cameraRef.FastZoom();
                 ObjectPooler.Instance.SpawnFromPool("HitEffect", enemy.transform.position, enemy.transform.rotation);
             }
             else
@@ -409,6 +408,11 @@ public class PlayerBehaviour : MonoBehaviour
             if (healthPoints <= 0)
             {
                 GameManager.Instance.GameOver();
+                GameManager.Instance.cameraRef.SetLowHealth(false);
+            }
+            else if (healthPoints <= 2)
+            {
+                GameManager.Instance.cameraRef.SetLowHealth(true);
             }
 
             GameManager.Instance.cameraRef.GlitchScreen();

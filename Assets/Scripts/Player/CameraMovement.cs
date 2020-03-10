@@ -11,6 +11,7 @@ public class CameraMovement : MonoBehaviour {
     public Transform targetB;
 
     public Animation screenGlitchAnim;
+    public Animator animator;
     
     private void Start()
     {
@@ -64,6 +65,17 @@ public class CameraMovement : MonoBehaviour {
 
     public void GlitchScreen()
     {
-        screenGlitchAnim.Play();
+        //screenGlitchAnim.Play();
+        animator.SetTrigger("Glitch");
+    }
+
+    public void FastZoom()
+    {
+        animator.SetTrigger("FastZoom");
+    }
+
+    public void SetLowHealth(bool b)
+    {
+        animator.SetBool("LowHealth", b);
     }
 }

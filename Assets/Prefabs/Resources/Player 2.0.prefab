@@ -5013,11 +5013,11 @@ MonoBehaviour:
   manaRegenAmount: 3
   holeTimeToRegen: 10
   pushManaCost: 1
-  holeManaCost: 3
+  holeManaCost: 2
   dashManaCost: 4
   shockwaveCoreCost: 3
-  dashDuration: 0.25
-  dashSpeed: 170
+  dashDuration: 0.2
+  dashSpeed: 200
   fallDamage: 1
   takenDamageCooldown: 0.5
   coresCount: 0
@@ -5027,7 +5027,7 @@ MonoBehaviour:
   prevHoveredObject: {fileID: 0}
   currHoveredObject: {fileID: 0}
   enableControlls: 1
-  pushRadius: 4.5
+  pushRadius: 5
   pushForce: 1300
   forcePushTriggerCollider: {fileID: 65060972803943054}
   forcePushEffect: {fileID: 1367832806280860}
@@ -7775,27 +7775,27 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 8b6423ef24842224098fe8116597d8b9, type: 2}
     - target: {fileID: 13700026, guid: 1ece86fca43beb44383d0300d2179d4c, type: 3}
       propertyPath: m_AABB.m_Center.x
-      value: -0.24663568
+      value: 0.00000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 13700026, guid: 1ece86fca43beb44383d0300d2179d4c, type: 3}
       propertyPath: m_AABB.m_Center.y
-      value: -0.11597586
+      value: 1.6338556
       objectReference: {fileID: 0}
     - target: {fileID: 13700026, guid: 1ece86fca43beb44383d0300d2179d4c, type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: 0.000085327774
+      value: -0.13850725
       objectReference: {fileID: 0}
     - target: {fileID: 13700026, guid: 1ece86fca43beb44383d0300d2179d4c, type: 3}
       propertyPath: m_AABB.m_Extent.x
-      value: 0.30621344
+      value: 0.6186288
       objectReference: {fileID: 0}
     - target: {fileID: 13700026, guid: 1ece86fca43beb44383d0300d2179d4c, type: 3}
       propertyPath: m_AABB.m_Extent.y
-      value: 0.34595892
+      value: 0.56029993
       objectReference: {fileID: 0}
     - target: {fileID: 13700026, guid: 1ece86fca43beb44383d0300d2179d4c, type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0.50560254
+      value: 0.4401298
       objectReference: {fileID: 0}
     - target: {fileID: 13700024, guid: 1ece86fca43beb44383d0300d2179d4c, type: 3}
       propertyPath: m_Materials.Array.data[0]

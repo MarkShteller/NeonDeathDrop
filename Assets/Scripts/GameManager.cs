@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour {
     public void NextLevel()
     {
         CurrentLevelIndex++;
+        cameraRef.SetLowHealth(false);
         RestartLevel(false);
     }
 
