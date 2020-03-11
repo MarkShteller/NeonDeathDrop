@@ -134,6 +134,9 @@ Transform:
   - {fileID: 3664643570436498986}
   - {fileID: 4433131962939124069}
   - {fileID: 2015490388361457066}
+  - {fileID: 3287331720633553043}
+  - {fileID: 6732365642918859876}
+  - {fileID: 5961010179838293941}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10086,6 +10089,52 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &5261904240247844217
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5961010179838293941}
+  - component: {fileID: 2275595263575258716}
+  m_Layer: 0
+  m_Name: FlyingCar Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5961010179838293941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5261904240247844217}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4899440095617590}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2275595263575258716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5261904240247844217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb762290d920267409788bff87f96c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carSpawnRate: 0.3
+  customDollies:
+  - {fileID: 3568374764870570635}
 --- !u!1 &5307666186717082707
 GameObject:
   m_ObjectHideFlags: 0
@@ -18151,6 +18200,71 @@ Transform:
   m_Father: {fileID: 2574110247407309338}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: -45, z: 0}
+--- !u!1 &9021692421930799688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6732365642918859876}
+  - component: {fileID: 1335043802209259977}
+  - component: {fileID: 3568374764870570635}
+  m_Layer: 0
+  m_Name: DollyCart1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6732365642918859876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9021692421930799688}
+  m_LocalRotation: {x: -0.00048269864, y: 0.92259395, z: -0.0011544038, w: -0.38577044}
+  m_LocalPosition: {x: 133.08401, y: -25.283838, z: 254.45113}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 798994601489296992}
+  m_Father: {fileID: 4899440095617590}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1335043802209259977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9021692421930799688}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a9c787e5d1bbf48a389834c4a9641c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Path: {fileID: 6079687262979871715}
+  m_UpdateMethod: 0
+  m_PositionUnits: 1
+  m_Speed: 30
+  m_Position: 9.45444
+--- !u!114 &3568374764870570635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9021692421930799688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025b53e53aec61d46aaaad88aa058e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Path: {fileID: 6079687262979871715}
+  m_PositionUnits: 2
+  m_Speed: 0.1
 --- !u!1 &9060640735034171786
 GameObject:
   m_ObjectHideFlags: 0
@@ -18228,6 +18342,70 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &9063567423058431957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3287331720633553043}
+  - component: {fileID: 6079687262979871715}
+  m_Layer: 0
+  m_Name: DollyTrack1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3287331720633553043
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9063567423058431957}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 138.74312, y: -24.6, z: 261.03256}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4899440095617590}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6079687262979871715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9063567423058431957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a200b19ca1a9685429ed7e043c28e904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Resolution: 20
+  m_Appearance:
+    pathColor: {r: 0, g: 1, b: 0, a: 1}
+    inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    width: 2.11
+  m_Looped: 0
+  m_Waypoints:
+  - position: {x: 1, y: 0, z: 0}
+    roll: 0
+  - position: {x: -23.018585, y: 0, z: -23.69806}
+    roll: 0
+  - position: {x: -97.42661, y: 0, z: -103.14674}
+    roll: 0
+  - position: {x: -111.97515, y: -15.4606, z: -143.50037}
+    roll: 0
+  - position: {x: -139.31985, y: -3.1040936, z: -176.39929}
+    roll: 0
+  - position: {x: -193.96597, y: -15.076117, z: -202.35431}
+    roll: 0
+  - position: {x: -248.61209, y: -20.505964, z: -228.30933}
+    roll: 0
 --- !u!1 &9069095158318749840
 GameObject:
   m_ObjectHideFlags: 0
@@ -18625,6 +18803,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flying Cars (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 195b0abac3894d9469b4e87bfaf4893b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1802903536284779893, guid: 195b0abac3894d9469b4e87bfaf4893b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18710,6 +18893,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flying Cars (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 195b0abac3894d9469b4e87bfaf4893b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1802903536284779893, guid: 195b0abac3894d9469b4e87bfaf4893b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18784,6 +18972,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flying Cars (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 195b0abac3894d9469b4e87bfaf4893b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1802903536284779893, guid: 195b0abac3894d9469b4e87bfaf4893b,
         type: 3}
@@ -18860,6 +19053,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flying Cars (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 195b0abac3894d9469b4e87bfaf4893b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1802903536284779893, guid: 195b0abac3894d9469b4e87bfaf4893b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18923,6 +19121,86 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 612537365997672121}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1302572104980736789
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6732365642918859876}
+    m_Modifications:
+    - target: {fileID: 2637389423007181471, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+        type: 3}
+      propertyPath: m_Name
+      value: Flying Cars 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802903536284779893, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802903536284779893, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802903536284779893, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802903536284779893, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802903536284779893, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802903536284779893, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802903536284779893, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802903536284779893, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802903536284779893, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802903536284779893, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802903536284779893, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 23b1c7bb68027034ab2e2c2eb2305676, type: 3}
+--- !u!4 &798994601489296992 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1802903536284779893, guid: 23b1c7bb68027034ab2e2c2eb2305676,
+    type: 3}
+  m_PrefabInstance: {fileID: 1302572104980736789}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1608981335345039403
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18934,6 +19212,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flying Cars (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 195b0abac3894d9469b4e87bfaf4893b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1802903536284779893, guid: 195b0abac3894d9469b4e87bfaf4893b,
         type: 3}
@@ -19009,6 +19292,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flying Cars (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 195b0abac3894d9469b4e87bfaf4893b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1802903536284779893, guid: 195b0abac3894d9469b4e87bfaf4893b,
         type: 3}
@@ -19320,6 +19608,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flying Cars (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 195b0abac3894d9469b4e87bfaf4893b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1802903536284779893, guid: 195b0abac3894d9469b4e87bfaf4893b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19405,6 +19698,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flying Cars (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 195b0abac3894d9469b4e87bfaf4893b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1802903536284779893, guid: 195b0abac3894d9469b4e87bfaf4893b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19479,6 +19777,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flying Cars (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 195b0abac3894d9469b4e87bfaf4893b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1802903536284779893, guid: 195b0abac3894d9469b4e87bfaf4893b,
         type: 3}
@@ -19555,6 +19858,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flying Cars (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 195b0abac3894d9469b4e87bfaf4893b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1802903536284779893, guid: 195b0abac3894d9469b4e87bfaf4893b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19629,6 +19937,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flying Cars (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 195b0abac3894d9469b4e87bfaf4893b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1802903536284779893, guid: 195b0abac3894d9469b4e87bfaf4893b,
         type: 3}
@@ -19705,6 +20018,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flying Cars (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 195b0abac3894d9469b4e87bfaf4893b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1802903536284779893, guid: 195b0abac3894d9469b4e87bfaf4893b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19779,6 +20097,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flying Cars
+      objectReference: {fileID: 0}
+    - target: {fileID: 2637389423007181471, guid: 195b0abac3894d9469b4e87bfaf4893b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1802903536284779893, guid: 195b0abac3894d9469b4e87bfaf4893b,
         type: 3}
