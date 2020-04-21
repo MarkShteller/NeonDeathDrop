@@ -41,6 +41,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float lastTimeDamageTaken=0;
     private bool enableDash = true;
     private bool isDashing = false;
+    private bool isInvinsible = false;
     private Vector3 lastDashDir;
 
     private float timeOverPit = 0;
@@ -83,6 +84,7 @@ public class PlayerBehaviour : MonoBehaviour
         coresCount = 0;
         enemyDefeatedCount = 0;
         isFalling = false;
+ 
         activePowerUps = new List<BasePowerupBehaviour>();
     }
 
@@ -163,7 +165,7 @@ public class PlayerBehaviour : MonoBehaviour
         DetectPlayerPositionOnGrid();
 
 
-        if (transform.position.y < -1f)
+        if (transform.position.y < -0.2f)
         {
             FellIntoAPit();
         }
@@ -366,6 +368,7 @@ public class PlayerBehaviour : MonoBehaviour
             shockwaveBehavior.gameObject.SetActive(true);
             StartCoroutine(shockwaveBehavior.Shockwave(3, true));
             isFalling = false;
+            animator.SetBool("Falling", isFalling);
         }
     }
 
@@ -395,7 +398,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (Time.time - lastTimeDamageTaken > takenDamageCooldown)
+        if (Time.time - lastTimeDamageTaken > takenDamageCooldown && !isInvinsible)
         {
             lastTimeDamageTaken = Time.time;
 
@@ -430,21 +433,25 @@ public class PlayerBehaviour : MonoBehaviour
         isFalling = true;
         //Transform respawnPoint = prevHoveredObject.transform;
         //transform.position = new Vector3(respawnPoint.position.x, 10, respawnPoint.position.z);
-        if(checkpoint != null)
-            transform.position = new Vector3(checkpoint.position.x, 10, checkpoint.position.z);
-        else
-            transform.position = new Vector3(spawnPosition.x, 10, spawnPosition.z);
-        TakeDamage(fallDamage);
+        
         StartCoroutine(WaitToRecover());
     }
 
     private IEnumerator WaitToRecover()
     {
-        //SphereCollider sc = GetComponent<SphereCollider>();
+        animator.SetBool("Falling", isFalling);
+
         yield return new WaitForSeconds(1);
+        TakeDamage(fallDamage);
+        isInvinsible = true;
+        if (checkpoint != null)
+            transform.position = new Vector3(checkpoint.position.x, 10, checkpoint.position.z);
+        else
+            transform.position = new Vector3(spawnPosition.x, 10, spawnPosition.z);
 
-        
+        yield return new WaitForSeconds(5f);
 
+        isInvinsible = false;
         enableControlls = true;
     }
 
@@ -533,7 +540,7 @@ public class PlayerBehaviour : MonoBehaviour
                     if (gNode.GetTileType() == TileType.Pit)
                     {
                         timeOverPit += Time.deltaTime;
-                        if (!isDashing && timeOverPit >= 0.3f)
+                        if (!isDashing && timeOverPit >= 0.1f)
                             FellIntoAPit();
                     }
                 }
