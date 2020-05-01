@@ -6,6 +6,8 @@ public class PlayerShockwaveBehavior : MonoBehaviour
 {
     public SphereCollider capsuleCollider;
     public PlayerBehaviour playerBehaviour;
+    public Animation shockSphereAnimation;
+
     private bool isFallShockwave;
 
     private void Awake()
@@ -57,6 +59,8 @@ public class PlayerShockwaveBehavior : MonoBehaviour
             yield return null;
         }
 
+        playerBehaviour.isInvinsible = false;
+        playerBehaviour.enableControlls = true;
         capsuleCollider.radius = ogRadius;
         capsuleCollider.enabled = false;
         isFallShockwave = false;

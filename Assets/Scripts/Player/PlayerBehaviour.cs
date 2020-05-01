@@ -41,7 +41,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float lastTimeDamageTaken=0;
     private bool enableDash = true;
     private bool isDashing = false;
-    private bool isInvinsible = false;
+    [HideInInspector] public bool isInvinsible = false;
     private Vector3 lastDashDir;
 
     private float timeOverPit = 0;
@@ -65,6 +65,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public PlayerShockwaveBehavior shockwaveBehavior;
     public ForcePushFloorTrigger forcePushFloorTrigger;
+
+    //public Animation shockSphereAnimation;
 
     public Animator animator;
 
@@ -155,10 +157,10 @@ public class PlayerBehaviour : MonoBehaviour
                     coresCount -= shockwaveCoreCost;
                     UIManager.Instance.SetCoreCount(coresCount);
                     print("SHOCKWAVE!");
-                    GameManager.Instance.ShockwaveSlomo(8);
-                    CameraShaker.Instance.ShakeOnce(2f, 8f, 0.1f, 2.5f);
-                    shockwaveBehavior.gameObject.SetActive(true);
-                    StartCoroutine(shockwaveBehavior.Shockwave(10));
+                    animator.SetTrigger("Shockwave");
+                    isInvinsible = true;
+                    enableControlls = false;
+                    //shockSphereAnimation.Play();
                 }
             }
         }
@@ -170,13 +172,14 @@ public class PlayerBehaviour : MonoBehaviour
             FellIntoAPit();
         }
 
-       /* Vector2 mousepos = Input.mousePosition;
-        Vector2 screenCenter = Camera.main.WorldToScreenPoint(this.transform.position);
+    }
 
-        float angle = AngleBetweenTwoPoints(screenCenter, mousepos) + 180;
-
-        this.visualsHolder.rotation = Quaternion.AngleAxis(angle - 90, Vector3.up);
-        */
+    public void PreformShockwave()
+    {
+        //GameManager.Instance.ShockwaveSlomo(8);
+        CameraShaker.Instance.ShakeOnce(2f, 8f, 0.1f, 2.5f);
+        shockwaveBehavior.gameObject.SetActive(true);
+        StartCoroutine(shockwaveBehavior.Shockwave(10));
     }
 
     private IEnumerator DashCoroutine(Vector3 direction, float duration)

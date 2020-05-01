@@ -10,4 +10,9 @@ public class PlayerAnimatorEvents : MonoBehaviour
     {
         playerBehaviour.PreformPush();
     }
+
+    public void PreformShockwave()
+    {
+        playerBehaviour.PreformShockwave();
+    }
 }
