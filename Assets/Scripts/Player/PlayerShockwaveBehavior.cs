@@ -6,7 +6,6 @@ public class PlayerShockwaveBehavior : MonoBehaviour
 {
     public SphereCollider capsuleCollider;
     public PlayerBehaviour playerBehaviour;
-    public Animation shockSphereAnimation;
 
     private bool isFallShockwave;
 
@@ -58,6 +57,8 @@ public class PlayerShockwaveBehavior : MonoBehaviour
             capsuleCollider.radius += Time.deltaTime * 13;
             yield return null;
         }
+
+        //EnemyManager.Instance.isUpdateEnemies = true;
 
         playerBehaviour.isInvinsible = false;
         playerBehaviour.enableControlls = true;

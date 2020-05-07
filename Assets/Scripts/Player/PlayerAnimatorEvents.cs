@@ -15,4 +15,9 @@ public class PlayerAnimatorEvents : MonoBehaviour
     {
         playerBehaviour.PreformShockwave();
     }
+
+    public void MakeHole()
+    {
+        playerBehaviour.MakeHole();
+    }
 }

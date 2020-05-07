@@ -154,7 +154,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
         }
     }
 
-    void Update()
+    public void UpdateEnemy()
     {
         DetectEnemyPositionOnGrid();
         //if the enemy is over a pit, fall down
@@ -198,6 +198,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 break;
 
             case MovementType.Dead:
+                EnemyManager.Instance.RemoveFromActiveEnemies(this);
                 break;
         }
     }

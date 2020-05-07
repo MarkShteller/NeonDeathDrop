@@ -682,6 +682,9 @@ ModelImporter:
     7400028: Land_Reset
     7400030: Falling_Cycle
     7400032: Shockwave_01
+    7400034: MakeHole_01
+    7400036: MakeHole_02
+    7400038: MakeHole_03
     9500000: //RootNode
     13700000: Seraph_Rig_JQ:Body
     13700002: Seraph_Rig_JQ:Boots
@@ -1183,6 +1186,114 @@ ModelImporter:
       events:
       - time: 0.7480106
         functionName: PreformShockwave
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 8ec75a390c254fd41a5f46646bdbdbf6,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: MakeHole_01
+      takeName: MakeHole_01
+      firstFrame: 484
+      lastFrame: 501
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.5267169
+        functionName: MakeHole
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 8ec75a390c254fd41a5f46646bdbdbf6,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: MakeHole_02
+      takeName: MakeHole_02
+      firstFrame: 502
+      lastFrame: 524
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.6564875
+        functionName: MakeHole
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 8ec75a390c254fd41a5f46646bdbdbf6,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: MakeHole_03
+      takeName: MakeHole_03
+      firstFrame: 525
+      lastFrame: 550
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.42747998
+        functionName: MakeHole
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 8ec75a390c254fd41a5f46646bdbdbf6,
           type: 3}

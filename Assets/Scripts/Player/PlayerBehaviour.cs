@@ -160,6 +160,8 @@ public class PlayerBehaviour : MonoBehaviour
                     animator.SetTrigger("Shockwave");
                     isInvinsible = true;
                     enableControlls = false;
+                    EnemyManager.Instance.isUpdateEnemies = false;
+
                     //shockSphereAnimation.Play();
                 }
             }
@@ -176,6 +178,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void PreformShockwave()
     {
+        EnemyManager.Instance.isUpdateEnemies = true;
+
         //GameManager.Instance.ShockwaveSlomo(8);
         CameraShaker.Instance.ShakeOnce(2f, 8f, 0.1f, 2.5f);
         shockwaveBehavior.gameObject.SetActive(true);
@@ -434,6 +438,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         enableControlls = false;
         isFalling = true;
+        EnemyManager.Instance.isUpdateEnemies = false;
         //Transform respawnPoint = prevHoveredObject.transform;
         //transform.position = new Vector3(respawnPoint.position.x, 10, respawnPoint.position.z);
         
@@ -456,6 +461,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         isInvinsible = false;
         enableControlls = true;
+        EnemyManager.Instance.isUpdateEnemies = true;
     }
 
     private void RegenMana()
@@ -486,13 +492,9 @@ public class PlayerBehaviour : MonoBehaviour
                 Debug.Log("pressed on grid cube: " + name);
 
                 GridNode node = gridHolder.GetGridNode(name);
-                if (node.GetTileType() != TileType.Occupied)
+                if (node.GetTileType() != TileType.Occupied && node.GetTileType() != TileType.Pit)
                 {
-                    //move the tile down
-                    tileTransform.GetComponent<BaseTileBehaviour>().Drop();
-
-                    gridHolder.SetGridNodeType(node, TileType.Pit, holeTimeToRegen);
-                    manaPoints -= holeManaCost;
+                    animator.SetTrigger("HoleA");
                 }
                 else
                 {
@@ -500,6 +502,19 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void MakeHole()
+    {
+        Transform tileTransform = currHoveredObject.transform.parent;
+        
+        //move the tile down
+        tileTransform.GetComponent<BaseTileBehaviour>().Drop();
+        string name = tileTransform.parent.name;
+
+        GridNode node = gridHolder.GetGridNode(name);
+        gridHolder.SetGridNodeType(node, TileType.Pit, holeTimeToRegen);
+        manaPoints -= holeManaCost;
     }
 
     private void DetectPlayerPositionOnGrid()
@@ -534,16 +549,16 @@ public class PlayerBehaviour : MonoBehaviour
                         gNode.GetGameNodeRef().GetComponentInChildren<WeakTileBehaviour>().StepOnTile(()=> gNode.SetType(TileType.Pit));
                     }
 
-                    if (gNode.GetTileType() != TileType.Pit)
+                    else if (gNode.GetTileType() != TileType.Pit)
                     {
                         gridHolder.SetGridNodeType(pPoint.x, pPoint.y, TileType.Occupied);
                         timeOverPit = 0;
                     }
 
-                    if (gNode.GetTileType() == TileType.Pit)
+                    else if (gNode.GetTileType() == TileType.Pit)
                     {
                         timeOverPit += Time.deltaTime;
-                        if (!isDashing && timeOverPit >= 0.1f)
+                        if (!isDashing && timeOverPit >= 0.3f)
                             FellIntoAPit();
                     }
                 }
