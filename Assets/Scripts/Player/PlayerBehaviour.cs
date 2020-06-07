@@ -120,7 +120,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (playerRotation.sqrMagnitude > 0.0f)
             {
-                this.visualsHolder.rotation = Quaternion.Slerp(visualsHolder.rotation, Quaternion.LookRotation(playerRotation, Vector3.up), 0.5f);
+                this.visualsHolder.rotation = Quaternion.Slerp(visualsHolder.rotation, Quaternion.LookRotation(playerRotation, Vector3.up), 0.25f);
             }
 
             if (ControllerInputDevice.GetDashButtonDown())
@@ -436,13 +436,16 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void FellIntoAPit()
     {
-        enableControlls = false;
-        isFalling = true;
-        EnemyManager.Instance.isUpdateEnemies = false;
-        //Transform respawnPoint = prevHoveredObject.transform;
-        //transform.position = new Vector3(respawnPoint.position.x, 10, respawnPoint.position.z);
-        
-        StartCoroutine(WaitToRecover());
+        if (!isFalling)
+        {
+            enableControlls = false;
+            isFalling = true;
+            EnemyManager.Instance.isUpdateEnemies = false;
+            //Transform respawnPoint = prevHoveredObject.transform;
+            //transform.position = new Vector3(respawnPoint.position.x, 10, respawnPoint.position.z);
+
+            StartCoroutine(WaitToRecover());
+        }
     }
 
     private IEnumerator WaitToRecover()
@@ -457,7 +460,7 @@ public class PlayerBehaviour : MonoBehaviour
         else
             transform.position = new Vector3(spawnPosition.x, 10, spawnPosition.z);
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
 
         isInvinsible = false;
         enableControlls = true;

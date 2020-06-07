@@ -61,7 +61,8 @@ public class PlayerShockwaveBehavior : MonoBehaviour
         //EnemyManager.Instance.isUpdateEnemies = true;
 
         playerBehaviour.isInvinsible = false;
-        playerBehaviour.enableControlls = true;
+        if(!fallShockwave)
+            playerBehaviour.enableControlls = true;
         capsuleCollider.radius = ogRadius;
         capsuleCollider.enabled = false;
         isFallShockwave = false;
