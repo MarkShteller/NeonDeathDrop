@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour {
     public Transform powerupsGrid;
     public PowerupUIBehaviour powerupUIPrefab;
 
+    public GameObject hudObject;
+
     [SerializeField] private GameOverDialog gameOverDialog;
     [SerializeField] private EndLevelReportDialog endLevelReportDialog;
 
@@ -47,6 +49,7 @@ public class UIManager : MonoBehaviour {
     {
         GameOverDialog dialog = Instantiate(gameOverDialog, this.transform);
         dialog.Init(score);
+        hudObject.SetActive(false);
     }
 
     public void SetScoreMultiplier(float scoreMultiplier)

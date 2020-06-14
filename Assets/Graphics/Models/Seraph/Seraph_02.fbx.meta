@@ -329,6 +329,8 @@ ModelImporter:
     100646: Seraph_Rig_JQ:R_Toe_LOC
     100648: Seraph_Rig_JQ:R_ToePivot_LOC
     100650: Seraph_Rig_JQ:SeraphBody
+    100652: pPlane1
+    100654: Seraph_Rig_JQ:Rig
     400000: //RootNode
     400002: Seraph_Rig_JQ:Body
     400004: Seraph_Rig_JQ:Boots
@@ -655,7 +657,12 @@ ModelImporter:
     400646: Seraph_Rig_JQ:R_Toe_LOC
     400648: Seraph_Rig_JQ:R_ToePivot_LOC
     400650: Seraph_Rig_JQ:SeraphBody
+    400652: pPlane1
+    400654: Seraph_Rig_JQ:Rig
     2100000: lambert1
+    2100002: lambert3
+    2300000: pPlane1
+    3300000: pPlane1
     4300000: Seraph_Rig_JQ:Boots
     4300002: Seraph_Rig_JQ:Body
     4300004: Seraph_Rig_JQ:hair
@@ -665,6 +672,7 @@ ModelImporter:
     4300012: Seraph_Rig_JQ:Feather_Cards_Layer1
     4300014: Seraph_Rig_JQ:Feather_Card_Layer2
     4300016: Seraph_Rig_JQ:Feather_Card_Layer3
+    4300018: pPlane1
     7400000: Hover_Default
     7400002: Force_Push_Right_1
     7400004: Force_Push_Right_2
@@ -687,6 +695,10 @@ ModelImporter:
     7400038: MakeHole_03
     7400040: Force_Push_Right_3
     7400042: Death_01
+    7400044: Death
+    7400046: Charge Attack Intro
+    7400048: Charge Loop
+    7400050: AOE attract
     9500000: //RootNode
     13700000: Seraph_Rig_JQ:Body
     13700002: Seraph_Rig_JQ:Boots
@@ -1343,10 +1355,102 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Death_01
-      takeName: Death_01
+      name: Death
+      takeName: Death
       firstFrame: 582
       lastFrame: 644
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.9762712
+        functionName: Dead
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 8ec75a390c254fd41a5f46646bdbdbf6,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Charge Attack Intro
+      takeName: Charge Attack Intro
+      firstFrame: 648
+      lastFrame: 677
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Charge Loop
+      takeName: Charge Loop
+      firstFrame: 678
+      lastFrame: 697
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: AOE attract
+      takeName: AOE attract
+      firstFrame: 696
+      lastFrame: 780
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

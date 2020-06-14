@@ -20,4 +20,9 @@ public class PlayerAnimatorEvents : MonoBehaviour
     {
         playerBehaviour.MakeHole();
     }
+
+    public void Dead()
+    {
+        GameManager.Instance.GameOver();
+    }
 }

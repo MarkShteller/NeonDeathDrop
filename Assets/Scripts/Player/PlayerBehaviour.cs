@@ -73,6 +73,9 @@ public class PlayerBehaviour : MonoBehaviour
     public Color tileHighlightColor;
     public Color tileOriginalColor;
 
+    public GameObject spotlight;
+    public GameObject mainDirectionalLight;
+
     public bool IsTestMode = false;
 
     void Start()
@@ -86,6 +89,7 @@ public class PlayerBehaviour : MonoBehaviour
         coresCount = 0;
         enemyDefeatedCount = 0;
         isFalling = false;
+        mainDirectionalLight = GameObject.FindGameObjectWithTag("MainLight");
  
         activePowerUps = new List<BasePowerupBehaviour>();
     }
@@ -410,20 +414,30 @@ public class PlayerBehaviour : MonoBehaviour
             lastTimeDamageTaken = Time.time;
 
             healthPoints -= damage;
-            animator.SetTrigger("TakeDamage");
 
             GameManager.Instance.SetScoreMultiplier(1);
             GameManager.Instance.AddDamageCount(damage);
             UIManager.Instance.SetHealth(healthPoints / totalHealthPoints);
             if (healthPoints <= 0)
             {
-                GameManager.Instance.GameOver();
+                //GameManager.Instance.GameOver();
+                EnemyManager.Instance.isUpdateEnemies = false;
+                animator.SetTrigger("Dead");
+                enableControlls = false;
+                spotlight.SetActive(true);
+                mainDirectionalLight.SetActive(false);
                 GameManager.Instance.cameraRef.SetLowHealth(false);
             }
             else if (healthPoints <= 2)
             {
                 GameManager.Instance.cameraRef.SetLowHealth(true);
+                animator.SetTrigger("TakeDamage");
             }
+            else
+            {
+                animator.SetTrigger("TakeDamage");
+            }
+
 
             GameManager.Instance.cameraRef.GlitchScreen();
         }
