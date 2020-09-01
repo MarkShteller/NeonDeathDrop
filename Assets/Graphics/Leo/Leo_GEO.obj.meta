@@ -1,0 +1,225 @@
+fileFormatVersion: 2
+guid: 3147661917ed36e4eaabfd209c706c6f
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Leo_body
+    100002: Leo_device
+    100004: Leo_earring
+    100006: //RootNode
+    100008: Leo_hair
+    100010: Leo_left_boot
+    100012: Leo_left_ear
+    100014: Leo_left_eye
+    100016: Leo_left_shoulderpad
+    100018: Leo_right_boot
+    100020: Leo_right_ear
+    100022: Leo_right_eye
+    100024: Leo_right_shoulderpad
+    400000: Leo_body
+    400002: Leo_device
+    400004: Leo_earring
+    400006: //RootNode
+    400008: Leo_hair
+    400010: Leo_left_boot
+    400012: Leo_left_ear
+    400014: Leo_left_eye
+    400016: Leo_left_shoulderpad
+    400018: Leo_right_boot
+    400020: Leo_right_ear
+    400022: Leo_right_eye
+    400024: Leo_right_shoulderpad
+    2100000: Leo_bodyMat
+    2100002: Leo_deviceMat
+    2100004: Leo_earringMat
+    2100006: Leo_hairMat
+    2100008: Leo_left_bootMat
+    2100010: Leo_left_earMat
+    2100012: Leo_left_eyeMat
+    2100014: Leo_left_shoulderpadMat
+    2100016: Leo_right_bootMat
+    2100018: Leo_right_earMat
+    2100020: Leo_right_eyeMat
+    2100022: Leo_right_shoulderpadMat
+    2300000: Leo_body
+    2300002: Leo_device
+    2300004: Leo_earring
+    2300006: Leo_hair
+    2300008: Leo_left_boot
+    2300010: Leo_left_ear
+    2300012: Leo_left_eye
+    2300014: Leo_left_shoulderpad
+    2300016: Leo_right_boot
+    2300018: Leo_right_ear
+    2300020: Leo_right_eye
+    2300022: Leo_right_shoulderpad
+    3300000: Leo_body
+    3300002: Leo_device
+    3300004: Leo_earring
+    3300006: Leo_hair
+    3300008: Leo_left_boot
+    3300010: Leo_left_ear
+    3300012: Leo_left_eye
+    3300014: Leo_left_shoulderpad
+    3300016: Leo_right_boot
+    3300018: Leo_right_ear
+    3300020: Leo_right_eye
+    3300022: Leo_right_shoulderpad
+    4300000: Leo_body
+    4300002: Leo_device
+    4300004: Leo_earring
+    4300006: Leo_hair
+    4300008: Leo_left_boot
+    4300010: Leo_left_ear
+    4300012: Leo_left_eye
+    4300014: Leo_left_shoulderpad
+    4300016: Leo_right_boot
+    4300018: Leo_right_ear
+    4300020: Leo_right_eye
+    4300022: Leo_right_shoulderpad
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leo_bodyMat
+    second: {fileID: 2100000, guid: d7715c0d0d54a294eaf17a6a8818dd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leo_deviceMat
+    second: {fileID: 2100000, guid: d7715c0d0d54a294eaf17a6a8818dd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leo_earringMat
+    second: {fileID: 2100000, guid: d7715c0d0d54a294eaf17a6a8818dd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leo_hairMat
+    second: {fileID: 2100000, guid: d7715c0d0d54a294eaf17a6a8818dd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leo_left_bootMat
+    second: {fileID: 2100000, guid: d7715c0d0d54a294eaf17a6a8818dd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leo_left_earMat
+    second: {fileID: 2100000, guid: d7715c0d0d54a294eaf17a6a8818dd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leo_left_eyeMat
+    second: {fileID: 2100000, guid: d7715c0d0d54a294eaf17a6a8818dd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leo_left_shoulderpadMat
+    second: {fileID: 2100000, guid: d7715c0d0d54a294eaf17a6a8818dd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leo_right_bootMat
+    second: {fileID: 2100000, guid: d7715c0d0d54a294eaf17a6a8818dd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leo_right_earMat
+    second: {fileID: 2100000, guid: d7715c0d0d54a294eaf17a6a8818dd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leo_right_eyeMat
+    second: {fileID: 2100000, guid: d7715c0d0d54a294eaf17a6a8818dd11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leo_right_shoulderpadMat
+    second: {fileID: 2100000, guid: d7715c0d0d54a294eaf17a6a8818dd11, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

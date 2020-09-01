@@ -29,14 +29,17 @@ public class CustomDollyCart : MonoBehaviour
     {
         float speed = Application.isPlaying ? m_Speed : 0;
 
-        for (int i = cartTransforms.Count; i <=0 ; i++)
+        if (cartTransforms.Count > 0)
         {
-            if (cartTransforms[i].cartPosition >= 0.95f)
+            for (int i = cartTransforms.Count - 1; i <= 0; i--)
             {
-                cartTransforms[i].cartTransform.gameObject.SetActive(false);
-                cartTransforms.RemoveAt(i);
-                //break to prevent list iteration curing list editing
-                break;
+                if (cartTransforms[i].cartPosition >= 0.95f)
+                {
+                    cartTransforms[i].cartTransform.gameObject.SetActive(false);
+                    cartTransforms.RemoveAt(i);
+                    //break to prevent list iteration during list editing
+                    break;
+                }
             }
         }
         for (int i = 0; i < cartTransforms.Count; i++)

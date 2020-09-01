@@ -47,7 +47,7 @@ public class EnemyPulsing : Enemy
     }
 
     //triggered by animation
-    public void PulseTrigger()
+    internal override void PulseTrigger()
     {
         StartCoroutine(Pulse(1.5f, shakeScreen));
     }

@@ -5028,6 +5028,8 @@ MonoBehaviour:
   soundEffectSource: {fileID: 82488347238867316}
   spawnPosition: {x: 0, y: 0, z: 0}
   isInvinsible: 0
+  chargeTimeAttract: 3
+  chargeTimeRepel: 1.5
   prevHoveredObject: {fileID: 0}
   currHoveredObject: {fileID: 0}
   enableControlls: 1
@@ -5042,6 +5044,7 @@ MonoBehaviour:
   animator: {fileID: 1294368551690493927}
   tileHighlightColor: {r: 1, g: 0.24313726, b: 0.5647059, a: 1}
   tileOriginalColor: {r: 0.8679245, g: 0.7920284, b: 0.67550725, a: 1}
+  tileWallOriginalColor: {r: 0.70980394, g: 0.67058825, b: 0.6, a: 1}
   spotlight: {fileID: 7126970276171329696}
   mainDirectionalLight: {fileID: 0}
   IsTestMode: 0
@@ -7950,6 +7953,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: c87cf272d9904e2409d3f6068f2f5a57, type: 3}
       propertyPath: m_Name
       value: Seraph_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 100656, guid: c87cf272d9904e2409d3f6068f2f5a57, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100652, guid: c87cf272d9904e2409d3f6068f2f5a57, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c87cf272d9904e2409d3f6068f2f5a57, type: 3}
       propertyPath: m_LocalPosition.x

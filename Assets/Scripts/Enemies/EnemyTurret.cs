@@ -42,15 +42,20 @@ public class EnemyTurret : Enemy
         if (timeToShoot <= 0)
         {
             timeToShoot = shootInterval;
-            GameObject newBullet = ObjectPooler.Instance.SpawnFromPool(bulletNameInPool, bulletSpawnPoint.position, transform.rotation);
-            newBullet.GetComponent<EnemyBullet>().damage = this.damage;
+            animator.SetTrigger("Shoot");
         }
     }
 
-    internal override void DyingAction()
+    /*internal override void DyingAction()
     {
         base.DyingAction();
         gameObject.SetActive(false);
+    }*/
+
+    internal override void FireEvent()
+    {
+        GameObject newBullet = ObjectPooler.Instance.SpawnFromPool(bulletNameInPool, bulletSpawnPoint.position, transform.rotation);
+        newBullet.GetComponent<EnemyBullet>().damage = this.damage;
     }
 
 }

@@ -16,6 +16,12 @@ public class PlayerAnimatorEvents : MonoBehaviour
         playerBehaviour.PreformShockwave();
     }
 
+    public void PreformRepelAttack()
+    {
+        print("aaa");
+        playerBehaviour.PreformRepelAttack();
+    }
+
     public void MakeHole()
     {
         playerBehaviour.MakeHole();

@@ -7,7 +7,7 @@ public class PlayerShockwaveBehavior : MonoBehaviour
     public SphereCollider capsuleCollider;
     public PlayerBehaviour playerBehaviour;
 
-    private bool isFallShockwave;
+    private bool isRegularShockwave;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class PlayerShockwaveBehavior : MonoBehaviour
         {
             BaseTileBehaviour tile = other.transform.GetComponent<BaseTileBehaviour>();
             if (tile != null)
-                if (!isFallShockwave)
+                if (!isRegularShockwave)
                     tile.Pulse();
                 else
                     tile.SmallPulse();
@@ -31,7 +31,7 @@ public class PlayerShockwaveBehavior : MonoBehaviour
         {
             Enemy e = other.GetComponent<Enemy>();
             if (e != null)
-                if (!isFallShockwave)
+                if (!isRegularShockwave)
                     e.Die();
                 else
                 {
@@ -45,9 +45,9 @@ public class PlayerShockwaveBehavior : MonoBehaviour
         }
     }
 
-    public IEnumerator Shockwave(float radius, bool fallShockwave = false)
+    public IEnumerator Shockwave(float radius, bool regularShockwave = false)
     {
-        isFallShockwave = fallShockwave;
+        isRegularShockwave = regularShockwave;
 
         capsuleCollider.enabled = true;
 
@@ -61,11 +61,11 @@ public class PlayerShockwaveBehavior : MonoBehaviour
         //EnemyManager.Instance.isUpdateEnemies = true;
 
         playerBehaviour.isInvinsible = false;
-        if(!fallShockwave)
+        if(!regularShockwave)
             playerBehaviour.enableControlls = true;
         capsuleCollider.radius = ogRadius;
         capsuleCollider.enabled = false;
-        isFallShockwave = false;
+        isRegularShockwave = false;
         gameObject.SetActive(false);
     }
 

@@ -16,6 +16,7 @@ public class EnemyBomb : Enemy
 
     public IEnumerator Explode(float radius)
     {
+        animator.SetTrigger("Exploding");
         yield return new WaitForSeconds(stunnedTimer);
         sphereCollider.gameObject.SetActive(true);
         float ogRadius = sphereCollider.radius;
@@ -50,6 +51,6 @@ public class EnemyBomb : Enemy
     internal override void DyingAction()
     {
         base.DyingAction();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 }

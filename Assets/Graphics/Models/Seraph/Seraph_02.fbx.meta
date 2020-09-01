@@ -331,6 +331,7 @@ ModelImporter:
     100650: Seraph_Rig_JQ:SeraphBody
     100652: pPlane1
     100654: Seraph_Rig_JQ:Rig
+    100656: left
     400000: //RootNode
     400002: Seraph_Rig_JQ:Body
     400004: Seraph_Rig_JQ:Boots
@@ -659,6 +660,8 @@ ModelImporter:
     400650: Seraph_Rig_JQ:SeraphBody
     400652: pPlane1
     400654: Seraph_Rig_JQ:Rig
+    400656: left
+    2000000: left
     2100000: lambert1
     2100002: lambert3
     2300000: pPlane1
@@ -699,6 +702,7 @@ ModelImporter:
     7400046: Charge Attack Intro
     7400048: Charge Loop
     7400050: AOE attract
+    7400052: AOE Repel
     9500000: //RootNode
     13700000: Seraph_Rig_JQ:Body
     13700002: Seraph_Rig_JQ:Boots
@@ -1470,6 +1474,42 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: AOE Repel
+      takeName: AOE Repel
+      firstFrame: 781
+      lastFrame: 869
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.40822038
+        functionName: PreformRepelAttack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 8ec75a390c254fd41a5f46646bdbdbf6,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

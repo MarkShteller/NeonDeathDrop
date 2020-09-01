@@ -10,8 +10,13 @@ public class Enemy : MonoBehaviour, IPooledObject {
     internal Point pointPos;
     public Point prevPointPos;
     public float speed;
+
+    
+
     public float findPlayerInterval = 0.5f;
     public float damage;
+
+   
 
     public float stunnedTimer = 1;
     private float stunnedRemaining;
@@ -228,6 +233,8 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
     internal virtual void StaticAction()
     {
+        animator.SetBool("Moving", false);
+
         float distanceFromPlayer = Vector3.Distance(transform.position, playerObject.position);
         if (distanceFromPlayer > minDistanceTargeting && distanceFromPlayer < maxDistanceTargeting)
         {
@@ -245,6 +252,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
     internal virtual void TrackingAction()
     {
         shouldFollowPlayer = true;
+        animator.SetBool("Moving", true);
 
         float distanceFromPlayer = Vector3.Distance(transform.position, playerObject.position);
         if (distanceFromPlayer < minDistanceTargeting || distanceFromPlayer > maxDistanceTargeting)
@@ -320,6 +328,15 @@ public class Enemy : MonoBehaviour, IPooledObject {
     public void DeathEvent()
     {
         gameObject.SetActive(false);
+    }
+
+    internal virtual void FireEvent()
+    {
+    }
+
+    internal virtual void PulseTrigger()
+    {
+        //throw new NotImplementedException();
     }
 
     private bool IsNear(Vector3 pos1, Vector3 pos2, float threshold)

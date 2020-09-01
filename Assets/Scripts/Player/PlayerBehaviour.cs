@@ -44,6 +44,12 @@ public class PlayerBehaviour : MonoBehaviour
     [HideInInspector] public bool isInvinsible = false;
     private Vector3 lastDashDir;
 
+    private bool isCharging;
+    private float chargeTime;
+    public float chargeTimeAttract;
+    public float chargeTimeRepel;
+    private float chargeCost = 5;
+
     private float timeOverPit = 0;
 
     [HideInInspector] public GameObject prevHoveredObject;
@@ -72,6 +78,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public Color tileHighlightColor;
     public Color tileOriginalColor;
+    public Color tileWallOriginalColor;
 
     public GameObject spotlight;
     public GameObject mainDirectionalLight;
@@ -86,8 +93,10 @@ public class PlayerBehaviour : MonoBehaviour
         defaultForcePushTriggerSize = forcePushTriggerCollider.size;
         manaPoints = totalManaPoints;
         healthPoints = totalHealthPoints;
-        coresCount = 0;
+        //coresCount = 0;
         enemyDefeatedCount = 0;
+        chargeTime = 0;
+        isCharging = false;
         isFalling = false;
         mainDirectionalLight = GameObject.FindGameObjectWithTag("MainLight");
  
@@ -169,6 +178,25 @@ public class PlayerBehaviour : MonoBehaviour
                     //shockSphereAnimation.Play();
                 }
             }
+
+            if (ControllerInputDevice.GetChargeButtonDown())
+            {
+                isCharging = true;
+                chargeTime += Time.deltaTime;
+                animator.SetBool("ChargeA", isCharging);
+                //print("charging..");
+            }
+
+            if (!ControllerInputDevice.GetChargeButtonDown() && isCharging)
+            {
+                if (chargeTime >= chargeTimeAttract && manaPoints >= chargeCost)
+                    AttractAttackAction();
+                else if (chargeTime >= chargeTimeRepel && manaPoints >= chargeCost)
+                    RepelAttackAction();
+                chargeTime = 0;
+                isCharging = false;
+                animator.SetBool("ChargeA", isCharging);
+            }
         }
         DetectPlayerPositionOnGrid();
 
@@ -177,6 +205,27 @@ public class PlayerBehaviour : MonoBehaviour
         {
             FellIntoAPit();
         }
+
+    }
+
+    private void RepelAttackAction()
+    {
+        animator.SetTrigger("AOERepel");
+        manaPoints -= chargeCost;
+    }
+
+    public void PreformRepelAttack()
+    {
+        print("aaaa");
+
+        StartCoroutine(shockwaveBehavior.Shockwave(4, true));
+
+    }
+
+    private void AttractAttackAction()
+    {
+        animator.SetTrigger("AOEAttract");
+        manaPoints -= chargeCost;
 
     }
 
@@ -374,7 +423,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             enableDash = false;
         }
-        if (isFalling && collision.gameObject.CompareTag("FloorCube"))
+        if (isFalling && (collision.gameObject.CompareTag("FloorCube")|| collision.gameObject.CompareTag("CheckpointCube")))
         {
             shockwaveBehavior.gameObject.SetActive(true);
             StartCoroutine(shockwaveBehavior.Shockwave(3, true));
@@ -493,8 +542,16 @@ public class PlayerBehaviour : MonoBehaviour
     private void ManipulateFloor()
     {
         if (prevHoveredObject != null)
-            if(prevHoveredObject.tag != "WeakCube")
-                prevHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileOriginalColor);
+        {
+            if (prevHoveredObject.tag != "WeakCube")
+            {
+                if(prevHoveredObject.tag == "WallCube")
+                    prevHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileWallOriginalColor);
+                else
+                    prevHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileOriginalColor);
+            }
+        }
+
         if (currHoveredObject != null)
             if (currHoveredObject.tag != "WeakCube")
                 currHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileHighlightColor);
@@ -504,7 +561,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (manaPoints >= holeManaCost)
             {
-                Transform tileTransform = currHoveredObject.transform.parent;
+                Transform tileTransform = currHoveredObject.transform.parent.parent;
                 string name = tileTransform.parent.name;
                 Debug.Log("pressed on grid cube: " + name);
 
@@ -523,7 +580,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void MakeHole()
     {
-        Transform tileTransform = currHoveredObject.transform.parent;
+        Transform tileTransform = currHoveredObject.transform.parent.parent;
         
         //move the tile down
         tileTransform.GetComponent<BaseTileBehaviour>().Drop();
