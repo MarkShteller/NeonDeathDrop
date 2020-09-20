@@ -24,6 +24,8 @@ public class PlayerBehaviour : MonoBehaviour
     public float dashSpeed;
     public float fallDamage = 1;
     public float takenDamageCooldown;
+    public float buttonPressCooldown = 0.1f;
+    private float currentButtonCooldown;
 
     public int coresCount;
     public int enemyDefeatedCount;
@@ -58,6 +60,8 @@ public class PlayerBehaviour : MonoBehaviour
     [HideInInspector] public bool enableControlls = true;
     private bool isFalling;
 
+    private FMOD.Studio.PARAMETER_ID pushParameterId;
+
     //private float defaultRadius = 0.35f;
     private Vector3 defaultForcePushTriggerSize;
     public float pushRadius = 4f;
@@ -83,6 +87,8 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject spotlight;
     public GameObject mainDirectionalLight;
 
+    
+
     public bool IsTestMode = false;
 
     void Start()
@@ -96,11 +102,17 @@ public class PlayerBehaviour : MonoBehaviour
         //coresCount = 0;
         enemyDefeatedCount = 0;
         chargeTime = 0;
+        currentButtonCooldown = 0;
         isCharging = false;
         isFalling = false;
         mainDirectionalLight = GameObject.FindGameObjectWithTag("MainLight");
  
         activePowerUps = new List<BasePowerupBehaviour>();
+
+        FMOD.Studio.EventDescription pushEventDescription = FMODUnity.RuntimeManager.GetEventDescription(AudioManager.Instance.PlayerPush);
+        FMOD.Studio.PARAMETER_DESCRIPTION pushParameterDescription;
+        pushEventDescription.getParameterDescriptionByName("isCombo", out pushParameterDescription);
+        pushParameterId = pushParameterDescription.id;
     }
 
     void FixedUpdate()
@@ -146,7 +158,9 @@ public class PlayerBehaviour : MonoBehaviour
                     if (dashDir == Vector3.zero)
                         dashDir = this.visualsHolder.forward *-1;
                     print("DASH! dir: "+dashDir);
-                    AudioManager.Instance.PlayEffect(soundEffectSource, 3);
+
+                    //AudioManager.Instance.PlayEffect(soundEffectSource, 3);
+                    FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerDash, transform.position);
 
                     animator.SetTrigger("Dash");
 
@@ -171,11 +185,11 @@ public class PlayerBehaviour : MonoBehaviour
                     UIManager.Instance.SetCoreCount(coresCount);
                     print("SHOCKWAVE!");
                     animator.SetTrigger("Shockwave");
+                    FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerShockwave, transform.position);
+
                     isInvinsible = true;
                     enableControlls = false;
                     EnemyManager.Instance.isUpdateEnemies = false;
-
-                    //shockSphereAnimation.Play();
                 }
             }
 
@@ -273,11 +287,22 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (enableControlls)
         {
-            if (Input.GetMouseButtonDown(1) || ControllerInputDevice.GetRightTriggerDown())
+            currentButtonCooldown -= Time.deltaTime;
+            if ((Input.GetMouseButtonDown(1) || ControllerInputDevice.GetRightTriggerDown()) && currentButtonCooldown <= 0)
             {
+                currentButtonCooldown = buttonPressCooldown;
                 if (manaPoints >= pushManaCost)
                 {
                     manaPoints -= pushManaCost;
+
+                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                    
+
+                    FMOD.Studio.EventInstance pushSound = FMODUnity.RuntimeManager.CreateInstance(AudioManager.Instance.PlayerPush);
+                    pushSound.setParameterByID(pushParameterId, stateInfo.IsName("Force_Push_Right_2") ? 1.0f : 0.0f);
+                    pushSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+                    pushSound.start();
+                    pushSound.release();
 
                     //the animation triggers PreformPush()
                     animator.SetTrigger("PushA");
@@ -402,7 +427,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 isDashing = false;
 
-                enemy.ForcePush(lastDashDir, pushForce * 1.5f);
+                enemy.ForcePush(lastDashDir, pushForce * 1.5f, true);
 
                 GameManager.Instance.DashSlomo(2f);
                 GameManager.Instance.cameraRef.FastZoom();
@@ -463,6 +488,7 @@ public class PlayerBehaviour : MonoBehaviour
             lastTimeDamageTaken = Time.time;
 
             healthPoints -= damage;
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerTakeDamage, transform.position);
 
             GameManager.Instance.SetScoreMultiplier(1);
             GameManager.Instance.AddDamageCount(damage);
@@ -472,6 +498,8 @@ public class PlayerBehaviour : MonoBehaviour
                 //GameManager.Instance.GameOver();
                 EnemyManager.Instance.isUpdateEnemies = false;
                 animator.SetTrigger("Dead");
+                FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerDeath, transform.position);
+
                 enableControlls = false;
                 spotlight.SetActive(true);
                 mainDirectionalLight.SetActive(false);
@@ -504,6 +532,8 @@ public class PlayerBehaviour : MonoBehaviour
             enableControlls = false;
             isFalling = true;
             EnemyManager.Instance.isUpdateEnemies = false;
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerFall, transform.position);
+
             //Transform respawnPoint = prevHoveredObject.transform;
             //transform.position = new Vector3(respawnPoint.position.x, 10, respawnPoint.position.z);
 
@@ -515,13 +545,19 @@ public class PlayerBehaviour : MonoBehaviour
     {
         animator.SetBool("Falling", isFalling);
 
+        Vector3 retryPostion;
+        if (checkpoint != null)
+            retryPostion = new Vector3(checkpoint.position.x, 10, checkpoint.position.z);
+        else
+            retryPostion = new Vector3(spawnPosition.x, 10, spawnPosition.z);
+
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerFallLand, transform.position);//retryPostion);
+
         yield return new WaitForSeconds(1);
         TakeDamage(fallDamage);
+
         isInvinsible = true;
-        if (checkpoint != null)
-            transform.position = new Vector3(checkpoint.position.x, 10, checkpoint.position.z);
-        else
-            transform.position = new Vector3(spawnPosition.x, 10, spawnPosition.z);
+        transform.position = retryPostion;
 
         yield return new WaitForSeconds(4f);
 
@@ -589,6 +625,8 @@ public class PlayerBehaviour : MonoBehaviour
         GridNode node = gridHolder.GetGridNode(name);
         gridHolder.SetGridNodeType(node, TileType.Pit, holeTimeToRegen);
         manaPoints -= holeManaCost;
+
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerMakeHole, transform.position);
     }
 
     private void DetectPlayerPositionOnGrid()

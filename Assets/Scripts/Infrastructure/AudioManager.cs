@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
@@ -10,6 +9,23 @@ public class AudioManager : MonoBehaviour {
     public AudioSource MusicSource1;
     public AudioSource MusicSource2;
     //public AudioSource EffectSource;
+
+    [FMODUnity.EventRef] public string MusicAct1Track1 = "";
+    [FMODUnity.EventRef] public string EnvAmbienceHighway = "";
+
+    [FMODUnity.EventRef] public string PlayerDash = "";
+    [FMODUnity.EventRef] public string PlayerTakeDamage = "";
+    [FMODUnity.EventRef] public string PlayerFall = "";
+    [FMODUnity.EventRef] public string PlayerFallLand = "";
+    [FMODUnity.EventRef] public string PlayerDeath = "";
+    [FMODUnity.EventRef] public string PlayerPush = "";
+    [FMODUnity.EventRef] public string PlayerMakeHole = "";
+    [FMODUnity.EventRef] public string PlayerShockwave = "";
+
+    [FMODUnity.EventRef] public string EnemyTakePushHit = "";
+    [FMODUnity.EventRef] public string EnemyTakeDashHit = "";
+    [FMODUnity.EventRef] public string EnemyFall = "";
+    [FMODUnity.EventRef] public string EnemyTurretShoot = "";
 
 
     public static AudioManager Instance;
@@ -24,20 +40,15 @@ public class AudioManager : MonoBehaviour {
             return;
         }
         DontDestroyOnLoad(gameObject);
-
-        /*foreach (Sound s in sounds)
-        {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-            s.source.volume = s.volume;
-            s.source.loop = s.loop;
-        }*/
     }
 
     void Start ()
     {
-        PlayMusic(0);
-	}
+        //PlayMusic(0);
+        //placeholder
+        FMODUnity.RuntimeManager.PlayOneShot(MusicAct1Track1, transform.position);
+
+    }
 
     public void LoadMusicToSecondarySource(string name)
     {

@@ -217,6 +217,8 @@ public class Enemy : MonoBehaviour, IPooledObject {
         GameManager.Instance.IncrementEnemyKillCount();
         //gameObject.SetActive(false);
         animator.SetTrigger("Dead");
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyFall, transform.position);
+
         movementStatus = MovementType.Dead;
     }
 
@@ -318,11 +320,15 @@ public class Enemy : MonoBehaviour, IPooledObject {
         transform.rotation = toRotation;
     }
 
-    public virtual void ForcePush(Vector3 direction, float force)
+    public virtual void ForcePush(Vector3 direction, float force, bool isDash = false)
     {
         movementStatus = MovementType.Pushed;
         rrigidBody.AddForce(direction * force);
         animator.SetTrigger("TakeHit");
+        if(!isDash)
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakePushHit, transform.position);
+        else
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakeDashHit, transform.position);
     }
 
     public void DeathEvent()

@@ -38,7 +38,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1418905795285084}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -178,7 +178,7 @@ MonoBehaviour:
     volume: 0.506
     loop: 1
   - name: Club_high1
-    clip: {fileID: 8300000, guid: 59c223f883cad984b9f4af1b2872fdaf, type: 3}
+    clip: {fileID: 8300000, guid: 7f3ae4b9aae10ea458ada3891b0ecebe, type: 3}
     volume: 0.31
     loop: 1
   - name: Club_high2
@@ -199,6 +199,18 @@ MonoBehaviour:
     loop: 1
   MusicSource1: {fileID: 82529548209684300}
   MusicSource2: {fileID: 82217941073982248}
+  MusicAct1Track1: event:/Music/CyberSeraph_Battle Theme
+  EnvAmbienceHighway: event:/Environment/Env_Highway_Ambience
+  PlayerDash: event:/Player/Abilities/Player_Dash
+  PlayerTakeDamage: event:/Player/Contextual/Player_TakeDamage
+  PlayerFall: event:/Player/Events/Player_Fall
+  PlayerFallLand: event:/Player/Events/Player_Land
+  PlayerDeath: event:/Player/Events/Player_Death
+  PlayerPush: event:/Player/Abilities/Player_Push
+  PlayerShockwave: event:/Player/Abilities/Player_SpecialAttack_Shockwave
+  EnemyTakePushHit: event:/Enemy/Enemy_Damaged
+  EnemyTakeDashHit: event:/Enemy/Enemy_DashImpact
+  EnemyFall: event:/Enemy/Tracking/Tracking_Fall
 --- !u!1 &1672931063864266
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +249,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672931063864266}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}

@@ -56,6 +56,7 @@ public class EnemyTurret : Enemy
     {
         GameObject newBullet = ObjectPooler.Instance.SpawnFromPool(bulletNameInPool, bulletSpawnPoint.position, transform.rotation);
         newBullet.GetComponent<EnemyBullet>().damage = this.damage;
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTurretShoot, transform.position);
     }
 
 }
