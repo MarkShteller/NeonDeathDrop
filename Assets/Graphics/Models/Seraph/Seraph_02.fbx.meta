@@ -703,6 +703,9 @@ ModelImporter:
     7400048: Charge Loop
     7400050: AOE attract
     7400052: AOE Repel
+    7400054: CycleKick
+    7400056: Idle2_Start
+    7400058: Idle2_Cycle
     9500000: //RootNode
     13700000: Seraph_Rig_JQ:Body
     13700002: Seraph_Rig_JQ:Boots
@@ -1347,7 +1350,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.5631074
-        functionName: PreformPush
+        functionName: PreformPush2
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 8ec75a390c254fd41a5f46646bdbdbf6,
           type: 3}
@@ -1510,6 +1513,106 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: CycleKick
+      takeName: CycleKick
+      firstFrame: 1040
+      lastFrame: 1136
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.18018025
+        functionName: PreformSomersault
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 8ec75a390c254fd41a5f46646bdbdbf6,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.84684694
+        functionName: FinishSomersault
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 8ec75a390c254fd41a5f46646bdbdbf6,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle2_Start
+      takeName: Idle2_Start
+      firstFrame: 880
+      lastFrame: 956
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle2_Cycle
+      takeName: Idle2_Cycle
+      firstFrame: 957
+      lastFrame: 1020
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

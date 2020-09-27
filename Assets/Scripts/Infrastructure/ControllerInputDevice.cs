@@ -94,4 +94,18 @@ public static class ControllerInputDevice
 
         return false;
     }
+
+    public static bool GetHeavyButtonDown()
+    {
+        if (Input.GetAxis("Charge") == 1 && !isChargePressed)
+        {
+            isChargePressed = true;
+            return true;
+        }
+
+        if (Input.GetAxis("Charge") == 0)
+            isChargePressed = false;
+
+        return false;
+    }
 }

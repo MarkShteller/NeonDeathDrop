@@ -8,8 +8,25 @@ public class PlayerAnimatorEvents : MonoBehaviour
 
     public void PreformPush()
     {
-        playerBehaviour.PreformPush();
+        playerBehaviour.PreformPush(1, 0.1f, 0.2f);
     }
+
+    public void PreformPush2()
+    {
+        playerBehaviour.PreformPush(1.3f, 0.2f, 0.3f);
+    }
+
+    public void PreformSomersault()
+    {
+        playerBehaviour.PreformPush(3, 0.2f, 0.4f, 4);
+        playerBehaviour.PreformSomersault();
+    }
+
+    public void FinishSomersault()
+    {
+        playerBehaviour.FinishSomersault();
+    }
+
 
     public void PreformShockwave()
     {

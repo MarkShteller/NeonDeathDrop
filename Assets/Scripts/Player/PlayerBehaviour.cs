@@ -1,4 +1,5 @@
 ﻿using EZCameraShake;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     public float pushManaCost;
     public float holeManaCost;
+
+    
+
     public float dashManaCost;
+    public float somersaultManaCost;
     public int shockwaveCoreCost;
     public float dashDuration;
     public float dashSpeed;
@@ -129,6 +134,12 @@ public class PlayerBehaviour : MonoBehaviour
             }
             transform.Translate(xMove * movementSpeed, 0, zMove * movementSpeed);
 
+            float targetX = Mathf.Lerp(animator.GetFloat("MoveX"), xMove, 0.3f);
+            float targetY = Mathf.Lerp(animator.GetFloat("MoveY"), zMove, 0.3f);
+            
+            animator.SetFloat("MoveX", targetX);
+            animator.SetFloat("MoveY", targetY);
+
             Vector3 rotation = this.visualsHolder.forward;
             /*Vector2 moveDirection = GetMovementDirection(new Vector2(xMove, zMove), new Vector2(rotation.x, rotation.z));
 
@@ -193,6 +204,19 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             }
 
+            if (ControllerInputDevice.GetHeavyButtonDown())
+            {
+                print("heavy button down");
+                //AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                //if (stateInfo.IsName("Force_Push_Right_3"))
+                {
+                    if (manaPoints >= somersaultManaCost)
+                    {
+                        animator.SetTrigger("HeavyA");
+                    }
+                }
+            }
+
             if (ControllerInputDevice.GetChargeButtonDown())
             {
                 isCharging = true;
@@ -221,6 +245,8 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
     }
+
+
 
     private void RepelAttackAction()
     {
@@ -253,6 +279,17 @@ public class PlayerBehaviour : MonoBehaviour
         StartCoroutine(shockwaveBehavior.Shockwave(10));
     }
 
+    public void PreformSomersault()
+    {
+        manaPoints -= somersaultManaCost;
+        enableControlls = false;
+    }
+
+    public void FinishSomersault()
+    {
+        enableControlls = true;
+    }
+
     private IEnumerator DashCoroutine(Vector3 direction, float duration)
     {
         lastDashDir = direction;
@@ -269,12 +306,12 @@ public class PlayerBehaviour : MonoBehaviour
         enableControlls = true;
     }
 
-    public void PreformPush()
+    public void PreformPush(float pushRadiusMul, float effectTime, float floorEffectLength, float pushRadiusWidth = 2)
     {
-        forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + 2, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius);
-        forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius / 2);
-        StartCoroutine(ShowForcePushEffect(0.1f));
-        StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(0.2f));
+        forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + pushRadiusWidth, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius * pushRadiusMul);
+        forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius * pushRadiusMul / 2);
+        StartCoroutine(ShowForcePushEffect(effectTime));
+        StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(floorEffectLength));
     }
 
     void Update()
@@ -296,7 +333,6 @@ public class PlayerBehaviour : MonoBehaviour
                     manaPoints -= pushManaCost;
 
                     AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                    
 
                     FMOD.Studio.EventInstance pushSound = FMODUnity.RuntimeManager.CreateInstance(AudioManager.Instance.PlayerPush);
                     pushSound.setParameterByID(pushParameterId, stateInfo.IsName("Force_Push_Right_2") ? 1.0f : 0.0f);
@@ -485,6 +521,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Time.time - lastTimeDamageTaken > takenDamageCooldown && !isInvinsible)
         {
+            enableControlls = true;
             lastTimeDamageTaken = Time.time;
 
             healthPoints -= damage;
@@ -555,6 +592,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         yield return new WaitForSeconds(1);
         TakeDamage(fallDamage);
+        enableControlls = false;
 
         isInvinsible = true;
         transform.position = retryPostion;

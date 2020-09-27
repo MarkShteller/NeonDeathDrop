@@ -22,13 +22,6 @@ public class PlayerVisualsBehaviour : MonoBehaviour
 
                 ObjectPooler.Instance.SpawnFromPool("HitEffect", enemy.transform.position, enemy.transform.rotation);
 
-                /*RaycastHit hit;
-                if (Physics.Raycast(transform.parent.position, -transform.forward, out hit))
-                {
-                    print("enemy pos: " + enemy.transform.position +" hit point: "+hit.point);
-                    ObjectPooler.Instance.SpawnFromPool("HitEffect", hit.point, Quaternion.identity);
-                }*/
-
             }
         }
     }

@@ -5019,11 +5019,13 @@ MonoBehaviour:
   pushManaCost: 1
   holeManaCost: 2
   dashManaCost: 4
+  somersaultManaCost: 9
   shockwaveCoreCost: 3
   dashDuration: 0.2
   dashSpeed: 200
   fallDamage: 1
   takenDamageCooldown: 0.5
+  buttonPressCooldown: 0.1
   coresCount: 0
   enemyDefeatedCount: 0
   soundEffectSource: {fileID: 82488347238867316}
@@ -5048,7 +5050,6 @@ MonoBehaviour:
   tileWallOriginalColor: {r: 0.70980394, g: 0.67058825, b: 0.6, a: 1}
   spotlight: {fileID: 7126970276171329696}
   mainDirectionalLight: {fileID: 0}
-  DashEvent: event:/Player/Abilities/Player_Dash
   IsTestMode: 0
 --- !u!54 &54492051674860394
 Rigidbody:
