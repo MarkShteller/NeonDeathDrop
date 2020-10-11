@@ -332,14 +332,6 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     manaPoints -= pushManaCost;
 
-                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-                    FMOD.Studio.EventInstance pushSound = FMODUnity.RuntimeManager.CreateInstance(AudioManager.Instance.PlayerPush);
-                    pushSound.setParameterByID(pushParameterId, stateInfo.IsName("Force_Push_Right_2") ? 1.0f : 0.0f);
-                    pushSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-                    pushSound.start();
-                    pushSound.release();
-
                     //the animation triggers PreformPush()
                     animator.SetTrigger("PushA");
                 }
@@ -367,6 +359,17 @@ public class PlayerBehaviour : MonoBehaviour
             RemovePowerupBonus(powerupToRemove);
         }
 
+    }
+
+    public void PlayCorrespondingPushSound()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        FMOD.Studio.EventInstance pushSound = FMODUnity.RuntimeManager.CreateInstance(AudioManager.Instance.PlayerPush);
+        pushSound.setParameterByID(pushParameterId, stateInfo.IsName("Force_Push_Right_3") ? 1.0f : 0.0f);
+        pushSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        pushSound.start();
+        pushSound.release();
     }
 
     private IEnumerator ShowForcePushEffect(float duration)
@@ -588,7 +591,8 @@ public class PlayerBehaviour : MonoBehaviour
         else
             retryPostion = new Vector3(spawnPosition.x, 10, spawnPosition.z);
 
-        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerFallLand, transform.position);//retryPostion);
+        Vector3 soundPos = new Vector3(transform.position.x, 0, transform.position.z);
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerFallLand, soundPos);
 
         yield return new WaitForSeconds(1);
         TakeDamage(fallDamage);

@@ -9,11 +9,13 @@ public class PlayerAnimatorEvents : MonoBehaviour
     public void PreformPush()
     {
         playerBehaviour.PreformPush(1, 0.1f, 0.2f);
+        playerBehaviour.PlayCorrespondingPushSound();
     }
 
     public void PreformPush2()
     {
         playerBehaviour.PreformPush(1.3f, 0.2f, 0.3f);
+        playerBehaviour.PlayCorrespondingPushSound();
     }
 
     public void PreformSomersault()

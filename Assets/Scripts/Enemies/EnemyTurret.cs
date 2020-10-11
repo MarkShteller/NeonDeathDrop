@@ -9,11 +9,12 @@ public class EnemyTurret : Enemy
 
     public string bulletNameInPool;
     public Transform bulletSpawnPoint;
+    public bool isFastShooter;
 
     internal override void Init()
     {
         base.Init();
-        timeToShoot = 0.5f;
+        timeToShoot = shootInterval;
     }
 
     /*internal override void LookAtPlayer()
@@ -42,7 +43,12 @@ public class EnemyTurret : Enemy
         if (timeToShoot <= 0)
         {
             timeToShoot = shootInterval;
-            animator.SetTrigger("Shoot");
+            if(!isFastShooter)
+                animator.SetTrigger("Shoot");
+            else
+                animator.SetTrigger("ShootFast");
+
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTurretShoot, transform.position);
         }
     }
 
@@ -56,7 +62,6 @@ public class EnemyTurret : Enemy
     {
         GameObject newBullet = ObjectPooler.Instance.SpawnFromPool(bulletNameInPool, bulletSpawnPoint.position, transform.rotation);
         newBullet.GetComponent<EnemyBullet>().damage = this.damage;
-        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTurretShoot, transform.position);
     }
 
 }
