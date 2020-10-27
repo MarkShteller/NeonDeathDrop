@@ -5020,9 +5020,10 @@ MonoBehaviour:
   holeManaCost: 2
   dashManaCost: 4
   somersaultManaCost: 7
+  AOEManaCost: 5
   shockwaveCoreCost: 3
   dashDuration: 0.2
-  dashSpeed: 200
+  dashSpeed: 250
   fallDamage: 1
   takenDamageCooldown: 0.5
   buttonPressCooldown: 0.1
@@ -5037,7 +5038,8 @@ MonoBehaviour:
   currHoveredObject: {fileID: 0}
   enableControlls: 1
   pushRadius: 5
-  pushForce: 1300
+  pushForce: 1400
+  currentPushForce: 0
   forcePushTriggerCollider: {fileID: 65060972803943054}
   forcePushEffect: {fileID: 1367832806280860}
   gridHolder: {fileID: 0}

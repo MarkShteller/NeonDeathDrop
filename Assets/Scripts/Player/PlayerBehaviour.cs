@@ -20,10 +20,9 @@ public class PlayerBehaviour : MonoBehaviour
     public float pushManaCost;
     public float holeManaCost;
 
-    
-
     public float dashManaCost;
     public float somersaultManaCost;
+    public float AOEManaCost;
     public int shockwaveCoreCost;
     public float dashDuration;
     public float dashSpeed;
@@ -64,6 +63,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     [HideInInspector] public bool enableControlls = true;
     private bool isFalling;
+    private float prevRotationAngle;
+    private float revolutionCount;
+    private float currentRevolutionCooldown;
+    private float revolutionCooldown = 1;
 
     private FMOD.Studio.PARAMETER_ID pushParameterId;
 
@@ -71,7 +74,10 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector3 defaultForcePushTriggerSize;
     public float pushRadius = 4f;
 
-    public float pushForce;
+    [SerializeField]
+    private float pushForce;
+    [HideInInspector]
+    public float currentPushForce;
     public BoxCollider forcePushTriggerCollider;
     public GameObject forcePushEffect;
 
@@ -101,6 +107,7 @@ public class PlayerBehaviour : MonoBehaviour
         if(!IsTestMode)
             gridHolder = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>();
 
+        currentPushForce = pushForce;
         defaultForcePushTriggerSize = forcePushTriggerCollider.size;
         manaPoints = totalManaPoints;
         healthPoints = totalHealthPoints;
@@ -108,6 +115,11 @@ public class PlayerBehaviour : MonoBehaviour
         enemyDefeatedCount = 0;
         chargeTime = 0;
         currentButtonCooldown = 0;
+
+        prevRotationAngle = 0;
+        revolutionCount = 0;
+        currentRevolutionCooldown = revolutionCooldown;
+
         isCharging = false;
         isFalling = false;
         mainDirectionalLight = GameObject.FindGameObjectWithTag("MainLight");
@@ -257,9 +269,15 @@ public class PlayerBehaviour : MonoBehaviour
     public void PreformRepelAttack()
     {
         print("aaaa");
-
+        shockwaveBehavior.gameObject.SetActive(true);
+        currentPushForce *= 1.3f;
         StartCoroutine(shockwaveBehavior.Shockwave(4, true));
+    }
 
+    public void FinishRepelAttack()
+    {
+        enableControlls = true;
+        currentPushForce = pushForce;
     }
 
     private void AttractAttackAction()
@@ -282,11 +300,13 @@ public class PlayerBehaviour : MonoBehaviour
     public void PreformSomersault()
     {
         manaPoints -= somersaultManaCost;
+        currentPushForce *= 2f;
         enableControlls = false;
     }
 
     public void FinishSomersault()
     {
+        currentPushForce = pushForce;
         enableControlls = true;
     }
 
@@ -336,6 +356,34 @@ public class PlayerBehaviour : MonoBehaviour
                     animator.SetTrigger("PushA");
                 }
             }
+
+            float newAngle = Mathf.Atan2(Input.GetAxisRaw("VerticalLook"), Input.GetAxisRaw("HorizontalLook")) * Mathf.Rad2Deg;
+
+            float angleDifference = newAngle - prevRotationAngle;
+            if (angleDifference > 180f) angleDifference -= 360f;
+            if (angleDifference < -180f) angleDifference += 360f;
+            prevRotationAngle = newAngle;
+
+            currentRevolutionCooldown -= Time.deltaTime;
+            if (currentRevolutionCooldown <= 0)
+            {
+                currentRevolutionCooldown = revolutionCooldown;
+                revolutionCount = 0;
+            }
+
+            revolutionCount += angleDifference;
+            if (revolutionCount >= 340)
+            {
+                print("Completed rotation!");
+                revolutionCount = 0;
+                if (AOEManaCost < manaPoints)
+                {
+                    animator.SetTrigger("AOERepel");
+                    manaPoints -= AOEManaCost;
+                    enableControlls = false;
+                }
+            }
+            //print(angleDifference);
         }
 
         BasePowerupBehaviour powerupToRemove = null;
@@ -410,6 +458,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     case PowerUpType.PushForceBoost:
                         pushForce += powerUp.bonus;
+                        currentPushForce = pushForce;
                         break;
                     case PowerUpType.RegenBoost:
                         manaRegenAmount += powerUp.bonus;
@@ -440,6 +489,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             case PowerUpType.PushForceBoost:
                 pushForce -= powerUp.bonus;
+                currentPushForce = pushForce;
                 break;
             case PowerUpType.RegenBoost:
                 manaRegenAmount -= powerUp.bonus;
@@ -466,7 +516,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 isDashing = false;
 
-                enemy.ForcePush(lastDashDir, pushForce * 1.5f, true);
+                enemy.ForcePush(lastDashDir, currentPushForce * 1.5f, true);
 
                 GameManager.Instance.DashSlomo(2f);
                 GameManager.Instance.cameraRef.FastZoom();
@@ -522,6 +572,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        currentPushForce = pushForce;
         if (Time.time - lastTimeDamageTaken > takenDamageCooldown && !isInvinsible)
         {
             enableControlls = true;

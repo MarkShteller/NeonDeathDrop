@@ -37,8 +37,13 @@ public class PlayerAnimatorEvents : MonoBehaviour
 
     public void PreformRepelAttack()
     {
-        print("aaa");
+        print("aaa1");
         playerBehaviour.PreformRepelAttack();
+    }
+
+    public void FinishRepelAttack()
+    {
+        playerBehaviour.FinishRepelAttack();
     }
 
     public void MakeHole()

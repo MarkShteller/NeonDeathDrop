@@ -18,7 +18,7 @@ public class PlayerVisualsBehaviour : MonoBehaviour
                 Vector3 dir = transform.position - other.transform.position;
                 // We then get the opposite (-Vector3) and normalize it
                 dir = -dir.normalized;
-                enemy.ForcePush(dir, PlayerBehaviour.pushForce);
+                enemy.ForcePush(dir, PlayerBehaviour.currentPushForce);
 
                 ObjectPooler.Instance.SpawnFromPool("HitEffect", enemy.transform.position, enemy.transform.rotation);
 

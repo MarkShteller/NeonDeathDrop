@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114468133820492776}
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   EditorEvents:
   - {fileID: 114726903399172710}
   - {fileID: 114736472103117636}
@@ -41,13 +41,14 @@ MonoBehaviour:
   - {fileID: 114386512610972086}
   - {fileID: 114894194879652178}
   - {fileID: 114190515997838116}
+  - {fileID: 114919569266455272}
   EditorParameters:
-  - {fileID: 114731710829388106}
+  - {fileID: 114342531007087672}
   MasterBanks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   StringsBanks:
   - {fileID: 114468133820492776}
-  stringsBankWriteTime: 637375989159997640
+  stringsBankWriteTime: 637393255761667368
   cacheVersion: 3
 --- !u!114 &114003728579793074
 MonoBehaviour:
@@ -64,14 +65,14 @@ MonoBehaviour:
   Path: event:/Enemy/Enemy_DashImpact
   guid: 01c143c0d6f4a84481d274ed8ae9364e
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1400
+  Length: 1781
 --- !u!114 &114033032444316380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,12 +88,12 @@ MonoBehaviour:
   Path: event:/Enemy/Turret/Turret_Projectile
   guid: 8173cabde9d34344955ece0bc5dda481
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114629950374844360}
+  - {fileID: 114647291149712602}
   MinDistance: 1
   MaxDistance: 20
   Length: 4000
@@ -133,7 +134,7 @@ MonoBehaviour:
   Path: event:/Enemy/Stomping/Stomping_Fall
   guid: 4b33c0a48cfeb949bd2290ddd0b88832
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -235,7 +236,7 @@ MonoBehaviour:
   Min: 0
   Max: 3
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &114154499380780196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +252,7 @@ MonoBehaviour:
   Path: event:/Player/Events/Player_Death
   guid: 45d3620ab98ebe47934453e419c245da
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -297,7 +298,7 @@ MonoBehaviour:
   Path: event:/Enemy/Turret/Turret_Fall
   guid: 469b4296c2c6ac4db3e29e1e673c3c64
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -360,7 +361,7 @@ MonoBehaviour:
   Path: event:/Enemy/Stomping/Stomping_Stomp
   guid: 955a478d09d9e64dbfde5c37ab90b4b6
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -444,15 +445,15 @@ MonoBehaviour:
   Path: event:/Player/Abilities/Player_Push
   guid: e288b1626da24d4e832d9bf6931e3b7d
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: 114130220093202110}
+  - {fileID: 114298369673600942}
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 2000
 --- !u!114 &114266672815476934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,7 +513,7 @@ MonoBehaviour:
   Path: event:/Environment/Env_Highway_Ambience
   guid: 116326386830074ba2fb1b244bc5ed2f
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -535,7 +536,7 @@ MonoBehaviour:
   Path: event:/Enemy/Stomping/Stomping_Ambience
   guid: 11a21e952dfaec41ad41c12cad3ac29e
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -543,6 +544,23 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4000
+--- !u!114 &114298369673600942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Player_Push/isCombo
+  m_EditorClassIdentifier: 
+  Name: isCombo
+  Min: 0
+  Max: 3
+  Default: 0
+  Exists: 1
 --- !u!114 &114323309973901008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,7 +593,7 @@ MonoBehaviour:
   Path: event:/Environment/Env_MakeHole_Multi
   guid: e7daf7686218c84e8c5a9c3269f88115
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -583,6 +601,23 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4000
+--- !u!114 &114342531007087672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: currentHealth
+  m_EditorClassIdentifier: 
+  Name: currentHealth
+  Min: 0
+  Max: 100
+  Default: 100
+  Exists: 1
 --- !u!114 &114345455037902780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,7 +655,7 @@ MonoBehaviour:
   Path: event:/Enemy/Turret/Turret_Ambience
   guid: 5dd48216831ad34699de0ed795b7dcc0
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -660,7 +695,7 @@ MonoBehaviour:
   Path: event:/Enemy/Bomb/Bomb_Ambience
   guid: 7c4ac46a967dbb4dadde5cfb3b5a784d
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -683,7 +718,7 @@ MonoBehaviour:
   Path: event:/Player/Abilities/Player_MakeHole
   guid: ee1eeba50ca21c4ab1eb1314ec1ea9f4
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -741,7 +776,7 @@ MonoBehaviour:
   Path: event:/Enemy/Bomb/Bomb_Triggered
   guid: c7c49d833f085a4084d3920a525f3ec9
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -764,7 +799,7 @@ MonoBehaviour:
   Path: event:/Player/Events/Player_Land
   guid: bab2eb1d8f904644a8565a159d595d30
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -788,7 +823,7 @@ MonoBehaviour:
   Min: 0
   Max: 3
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &114463415254321254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -804,7 +839,7 @@ MonoBehaviour:
   Path: event:/Enemy/Turret/Turret_Shoot
   guid: cfd80480fc55374ab875f1f939fc1e52
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -829,7 +864,7 @@ MonoBehaviour:
   lastModified: 637375989163009585
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &114468037838807556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -861,11 +896,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: FMOD/Test1/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637375989159997640
+  lastModified: 637393255761667368
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 2476
+    Value: 2524
+  Exists: 1
+--- !u!114 &114508179419723522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Player_ItemPickup/Item Type
+  m_EditorClassIdentifier: 
+  Name: Item Type
+  Min: 0
+  Max: 3
+  Default: 0
   Exists: 1
 --- !u!114 &114514756148248878
 MonoBehaviour:
@@ -962,7 +1014,7 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &114638537101903940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,6 +1037,23 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &114647291149712602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Turret_Projectile/playTail
+  m_EditorClassIdentifier: 
+  Name: playTail
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &114647552642980082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1039,7 +1108,7 @@ MonoBehaviour:
   Path: event:/Enemy/Tracking/Tracking_Ambience
   guid: d4938099db9aa14b8d7b6893a7e1a322
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -1062,7 +1131,7 @@ MonoBehaviour:
   Path: event:/Player/Abilities/Player_SpecialAttack_Shockwave
   guid: 14c5f262e38f6d48ac53290bae3371fd
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1086,7 +1155,7 @@ MonoBehaviour:
   Min: 0
   Max: 100
   Default: 100
-  Exists: 1
+  Exists: 0
 --- !u!114 &114733279552756788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1119,12 +1188,12 @@ MonoBehaviour:
   Path: event:/Player/Contextual/Player_ItemPickup
   guid: 3d62ac5f7710a046b779898f64213381
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: 114434449201403494}
+  - {fileID: 114508179419723522}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
@@ -1143,7 +1212,7 @@ MonoBehaviour:
   Path: event:/Enemy/Tracking/Tracking_Fall
   guid: b38a1b32e87f124dad6070409db5a17e
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1166,7 +1235,7 @@ MonoBehaviour:
   Path: event:/Music/CyberSeraph_Battle Theme
   guid: e6bb935c476a924ca7f30afb0eedce41
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -1295,7 +1364,7 @@ MonoBehaviour:
   Path: snapshot:/lowHealth
   guid: 54f6e5f5d3f26b46a5244a5354d8a5fb
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -1303,6 +1372,47 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &114919569266455272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Enemy_Damaged
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Enemy_Damaged
+  guid: 3119f22b0d0b4a48a5042757c1fea787
+  Banks:
+  - {fileID: 114938456928293620}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1875
+--- !u!114 &114938456928293620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/Test1/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637393255761318309
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &114948622308173924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1318,7 +1428,7 @@ MonoBehaviour:
   Path: event:/Player/Contextual/Player_TakeDamage
   guid: ce2679c2d504f74e936d50f1f796675a
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -1358,7 +1468,7 @@ MonoBehaviour:
   Path: event:/Player/Abilities/Player_Dash
   guid: 6697d90c3812354d812acb370a2346b6
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1399,7 +1509,7 @@ MonoBehaviour:
   Path: event:/Player/Events/Player_Fall
   guid: ccf1fa67ca12d340821dee9e7d9c9e2f
   Banks:
-  - {fileID: 114464036268205684}
+  - {fileID: 114938456928293620}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1

@@ -38,7 +38,7 @@ public class PlayerShockwaveBehavior : MonoBehaviour
                     Vector3 dir = transform.position - e.transform.position;
                     // We then get the opposite (-Vector3) and normalize it
                     dir = -dir.normalized;
-                    e.ForcePush(dir, playerBehaviour.pushForce);
+                    e.ForcePush(dir, playerBehaviour.currentPushForce);
                 }
             else
                 Debug.LogError("Could not find Enemy component on Enemy GO");
