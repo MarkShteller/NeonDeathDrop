@@ -123,7 +123,10 @@ public class PlayerBehaviour : MonoBehaviour
         isCharging = false;
         isFalling = false;
         mainDirectionalLight = GameObject.FindGameObjectWithTag("MainLight");
- 
+
+        animator.SetFloat("MoveX", 0);
+        animator.SetFloat("MoveY", 0);
+
         activePowerUps = new List<BasePowerupBehaviour>();
 
         FMOD.Studio.EventDescription pushEventDescription = FMODUnity.RuntimeManager.GetEventDescription(AudioManager.Instance.PlayerPush);
@@ -146,19 +149,19 @@ public class PlayerBehaviour : MonoBehaviour
             }
             transform.Translate(xMove * movementSpeed, 0, zMove * movementSpeed);
 
-            float targetX = Mathf.Lerp(animator.GetFloat("MoveX"), xMove, 0.3f);
-            float targetY = Mathf.Lerp(animator.GetFloat("MoveY"), zMove, 0.3f);
-            
+            Vector3 rotation = this.visualsHolder.forward;
+
+            Vector2 moveAnimDirection = GetMovementDirection(new Vector2(xMove, zMove), new Vector2(rotation.x, rotation.z));
+            if (float.IsNaN(moveAnimDirection.x) || float.IsNaN(moveAnimDirection.y))
+                moveAnimDirection = Vector2.zero;
+
+            float targetX = Mathf.Lerp(animator.GetFloat("MoveX"), moveAnimDirection.x, 0.3f);
+            float targetY = Mathf.Lerp(animator.GetFloat("MoveY"), moveAnimDirection.y, 0.3f);
+
+            //print(animator.GetFloat("MoveX") +" , "+ animator.GetFloat("MoveY") + "  "+ moveAnimDirection.x + "  " + moveAnimDirection.y);
+
             animator.SetFloat("MoveX", targetX);
             animator.SetFloat("MoveY", targetY);
-
-            Vector3 rotation = this.visualsHolder.forward;
-            /*Vector2 moveDirection = GetMovementDirection(new Vector2(xMove, zMove), new Vector2(rotation.x, rotation.z));
-
-            Vector3 euler = visualsHolder.transform.localEulerAngles;
-            euler.z = Mathf.Lerp(euler.z, moveDirection.y * 10, Time.deltaTime * 2);
-            euler.x = Mathf.Lerp(euler.x, moveDirection.x * 10, Time.deltaTime * 2);
-            visualsHolder.transform.localEulerAngles = euler;*/
 
 
             Vector3 playerRotation = Vector3.right * -Input.GetAxisRaw("HorizontalLook") + Vector3.forward * Input.GetAxisRaw("VerticalLook");
@@ -190,11 +193,10 @@ public class PlayerBehaviour : MonoBehaviour
                     //Vector3 rotation = this.visualsHolder.forward;//this.visualsHolder.rotation.eulerAngles.normalized * -1;
                     print("dash vis dir: " + rotation);
 
-                    Vector2 dashAnimDirection = GetMovementDirection(new Vector2(xMove, zMove), new Vector2(rotation.x, rotation.z));
-                    animator.SetFloat("DashX", dashAnimDirection.x);
-                    animator.SetFloat("DashY", dashAnimDirection.y);
+                    animator.SetFloat("DashX", moveAnimDirection.x);
+                    animator.SetFloat("DashY", moveAnimDirection.y);
 
-                    print("dashAnimDirection: "+ dashAnimDirection);
+                    print("dashAnimDirection: "+ moveAnimDirection);
 
                     StartCoroutine(DashCoroutine(dashDir, dashDuration));
                 }
@@ -320,7 +322,7 @@ public class PlayerBehaviour : MonoBehaviour
             time -= Time.deltaTime;
             enableControlls = false;
             transform.Translate(direction * movementSpeed * dashSpeed * Time.deltaTime);
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
         isDashing = false;
         enableControlls = true;
