@@ -12,20 +12,29 @@ public class AudioManager : MonoBehaviour {
 
     [FMODUnity.EventRef] public string MusicAct1Track1 = "";
     [FMODUnity.EventRef] public string EnvAmbienceHighway = "";
+    [FMODUnity.EventRef] public string EnvTileCracked = "";
 
     [FMODUnity.EventRef] public string PlayerDash = "";
     [FMODUnity.EventRef] public string PlayerTakeDamage = "";
     [FMODUnity.EventRef] public string PlayerFall = "";
     [FMODUnity.EventRef] public string PlayerFallLand = "";
     [FMODUnity.EventRef] public string PlayerDeath = "";
+    [FMODUnity.EventRef] public string PlayerItemPickup = "";
     [FMODUnity.EventRef] public string PlayerPush = "";
+    [FMODUnity.EventRef] public string PlayerPushCombo = "";
     [FMODUnity.EventRef] public string PlayerMakeHole = "";
     [FMODUnity.EventRef] public string PlayerShockwave = "";
+    [FMODUnity.EventRef] public string PlayerAOERepel = "";
+    [FMODUnity.EventRef] public string PlayerSomersault = "";
 
     [FMODUnity.EventRef] public string EnemyTakePushHit = "";
     [FMODUnity.EventRef] public string EnemyTakeDashHit = "";
     [FMODUnity.EventRef] public string EnemyFall = "";
     [FMODUnity.EventRef] public string EnemyTurretShoot = "";
+    [FMODUnity.EventRef] public string EnemyBombTriggered = "";
+    [FMODUnity.EventRef] public string EnemyStompingStomp = "";
+
+    [FMODUnity.EventRef] public string UIRestart = "";
 
 
     public static AudioManager Instance;

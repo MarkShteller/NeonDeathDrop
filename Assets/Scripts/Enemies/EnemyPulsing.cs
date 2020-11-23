@@ -17,7 +17,7 @@ public class EnemyPulsing : Enemy
     {
         base.Init();
         constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
-        shakeScreen = false;
+        shakeScreen = true;
     }
 
     internal override void StaticAction()
@@ -43,7 +43,6 @@ public class EnemyPulsing : Enemy
     internal override void DyingAction()
     {
         base.DyingAction();
-        gameObject.SetActive(false);
     }
 
     //triggered by animation
@@ -55,6 +54,7 @@ public class EnemyPulsing : Enemy
     private IEnumerator Pulse(float duration, bool shakeScreen = false)
     {
         pulseEffect.SetActive(true);
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyStompingStomp, transform.position);
 
         if (shakeScreen)
         {

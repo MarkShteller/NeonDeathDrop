@@ -201,16 +201,25 @@ MonoBehaviour:
   MusicSource2: {fileID: 82217941073982248}
   MusicAct1Track1: event:/Music/CyberSeraph_Battle Theme
   EnvAmbienceHighway: event:/Environment/Env_Highway_Ambience
+  EnvTileCracked: event:/Environment/Tile_Cracked
   PlayerDash: event:/Player/Abilities/Player_Dash
   PlayerTakeDamage: event:/Player/Contextual/Player_TakeDamage
   PlayerFall: event:/Player/Events/Player_Fall
   PlayerFallLand: event:/Player/Events/Player_Land
   PlayerDeath: event:/Player/Events/Player_Death
+  PlayerItemPickup: event:/Player/Contextual/Player_ItemPickup
   PlayerPush: event:/Player/Abilities/Player_Push
+  PlayerPushCombo: event:/Player/Abilities/Player_Push_Combo
+  PlayerMakeHole: event:/Player/Abilities/Player_MakeHole
   PlayerShockwave: event:/Player/Abilities/Player_SpecialAttack_Shockwave
+  PlayerAOERepel: event:/Player/Abilities/Player_AOERepel
+  PlayerSomersault: event:/Player/Abilities/Player_Somersault
   EnemyTakePushHit: event:/Enemy/Enemy_Damaged
   EnemyTakeDashHit: event:/Enemy/Enemy_DashImpact
   EnemyFall: event:/Enemy/Tracking/Tracking_Fall
+  EnemyTurretShoot: event:/Enemy/Turret/Turret_Shoot
+  EnemyBombTriggered: event:/Enemy/Bomb/Bomb_Triggered
+  EnemyStompingStomp: event:/Enemy/Stomping/Stomping_Stomp
 --- !u!1 &1672931063864266
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,8 @@ public class WeakTileBehaviour : BaseTileBehaviour
     private IEnumerator FallCoroutine(Action callback)
     {
         yield return new WaitForSeconds(timeToFall);
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnvTileCracked, transform.position);
+
         base.Drop();
         callback();
     }

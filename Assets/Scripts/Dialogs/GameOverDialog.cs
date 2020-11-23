@@ -12,6 +12,7 @@ public class GameOverDialog : MonoBehaviour {
 
     public void RestartButton()
     {
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.UIRestart, transform.position);
         GameManager.Instance.RestartLevel(true);
     }
 

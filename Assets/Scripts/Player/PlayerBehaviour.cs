@@ -129,10 +129,10 @@ public class PlayerBehaviour : MonoBehaviour
 
         activePowerUps = new List<BasePowerupBehaviour>();
 
-        FMOD.Studio.EventDescription pushEventDescription = FMODUnity.RuntimeManager.GetEventDescription(AudioManager.Instance.PlayerPush);
+        /*FMOD.Studio.EventDescription pushEventDescription = FMODUnity.RuntimeManager.GetEventDescription(AudioManager.Instance.PlayerPush);
         FMOD.Studio.PARAMETER_DESCRIPTION pushParameterDescription;
         pushEventDescription.getParameterDescriptionByName("isCombo", out pushParameterDescription);
-        pushParameterId = pushParameterDescription.id;
+        pushParameterId = pushParameterDescription.id;*/
     }
 
     void FixedUpdate()
@@ -227,6 +227,7 @@ public class PlayerBehaviour : MonoBehaviour
                     if (manaPoints >= somersaultManaCost)
                     {
                         animator.SetTrigger("HeavyA");
+                        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSomersault, transform.position);
                     }
                 }
             }
@@ -304,6 +305,7 @@ public class PlayerBehaviour : MonoBehaviour
         manaPoints -= somersaultManaCost;
         currentPushForce *= 2f;
         enableControlls = false;
+        //FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSomersault, transform.position);
     }
 
     public void FinishSomersault()
@@ -411,7 +413,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     }
 
-    public void PlayCorrespondingPushSound()
+    /*public void PlayCorrespondingPushSound()
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
@@ -420,7 +422,7 @@ public class PlayerBehaviour : MonoBehaviour
         pushSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
         pushSound.start();
         pushSound.release();
-    }
+    }*/
 
     private IEnumerator ShowForcePushEffect(float duration)
     {
@@ -432,6 +434,8 @@ public class PlayerBehaviour : MonoBehaviour
     public void AddPowerup(BasePowerupBehaviour powerUp)
     {
         Debug.Log("Picked up: "+powerUp.name);
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerItemPickup, transform.position);
+
         switch (powerUp.type)
         {
             case PowerUpType.Health:

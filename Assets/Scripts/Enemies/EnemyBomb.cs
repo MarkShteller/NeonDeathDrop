@@ -8,21 +8,26 @@ public class EnemyBomb : Enemy
     public float holeTimeToRegen;
     public SphereCollider sphereCollider;
 
+    private Coroutine explotionCoroutine = null;
 
     internal override void StunnedAction()
     {
-        StartCoroutine(Explode(explotionRadius));
+        if(explotionCoroutine == null)
+            explotionCoroutine = StartCoroutine(Explode(explotionRadius));
     }
 
     public IEnumerator Explode(float radius)
     {
+        print("bomb explode action");
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyBombTriggered, transform.position);
+
         animator.SetTrigger("Exploding");
         yield return new WaitForSeconds(stunnedTimer);
         sphereCollider.gameObject.SetActive(true);
         float ogRadius = sphereCollider.radius;
         while (sphereCollider.radius < radius)
         {
-            sphereCollider.radius += Time.deltaTime * 0.2f; ///
+            sphereCollider.radius += Time.deltaTime * 4;//0.2f; ///
             yield return null;
         }
 
