@@ -23,6 +23,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float dashManaCost;
     public float somersaultManaCost;
     public float AOEManaCost;
+    public float slomoFrameCost;
     public int shockwaveCoreCost;
     public float dashDuration;
     public float dashSpeed;
@@ -57,6 +58,11 @@ public class PlayerBehaviour : MonoBehaviour
     private float chargeCost = 5;
 
     private float timeOverPit = 0;
+
+    private float slomoTriggerCooldown = 0.2f;
+    private float currentSlomoTriggerCooldown;
+    private bool isHoleSlomo;
+    private bool isChargeMana;
 
     [HideInInspector] public GameObject prevHoveredObject;
     [HideInInspector] public GameObject currHoveredObject;
@@ -115,6 +121,7 @@ public class PlayerBehaviour : MonoBehaviour
         enemyDefeatedCount = 0;
         chargeTime = 0;
         currentButtonCooldown = 0;
+        currentSlomoTriggerCooldown = 0;
 
         prevRotationAngle = 0;
         revolutionCount = 0;
@@ -122,6 +129,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         isCharging = false;
         isFalling = false;
+        isHoleSlomo = false;
+        isChargeMana = true;
         mainDirectionalLight = GameObject.FindGameObjectWithTag("MainLight");
 
         animator.SetFloat("MoveX", 0);
@@ -669,7 +678,8 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (manaPoints < totalManaPoints)
         {
-            manaPoints += Time.deltaTime * manaRegenAmount;
+            if(isChargeMana)
+                manaPoints += Time.deltaTime * manaRegenAmount;
             UIManager.Instance.SetMana(manaPoints / totalManaPoints);
         }
     }
@@ -692,23 +702,64 @@ public class PlayerBehaviour : MonoBehaviour
                 currHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileHighlightColor);
 
         //make a hole
-        if (Input.GetMouseButtonDown(0) || ControllerInputDevice.GetLeftTriggerDown())
+        /*if (Input.GetMouseButtonDown(0) || ControllerInputDevice.GetLeftTriggerDown())
         {
-            if (manaPoints >= holeManaCost)
-            {
-                Transform tileTransform = currHoveredObject.transform.parent.parent;
-                string name = tileTransform.parent.name;
-                Debug.Log("pressed on grid cube: " + name);
+            TriggerMakeHoleAction();
+        }*/
 
-                GridNode node = gridHolder.GetGridNode(name);
-                if (node.GetTileType() != TileType.Occupied && node.GetTileType() != TileType.Pit)
-                {
-                    animator.SetTrigger("HoleA");
-                }
-                else
-                {
-                    print("Pressed on occupied tile! tile: " + name);
-                }
+        // make a hole v2.0
+        if ((ControllerInputDevice.GetLeftTriggerUp() && isHoleSlomo) || manaPoints <= holeManaCost)
+        {
+            //stop slomo and make hole
+            isHoleSlomo = false;
+            isChargeMana = true;
+            GameManager.Instance.EndSlomo();
+            TriggerMakeHoleAction();
+            print("ending hole slomo");
+        }
+        if (ControllerInputDevice.GetLeftTriggerDown() && !isHoleSlomo && manaPoints >= holeManaCost) // add back mouse support
+        {
+            //start slomo
+            currentSlomoTriggerCooldown -= Time.deltaTime;
+            if (currentSlomoTriggerCooldown <= 0)
+            {
+                isHoleSlomo = true;
+                GameManager.Instance.SetSlomo(0.3f);
+                currentSlomoTriggerCooldown = slomoTriggerCooldown;
+                print("starting hole slomo");
+            }
+
+        }
+        if (isHoleSlomo)
+        {
+            isChargeMana = false;
+            manaPoints -= slomoFrameCost;
+            if (manaPoints <= 0)
+            {
+                isHoleSlomo = false;
+                isChargeMana = true;
+                currentSlomoTriggerCooldown = slomoTriggerCooldown;
+                GameManager.Instance.EndSlomo();
+            }
+        }
+    }
+
+    private void TriggerMakeHoleAction()
+    {
+        if (manaPoints >= holeManaCost)
+        {
+            Transform tileTransform = currHoveredObject.transform.parent.parent;
+            string name = tileTransform.parent.name;
+            Debug.Log("pressed on grid cube: " + name);
+
+            GridNode node = gridHolder.GetGridNode(name);
+            if (node.GetTileType() != TileType.Occupied && node.GetTileType() != TileType.Pit)
+            {
+                animator.SetTrigger("HoleA");
+            }
+            else
+            {
+                print("Pressed on occupied tile! tile: " + name);
             }
         }
     }

@@ -12,7 +12,7 @@ public static class ControllerInputDevice
 
     public static bool GetLeftTriggerDown()
     {
-        if (Input.GetAxis("LeftTrigger") == 1 && !isLeftTriggerPressed)
+        if (Input.GetAxis("LeftTrigger") == 1)// && !isLeftTriggerPressed)
         {
             isLeftTriggerPressed = true;
             return true;
@@ -21,6 +21,16 @@ public static class ControllerInputDevice
         if (Input.GetAxis("LeftTrigger") == 0)
             isLeftTriggerPressed = false;
 
+        return false;
+    }
+
+    public static bool GetLeftTriggerUp()
+    {
+        if (isLeftTriggerPressed && Input.GetAxis("LeftTrigger") == 0)
+        {
+            isLeftTriggerPressed = false;
+            return true;
+        }
         return false;
     }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour {
     public LevelManager levelManager;
 
     public AnimationCurve[] slomoCurves;
-
+    public Volume slomoVolume;
     public int CurrentLevelIndex = 0;
 
     private LevelScriptableObject currentLevelData;
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour {
     private float maxScoreMultiplier;
     private float timeLevelStarted;
     private float damageTaken;
+
+    private Coroutine lerpSlomoCoroutine;
 
 	// Use this for initialization
 	void Awake ()
@@ -157,6 +160,29 @@ public class GameManager : MonoBehaviour {
             UIManager.Instance.OpenEndLevelDialog(score, maxScoreMultiplier, levelTime, PlayerInstance.enemyDefeatedCount, damageTaken, currentLevelData);
         else
             NextLevel();
+    }
+
+    public void SetSlomo(float timeScale)
+    {
+        Time.timeScale = timeScale;
+        lerpSlomoCoroutine = StartCoroutine(LerpSlomoVolumeWeight(0.5f, 1));
+    }
+
+    public void EndSlomo()
+    {
+        Time.timeScale = 1;
+        StopCoroutine(lerpSlomoCoroutine);
+        StartCoroutine(LerpSlomoVolumeWeight(0.5f, 0));
+    }
+
+    private IEnumerator LerpSlomoVolumeWeight(float speed, float target)
+    {
+        while (slomoVolume.weight < target - 0.01f)
+        {
+            slomoVolume.weight = Mathf.Lerp(slomoVolume.weight, target, speed);
+            yield return null;
+        }
+        slomoVolume.weight = target;
     }
 
     public void DashSlomo(float duration)
