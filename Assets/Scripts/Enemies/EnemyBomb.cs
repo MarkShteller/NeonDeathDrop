@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class EnemyBomb : Enemy
 {
     public float explotionRadius;
     public float holeTimeToRegen;
     public SphereCollider sphereCollider;
+    public VisualEffect chargeEffect;
 
     private Coroutine explotionCoroutine = null;
 
@@ -22,7 +24,11 @@ public class EnemyBomb : Enemy
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyBombTriggered, transform.position);
 
         animator.SetTrigger("Exploding");
+        chargeEffect.gameObject.SetActive(true);
+        chargeEffect.Play();
+
         yield return new WaitForSeconds(stunnedTimer);
+
         sphereCollider.gameObject.SetActive(true);
         float ogRadius = sphereCollider.radius;
         while (sphereCollider.radius < radius)
@@ -32,7 +38,7 @@ public class EnemyBomb : Enemy
         }
 
         sphereCollider.radius = ogRadius;
-        Die();
+        Die(DeathType.EnemyPit);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,7 +55,7 @@ public class EnemyBomb : Enemy
                 return;
             }
             other.GetComponent<BaseTileBehaviour>().Drop();
-            LevelGenerator.Instance.SetGridNodeType(node, TileType.Pit, holeTimeToRegen);
+            LevelGenerator.Instance.SetGridNodeType(node, TileType.EnemyPit, holeTimeToRegen);
         }
     }
 

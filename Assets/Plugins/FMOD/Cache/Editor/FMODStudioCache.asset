@@ -1,5 +1,179 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8599800133617865718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Turret_Projectile/playTail
+  m_EditorClassIdentifier: 
+  Name: playTail
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &-8136495947911325369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: currentHealth
+  m_EditorClassIdentifier: 
+  Name: currentHealth
+  Min: 0
+  Max: 100
+  Default: 100
+  Exists: 1
+--- !u!114 &-5367900516020081130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/Test1/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637421802308290432
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-3443836564589241938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: DamageSoundTriggered
+  m_EditorClassIdentifier: 
+  Name: DamageSoundTriggered
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 0
+--- !u!114 &-3321099080314834777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/Test1/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637422628184863310
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
+--- !u!114 &-3316024687603215245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/Test1/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637422520184863310
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-2027569645719559371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/Test1/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637422520184863310
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-1638867744631552974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: currentHealth
+  m_EditorClassIdentifier: 
+  Name: currentHealth
+  Min: 0
+  Max: 100
+  Default: 100
+  Exists: 0
+--- !u!114 &-1075516827314986948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: currentHealth
+  m_EditorClassIdentifier: 
+  Name: currentHealth
+  Min: 0
+  Max: 100
+  Default: 100
+  Exists: 1
+--- !u!114 &-672063143937197193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: DamageSoundTriggered
+  m_EditorClassIdentifier: 
+  Name: DamageSoundTriggered
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14,10 +188,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114468133820492776}
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   EditorEvents:
   - {fileID: 114726903399172710}
-  - {fileID: 114736472103117636}
   - {fileID: 114154499380780196}
   - {fileID: 114950322698126592}
   - {fileID: 114995891385215892}
@@ -47,13 +220,18 @@ MonoBehaviour:
   - {fileID: 114745284354956230}
   - {fileID: 114928244285305088}
   - {fileID: 114205336878311308}
+  - {fileID: 2117395313118858604}
+  - {fileID: 521434520849808448}
+  - {fileID: 6599760193925642342}
+  - {fileID: 5333436860888973513}
   EditorParameters:
-  - {fileID: 114312008681928370}
+  - {fileID: -672063143937197193}
+  - {fileID: -8136495947911325369}
   MasterBanks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   StringsBanks:
   - {fileID: 114468133820492776}
-  stringsBankWriteTime: 637408770720831451
+  stringsBankWriteTime: 637422520185228489
   cacheVersion: 3
 --- !u!114 &114003728579793074
 MonoBehaviour:
@@ -70,7 +248,7 @@ MonoBehaviour:
   Path: event:/Enemy/Enemy_DashImpact
   guid: 01c143c0d6f4a84481d274ed8ae9364e
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -93,7 +271,7 @@ MonoBehaviour:
   Path: event:/Enemy/Bomb/Bomb_Fall
   guid: 32d32ff7566dc4469ac94488b87967ce
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -116,12 +294,12 @@ MonoBehaviour:
   Path: event:/Enemy/Turret/Turret_Projectile
   guid: 8173cabde9d34344955ece0bc5dda481
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114838827039680432}
+  - {fileID: 456987941407304839}
   MinDistance: 1
   MaxDistance: 20
   Length: 4000
@@ -162,7 +340,7 @@ MonoBehaviour:
   Path: event:/Enemy/Stomping/Stomping_Fall
   guid: 4b33c0a48cfeb949bd2290ddd0b88832
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -185,14 +363,14 @@ MonoBehaviour:
   Path: event:/Environment/Tile_Cracked
   guid: 3635665e47ee804ab7eabdd15389b3ab
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 1500
 --- !u!114 &114087193806282462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,7 +481,7 @@ MonoBehaviour:
   Path: event:/Player/Events/Player_Death
   guid: 45d3620ab98ebe47934453e419c245da
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -349,7 +527,7 @@ MonoBehaviour:
   Path: event:/Enemy/Turret/Turret_Fall
   guid: 469b4296c2c6ac4db3e29e1e673c3c64
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -412,7 +590,7 @@ MonoBehaviour:
   Path: event:/Enemy/Stomping/Stomping_Stomp
   guid: 955a478d09d9e64dbfde5c37ab90b4b6
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -457,7 +635,7 @@ MonoBehaviour:
   Path: event:/Player/Abilities/Player_Somersault
   guid: faf0d74c8ffcb248ae667f862bf0bff0
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -519,7 +697,7 @@ MonoBehaviour:
   Path: event:/Player/Abilities/Player_Push
   guid: e288b1626da24d4e832d9bf6931e3b7d
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -586,13 +764,13 @@ MonoBehaviour:
   Path: event:/Environment/Env_Highway_Ambience
   guid: 116326386830074ba2fb1b244bc5ed2f
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 1
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 0
+  MaxDistance: 0
   Length: 40000
 --- !u!114 &114296757646404966
 MonoBehaviour:
@@ -609,7 +787,7 @@ MonoBehaviour:
   Path: event:/Enemy/Stomping/Stomping_Ambience
   guid: 11a21e952dfaec41ad41c12cad3ac29e
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -650,7 +828,7 @@ MonoBehaviour:
   Min: 0
   Max: 100
   Default: 100
-  Exists: 1
+  Exists: 0
 --- !u!114 &114323309973901008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -744,7 +922,7 @@ MonoBehaviour:
   Path: event:/Enemy/Turret/Turret_Ambience
   guid: 5dd48216831ad34699de0ed795b7dcc0
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -784,7 +962,7 @@ MonoBehaviour:
   Path: event:/Enemy/Bomb/Bomb_Ambience
   guid: 7c4ac46a967dbb4dadde5cfb3b5a784d
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -807,14 +985,14 @@ MonoBehaviour:
   Path: event:/Player/Abilities/Player_MakeHole
   guid: ee1eeba50ca21c4ab1eb1314ec1ea9f4
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 10
-  Length: 600
+  Length: 500
 --- !u!114 &114388877596118724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,7 +1043,7 @@ MonoBehaviour:
   Path: event:/Enemy/Bomb/Bomb_Triggered
   guid: c7c49d833f085a4084d3920a525f3ec9
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -890,7 +1068,7 @@ MonoBehaviour:
   lastModified: 637408770720442489
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &114423153333561364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -906,7 +1084,7 @@ MonoBehaviour:
   Path: event:/Player/Events/Player_Land
   guid: bab2eb1d8f904644a8565a159d595d30
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -963,7 +1141,7 @@ MonoBehaviour:
   Path: event:/Enemy/Turret/Turret_Shoot
   guid: cfd80480fc55374ab875f1f939fc1e52
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1020,11 +1198,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: FMOD/Test1/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637408770720831451
+  lastModified: 637422520185228489
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 2688
+    Value: 2822
   Exists: 1
 --- !u!114 &114508179419723522
 MonoBehaviour:
@@ -1232,7 +1410,7 @@ MonoBehaviour:
   Path: event:/Enemy/Tracking/Tracking_Ambience
   guid: d4938099db9aa14b8d7b6893a7e1a322
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -1255,7 +1433,7 @@ MonoBehaviour:
   Path: event:/Player/Abilities/Player_SpecialAttack_Shockwave
   guid: 14c5f262e38f6d48ac53290bae3371fd
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1311,8 +1489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/Player/Contextual/Player_ItemPickup
   guid: 3d62ac5f7710a046b779898f64213381
-  Banks:
-  - {fileID: 114416840197321398}
+  Banks: []
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1336,7 +1513,7 @@ MonoBehaviour:
   Path: event:/Player/Abilities/Player_Push_Combo
   guid: 8ec91f0d35545242b57fcdcaabadd8ae
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1359,7 +1536,7 @@ MonoBehaviour:
   Path: event:/Enemy/Tracking/Tracking_Fall
   guid: b38a1b32e87f124dad6070409db5a17e
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1382,7 +1559,7 @@ MonoBehaviour:
   Path: event:/Music/CyberSeraph_Battle Theme
   guid: e6bb935c476a924ca7f30afb0eedce41
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -1424,7 +1601,7 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &114859075082449280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1528,7 +1705,7 @@ MonoBehaviour:
   Path: snapshot:/lowHealth
   guid: 54f6e5f5d3f26b46a5244a5354d8a5fb
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -1551,7 +1728,7 @@ MonoBehaviour:
   Path: event:/Enemy/Enemy_Damaged
   guid: 3119f22b0d0b4a48a5042757c1fea787
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1574,14 +1751,14 @@ MonoBehaviour:
   Path: event:/Player/Abilities/Player_AOERepel
   guid: afa06bd08c9fb143899c98230bcaebc0
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 4000
 --- !u!114 &114938456928293620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1615,14 +1792,14 @@ MonoBehaviour:
   Path: event:/Environment/UI_Restart
   guid: 4f732eb20d2a544498da08560ae4398d
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 4000
 --- !u!114 &114948622308173924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1638,13 +1815,13 @@ MonoBehaviour:
   Path: event:/Player/Contextual/Player_TakeDamage
   guid: ce2679c2d504f74e936d50f1f796675a
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 0
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 0
+  MaxDistance: 0
   Length: 4000
 --- !u!114 &114949150560307024
 MonoBehaviour:
@@ -1678,14 +1855,14 @@ MonoBehaviour:
   Path: event:/Player/Abilities/Player_Dash
   guid: 6697d90c3812354d812acb370a2346b6
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
-  Length: 4000
+  Length: 3500
 --- !u!114 &114992893869820042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1719,7 +1896,7 @@ MonoBehaviour:
   Path: event:/Player/Events/Player_Fall
   guid: ccf1fa67ca12d340821dee9e7d9c9e2f
   Banks:
-  - {fileID: 114416840197321398}
+  - {fileID: -2027569645719559371}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1727,3 +1904,197 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 3000
+--- !u!114 &456987941407304839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Turret_Projectile/playTail
+  m_EditorClassIdentifier: 
+  Name: playTail
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
+--- !u!114 &521434520849808448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Items/ItemPickup_PowerUp
+  m_EditorClassIdentifier: 
+  Path: event:/Items/ItemPickup_PowerUp
+  guid: 8a91b58f6ff64f45bee06511ac1a8d8b
+  Banks:
+  - {fileID: -2027569645719559371}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 2000
+--- !u!114 &2117395313118858604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Items/ItemPickup_SmallHP
+  m_EditorClassIdentifier: 
+  Path: event:/Items/ItemPickup_SmallHP
+  guid: 356ed7102c088948b9dde1450583a847
+  Banks:
+  - {fileID: -2027569645719559371}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 2000
+--- !u!114 &2862862805616549191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: DamageSoundTriggered
+  m_EditorClassIdentifier: 
+  Name: DamageSoundTriggered
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 0
+--- !u!114 &4932771252883360324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: currentHealth
+  m_EditorClassIdentifier: 
+  Name: currentHealth
+  Min: 0
+  Max: 100
+  Default: 100
+  Exists: 0
+--- !u!114 &5333436860888973513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Items/ItemPickup_Core
+  m_EditorClassIdentifier: 
+  Path: event:/Items/ItemPickup_Core
+  guid: d0c0a191b6ca6942a7c6ee914055e7af
+  Banks:
+  - {fileID: -2027569645719559371}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 2000
+--- !u!114 &5902931675802864689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: DamageSoundTriggered
+  m_EditorClassIdentifier: 
+  Name: DamageSoundTriggered
+  Min: 0
+  Max: 2
+  Default: 0
+  Exists: 1
+--- !u!114 &6189741303210205153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Turret_Projectile/playTail
+  m_EditorClassIdentifier: 
+  Name: playTail
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 0
+--- !u!114 &6398582740662592141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Turret_Projectile/playTail
+  m_EditorClassIdentifier: 
+  Name: playTail
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
+--- !u!114 &6599760193925642342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Items/ItemPickup_BigHP
+  m_EditorClassIdentifier: 
+  Path: event:/Items/ItemPickup_BigHP
+  guid: bacd533b5b71f1419cb1ee614370f15d
+  Banks:
+  - {fileID: -2027569645719559371}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 4000

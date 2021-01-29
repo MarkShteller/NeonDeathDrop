@@ -20,6 +20,9 @@ public class AudioManager : MonoBehaviour {
     [FMODUnity.EventRef] public string PlayerFallLand = "";
     [FMODUnity.EventRef] public string PlayerDeath = "";
     [FMODUnity.EventRef] public string PlayerItemPickup = "";
+    [FMODUnity.EventRef] public string PlayerItemPickupHP1 = "";
+    [FMODUnity.EventRef] public string PlayerItemPickupHP2 = "";
+    [FMODUnity.EventRef] public string PlayerItemPickupCore = "";
     [FMODUnity.EventRef] public string PlayerPush = "";
     [FMODUnity.EventRef] public string PlayerPushCombo = "";
     [FMODUnity.EventRef] public string PlayerMakeHole = "";

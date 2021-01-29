@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BaseTileBehaviour : MonoBehaviour {
 
+    public GameObject MainPillar;
+    public GameObject SelectedPillar;
+
     public AnimationCurve dropAnim;
     public float dropDuration;
     public AnimationCurve riseAnim;
@@ -23,6 +26,24 @@ public class BaseTileBehaviour : MonoBehaviour {
     public void Rise()
     {
         StartCoroutine(Animate(riseAnim, riseDuration));
+    }
+
+    public void SelectPillar()
+    {
+        if (MainPillar && SelectedPillar)
+        {
+            MainPillar.SetActive(false);
+            SelectedPillar.SetActive(true);
+        }
+    }
+
+    public void DeselectPillar()
+    {
+        if (MainPillar && SelectedPillar)
+        {
+            MainPillar.SetActive(true);
+            SelectedPillar.SetActive(false);
+        }
     }
 
     public void SlideDown()

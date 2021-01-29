@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +11,18 @@ public class UIManager : MonoBehaviour {
     public Slider healthSlider;
     public Text scoreText;
     public Text scoreMultiplierText;
+    public Text killPointsText;
+    public ProgressBar killPointsBar;
+    public Text PraiseText;
     public Text coreCount;
 
     public Transform powerupsGrid;
     public PowerupUIBehaviour powerupUIPrefab;
 
     public GameObject hudObject;
+
+    private Animation praiseTextEnterAnim;
+    private Coroutine TriggerPraiseCoroutine;
 
     [SerializeField] private GameOverDialog gameOverDialog;
     [SerializeField] private EndLevelReportDialog endLevelReportDialog;
@@ -24,6 +31,21 @@ public class UIManager : MonoBehaviour {
     void Awake () {
         Instance = this;
 	}
+
+    private void Start()
+    {
+        praiseTextEnterAnim = PraiseText.GetComponent<Animation>();
+        PraiseText.gameObject.SetActive(false);
+    }
+
+    /*private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            praiseTextEnterAnim.Rewind();
+            praiseTextEnterAnim.Play();
+        }
+    }*/
 
     public void SetScore(int value)
     {
@@ -52,9 +74,50 @@ public class UIManager : MonoBehaviour {
         hudObject.SetActive(false);
     }
 
+    public void SetScoreMultiplier(float scoreMultiplier, string praiseText)
+    {
+        scoreMultiplierText.text = "x"+scoreMultiplier.ToString("N0"); //used to be N1
+
+
+        /*PraiseText.text = praiseText;
+        praiseTextEnterAnim.Rewind();
+        praiseTextEnterAnim.Play();*/
+
+        if (TriggerPraiseCoroutine != null)
+            StopCoroutine(TriggerPraiseCoroutine);
+        TriggerPraiseCoroutine = StartCoroutine(TriggerPraiseAnim(praiseText));
+    }
+
     public void SetScoreMultiplier(float scoreMultiplier)
     {
-        scoreMultiplierText.text = "x"+scoreMultiplier.ToString("N1");
+        scoreMultiplierText.text = "x" + scoreMultiplier.ToString("N0"); //used to be N1
+    }
+
+    private IEnumerator TriggerPraiseAnim(string text)
+    {
+        yield return new WaitForSeconds(0.3f);
+        PraiseText.gameObject.SetActive(true);
+
+        PraiseText.text = text;
+        praiseTextEnterAnim.Rewind();
+        praiseTextEnterAnim.Play();
+    }
+
+    public void SetKillPoints(float value, float maxValue)
+    {
+        if (value == 0)
+        {
+            killPointsBar.gameObject.SetActive(false);
+            PraiseText.gameObject.SetActive(false);
+        }
+        else
+        {
+            killPointsBar.gameObject.SetActive(true);
+        }
+        killPointsText.text = value.ToString();
+        killPointsBar.min = 0;
+        killPointsBar.max = maxValue;
+        killPointsBar.current = value;
     }
 
     public void OpenEndLevelDialog(int score, float maxMultiplier, float time, int enemyCount, float damage, LevelScriptableObject level)

@@ -207,7 +207,10 @@ MonoBehaviour:
   PlayerFall: event:/Player/Events/Player_Fall
   PlayerFallLand: event:/Player/Events/Player_Land
   PlayerDeath: event:/Player/Events/Player_Death
-  PlayerItemPickup: event:/Player/Contextual/Player_ItemPickup
+  PlayerItemPickup: event:/Items/ItemPickup_PowerUp
+  PlayerItemPickupHP1: event:/Items/ItemPickup_SmallHP
+  PlayerItemPickupHP2: event:/Items/ItemPickup_BigHP
+  PlayerItemPickupCore: event:/Items/ItemPickup_Core
   PlayerPush: event:/Player/Abilities/Player_Push
   PlayerPushCombo: event:/Player/Abilities/Player_Push_Combo
   PlayerMakeHole: event:/Player/Abilities/Player_MakeHole
@@ -220,6 +223,7 @@ MonoBehaviour:
   EnemyTurretShoot: event:/Enemy/Turret/Turret_Shoot
   EnemyBombTriggered: event:/Enemy/Bomb/Bomb_Triggered
   EnemyStompingStomp: event:/Enemy/Stomping/Stomping_Stomp
+  UIRestart: event:/Environment/UI_Restart
 --- !u!1 &1672931063864266
 GameObject:
   m_ObjectHideFlags: 0

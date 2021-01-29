@@ -132,7 +132,7 @@ public class LevelGenerator : MonoBehaviour {
     public void SetGridNodeType(int x, int y, TileType type, float regenTime = 0)
     {
         grid[x, y].SetType(type);
-        if (type == TileType.Pit)
+        if (type == TileType.Pit || type == TileType.EnemyPit)
         {
             regeneratingTiles.Add(grid[x, y]);
             grid[x, y].TimeToNormal = regenTime;
@@ -142,7 +142,7 @@ public class LevelGenerator : MonoBehaviour {
     public void SetGridNodeType(GridNode node, TileType type, float regenTime = 0)
     {
         node.SetType(type);
-        if (type == TileType.Pit)
+        if (type == TileType.Pit || type == TileType.EnemyPit || type == TileType.PlayerPit)
         {
             regeneratingTiles.Add(node);
             node.TimeToNormal = regenTime;

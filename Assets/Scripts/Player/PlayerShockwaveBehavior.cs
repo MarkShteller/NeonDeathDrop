@@ -32,13 +32,13 @@ public class PlayerShockwaveBehavior : MonoBehaviour
             Enemy e = other.GetComponent<Enemy>();
             if (e != null)
                 if (!isRegularShockwave)
-                    e.Die();
+                    e.Die(Enemy.DeathType.Shockwave);
                 else
                 {
                     Vector3 dir = transform.position - e.transform.position;
                     // We then get the opposite (-Vector3) and normalize it
                     dir = -dir.normalized;
-                    e.ForcePush(dir, playerBehaviour.currentPushForce);
+                    e.ForcePush(dir, playerBehaviour.currentPushForce, PlayerBehaviour.PlayerAttackType.None);
                 }
             else
                 Debug.LogError("Could not find Enemy component on Enemy GO");

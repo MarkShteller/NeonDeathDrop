@@ -50,7 +50,8 @@ public class Enemy : MonoBehaviour, IPooledObject {
     internal RigidbodyConstraints constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
     internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, Falling, Shooting, Pulse, Dead }
-
+    public enum DeathType { Pit, PlayerPit, EnemyPit, Shockwave }
+    private PlayerBehaviour.PlayerAttackType lastAttackType;
     /*private void Awake()
     {
         gridHolder = LevelGenerator.Instance;
@@ -122,7 +123,15 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 }
                 else if (gNode.GetTileType() == TileType.Pit)
                 {
-                    Die();
+                    Die(DeathType.Pit);
+                }
+                else if (gNode.GetTileType() == TileType.EnemyPit)
+                {
+                    Die(DeathType.EnemyPit);
+                }
+                else if (gNode.GetTileType() == TileType.PlayerPit)
+                {
+                    Die(DeathType.PlayerPit);
                 }
                 else
                 {
@@ -142,7 +151,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
         }
     }
 
-    public void Die()
+    public void Die(DeathType deathType)
     {
         if (movementStatus != MovementType.Dead)
         {
@@ -157,6 +166,38 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 print("creaing a powerup! " + powerup.name);
             }
         }
+
+        float killpoints =0;
+        switch (deathType)
+        {
+            case DeathType.Pit:
+                killpoints = 1;
+                break;
+            case DeathType.PlayerPit:
+                killpoints = 3;
+                break;
+            case DeathType.EnemyPit:
+                killpoints = 1.5f;
+                break;
+            case DeathType.Shockwave:
+                killpoints = 1;
+                break;
+        }
+        switch (lastAttackType)
+        {
+            case PlayerBehaviour.PlayerAttackType.None:
+                break;
+            case PlayerBehaviour.PlayerAttackType.Push:
+                break;
+            case PlayerBehaviour.PlayerAttackType.Dash:
+                killpoints += 1;
+                break;
+            case PlayerBehaviour.PlayerAttackType.Heavy:
+                killpoints += 1;
+                break;
+        }
+        GameManager.Instance.AddKillPoints(killpoints);
+        GameManager.Instance.AddScore(pointsReward);
     }
 
     public void UpdateEnemy()
@@ -211,8 +252,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
     internal virtual void DyingAction()
     {
         print("Enemy is falling...");
-        GameManager.Instance.AddScoreMultiplier(deathScoreMultiplier);
-        GameManager.Instance.AddScore(pointsReward);
+        
         //CameraShaker.Instance.ShakeOnce(2f, 4f, 0.1f, 1f);
         GameManager.Instance.IncrementEnemyKillCount();
         //gameObject.SetActive(false);
@@ -320,15 +360,24 @@ public class Enemy : MonoBehaviour, IPooledObject {
         transform.rotation = toRotation;
     }
 
-    public virtual void ForcePush(Vector3 direction, float force, bool isDash = false)
+    public virtual void ForcePush(Vector3 direction, float force, PlayerBehaviour.PlayerAttackType attackType)
     {
         movementStatus = MovementType.Pushed;
         rrigidBody.AddForce(direction * force);
         animator.SetTrigger("TakeHit");
-        if(!isDash)
-            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakePushHit, transform.position);
-        else
-            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakeDashHit, transform.position);
+        lastAttackType = attackType;
+        switch (attackType)
+        {
+            case PlayerBehaviour.PlayerAttackType.Push:
+                FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakePushHit, transform.position);
+                break;
+            case PlayerBehaviour.PlayerAttackType.Dash:
+                FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakeDashHit, transform.position);
+                break;
+            case PlayerBehaviour.PlayerAttackType.Heavy:
+                // need heavy hit sound
+                break;
+        }
     }
 
     public void DeathEvent()

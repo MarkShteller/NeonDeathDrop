@@ -48,6 +48,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   scoreMultiplier: 1
+  killPoints: 0
+  multiplierTiers:
+  - 1
+  - 3
+  - 10
+  - 18
+  - 25
+  - 35
+  - 55
+  - 75
+  - 100
+  - 120
+  - 500
+  praiseTiers:
+  - Nice
+  - Nice
+  - Werk
+  - Fierce!
+  - GAG.
+  - Fabulous!
+  - Slay!
+  - Yaasss!!
+  - Sickening!
+  - LEGENDARY
+  - LEGENDARY!
   PlayerInstance: {fileID: 0}
   cameraRef: {fileID: 0}
   levelManager: {fileID: 114524042694302210}
@@ -57,21 +82,21 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -1.3547992
-      outSlope: -1.3547992
+      inSlope: -31.388254
+      outSlope: -31.388254
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.089242235
+      outWeight: 0.0722635
     - serializedVersion: 3
-      time: 0.10069408
-      value: 0.22063237
-      inSlope: -0.7671993
-      outSlope: -0.7671993
+      time: 0.024280705
+      value: 0
+      inSlope: 1.8817086
+      outSlope: 1.8817086
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.42431688
-      outWeight: 0.33333334
+      outWeight: 0.094453454
     - serializedVersion: 3
       time: 1
       value: 1

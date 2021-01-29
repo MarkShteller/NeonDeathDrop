@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -51,6 +52,8 @@ public class PlayerBehaviour : MonoBehaviour
     [HideInInspector] public bool isInvinsible = false;
     private Vector3 lastDashDir;
 
+    [HideInInspector] public bool isDoingSomersault = false;
+
     private bool isCharging;
     private float chargeTime;
     public float chargeTimeAttract;
@@ -74,6 +77,8 @@ public class PlayerBehaviour : MonoBehaviour
     private float currentRevolutionCooldown;
     private float revolutionCooldown = 1;
 
+    private CapsuleCollider capsuleCollider;
+
     private FMOD.Studio.PARAMETER_ID pushParameterId;
 
     //private float defaultRadius = 0.35f;
@@ -85,7 +90,9 @@ public class PlayerBehaviour : MonoBehaviour
     [HideInInspector]
     public float currentPushForce;
     public BoxCollider forcePushTriggerCollider;
-    public GameObject forcePushEffect;
+    public VisualEffect forcePushEffect;
+    public VisualEffect somersaultEffect;
+    public VisualEffect dashEffect;
 
     public LevelGenerator gridHolder;
     public Transform visualsHolder;
@@ -104,7 +111,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject spotlight;
     public GameObject mainDirectionalLight;
 
-    
+    public enum PlayerAttackType { None, Push, Dash, Heavy}
 
     public bool IsTestMode = false;
 
@@ -113,6 +120,7 @@ public class PlayerBehaviour : MonoBehaviour
         if(!IsTestMode)
             gridHolder = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>();
 
+        capsuleCollider = GetComponent<CapsuleCollider>();
         currentPushForce = pushForce;
         defaultForcePushTriggerSize = forcePushTriggerCollider.size;
         manaPoints = totalManaPoints;
@@ -311,9 +319,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void PreformSomersault()
     {
+        isDoingSomersault = true;
         manaPoints -= somersaultManaCost;
-        currentPushForce *= 2f;
+        currentPushForce *= 1.5f;
         enableControlls = false;
+        ObjectPooler.Instance.SpawnFromPool("SomersaultEffect", transform.position, visualsHolder.rotation);
         //FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSomersault, transform.position);
     }
 
@@ -321,13 +331,21 @@ public class PlayerBehaviour : MonoBehaviour
     {
         currentPushForce = pushForce;
         enableControlls = true;
+        isDoingSomersault = false;
     }
 
     private IEnumerator DashCoroutine(Vector3 direction, float duration)
     {
         lastDashDir = direction;
         isDashing = true;
+
+        dashEffect.Play();
+
         float time = duration;
+
+        float capsuleR = capsuleCollider.radius;
+        capsuleCollider.radius *= 3f;
+
         while (time > 0 && enableDash && isDashing)
         {
             time -= Time.deltaTime;
@@ -335,16 +353,29 @@ public class PlayerBehaviour : MonoBehaviour
             transform.Translate(direction * movementSpeed * dashSpeed * Time.deltaTime);
             yield return new WaitForFixedUpdate();
         }
+
+        capsuleCollider.radius = capsuleR;
         isDashing = false;
         enableControlls = true;
     }
 
     public void PreformPush(float pushRadiusMul, float effectTime, float floorEffectLength, float pushRadiusWidth = 2)
     {
+        manaPoints -= pushManaCost;
         forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + pushRadiusWidth, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius * pushRadiusMul);
         forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius * pushRadiusMul / 2);
-        StartCoroutine(ShowForcePushEffect(effectTime));
+        //StartCoroutine(ShowForcePushEffect(effectTime));
+
+        forcePushEffect.SetFloat("ForceMultiplier", pushRadiusMul);
+        if (pushRadiusMul <= 1.5f) //exclude Somersault 
+            forcePushEffect.Play();
+
         StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(floorEffectLength));
+    }
+
+    public void UseMana(float amount)
+    {
+        manaPoints -= amount;
     }
 
     void Update()
@@ -363,7 +394,7 @@ public class PlayerBehaviour : MonoBehaviour
                 currentButtonCooldown = buttonPressCooldown;
                 if (manaPoints >= pushManaCost)
                 {
-                    manaPoints -= pushManaCost;
+                    //manaPoints -= pushManaCost;
 
                     //the animation triggers PreformPush()
                     animator.SetTrigger("PushA");
@@ -433,31 +464,38 @@ public class PlayerBehaviour : MonoBehaviour
         pushSound.release();
     }*/
 
-    private IEnumerator ShowForcePushEffect(float duration)
+    /*private IEnumerator ShowForcePushEffect(float duration)
     {
         forcePushEffect.SetActive(true);
         yield return new WaitForSeconds(duration);
         forcePushEffect.SetActive(false);
-    }
+    }*/
 
     public void AddPowerup(BasePowerupBehaviour powerUp)
     {
         Debug.Log("Picked up: "+powerUp.name);
-        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerItemPickup, transform.position);
 
         switch (powerUp.type)
         {
             case PowerUpType.Health:
+
                 healthPoints += powerUp.bonus;
 
                 if (healthPoints > totalHealthPoints)
                     healthPoints = totalHealthPoints;
                 if (healthPoints > 2)
                     GameManager.Instance.cameraRef.SetLowHealth(false);
+                if(powerUp.bonus == 1) // TODO: change this to be dynamic somehow
+                    FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerItemPickupHP1, transform.position);
+                else
+                    FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerItemPickupHP2, transform.position);
+
 
                 UIManager.Instance.SetHealth(healthPoints / totalHealthPoints);
                 break;
             case PowerUpType.Core:
+                FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerItemPickupCore, transform.position);
+
                 coresCount += powerUp.count;
                 UIManager.Instance.SetCoreCount(coresCount);
                 break;
@@ -465,6 +503,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (powerUp.type != PowerUpType.Health && powerUp.type != PowerUpType.Core)
         {
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerItemPickup, transform.position);
+
             if (activePowerUps.Count == 0 || !activePowerUps.Exists(p => p.powerUpName == powerUp.powerUpName))
             {
                 activePowerUps.Add(powerUp);
@@ -531,11 +571,11 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 isDashing = false;
 
-                enemy.ForcePush(lastDashDir, currentPushForce * 1.5f, true);
+                enemy.ForcePush(lastDashDir, currentPushForce * 1.5f, PlayerAttackType.Dash);
 
                 GameManager.Instance.DashSlomo(2f);
                 GameManager.Instance.cameraRef.FastZoom();
-                ObjectPooler.Instance.SpawnFromPool("HitEffect", enemy.transform.position, enemy.transform.rotation);
+                ObjectPooler.Instance.SpawnFromPool("HitEffect", enemy.transform.position, Quaternion.identity);
             }
             else
             {
@@ -596,7 +636,8 @@ public class PlayerBehaviour : MonoBehaviour
             healthPoints -= damage;
             FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerTakeDamage, transform.position);
 
-            GameManager.Instance.SetScoreMultiplier(1);
+            //GameManager.Instance.SetScoreMultiplier(1);
+            GameManager.Instance.ResetKillPointsAndMultiplier();
             GameManager.Instance.AddDamageCount(damage);
             UIManager.Instance.SetHealth(healthPoints / totalHealthPoints);
             if (healthPoints <= 0)
@@ -690,16 +731,20 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (prevHoveredObject.tag != "WeakCube")
             {
-                if(prevHoveredObject.tag == "WallCube")
+                prevHoveredObject.GetComponent<BaseTileBehaviour>().DeselectPillar();
+
+                /*if (prevHoveredObject.tag == "WallCube")
                     prevHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileWallOriginalColor);
                 else
-                    prevHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileOriginalColor);
+                    prevHoveredObject.GetComponent<BaseTileBehaviour>().DeselectPillar();*/
+                    //prevHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileOriginalColor);
             }
         }
 
         if (currHoveredObject != null)
             if (currHoveredObject.tag != "WeakCube")
-                currHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileHighlightColor);
+                //currHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileHighlightColor);
+                currHoveredObject.GetComponent<BaseTileBehaviour>().SelectPillar();
 
         //make a hole
         /*if (Input.GetMouseButtonDown(0) || ControllerInputDevice.GetLeftTriggerDown())
@@ -748,12 +793,12 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (manaPoints >= holeManaCost)
         {
-            Transform tileTransform = currHoveredObject.transform.parent.parent;
+            Transform tileTransform = currHoveredObject.transform;
             string name = tileTransform.parent.name;
             Debug.Log("pressed on grid cube: " + name);
 
             GridNode node = gridHolder.GetGridNode(name);
-            if (node.GetTileType() != TileType.Occupied && node.GetTileType() != TileType.Pit)
+            if (node.GetTileType() != TileType.Occupied && node.GetTileType() != TileType.Pit && node.GetTileType() != TileType.PlayerPit && node.GetTileType() != TileType.EnemyPit)
             {
                 animator.SetTrigger("HoleA");
             }
@@ -766,14 +811,14 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void MakeHole()
     {
-        Transform tileTransform = currHoveredObject.transform.parent.parent;
+        Transform tileTransform = currHoveredObject.transform;
         
         //move the tile down
         tileTransform.GetComponent<BaseTileBehaviour>().Drop();
         string name = tileTransform.parent.name;
 
         GridNode node = gridHolder.GetGridNode(name);
-        gridHolder.SetGridNodeType(node, TileType.Pit, holeTimeToRegen);
+        gridHolder.SetGridNodeType(node, TileType.PlayerPit, holeTimeToRegen);
         manaPoints -= holeManaCost;
 
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerMakeHole, transform.position);

@@ -22,7 +22,7 @@ public class PlayerAnimatorEvents : MonoBehaviour
 
     public void PreformSomersault()
     {
-        playerBehaviour.PreformPush(3, 0.2f, 0.4f, 4);
+        playerBehaviour.PreformPush(1.6f, 0.2f, 0.4f, 4);
         playerBehaviour.PreformSomersault();
     }
 

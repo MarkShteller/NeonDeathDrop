@@ -15,7 +15,7 @@ public class DetectFloorTiles : MonoBehaviour
         {
             if(playerBehaviour.currHoveredObject != null)
                 playerBehaviour.prevHoveredObject = playerBehaviour.currHoveredObject;
-            playerBehaviour.currHoveredObject = other.transform.GetChild(0).GetChild(0).gameObject;
+            playerBehaviour.currHoveredObject = other.transform.gameObject;
         }
     }
 

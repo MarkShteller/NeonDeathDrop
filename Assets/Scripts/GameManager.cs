@@ -12,6 +12,12 @@ public class GameManager : MonoBehaviour {
     public int score = 0;
     public float scoreMultiplier = 1;
 
+    public float killPoints = 0;
+    private float maxKillPoints =1;
+    public float[] multiplierTiers;
+    public string[] praiseTiers;
+    private int currentMultiplierTierIndex = 0;
+
     private GameObject PlayerObject;
 
     public PlayerBehaviour PlayerInstance;
@@ -30,6 +36,7 @@ public class GameManager : MonoBehaviour {
     private float damageTaken;
 
     private Coroutine lerpSlomoCoroutine;
+    private Coroutine scoreUpdaterCoroutine;
 
 	// Use this for initialization
 	void Awake ()
@@ -64,8 +71,10 @@ public class GameManager : MonoBehaviour {
         score = 0;
         scoreMultiplier = 1;
         maxScoreMultiplier = scoreMultiplier;
+        killPoints = 0;
         timeLevelStarted = Time.time;
         damageTaken = 0;
+        scoreUpdaterCoroutine = StartCoroutine(KillPointsUpdater());
 
         UIManager.Instance.SetScore(score);
         UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
@@ -73,6 +82,24 @@ public class GameManager : MonoBehaviour {
         cameraRef = Camera.main.transform.parent.GetComponent<CameraMovement>();
         print(cameraRef.currentState);
         currentLevelData = levelManager.Init(CurrentLevelIndex);
+    }
+
+    private IEnumerator KillPointsUpdater()
+    {
+        while (true)
+        {
+            if(killPoints > 0)
+                killPoints -= Time.fixedDeltaTime * maxKillPoints / 10;
+            if (killPoints < 0)
+                killPoints = 0;
+            if (killPoints == 0 && scoreMultiplier != 1)
+            {
+                SetScoreMultiplier(1);
+                maxKillPoints = 1;
+            }
+            UIManager.Instance.SetKillPoints(killPoints, multiplierTiers[currentMultiplierTierIndex+1]);
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     public void SetPlayerPosition(Vector3 position)
@@ -126,18 +153,45 @@ public class GameManager : MonoBehaviour {
         UIManager.Instance.OpenGameOverScreen(score);
     }
 
-    public void AddScoreMultiplier(float value)
+    public void AddKillPoints(float value)
+    {
+        killPoints += value;
+        if (killPoints > maxKillPoints)
+            maxKillPoints = killPoints;
+        for (int i = multiplierTiers.Length - 1; i > 0; i--)
+        {
+            if (killPoints >= multiplierTiers[i])
+            {
+                currentMultiplierTierIndex = i;
+                SetScoreMultiplier(i + 1);
+                break;
+            }
+        }
+    }
+
+    public void ResetKillPointsAndMultiplier()
+    {
+        killPoints = 0;
+        maxKillPoints = 1;
+        currentMultiplierTierIndex = 0;
+        SetScoreMultiplier(1);
+    }
+
+    /*public void AddScoreMultiplier(float value)
     {
         scoreMultiplier += value;
         if (scoreMultiplier > maxScoreMultiplier)
             maxScoreMultiplier = scoreMultiplier;
         UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
-    }
+    }*/
 
-    public void SetScoreMultiplier(int value)
+    public void SetScoreMultiplier(float value)
     {
-        scoreMultiplier = value;
-        UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
+        if (scoreMultiplier != value)
+        {
+            scoreMultiplier = value;
+            UIManager.Instance.SetScoreMultiplier(scoreMultiplier, praiseTiers[currentMultiplierTierIndex + 1]);
+        }
     }
 
     public void IncrementEnemyKillCount()
@@ -156,6 +210,8 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 0;
         float levelTime = Time.time - timeLevelStarted;
 
+        StopCoroutine(scoreUpdaterCoroutine);
+
         if (currentLevelData.showEndLevelReport)
             UIManager.Instance.OpenEndLevelDialog(score, maxScoreMultiplier, levelTime, PlayerInstance.enemyDefeatedCount, damageTaken, currentLevelData);
         else
@@ -171,7 +227,8 @@ public class GameManager : MonoBehaviour {
     public void EndSlomo()
     {
         Time.timeScale = 1;
-        StopCoroutine(lerpSlomoCoroutine);
+        if(lerpSlomoCoroutine != null)
+            StopCoroutine(lerpSlomoCoroutine);
         StartCoroutine(LerpSlomoVolumeWeight(0.5f, 0));
     }
 

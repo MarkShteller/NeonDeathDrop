@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class EnemyTurret : Enemy
 {
@@ -9,6 +10,7 @@ public class EnemyTurret : Enemy
 
     public string bulletNameInPool;
     public Transform bulletSpawnPoint;
+    public VisualEffect chargeEffect;
     public bool isFastShooter;
 
     internal override void Init()
@@ -30,6 +32,12 @@ public class EnemyTurret : Enemy
             movementStatus = MovementType.Shooting;
     }
 
+    internal override void StunnedAction()
+    {
+        base.StunnedAction();
+        chargeEffect.SetBool("IsCharging", false);
+    }
+
     internal override void ShootingAction()
     {
         float distanceFromPlayer = Vector3.Distance(transform.position, playerObject.position);
@@ -48,6 +56,7 @@ public class EnemyTurret : Enemy
             else
                 animator.SetTrigger("ShootFast");
 
+            chargeEffect.SetBool("IsCharging",true);
             FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTurretShoot, transform.position);
         }
     }
@@ -60,6 +69,7 @@ public class EnemyTurret : Enemy
 
     internal override void FireEvent()
     {
+        chargeEffect.SetBool("IsCharging", false);
         GameObject newBullet = ObjectPooler.Instance.SpawnFromPool(bulletNameInPool, bulletSpawnPoint.position, transform.rotation);
         newBullet.GetComponent<EnemyBullet>().damage = this.damage;
     }

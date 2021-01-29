@@ -48,7 +48,7 @@ public class SpiderLegBehaviour : EnemyPulsing
         }
     }
 
-    public override void ForcePush(Vector3 direction, float force, bool isDash = false)
+    public override void ForcePush(Vector3 direction, float force, PlayerBehaviour.PlayerAttackType attackType)
     {
         animator.SetTrigger("Pushed");
     }
