@@ -48,9 +48,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private float lastTimeDamageTaken=0;
     private bool enableDash = true;
-    private bool isDashing = false;
+    [HideInInspector] public bool isDashing = false;
     [HideInInspector] public bool isInvinsible = false;
     private Vector3 lastDashDir;
+    private bool isDashImpact = false;
 
     [HideInInspector] public bool isDoingSomersault = false;
 
@@ -71,6 +72,7 @@ public class PlayerBehaviour : MonoBehaviour
     [HideInInspector] public GameObject currHoveredObject;
 
     [HideInInspector] public bool enableControlls = true;
+    [HideInInspector] public bool enableMovement = true;
     private bool isFalling;
     private float prevRotationAngle;
     private float revolutionCount;
@@ -78,6 +80,8 @@ public class PlayerBehaviour : MonoBehaviour
     private float revolutionCooldown = 1;
 
     private CapsuleCollider capsuleCollider;
+
+    private PlayerAimAssist aimAssist;
 
     private FMOD.Studio.PARAMETER_ID pushParameterId;
 
@@ -114,6 +118,7 @@ public class PlayerBehaviour : MonoBehaviour
     public enum PlayerAttackType { None, Push, Dash, Heavy}
 
     public bool IsTestMode = false;
+    private bool isDead;
 
     void Start()
     {
@@ -121,6 +126,7 @@ public class PlayerBehaviour : MonoBehaviour
             gridHolder = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>();
 
         capsuleCollider = GetComponent<CapsuleCollider>();
+        aimAssist = GetComponentInChildren<PlayerAimAssist>();
         currentPushForce = pushForce;
         defaultForcePushTriggerSize = forcePushTriggerCollider.size;
         manaPoints = totalManaPoints;
@@ -156,13 +162,17 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (enableControlls)
         {
-            float xMove = Input.GetAxis("HorizontalMove");
-            float zMove = Input.GetAxis("VerticalMove");
-
-            if (xMove == 0 && zMove == 0)
+            float xMove =0, zMove=0;
+            if (enableMovement)
             {
-                xMove = Input.GetAxis("Horizontal");
-                zMove = Input.GetAxis("Vertical");
+                xMove = Input.GetAxis("HorizontalMove");
+                zMove = Input.GetAxis("VerticalMove");
+
+                if (xMove == 0 && zMove == 0)
+                {
+                    xMove = Input.GetAxis("Horizontal");
+                    zMove = Input.GetAxis("Vertical");
+                }
             }
             transform.Translate(xMove * movementSpeed, 0, zMove * movementSpeed);
 
@@ -181,14 +191,19 @@ public class PlayerBehaviour : MonoBehaviour
             animator.SetFloat("MoveY", targetY);
 
 
-            Vector3 playerRotation = Vector3.right * -Input.GetAxisRaw("HorizontalLook") + Vector3.forward * Input.GetAxisRaw("VerticalLook");
+            Vector3 playerAimRotation = Vector3.right * -Input.GetAxisRaw("HorizontalLook") + Vector3.forward * Input.GetAxisRaw("VerticalLook");
+            Vector3 playerDefaultRotation = Vector3.right * -xMove + Vector3.forward * -zMove;
 
             if (Input.GetAxis("AltVLook") != 0 || Input.GetAxis("AltHLook") != 0)
-                playerRotation = Vector3.right * -Input.GetAxis("AltHLook") + Vector3.forward * (Input.GetAxis("AltVLook"));
+                playerAimRotation = Vector3.right * -Input.GetAxis("AltHLook") + Vector3.forward * (Input.GetAxis("AltVLook"));
 
-            if (playerRotation.sqrMagnitude > 0.0f)
+            if (playerAimRotation.sqrMagnitude > 0.0f)
             {
-                this.visualsHolder.rotation = Quaternion.Slerp(visualsHolder.rotation, Quaternion.LookRotation(playerRotation, Vector3.up), 0.25f);
+                this.visualsHolder.rotation = Quaternion.Slerp(visualsHolder.rotation, Quaternion.LookRotation(playerAimRotation, Vector3.up), 0.25f);
+            }
+            else if(playerDefaultRotation.sqrMagnitude > 0.0f)
+            {
+                this.visualsHolder.rotation = Quaternion.LookRotation(playerDefaultRotation, Vector3.up);
             }
 
             if (ControllerInputDevice.GetDashButtonDown())
@@ -344,7 +359,7 @@ public class PlayerBehaviour : MonoBehaviour
         float time = duration;
 
         float capsuleR = capsuleCollider.radius;
-        capsuleCollider.radius *= 3f;
+        capsuleCollider.radius *= 2f;
 
         while (time > 0 && enableDash && isDashing)
         {
@@ -356,11 +371,18 @@ public class PlayerBehaviour : MonoBehaviour
 
         capsuleCollider.radius = capsuleR;
         isDashing = false;
-        enableControlls = true;
+        if (isDashImpact)
+        {
+            yield return new WaitForSeconds(0.3f);
+            isDashImpact = false;
+        }
+        if(!isDead)
+            enableControlls = true;
     }
 
     public void PreformPush(float pushRadiusMul, float effectTime, float floorEffectLength, float pushRadiusWidth = 2)
     {
+        enableMovement = true;
         manaPoints -= pushManaCost;
         forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + pushRadiusWidth, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius * pushRadiusMul);
         forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius * pushRadiusMul / 2);
@@ -394,7 +416,14 @@ public class PlayerBehaviour : MonoBehaviour
                 currentButtonCooldown = buttonPressCooldown;
                 if (manaPoints >= pushManaCost)
                 {
-                    //manaPoints -= pushManaCost;
+                    enableMovement = false;
+
+                    GameObject closestEnemy = aimAssist.GetClosestEnemyObject();
+                    if (closestEnemy != null)
+                    {
+                        this.visualsHolder.LookAt(closestEnemy.transform, Vector3.up);
+                        visualsHolder.Rotate(new Vector3(0, 180, 0));
+                    }
 
                     //the animation triggers PreformPush()
                     animator.SetTrigger("PushA");
@@ -570,7 +599,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (isDashing)
             {
                 isDashing = false;
-
+                isDashImpact = true;
                 enemy.ForcePush(lastDashDir, currentPushForce * 1.5f, PlayerAttackType.Dash);
 
                 GameManager.Instance.DashSlomo(2f);
@@ -635,6 +664,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             healthPoints -= damage;
             FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerTakeDamage, transform.position);
+            GameManager.Instance.TakeDamage();
 
             //GameManager.Instance.SetScoreMultiplier(1);
             GameManager.Instance.ResetKillPointsAndMultiplier();
@@ -643,11 +673,14 @@ public class PlayerBehaviour : MonoBehaviour
             if (healthPoints <= 0)
             {
                 //GameManager.Instance.GameOver();
+                isDead = true;
                 EnemyManager.Instance.isUpdateEnemies = false;
                 animator.SetTrigger("Dead");
                 FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerDeath, transform.position);
 
                 enableControlls = false;
+                isInvinsible = true;
+                
                 spotlight.SetActive(true);
                 mainDirectionalLight.SetActive(false);
                 GameManager.Instance.cameraRef.SetLowHealth(false);
@@ -691,21 +724,26 @@ public class PlayerBehaviour : MonoBehaviour
     private IEnumerator WaitToRecover()
     {
         animator.SetBool("Falling", isFalling);
-
-        Vector3 retryPostion;
-        if (checkpoint != null)
-            retryPostion = new Vector3(checkpoint.position.x, 10, checkpoint.position.z);
-        else
-            retryPostion = new Vector3(spawnPosition.x, 10, spawnPosition.z);
+        //enableDash = false; 
+        enableControlls = false;
 
         Vector3 soundPos = new Vector3(transform.position.x, 0, transform.position.z);
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerFallLand, soundPos);
 
         yield return new WaitForSeconds(1);
         TakeDamage(fallDamage);
-        enableControlls = false;
+        enableControlls = false; //taking damage if not dead can enable controls back
+
+        if (isDead)
+            yield break;
 
         isInvinsible = true;
+
+        Vector3 retryPostion;
+        if (checkpoint != null)
+            retryPostion = new Vector3(checkpoint.position.x, 10, checkpoint.position.z);
+        else
+            retryPostion = new Vector3(spawnPosition.x, 10, spawnPosition.z);
         transform.position = retryPostion;
 
         yield return new WaitForSeconds(4f);
@@ -769,7 +807,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (currentSlomoTriggerCooldown <= 0)
             {
                 isHoleSlomo = true;
-                GameManager.Instance.SetSlomo(0.3f);
+                GameManager.Instance.SetSlomo(0.1f);
                 currentSlomoTriggerCooldown = slomoTriggerCooldown;
                 print("starting hole slomo");
             }
@@ -817,8 +855,44 @@ public class PlayerBehaviour : MonoBehaviour
         tileTransform.GetComponent<BaseTileBehaviour>().Drop();
         string name = tileTransform.parent.name;
 
-        GridNode node = gridHolder.GetGridNode(name);
+        var location = gridHolder.GetNodeLocation(name);
+        GridNode node = gridHolder.GetGridNode(location[0], location[1]);
+
+        //set the selected node as a hole
         gridHolder.SetGridNodeType(node, TileType.PlayerPit, holeTimeToRegen);
+
+        //set adjacent available nodes as holes
+        GridNode up = null, down = null, left = null, right = null;
+        try { up = gridHolder.GetGridNode(location[0], location[1]+1); }
+        catch (IndexOutOfRangeException e) { }
+        try { down = gridHolder.GetGridNode(location[0], location[1]-1); }
+        catch (IndexOutOfRangeException e) { }
+        try { left = gridHolder.GetGridNode(location[0]-1, location[1]); }
+        catch (IndexOutOfRangeException e) { }
+        try { right = gridHolder.GetGridNode(location[0]+1, location[1]); }
+        catch (IndexOutOfRangeException e) { }
+
+        if (up != null && up.GetTileType() == TileType.Normal)
+        {
+            up.GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>().Drop();
+            gridHolder.SetGridNodeType(up, TileType.PlayerPit, holeTimeToRegen);
+        }
+        if (down != null && down.GetTileType() == TileType.Normal)
+        {
+            down.GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>().Drop();
+            gridHolder.SetGridNodeType(down, TileType.PlayerPit, holeTimeToRegen);
+        }
+        if (left != null && left.GetTileType() == TileType.Normal)
+        {
+            left.GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>().Drop();
+            gridHolder.SetGridNodeType(left, TileType.PlayerPit, holeTimeToRegen);
+        }
+        if (right != null && right.GetTileType() == TileType.Normal)
+        {
+            right.GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>().Drop();
+            gridHolder.SetGridNodeType(right, TileType.PlayerPit, holeTimeToRegen);
+        }
+
         manaPoints -= holeManaCost;
 
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerMakeHole, transform.position);

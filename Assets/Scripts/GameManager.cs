@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
 
     public AnimationCurve[] slomoCurves;
     public Volume slomoVolume;
+    public Volume takingDanmageVolume;
     public int CurrentLevelIndex = 0;
 
     private LevelScriptableObject currentLevelData;
@@ -37,9 +38,11 @@ public class GameManager : MonoBehaviour {
 
     private Coroutine lerpSlomoCoroutine;
     private Coroutine scoreUpdaterCoroutine;
+    private float fixedDeltaTime;
 
-	// Use this for initialization
-	void Awake ()
+
+    // Use this for initialization
+    void Awake ()
     {
         if (Instance == null)
             Instance = this;
@@ -52,6 +55,7 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         Application.targetFrameRate = 60;
+        this.fixedDeltaTime = Time.fixedDeltaTime;
 
         StartCoroutine(InitLevel());
         print("## GameManager ready");
@@ -221,15 +225,38 @@ public class GameManager : MonoBehaviour {
     public void SetSlomo(float timeScale)
     {
         Time.timeScale = timeScale;
+        Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
         lerpSlomoCoroutine = StartCoroutine(LerpSlomoVolumeWeight(0.5f, 1));
     }
 
     public void EndSlomo()
     {
         Time.timeScale = 1;
-        if(lerpSlomoCoroutine != null)
+        Time.fixedDeltaTime = this.fixedDeltaTime;
+        if (lerpSlomoCoroutine != null)
             StopCoroutine(lerpSlomoCoroutine);
         StartCoroutine(LerpSlomoVolumeWeight(0.5f, 0));
+    }
+
+    public void TakeDamage()
+    {
+        StopCoroutine("LerpDamageVolumeWeight");
+        StartCoroutine(LerpDamageVolumeWeight(0.5f));
+    }
+
+    private IEnumerator LerpDamageVolumeWeight(float speed)
+    {
+        while (takingDanmageVolume.weight < 0.95f)
+        {
+            takingDanmageVolume.weight = Mathf.Lerp(takingDanmageVolume.weight, 1, speed);
+            yield return null;
+        }
+        while (takingDanmageVolume.weight > 0.05f)
+        {
+            takingDanmageVolume.weight = Mathf.Lerp(takingDanmageVolume.weight, 0, speed);
+            yield return null;
+        }
+        takingDanmageVolume.weight = 0;
     }
 
     private IEnumerator LerpSlomoVolumeWeight(float speed, float target)

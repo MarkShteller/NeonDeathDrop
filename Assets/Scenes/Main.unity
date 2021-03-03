@@ -3405,8 +3405,8 @@ GameObject:
   - component: {fileID: 141844552}
   - component: {fileID: 141844554}
   m_Layer: 0
-  m_Name: Directional Light (test)
-  m_TagString: Untagged
+  m_Name: Directional Light
+  m_TagString: MainLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11275,6 +11275,54 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 455617444}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &467592106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 467592107}
+  - component: {fileID: 467592108}
+  m_Layer: 0
+  m_Name: Damage Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &467592107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467592106}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.1330073, y: 0.39151, z: 10.611111}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 769960946}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &467592108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467592106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 0
+  sharedProfile: {fileID: 11400000, guid: ad3e13b6888a5234a803bc37970295bb, type: 2}
 --- !u!1 &471071343
 GameObject:
   m_ObjectHideFlags: 0
@@ -19856,6 +19904,7 @@ Transform:
   m_Children:
   - {fileID: 1797780395}
   - {fileID: 1324019979}
+  - {fileID: 467592107}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22877,8 +22926,8 @@ GameObject:
   - component: {fileID: 901973528}
   - component: {fileID: 901973527}
   m_Layer: 0
-  m_Name: Directional Light
-  m_TagString: MainLight
+  m_Name: Directional Light (old)
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47413,10 +47462,10 @@ MonoBehaviour:
   pools:
   - tag: TrackingEnemy
     prefab: {fileID: 1000012726947038, guid: f36da67ab3b444b41b9e4f5c015bb57f, type: 3}
-    size: 50
+    size: 70
   - tag: TurretEnemy
     prefab: {fileID: 1193038803940318, guid: a6c81817ea2cf6a4690ef7cfac04ef47, type: 3}
-    size: 20
+    size: 40
   - tag: Projectile
     prefab: {fileID: 1251283752625272, guid: ec6a46b836240b448af7787a9cfd3bd0, type: 3}
     size: 20
@@ -51985,7 +52034,7 @@ PrefabInstance:
     - target: {fileID: 3169198744974863275, guid: 07e7fbbb260fedb4cb12483f73a67a33,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: -25.000061
       objectReference: {fileID: 0}
     - target: {fileID: 7701719845055748182, guid: 07e7fbbb260fedb4cb12483f73a67a33,
         type: 3}
@@ -52115,7 +52164,7 @@ PrefabInstance:
     - target: {fileID: 8902734051754445249, guid: 07e7fbbb260fedb4cb12483f73a67a33,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -12
+      value: -12.000061
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07e7fbbb260fedb4cb12483f73a67a33, type: 3}
@@ -52252,7 +52301,7 @@ PrefabInstance:
     - target: {fileID: 2121764512221449124, guid: 9bec7594d03f5494084df6621ad6e47e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bec7594d03f5494084df6621ad6e47e, type: 3}

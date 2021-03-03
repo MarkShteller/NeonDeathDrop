@@ -28,7 +28,9 @@ public class EnemyBullet : MonoBehaviour, IPooledObject {
     {
         if (other.tag == "Player")
         {
-            other.GetComponent<PlayerBehaviour>().TakeDamage(damage);
+            var player = other.GetComponent<PlayerBehaviour>();
+            player.TakeDamage(damage);
+            player.isDashing = false;
             gameObject.SetActive(false);
         }
     }

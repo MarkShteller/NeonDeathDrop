@@ -129,6 +129,12 @@ public class LevelGenerator : MonoBehaviour {
         return GetGridNode(int.Parse(posArr[0]), int.Parse(posArr[1]));
     }
 
+    public int[] GetNodeLocation(string name)
+    {
+        string[] posArr = name.Split(',');
+        return new int[2] { int.Parse(posArr[0]), int.Parse(posArr[1]) };
+    }
+
     public void SetGridNodeType(int x, int y, TileType type, float regenTime = 0)
     {
         grid[x, y].SetType(type);
