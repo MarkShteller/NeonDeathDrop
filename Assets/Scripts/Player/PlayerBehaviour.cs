@@ -600,7 +600,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 isDashing = false;
                 isDashImpact = true;
-                enemy.ForcePush(lastDashDir, currentPushForce * 1.5f, PlayerAttackType.Dash);
+                enemy.ForcePush(lastDashDir, currentPushForce * 1.5f, PlayerAttackType.Dash, true);
 
                 GameManager.Instance.DashSlomo(2f);
                 GameManager.Instance.cameraRef.FastZoom();

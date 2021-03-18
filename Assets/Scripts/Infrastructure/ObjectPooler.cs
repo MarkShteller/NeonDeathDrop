@@ -49,8 +49,8 @@ public class ObjectPooler : MonoBehaviour
 
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
 
-        if (objectToSpawn.activeInHierarchy)
-            Debug.LogError("Spawning object with tag "+tag+" that is already active. Behavior may be compromised.");
+        /*if (objectToSpawn.activeInHierarchy)
+            Debug.LogError("Spawning object with tag "+tag+" that is already active. Behavior may be compromised.");*/
 
         objectToSpawn.SetActive(false);
 

@@ -18,8 +18,12 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
    
 
-    public float stunnedTimer = 1;
+    protected float stunnedTimer;
+    public float pushStunTimer = 1;
+    public float dashStunTimer = 2;
+    public float heavyStunTimer = 3;
     private float stunnedRemaining;
+    private bool isSuperStunned = false;
 
     public int pointsReward = 10;
     public float deathScoreMultiplier = 0.1f;
@@ -49,7 +53,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
     internal MovementType movementStatus;
     internal RigidbodyConstraints constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
-    internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, Falling, Shooting, Pulse, Dead }
+    internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, SuperStunned, Falling, Shooting, Pulse, Dead }
     public enum DeathType { Pit, PlayerPit, EnemyPit, Shockwave }
     private PlayerBehaviour.PlayerAttackType lastAttackType;
     /*private void Awake()
@@ -230,12 +234,19 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 //recover from push and continue following the player
                 if (rrigidBody.velocity.x < 0.1f && rrigidBody.velocity.y < 0.1f)
                 {
-                    movementStatus = MovementType.Stunned;
+                    if(!isSuperStunned)
+                        movementStatus = MovementType.Stunned;
+                    else
+                        movementStatus = MovementType.SuperStunned;
+
                     stunnedRemaining = stunnedTimer;
                 }
                 break;
 
             case MovementType.Stunned:
+                StunnedAction();
+                break;
+            case MovementType.SuperStunned:
                 StunnedAction();
                 break;
 
@@ -360,21 +371,25 @@ public class Enemy : MonoBehaviour, IPooledObject {
         transform.rotation = toRotation;
     }
 
-    public virtual void ForcePush(Vector3 direction, float force, PlayerBehaviour.PlayerAttackType attackType)
+    public virtual void ForcePush(Vector3 direction, float force, PlayerBehaviour.PlayerAttackType attackType, bool superStun = false)
     {
         movementStatus = MovementType.Pushed;
         rrigidBody.AddForce(direction * force);
         animator.SetTrigger("TakeHit");
+
         lastAttackType = attackType;
         switch (attackType)
         {
             case PlayerBehaviour.PlayerAttackType.Push:
+                stunnedTimer = pushStunTimer;
                 FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakePushHit, transform.position);
                 break;
             case PlayerBehaviour.PlayerAttackType.Dash:
+                stunnedTimer = dashStunTimer;
                 FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakeDashHit, transform.position);
                 break;
             case PlayerBehaviour.PlayerAttackType.Heavy:
+                stunnedTimer = heavyStunTimer;
                 // need heavy hit sound
                 break;
         }
