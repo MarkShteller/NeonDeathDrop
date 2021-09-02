@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FMOD.Studio;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ public class AudioManager : MonoBehaviour {
 
     [FMODUnity.EventRef] public string PlayerDash = "";
     [FMODUnity.EventRef] public string PlayerTakeDamage = "";
+    [FMODUnity.EventRef] public string PlayerLowEnergy = "";
     [FMODUnity.EventRef] public string PlayerFall = "";
     [FMODUnity.EventRef] public string PlayerFallLand = "";
     [FMODUnity.EventRef] public string PlayerDeath = "";
@@ -29,6 +31,7 @@ public class AudioManager : MonoBehaviour {
     [FMODUnity.EventRef] public string PlayerShockwave = "";
     [FMODUnity.EventRef] public string PlayerAOERepel = "";
     [FMODUnity.EventRef] public string PlayerSomersault = "";
+    //[FMODUnity.EventRef] public string PlayerSlomo = "";
 
     [FMODUnity.EventRef] public string EnemyTakePushHit = "";
     [FMODUnity.EventRef] public string EnemyTakeDashHit = "";
@@ -39,6 +42,8 @@ public class AudioManager : MonoBehaviour {
 
     [FMODUnity.EventRef] public string UIRestart = "";
 
+    EventInstance LevelMusic;
+    //Parameter paramInstance;
 
     public static AudioManager Instance;
 
@@ -54,11 +59,36 @@ public class AudioManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    void Start ()
+    void Start()
     {
         //PlayMusic(0);
         //placeholder
-        FMODUnity.RuntimeManager.PlayOneShot(MusicAct1Track1, transform.position);
+
+        print("## created music instance");
+        //StartCoroutine(StartMusic());
+
+        //FMODUnity.RuntimeManager.PlayOneShot(MusicAct1Track1, transform.position);
+
+    }
+
+    public IEnumerator StartMusic(Transform player)
+    {
+        yield return null;
+        LevelMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Music/UpperBavelle_Battle");
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(LevelMusic, player, player.GetComponent<Rigidbody>());
+        print("## setting music param and playing");
+        LevelMusic.setParameterByName("level_isStarting", 1);
+        LevelMusic.start();
+    }
+
+    public void SetLowIntensityMusic()
+    {
+        LevelMusic.setParameterByName("Music_Intensity", 0);
+    }
+
+    public void SetHighIntensityMusic()
+    {
+        LevelMusic.setParameterByName("Music_Intensity", 1);
 
     }
 

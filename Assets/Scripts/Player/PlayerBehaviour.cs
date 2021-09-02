@@ -46,7 +46,7 @@ public class PlayerBehaviour : MonoBehaviour
     private RaycastHit hit;
     private Ray ray;
 
-    private float lastTimeDamageTaken=0;
+    private float lastTimeDamageTaken = 0;
     private bool enableDash = true;
     [HideInInspector] public bool isDashing = false;
     [HideInInspector] public bool isInvinsible = false;
@@ -115,14 +115,14 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject spotlight;
     public GameObject mainDirectionalLight;
 
-    public enum PlayerAttackType { None, Push, Dash, Heavy}
+    public enum PlayerAttackType { None, Push, Dash, Heavy, Launch }
 
     public bool IsTestMode = false;
     private bool isDead;
 
     void Start()
     {
-        if(!IsTestMode)
+        if (!IsTestMode)
             gridHolder = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>();
 
         capsuleCollider = GetComponent<CapsuleCollider>();
@@ -162,7 +162,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (enableControlls)
         {
-            float xMove =0, zMove=0;
+            float xMove = 0, zMove = 0;
             if (enableMovement)
             {
                 xMove = Input.GetAxis("HorizontalMove");
@@ -201,7 +201,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 this.visualsHolder.rotation = Quaternion.Slerp(visualsHolder.rotation, Quaternion.LookRotation(playerAimRotation, Vector3.up), 0.25f);
             }
-            else if(playerDefaultRotation.sqrMagnitude > 0.0f)
+            else if (playerDefaultRotation.sqrMagnitude > 0.0f)
             {
                 this.visualsHolder.rotation = Quaternion.LookRotation(playerDefaultRotation, Vector3.up);
             }
@@ -214,8 +214,8 @@ public class PlayerBehaviour : MonoBehaviour
 
                     Vector3 dashDir = new Vector3(xMove, 0, zMove).normalized;
                     if (dashDir == Vector3.zero)
-                        dashDir = this.visualsHolder.forward *-1;
-                    print("DASH! dir: "+dashDir);
+                        dashDir = this.visualsHolder.forward * -1;
+                    print("DASH! dir: " + dashDir);
 
                     //AudioManager.Instance.PlayEffect(soundEffectSource, 3);
                     FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerDash, transform.position);
@@ -228,10 +228,13 @@ public class PlayerBehaviour : MonoBehaviour
                     animator.SetFloat("DashX", moveAnimDirection.x);
                     animator.SetFloat("DashY", moveAnimDirection.y);
 
-                    print("dashAnimDirection: "+ moveAnimDirection);
+                    print("dashAnimDirection: " + moveAnimDirection);
 
                     StartCoroutine(DashCoroutine(dashDir, dashDuration));
                 }
+                else
+                    LowMana();
+
             }
 
             if (ControllerInputDevice.GetSpecialButtonDown())
@@ -248,6 +251,8 @@ public class PlayerBehaviour : MonoBehaviour
                     enableControlls = false;
                     EnemyManager.Instance.isUpdateEnemies = false;
                 }
+                else
+                    FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerLowEnergy, transform.position);
             }
 
             if (ControllerInputDevice.GetHeavyButtonDown())
@@ -261,10 +266,29 @@ public class PlayerBehaviour : MonoBehaviour
                         animator.SetTrigger("HeavyA");
                         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSomersault, transform.position);
                     }
+                    else
+                        LowMana();
                 }
             }
 
-            if (ControllerInputDevice.GetChargeButtonDown())
+            if (ControllerInputDevice.GetLeftTriggerDown())
+            {
+                Enemy e = EnemyManager.Instance.GetStunnedEnemy();
+                if (e != null)
+                {
+                    Point p = e.GetPointPos();
+                    BaseTileBehaviour tile = gridHolder.GetGridNode(p.x, p.y).GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>();
+                    tile?.Popup();
+                    animator.SetTrigger("Launch");
+                    e.Launch();
+                }
+                else
+                {
+                    print("# finisher button down but no stunned enemies.");
+                }
+            }
+
+            /*if (ControllerInputDevice.GetChargeButtonDown())
             {
                 isCharging = true;
                 chargeTime += Time.deltaTime;
@@ -278,10 +302,12 @@ public class PlayerBehaviour : MonoBehaviour
                     AttractAttackAction();
                 else if (chargeTime >= chargeTimeRepel && manaPoints >= chargeCost)
                     RepelAttackAction();
+                else
+                    LowMana();
                 chargeTime = 0;
                 isCharging = false;
                 animator.SetBool("ChargeA", isCharging);
-            }
+            }*/
         }
         DetectPlayerPositionOnGrid();
 
@@ -293,7 +319,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     }
 
+    private void LowMana()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerLowEnergy, transform.position);
 
+    }
 
     private void RepelAttackAction()
     {
@@ -411,7 +441,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (enableControlls)
         {
             currentButtonCooldown -= Time.deltaTime;
-            if ((Input.GetMouseButtonDown(1) || ControllerInputDevice.GetRightTriggerDown()) && currentButtonCooldown <= 0)
+            if ((Input.GetMouseButtonDown(1) || ControllerInputDevice.GetRightButtonDown()) && currentButtonCooldown <= 0)
             {
                 currentButtonCooldown = buttonPressCooldown;
                 if (manaPoints >= pushManaCost)
@@ -428,6 +458,8 @@ public class PlayerBehaviour : MonoBehaviour
                     //the animation triggers PreformPush()
                     animator.SetTrigger("PushA");
                 }
+                else
+                    LowMana();
             }
 
             float newAngle = Mathf.Atan2(Input.GetAxisRaw("VerticalLook"), Input.GetAxisRaw("HorizontalLook")) * Mathf.Rad2Deg;
@@ -449,12 +481,14 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 print("Completed rotation!");
                 revolutionCount = 0;
-                if (AOEManaCost < manaPoints)
+                if (AOEManaCost <= manaPoints)
                 {
                     animator.SetTrigger("AOERepel");
                     manaPoints -= AOEManaCost;
                     enableControlls = false;
                 }
+                else
+                    LowMana();
             }
             //print(angleDifference);
         }
@@ -603,7 +637,7 @@ public class PlayerBehaviour : MonoBehaviour
                 enemy.ForcePush(lastDashDir, currentPushForce * 1.5f, PlayerAttackType.Dash, true);
 
                 GameManager.Instance.DashSlomo(2f);
-                GameManager.Instance.cameraRef.FastZoom();
+                GameManager.Instance.cameraRef.FastZoom(enemy.transform);
                 ObjectPooler.Instance.SpawnFromPool("HitEffect", enemy.transform.position, Quaternion.identity);
             }
             else
@@ -782,7 +816,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (currHoveredObject != null)
             if (currHoveredObject.tag != "WeakCube")
                 //currHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileHighlightColor);
-                currHoveredObject.GetComponent<BaseTileBehaviour>().SelectPillar();
+                if(isHoleSlomo)
+                    currHoveredObject.GetComponent<BaseTileBehaviour>().SelectPillar();
 
         //make a hole
         /*if (Input.GetMouseButtonDown(0) || ControllerInputDevice.GetLeftTriggerDown())
@@ -791,7 +826,7 @@ public class PlayerBehaviour : MonoBehaviour
         }*/
 
         // make a hole v2.0
-        if ((ControllerInputDevice.GetLeftTriggerUp() && isHoleSlomo) || manaPoints <= holeManaCost)
+        if ((ControllerInputDevice.GetLeftButtonUp() && isHoleSlomo) || manaPoints <= holeManaCost)
         {
             //stop slomo and make hole
             isHoleSlomo = false;
@@ -800,7 +835,7 @@ public class PlayerBehaviour : MonoBehaviour
             TriggerMakeHoleAction();
             print("ending hole slomo");
         }
-        if (ControllerInputDevice.GetLeftTriggerDown() && !isHoleSlomo && manaPoints >= holeManaCost) // add back mouse support
+        if (ControllerInputDevice.GetLeftButtonDown() && !isHoleSlomo && manaPoints >= holeManaCost) // add back mouse support
         {
             //start slomo
             currentSlomoTriggerCooldown -= Time.deltaTime;

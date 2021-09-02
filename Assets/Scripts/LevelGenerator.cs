@@ -29,8 +29,9 @@ public class LevelGenerator : MonoBehaviour {
 
     private GameObject PlayerSpawnObj = null;
     private const float NORMAL_TILE_HEIGHT = 0f;
+    private const float PLAYER_SPAWN_HEIGHT = 20f;
     private const float WALL_TILE_HEIGHT = 1f;
-    private const float PIT_TILE_HEIGHT = -100f;
+    private const float PIT_TILE_HEIGHT = -300f;
     private const float CHARACTER_POS_HEIGHT = 3.265f;//0.65f;
 
     private readonly float[] ROTATIONS = { 0f, 90f, 180f, 270f };
@@ -239,7 +240,7 @@ public class LevelGenerator : MonoBehaviour {
                     case TileType.PlayerOrigin:
                         GameObject goo = CreateTile(x, y, NORMAL_TILE_HEIGHT, cube);
                         grid[x, y].SetGameNodeRef(goo);
-                        PlayerSpawnObj = CreateSpawnPoint("PlayerSpawn", goo.transform.position);
+                        PlayerSpawnObj = CreateSpawnPoint("PlayerSpawn", new Vector3(goo.transform.position.x, PLAYER_SPAWN_HEIGHT, goo.transform.position.z));
                         break;
                     case TileType.EnemySpawn:
                         {
@@ -273,18 +274,16 @@ public class LevelGenerator : MonoBehaviour {
         {
             //The index in the spawner ref array is the RED int value in opposite order (255 = 0, 254 = 1...)
             int spawnerIndex = 255 - Mathf.CeilToInt(pixelColor.r * 255);
-            //print("spawner index: " +spawnerIndex);
-            EnemySpawner enemySpawner = new EnemySpawner(levelData.Spawners[spawnerIndex]);
-
+            EnemySpawnpointInstance spawnpointInstance = new EnemySpawnpointInstance(levelData.Spawners[spawnerIndex]);
 
             GameObject go = CreateTile(x, y, NORMAL_TILE_HEIGHT, cube);
             grid[x, y] = new GridNode(TileType.EnemySpawn);
             grid[x, y].SetGameNodeRef(go);
 
             Vector3 pos = go.transform.position;
-            enemySpawner.spawnPoint = CreateSpawnPoint("EnemySpawn " + spawnerIndex, pos).transform;
+            spawnpointInstance.spawnPoint = CreateSpawnPoint("EnemySpawn " + spawnerIndex, pos).transform;
 
-            EnemyManager.Instance.AddSpawnPoint(enemySpawner);
+            EnemyManager.Instance.AddSpawnPoint(spawnpointInstance);
         }
 
         if (pixelColor.r > 0.35f && pixelColor.g == 0 && pixelColor.b > 0.8f) // RGB:(100,0,255-i) means gate

@@ -9,7 +9,7 @@ public class EnemyManager : MonoBehaviour {
 
     //public GameObject EnemyPrefab;
     //public float CreateEnemyInterval;
-    public List<EnemySpawner> SpawnPoints;
+    public List<EnemySpawnpointInstance> SpawnPoints;
 
     [HideInInspector]
     public List<Enemy> activeEnemies;
@@ -17,31 +17,34 @@ public class EnemyManager : MonoBehaviour {
 
     public bool isUpdateEnemies;
 
+    private int numEnemiesTrackingPlayer = 0;
+
     private void Awake()
     {
         Instance = this;
         isUpdateEnemies = true;
         enemiesToRemove = new List<Enemy>();
         activeEnemies = new List<Enemy>();
+        SpawnPoints = new List<EnemySpawnpointInstance>();
     }
 
     public void Init()
     {
-        print("## inting spawn points count: " + SpawnPoints.Count);
+        //print("## inting spawn points count: " + SpawnPoints.Count);
 
-        foreach (EnemySpawner spawner in SpawnPoints)
+        foreach (EnemySpawnpointInstance spawner in SpawnPoints)
         {
-            print("Inting spawn point " + spawner.spawnPoint.position);
+            //print("Inting spawn point " + spawner.spawnPoint.position);
             StartCoroutine(SpawnCoroutine(spawner));
         }
     }
 
-    IEnumerator SpawnCoroutine(EnemySpawner spawner)
+    IEnumerator SpawnCoroutine(EnemySpawnpointInstance spawner)
     {
         int quantity = spawner.quantity;
         while (quantity > 0 || quantity <= -1)
         {
-            print("spawner "+spawner.name+" spawning enemy... quantity: "+quantity);
+            //print("spawner "+spawner.name+" spawning enemy... quantity: "+quantity);
             //Instantiate(spawner.enemy, spawner.spawnPoint.position, Quaternion.identity);
             Enemy enemy = ObjectPooler.Instance.SpawnFromPool(spawner.enemyName, spawner.spawnPoint.position, Quaternion.identity).GetComponent<Enemy>();
             activeEnemies.Add(enemy);
@@ -61,14 +64,20 @@ public class EnemyManager : MonoBehaviour {
                     activeEnemies.Remove(e);
                 enemiesToRemove.Clear();
             }
+            numEnemiesTrackingPlayer = 0;
             foreach (Enemy enemy in activeEnemies)
             {
                 enemy.UpdateEnemy();
+                numEnemiesTrackingPlayer += enemy.GetIsTrackingPlayer();
             }
+            if(numEnemiesTrackingPlayer > 0)
+                AudioManager.Instance.SetHighIntensityMusic();
+            else
+                AudioManager.Instance.SetLowIntensityMusic();
         }
     }
 
-    public void AddSpawnPoint(EnemySpawner spawner)
+    public void AddSpawnPoint(EnemySpawnpointInstance spawner)
     {
         SpawnPoints.Add(spawner);
     }
@@ -85,5 +94,16 @@ public class EnemyManager : MonoBehaviour {
     internal void RemoveFromActiveEnemies(Enemy enemy)
     {
         enemiesToRemove.Add(enemy);
+    }
+
+    public Enemy GetStunnedEnemy()
+    {
+        Enemy e = null;
+        foreach (Enemy enemy in activeEnemies)
+        {
+            if (enemy.isSuperStunned)
+                return enemy;
+        }
+        return e;
     }
 }

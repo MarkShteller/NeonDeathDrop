@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FMOD.Studio;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour {
     public PlayerBehaviour PlayerInstance;
     public CameraMovement cameraRef;
 
+    public CompanionBehaviour companion;
+
     public LevelManager levelManager;
 
     public AnimationCurve[] slomoCurves;
@@ -40,6 +43,10 @@ public class GameManager : MonoBehaviour {
     private Coroutine scoreUpdaterCoroutine;
     private float fixedDeltaTime;
 
+    private EventInstance SlomoSnapshot;
+    private EventInstance SlomoSFX;
+    private EventInstance DeathSnapshot;
+    private float slomoIntensity;
 
     // Use this for initialization
     void Awake ()
@@ -57,6 +64,7 @@ public class GameManager : MonoBehaviour {
         Application.targetFrameRate = 60;
         this.fixedDeltaTime = Time.fixedDeltaTime;
 
+
         StartCoroutine(InitLevel());
         print("## GameManager ready");
 	}
@@ -72,6 +80,9 @@ public class GameManager : MonoBehaviour {
         PlayerInstance = go.GetComponent<PlayerBehaviour>();
         playerPointPosition = null;
 
+        GameObject companionObject = Resources.Load("Alex") as GameObject;
+        companion = Instantiate(companionObject).GetComponent<CompanionBehaviour>();
+
         score = 0;
         scoreMultiplier = 1;
         maxScoreMultiplier = scoreMultiplier;
@@ -83,9 +94,25 @@ public class GameManager : MonoBehaviour {
         UIManager.Instance.SetScore(score);
         UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
 
-        cameraRef = Camera.main.transform.parent.GetComponent<CameraMovement>();
+        yield return null;
+
+        cameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>();
         print(cameraRef.currentState);
         currentLevelData = levelManager.Init(CurrentLevelIndex);
+
+
+        StartCoroutine(AudioManager.Instance.StartMusic(PlayerInstance.transform));
+
+        SlomoSnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/SlowMo_Effect");
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(SlomoSnapshot, PlayerInstance.transform, PlayerInstance.GetComponent<Rigidbody>());
+        SlomoSnapshot.start();
+
+        SlomoSFX = FMODUnity.RuntimeManager.CreateInstance("event:/Environment/Slowmo");
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(SlomoSFX, PlayerInstance.transform, PlayerInstance.GetComponent<Rigidbody>());
+
+        DeathSnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/Death_MusicDuck");
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(DeathSnapshot, PlayerInstance.transform, PlayerInstance.GetComponent<Rigidbody>());
+        DeathSnapshot.start();
     }
 
     private IEnumerator KillPointsUpdater()
@@ -114,6 +141,9 @@ public class GameManager : MonoBehaviour {
             PlayerInstance = go.GetComponent<PlayerBehaviour>();
         }
         PlayerInstance.transform.position = position;
+
+        companion.transform.position = new Vector3(position.x - companion.stopDistance, position.y, position.z);
+        companion.SetPlayerRef(PlayerInstance);
     }
 
     public void SetPlayerSpawnPosition(Vector3 position)
@@ -134,6 +164,8 @@ public class GameManager : MonoBehaviour {
         {
             score = 0;
         }
+        DeathSnapshot.setParameterByName("Death_MusicDuck_Intensity", 0);
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         StartCoroutine(InitLevel());
     }
@@ -153,6 +185,7 @@ public class GameManager : MonoBehaviour {
 
     public void GameOver()
     {
+        DeathSnapshot.setParameterByName("Death_MusicDuck_Intensity", 1f);
         Time.timeScale = 0;
         UIManager.Instance.OpenGameOverScreen(score);
     }
@@ -224,6 +257,8 @@ public class GameManager : MonoBehaviour {
 
     public void SetSlomo(float timeScale)
     {
+        SlomoSFX.start();
+        SlomoSnapshot.setParameterByName("SlowMo_Effect_Intensity", 1);
         Time.timeScale = timeScale;
         Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
         lerpSlomoCoroutine = StartCoroutine(LerpSlomoVolumeWeight(0.5f, 1));
@@ -231,6 +266,8 @@ public class GameManager : MonoBehaviour {
 
     public void EndSlomo()
     {
+        SlomoSnapshot.setParameterByName("SlowMo_Effect_Intensity", 0);
+        SlomoSFX.stop(STOP_MODE.ALLOWFADEOUT);
         Time.timeScale = 1;
         Time.fixedDeltaTime = this.fixedDeltaTime;
         if (lerpSlomoCoroutine != null)

@@ -9,16 +9,4 @@ public class EnemySpawner : ScriptableObject
     public float startTime;
     public string enemyName;
     public Enemy enemy;
-
-    public Transform spawnPoint;
-
-    public EnemySpawner(EnemySpawner enemySpawner)
-    {
-        interval = enemySpawner.interval;
-        quantity = enemySpawner.quantity;
-        startTime = enemySpawner.startTime;
-        enemy = enemySpawner.enemy;
-        spawnPoint = enemySpawner.spawnPoint;
-        enemyName = enemySpawner.enemyName;
-    }
 }

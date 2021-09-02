@@ -4,6 +4,7 @@ using SettlersEngine;
 using System.Collections.Generic;
 using EZCameraShake;
 using System;
+using UnityEngine.VFX;
 
 public class Enemy : MonoBehaviour, IPooledObject {
 
@@ -23,7 +24,9 @@ public class Enemy : MonoBehaviour, IPooledObject {
     public float dashStunTimer = 2;
     public float heavyStunTimer = 3;
     private float stunnedRemaining;
-    private bool isSuperStunned = false;
+    [HideInInspector] public bool isSuperStunned = false;
+    private float stunCounter =0;
+    public float superStunThreshhold =4;
 
     public int pointsReward = 10;
     public float deathScoreMultiplier = 0.1f;
@@ -34,8 +37,12 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
     public bool shouldEvadePlayerPits;
 
-    public GameObject ZapEffect;
+    public AnimationCurve launchedYCurve;
+    public float launchAirDuration;
+    private float launchAirTime = 0;
 
+    public GameObject ZapEffect;
+    public VisualEffect stunnedEffect;
     public Animator animator;
 
     internal Transform playerObject;
@@ -53,7 +60,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
     internal MovementType movementStatus;
     internal RigidbodyConstraints constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
-    internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, SuperStunned, Falling, Shooting, Pulse, Dead }
+    internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, SuperStunned, Launched, Falling, Shooting, Pulse, Dead }
     public enum DeathType { Pit, PlayerPit, EnemyPit, Shockwave }
     private PlayerBehaviour.PlayerAttackType lastAttackType;
     /*private void Awake()
@@ -84,6 +91,8 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
     IEnumerator FindPathEverySeconds(float t)
     {
+        yield return null;
+        yield return null;
         while (true)
         {
             if (shouldFollowPlayer)
@@ -247,7 +256,11 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 StunnedAction();
                 break;
             case MovementType.SuperStunned:
-                StunnedAction();
+                SuperStunnedAction();
+                break;
+
+            case MovementType.Launched:
+                LaunchedAction();
                 break;
 
             case MovementType.Falling:
@@ -257,6 +270,20 @@ public class Enemy : MonoBehaviour, IPooledObject {
             case MovementType.Dead:
                 EnemyManager.Instance.RemoveFromActiveEnemies(this);
                 break;
+        }
+    }
+
+    private void LaunchedAction()
+    {
+        if (launchAirTime <= launchAirDuration)
+        {
+            float yPos = launchedYCurve.Evaluate(launchAirTime / launchAirDuration);
+            transform.position = new Vector3(transform.position.x, (onFloorYPos -0.6f) + yPos, transform.position.z);
+            launchAirTime += Time.deltaTime;
+        }
+        else
+        {
+            movementStatus = MovementType.TrackingPlayer;
         }
     }
 
@@ -279,7 +306,26 @@ public class Enemy : MonoBehaviour, IPooledObject {
     {
         stunnedRemaining -= Time.deltaTime;
         if (stunnedRemaining <= 0)
+        {
+            stunnedEffect.gameObject.SetActive(false);
             movementStatus = MovementType.TrackingPlayer;
+        }
+    }
+
+    internal virtual void SuperStunnedAction()
+    {
+        stunnedRemaining -= Time.deltaTime;
+        //if (isSuperStunned)
+        {
+            stunnedEffect.gameObject.SetActive(true);
+            //isSuperStunned = false;
+        }
+        if (stunnedRemaining <= 0)
+        {
+            stunnedEffect.gameObject.SetActive(false);
+            movementStatus = MovementType.TrackingPlayer;
+            isSuperStunned = false;
+        }
     }
 
     internal virtual void ShootingAction() {}
@@ -371,9 +417,21 @@ public class Enemy : MonoBehaviour, IPooledObject {
         transform.rotation = toRotation;
     }
 
+    public void Launch()
+    {
+        print("enemy launched");
+        movementStatus = MovementType.Launched;
+        animator.SetTrigger("TakeHit");
+        isSuperStunned = false;
+        launchAirTime = 0;
+        stunnedRemaining = 0;
+        stunCounter = 0;
+        stunnedEffect.gameObject.SetActive(false);
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakeDashHit, transform.position);
+    }
+
     public virtual void ForcePush(Vector3 direction, float force, PlayerBehaviour.PlayerAttackType attackType, bool superStun = false)
     {
-        movementStatus = MovementType.Pushed;
         rrigidBody.AddForce(direction * force);
         animator.SetTrigger("TakeHit");
 
@@ -381,18 +439,30 @@ public class Enemy : MonoBehaviour, IPooledObject {
         switch (attackType)
         {
             case PlayerBehaviour.PlayerAttackType.Push:
-                stunnedTimer = pushStunTimer;
+                stunnedTimer += pushStunTimer;
+                stunCounter += pushStunTimer;
                 FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakePushHit, transform.position);
                 break;
             case PlayerBehaviour.PlayerAttackType.Dash:
-                stunnedTimer = dashStunTimer;
+                stunnedTimer += dashStunTimer;
+                stunCounter += dashStunTimer;
                 FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakeDashHit, transform.position);
                 break;
             case PlayerBehaviour.PlayerAttackType.Heavy:
-                stunnedTimer = heavyStunTimer;
+                stunnedTimer += heavyStunTimer;
+                stunCounter += heavyStunTimer;
                 // need heavy hit sound
+                FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakePushHit, transform.position);
                 break;
         }
+        if (stunCounter >= superStunThreshhold)
+        {
+            isSuperStunned = true;
+            stunCounter = 0;
+        }
+        else
+            isSuperStunned = false;
+        movementStatus = MovementType.Pushed;
     }
 
     public void DeathEvent()
@@ -409,10 +479,22 @@ public class Enemy : MonoBehaviour, IPooledObject {
         //throw new NotImplementedException();
     }
 
+    public Point GetPointPos()
+    {
+        return pointPos;
+    }
+
     private bool IsNear(Vector3 pos1, Vector3 pos2, float threshold)
     {
         if (Vector3.Distance(pos1, pos2) < threshold)
             return true;
         return false;
+    }
+
+    public int GetIsTrackingPlayer()
+    {
+        if (movementStatus == MovementType.TrackingPlayer)
+        { return 1; }
+        else return 0;
     }
 }

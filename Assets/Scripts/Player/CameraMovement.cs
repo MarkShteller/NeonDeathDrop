@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Cinemachine;
 
 public class CameraMovement : MonoBehaviour {
 
@@ -10,16 +11,22 @@ public class CameraMovement : MonoBehaviour {
     public CameraState currentState;
     public Transform targetB;
 
+    public GameObject VCamDashImpact;
     public Animation screenGlitchAnim;
     public Animator animator;
-    
+
+    public CinemachineTargetGroup targetGroup;
+
     private void Start()
     {
+        VCamDashImpact.SetActive(false);
+
         GameObject go = GameObject.FindGameObjectWithTag("Player");
         if (go != null)
         {
             target = go.transform;
             targetPosition = new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z - 17);
+            targetGroup.AddMember(go.transform, 1, 0);
         }
         currentState = CameraState.Point;
 
@@ -37,7 +44,10 @@ public class CameraMovement : MonoBehaviour {
                 if (target != null)
                     targetPosition = new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z - 14.5f); //-8
                 else
+                {
                     target = GameObject.FindGameObjectWithTag("Player").transform;
+                    targetGroup.AddMember(target, 1, 0);
+                }
                 break;
             case CameraState.Interpolate:
                 if (target != null && targetB != null)
@@ -69,13 +79,23 @@ public class CameraMovement : MonoBehaviour {
         animator.SetTrigger("Glitch");
     }
 
-    public void FastZoom()
+    public void FastZoom(Transform additionalTarget)
     {
-        animator.SetTrigger("FastZoom");
+        //animator.SetTrigger("FastZoom");
+        StartCoroutine(SwitchVCam(VCamDashImpact,additionalTarget, 0.3f));
     }
 
     public void SetLowHealth(bool b)
     {
         animator.SetBool("LowHealth", b);
+    }
+
+    private IEnumerator SwitchVCam(GameObject vCamera, Transform additionalTarget, float time)
+    {
+        targetGroup.AddMember(additionalTarget, 1, 0);
+        vCamera.SetActive(true);
+        yield return new WaitForSeconds(time);
+        targetGroup.RemoveMember(additionalTarget);
+        vCamera.SetActive(false);
     }
 }

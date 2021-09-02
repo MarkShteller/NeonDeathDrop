@@ -3,47 +3,49 @@ using UnityEngine;
 
 public static class ControllerInputDevice
 {
-    private static bool isLeftTriggerPressed = false;
-    private static bool isRightTriggerPressed = false;
+    private static bool isLBPressed = false;
+    private static bool isRBPressed = false;
     private static bool isDashPressed = false;
     private static bool isSpecialPressed = false;
     private static bool isConfirmPressed = false;
     private static bool isChargePressed = false;
+    private static bool isHeavyPressed = false;
+    private static bool isLTPressed = false;
 
-    public static bool GetLeftTriggerDown()
+    public static bool GetLeftButtonDown()
     {
-        if (Input.GetAxis("LeftTrigger") == 1)// && !isLeftTriggerPressed)
+        if (Input.GetAxis("LeftButton") == 1)// && !isLeftTriggerPressed)
         {
-            isLeftTriggerPressed = true;
+            isLBPressed = true;
             return true;
         }
 
-        if (Input.GetAxis("LeftTrigger") == 0)
-            isLeftTriggerPressed = false;
+        if (Input.GetAxis("LeftButton") == 0)
+            isLBPressed = false;
 
         return false;
     }
 
-    public static bool GetLeftTriggerUp()
+    public static bool GetLeftButtonUp()
     {
-        if (isLeftTriggerPressed && Input.GetAxis("LeftTrigger") == 0)
+        if (isLBPressed && Input.GetAxis("LeftButton") == 0)
         {
-            isLeftTriggerPressed = false;
+            isLBPressed = false;
             return true;
         }
         return false;
     }
 
-    public static bool GetRightTriggerDown()
+    public static bool GetRightButtonDown()
     {
-        if (Input.GetAxis("RightTrigger") == 1 && !isRightTriggerPressed)
+        if (Input.GetAxis("RightButton") == 1 && !isRBPressed)
         {
-            isRightTriggerPressed = true;
+            isRBPressed = true;
             return true;
         }
 
-        if (Input.GetAxis("RightTrigger") == 0)
-            isRightTriggerPressed = false;
+        if (Input.GetAxis("RightButton") == 0)
+            isRBPressed = false;
 
         return false;
     }
@@ -107,14 +109,28 @@ public static class ControllerInputDevice
 
     public static bool GetHeavyButtonDown()
     {
-        if (Input.GetAxis("Charge") == 1 && !isChargePressed)
+        if (Input.GetAxis("Heavy") == 1 && !isHeavyPressed)
         {
-            isChargePressed = true;
+            isHeavyPressed = true;
             return true;
         }
 
-        if (Input.GetAxis("Charge") == 0)
-            isChargePressed = false;
+        if (Input.GetAxis("Heavy") == 0)
+            isHeavyPressed = false;
+
+        return false;
+    }
+
+    public static bool GetLeftTriggerDown()
+    {
+        if (Input.GetAxis("LeftTrigger") == 1 && !isLTPressed)
+        {
+            isLTPressed = true;
+            return true;
+        }
+
+        if (Input.GetAxis("LeftTrigger") == 0)
+            isLTPressed = false;
 
         return false;
     }

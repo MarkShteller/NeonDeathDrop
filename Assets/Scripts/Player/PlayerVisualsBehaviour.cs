@@ -21,7 +21,6 @@ public class PlayerVisualsBehaviour : MonoBehaviour
                 // We then get the opposite (-Vector3) and normalize it
                 dir = -dir.normalized;
                 enemy.ForcePush(dir, PlayerBehaviour.currentPushForce, PlayerBehaviour.PlayerAttackType.Push);
-
                 if (PlayerBehaviour.isDoingSomersault)
                 {
                     GameManager.Instance.DashSlomo(3f);
