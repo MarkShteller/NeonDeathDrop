@@ -74,4 +74,9 @@ public class EnemyTurret : Enemy
         newBullet.GetComponent<EnemyBullet>().damage = this.damage;
     }
 
+    internal override void TrackingAction()
+    {
+        return;
+    }
+
 }

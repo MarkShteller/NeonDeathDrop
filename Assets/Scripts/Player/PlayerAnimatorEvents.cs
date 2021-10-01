@@ -53,6 +53,11 @@ public class PlayerAnimatorEvents : MonoBehaviour
         playerBehaviour.MakeHole();
     }
 
+    public void Launch()
+    {
+        playerBehaviour.PreformLaunch();
+    }
+
     public void Dead()
     {
         GameManager.Instance.GameOver();

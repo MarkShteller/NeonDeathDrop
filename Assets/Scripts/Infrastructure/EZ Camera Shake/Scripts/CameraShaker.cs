@@ -102,6 +102,7 @@ namespace EZCameraShake
             shake.RotationInfluence = DefaultRotInfluence;
             cameraShakeInstances.Add(shake);
 
+            print("# shaking cam");
             return shake;
         }
 

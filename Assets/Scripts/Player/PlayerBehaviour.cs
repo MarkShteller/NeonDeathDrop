@@ -1,4 +1,5 @@
-﻿using EZCameraShake;
+﻿using Cinemachine;
+using EZCameraShake;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -78,11 +79,13 @@ public class PlayerBehaviour : MonoBehaviour
     private float revolutionCount;
     private float currentRevolutionCooldown;
     private float revolutionCooldown = 1;
+    private Enemy launchedEnemy;
 
     private CapsuleCollider capsuleCollider;
 
     private PlayerAimAssist aimAssist;
 
+    private CinemachineImpulseSource shakeSource;
     private FMOD.Studio.PARAMETER_ID pushParameterId;
 
     //private float defaultRadius = 0.35f;
@@ -127,6 +130,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         capsuleCollider = GetComponent<CapsuleCollider>();
         aimAssist = GetComponentInChildren<PlayerAimAssist>();
+        shakeSource = GetComponent<CinemachineImpulseSource>();
         currentPushForce = pushForce;
         defaultForcePushTriggerSize = forcePushTriggerCollider.size;
         manaPoints = totalManaPoints;
@@ -280,10 +284,12 @@ public class PlayerBehaviour : MonoBehaviour
                     BaseTileBehaviour tile = gridHolder.GetGridNode(p.x, p.y).GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>();
                     tile?.Popup();
                     animator.SetTrigger("Launch");
-                    e.Launch();
+                    launchedEnemy = e;
+                    enableMovement = false;
                 }
                 else
                 {
+                    //animator.SetTrigger("Launch");
                     print("# finisher button down but no stunned enemies.");
                 }
             }
@@ -323,6 +329,18 @@ public class PlayerBehaviour : MonoBehaviour
     {
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerLowEnergy, transform.position);
 
+    }
+
+    public void PreformLaunch()
+    { 
+        launchedEnemy.Launch();
+        //GameManager.Instance.DashSlomo(2f);
+
+        shakeSource.GenerateImpulse();
+
+        launchedEnemy = null;
+        //enableControlls = true;
+        enableMovement = true;
     }
 
     private void RepelAttackAction()
