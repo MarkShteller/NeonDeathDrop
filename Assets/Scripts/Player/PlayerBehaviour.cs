@@ -44,9 +44,6 @@ public class PlayerBehaviour : MonoBehaviour
     private Transform checkpoint;
     [HideInInspector] public Vector3 spawnPosition;
 
-    private RaycastHit hit;
-    private Ray ray;
-
     private float lastTimeDamageTaken = 0;
     private bool enableDash = true;
     [HideInInspector] public bool isDashing = false;
@@ -84,6 +81,11 @@ public class PlayerBehaviour : MonoBehaviour
     private CapsuleCollider capsuleCollider;
 
     private PlayerAimAssist aimAssist;
+
+    public float sprintCountdown = 3;
+    private float sprintTimer;
+    private bool isSprinting;
+    private float sprintSpeedMul = 1.5f;
 
     private CinemachineImpulseSource shakeSource;
     private FMOD.Studio.PARAMETER_ID pushParameterId;
@@ -145,6 +147,8 @@ public class PlayerBehaviour : MonoBehaviour
         revolutionCount = 0;
         currentRevolutionCooldown = revolutionCooldown;
 
+        sprintTimer = sprintCountdown;
+
         isCharging = false;
         isFalling = false;
         isHoleSlomo = false;
@@ -167,6 +171,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (enableControlls)
         {
             float xMove = 0, zMove = 0;
+            float totalMoveSpeed = movementSpeed;
             if (enableMovement)
             {
                 xMove = Input.GetAxis("HorizontalMove");
@@ -176,9 +181,24 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     xMove = Input.GetAxis("Horizontal");
                     zMove = Input.GetAxis("Vertical");
+
+                    sprintTimer = sprintCountdown;
+                    isSprinting = false;
+                }
+
+                sprintTimer -= Time.deltaTime;
+                if (sprintTimer <= 0)
+                {
+                    //start sprinting
+                    totalMoveSpeed *= sprintSpeedMul;
+                    isSprinting = true;
+                }
+                else
+                {
+                    isSprinting = false;
+                    totalMoveSpeed = movementSpeed;
                 }
             }
-            transform.Translate(xMove * movementSpeed, 0, zMove * movementSpeed);
 
             Vector3 rotation = this.visualsHolder.forward;
 
@@ -190,11 +210,10 @@ public class PlayerBehaviour : MonoBehaviour
             float targetY = Mathf.Lerp(animator.GetFloat("MoveY"), moveAnimDirection.y, 0.3f);
 
             //print(animator.GetFloat("MoveX") +" , "+ animator.GetFloat("MoveY") + "  "+ moveAnimDirection.x + "  " + moveAnimDirection.y);
-
             animator.SetFloat("MoveX", targetX);
             animator.SetFloat("MoveY", targetY);
 
-
+           
             Vector3 playerAimRotation = Vector3.right * -Input.GetAxisRaw("HorizontalLook") + Vector3.forward * Input.GetAxisRaw("VerticalLook");
             Vector3 playerDefaultRotation = Vector3.right * -xMove + Vector3.forward * -zMove;
 
@@ -204,11 +223,17 @@ public class PlayerBehaviour : MonoBehaviour
             if (playerAimRotation.sqrMagnitude > 0.0f)
             {
                 this.visualsHolder.rotation = Quaternion.Slerp(visualsHolder.rotation, Quaternion.LookRotation(playerAimRotation, Vector3.up), 0.25f);
+
+                StopSprinting();
+                totalMoveSpeed = movementSpeed;
             }
             else if (playerDefaultRotation.sqrMagnitude > 0.0f)
             {
                 this.visualsHolder.rotation = Quaternion.LookRotation(playerDefaultRotation, Vector3.up);
             }
+
+            animator.SetBool("Sprinting", isSprinting);
+            transform.Translate(xMove * totalMoveSpeed, 0, zMove * totalMoveSpeed);
 
             if (ControllerInputDevice.GetDashButtonDown())
             {
@@ -321,8 +346,16 @@ public class PlayerBehaviour : MonoBehaviour
         if (transform.position.y < -0.2f)
         {
             FellIntoAPit();
+            StopSprinting();
         }
 
+    }
+
+    private void StopSprinting()
+    {
+        sprintTimer = sprintCountdown;
+        isSprinting = false;
+        animator.SetBool("Sprinting", false);
     }
 
     private void LowMana()
@@ -475,6 +508,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                     //the animation triggers PreformPush()
                     animator.SetTrigger("PushA");
+                    StopSprinting();
                 }
                 else
                     LowMana();
@@ -708,7 +742,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        StopSprinting();
         currentPushForce = pushForce;
+
         if (Time.time - lastTimeDamageTaken > takenDamageCooldown && !isInvinsible)
         {
             enableControlls = true;

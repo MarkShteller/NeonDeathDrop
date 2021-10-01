@@ -2196,6 +2196,9 @@ ModelImporter:
   - first:
       74: -6878446511463614586
     second: Launch_Enemy
+  - first:
+      74: -5928672015095902377
+    second: Forward_Hover_Stride
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -3686,6 +3689,35 @@ ModelImporter:
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1500
+    - serializedVersion: 16
+      name: Forward_Hover_Stride
+      takeName: Forward_Hover
+      internalID: 0
+      firstFrame: 1530
+      lastFrame: 1602
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1530
     isReadable: 1
   meshes:
     lODScreenPercentages: []

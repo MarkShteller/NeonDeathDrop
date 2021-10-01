@@ -16,7 +16,7 @@ public class CompanionBehaviour : MonoBehaviour
         
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (playerRef != null && Vector3.Distance(transform.position, playerRef.transform.position) > stopDistance)
         {
