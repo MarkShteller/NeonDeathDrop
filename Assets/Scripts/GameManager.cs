@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour {
         print(cameraRef.currentState);
         currentLevelData = levelManager.Init(CurrentLevelIndex);
 
-
+        /////////////
         StartCoroutine(AudioManager.Instance.StartMusic(PlayerInstance.transform));
 
         SlomoSnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/SlowMo_Effect");

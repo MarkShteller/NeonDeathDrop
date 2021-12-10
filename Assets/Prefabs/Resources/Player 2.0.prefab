@@ -5282,6 +5282,7 @@ MonoBehaviour:
   currHoveredObject: {fileID: 0}
   enableControlls: 1
   enableMovement: 1
+  sprintCountdown: 3
   pushRadius: 5
   pushForce: 1400
   currentPushForce: 0
@@ -5853,7 +5854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4931243509648978
 Transform:
   m_ObjectHideFlags: 0

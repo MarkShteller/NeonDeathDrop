@@ -12,6 +12,7 @@ public class LevelGenerator : MonoBehaviour {
 
 
     public GameObject cube;
+    public GameObject cubeAlt;
     public GameObject cubeWall;
     public GameObject cubeGoal;
     public GameObject cubeGate;
@@ -211,14 +212,20 @@ public class LevelGenerator : MonoBehaviour {
 
 	void GenerateTile (int x, int y)
 	{
-		Color pixelColor = map.GetPixel(x, y);
-
+        Color pixelColor = map.GetPixel(x, y);
         if (pixelColor.a == 0)
 		{
             // The pixel is transparrent. Let's ignore it!
             grid[x, y] = new GridNode(TileType.None);
             return;
 		}
+
+        GameObject tintedBaseCube;
+        if ((y % 2 == 0 && x % 2 == 0) || (y % 2 != 0 && x % 2 != 0))
+            tintedBaseCube = cube;
+        else
+            tintedBaseCube = cubeAlt;
+
 
         foreach (ColorToEnum colorMapping in colorMappings)
 		{
@@ -229,7 +236,8 @@ public class LevelGenerator : MonoBehaviour {
                 switch (colorMapping.tileType)
                 {
                     case TileType.Normal:
-                        grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, cube));
+                        grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, tintedBaseCube));
+
                         break;
                     case TileType.Wall:
                         grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT, cubeWall));
@@ -238,7 +246,7 @@ public class LevelGenerator : MonoBehaviour {
                         grid[x, y].SetGameNodeRef(CreatePit(x, y));
                         break;
                     case TileType.PlayerOrigin:
-                        GameObject goo = CreateTile(x, y, NORMAL_TILE_HEIGHT, cube);
+                        GameObject goo = CreateTile(x, y, NORMAL_TILE_HEIGHT, tintedBaseCube);
                         grid[x, y].SetGameNodeRef(goo);
                         PlayerSpawnObj = CreateSpawnPoint("PlayerSpawn", new Vector3(goo.transform.position.x, PLAYER_SPAWN_HEIGHT, goo.transform.position.z));
                         break;
@@ -276,7 +284,7 @@ public class LevelGenerator : MonoBehaviour {
             int spawnerIndex = 255 - Mathf.CeilToInt(pixelColor.r * 255);
             EnemySpawnpointInstance spawnpointInstance = new EnemySpawnpointInstance(levelData.Spawners[spawnerIndex]);
 
-            GameObject go = CreateTile(x, y, NORMAL_TILE_HEIGHT, cube);
+            GameObject go = CreateTile(x, y, NORMAL_TILE_HEIGHT, tintedBaseCube);
             grid[x, y] = new GridNode(TileType.EnemySpawn);
             grid[x, y].SetGameNodeRef(go);
 

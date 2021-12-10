@@ -589,6 +589,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void AddPowerup(BasePowerupBehaviour powerUp)
     {
         Debug.Log("Picked up: "+powerUp.name);
+        animator.SetTrigger("PowerUp");
 
         switch (powerUp.type)
         {
