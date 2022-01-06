@@ -15,14 +15,14 @@ public class PlayerAnimatorEvents : MonoBehaviour
 
     public void PreformPush2()
     {
-        playerBehaviour.PreformPush(1.3f, 0.2f, 0.3f);
+        playerBehaviour.PreformPush(1.5f, 0.2f, 0.4f);
         //playerBehaviour.PlayCorrespondingPushSound();
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerPushCombo, transform.position);
     }
 
     public void PreformSomersault()
     {
-        playerBehaviour.PreformPush(1.6f, 0.2f, 0.4f, 4);
+        playerBehaviour.PreformPush(1.7f, 0.2f, 0.4f, 4);
         playerBehaviour.PreformSomersault();
     }
 

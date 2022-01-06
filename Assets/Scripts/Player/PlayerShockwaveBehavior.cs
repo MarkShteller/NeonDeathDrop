@@ -66,6 +66,7 @@ public class PlayerShockwaveBehavior : MonoBehaviour
         capsuleCollider.radius = ogRadius;
         capsuleCollider.enabled = false;
         isRegularShockwave = false;
+        playerBehaviour.TrailsEnabled(false);
         gameObject.SetActive(false);
     }
 

@@ -106,4 +106,16 @@ public class EnemyManager : MonoBehaviour {
         }
         return e;
     }
+
+    public List<Enemy> GetLaunchedEnemies()
+    {
+        List<Enemy> launchedEnemies = new List<Enemy>();
+        foreach (Enemy enemy in activeEnemies)
+        {
+            if (enemy.movementStatus == Enemy.MovementType.Launched)
+                launchedEnemies.Add(enemy);
+        }
+        return launchedEnemies;
+    }
+
 }

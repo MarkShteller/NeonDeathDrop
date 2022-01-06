@@ -78,7 +78,7 @@ public class AudioManager : MonoBehaviour {
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(LevelMusic, player, player.GetComponent<Rigidbody>());
         print("## setting music param and playing");
         LevelMusic.setParameterByName("level_isStarting", 1);
-        LevelMusic.start();
+        //LevelMusic.start();
     }
 
     public void SetLowIntensityMusic()

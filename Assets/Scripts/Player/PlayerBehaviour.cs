@@ -120,6 +120,8 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject spotlight;
     public GameObject mainDirectionalLight;
 
+    public GameObject[] trails;
+
     public enum PlayerAttackType { None, Push, Dash, Heavy, Launch }
 
     public bool IsTestMode = false;
@@ -233,6 +235,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
 
             animator.SetBool("Sprinting", isSprinting);
+            TrailsEnabled(isSprinting);
             transform.Translate(xMove * totalMoveSpeed, 0, zMove * totalMoveSpeed);
 
             if (ControllerInputDevice.GetDashButtonDown())
@@ -275,6 +278,7 @@ public class PlayerBehaviour : MonoBehaviour
                     print("SHOCKWAVE!");
                     animator.SetTrigger("Shockwave");
                     FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerShockwave, transform.position);
+                    TrailsEnabled(true);
 
                     isInvinsible = true;
                     enableControlls = false;
@@ -319,6 +323,17 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             }
 
+            if (ControllerInputDevice.GetCompanionButtonDown())
+            {
+                print("alex buttom pressed");
+                List<Enemy> launchedEnemies = EnemyManager.Instance.GetLaunchedEnemies();
+                foreach (Enemy enemy in launchedEnemies)
+                {
+                    Point p = enemy.GetPointPos();
+                    MakeFinisherHole(p.x, p.y);
+                }
+            }
+
             /*if (ControllerInputDevice.GetChargeButtonDown())
             {
                 isCharging = true;
@@ -351,11 +366,20 @@ public class PlayerBehaviour : MonoBehaviour
 
     }
 
+    public void TrailsEnabled(bool enabled)
+    {
+        foreach (var go in trails)
+        {
+            go.SetActive(enabled);
+        }
+    }
+
     private void StopSprinting()
     {
         sprintTimer = sprintCountdown;
         isSprinting = false;
         animator.SetBool("Sprinting", false);
+        TrailsEnabled(false);
     }
 
     private void LowMana()
@@ -410,6 +434,7 @@ public class PlayerBehaviour : MonoBehaviour
         //GameManager.Instance.ShockwaveSlomo(8);
         CameraShaker.Instance.ShakeOnce(2f, 8f, 0.1f, 2.5f);
         shockwaveBehavior.gameObject.SetActive(true);
+        TrailsEnabled(true);
         StartCoroutine(shockwaveBehavior.Shockwave(10));
     }
 
@@ -420,6 +445,8 @@ public class PlayerBehaviour : MonoBehaviour
         currentPushForce *= 1.5f;
         enableControlls = false;
         ObjectPooler.Instance.SpawnFromPool("SomersaultEffect", transform.position, visualsHolder.rotation);
+        TrailsEnabled(true);
+
         //FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSomersault, transform.position);
     }
 
@@ -428,6 +455,7 @@ public class PlayerBehaviour : MonoBehaviour
         currentPushForce = pushForce;
         enableControlls = true;
         isDoingSomersault = false;
+        TrailsEnabled(false);
     }
 
     private IEnumerator DashCoroutine(Vector3 direction, float duration)
@@ -470,7 +498,7 @@ public class PlayerBehaviour : MonoBehaviour
         //StartCoroutine(ShowForcePushEffect(effectTime));
 
         forcePushEffect.SetFloat("ForceMultiplier", pushRadiusMul);
-        if (pushRadiusMul <= 1.5f) //exclude Somersault 
+        if (pushRadiusMul <= 1.7f) //exclude Somersault 
             forcePushEffect.Play();
 
         StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(floorEffectLength));
@@ -784,7 +812,7 @@ public class PlayerBehaviour : MonoBehaviour
                 animator.SetTrigger("TakeDamage");
             }
 
-
+            TrailsEnabled(false);
             GameManager.Instance.cameraRef.GlitchScreen();
         }
     }
@@ -805,6 +833,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             //Transform respawnPoint = prevHoveredObject.transform;
             //transform.position = new Vector3(respawnPoint.position.x, 10, respawnPoint.position.z);
+            TrailsEnabled(true);
 
             StartCoroutine(WaitToRecover());
         }
@@ -836,6 +865,7 @@ public class PlayerBehaviour : MonoBehaviour
         transform.position = retryPostion;
 
         yield return new WaitForSeconds(4f);
+        TrailsEnabled(false);
 
         isInvinsible = false;
         enableControlls = true;
@@ -986,6 +1016,17 @@ public class PlayerBehaviour : MonoBehaviour
         manaPoints -= holeManaCost;
 
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerMakeHole, transform.position);
+    }
+
+    public void MakeFinisherHole(int x, int y)
+    {
+        GridNode node = gridHolder.GetGridNode(x, y);
+        node.GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>().Drop();
+        gridHolder.SetGridNodeType(node, TileType.PlayerPit, holeTimeToRegen);
+        
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerMakeHole, transform.position);
+
+        manaPoints = 0;
     }
 
     private void DetectPlayerPositionOnGrid()

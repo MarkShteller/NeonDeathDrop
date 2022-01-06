@@ -10,6 +10,7 @@ public static class ControllerInputDevice
     private static bool isConfirmPressed = false;
     private static bool isChargePressed = false;
     private static bool isHeavyPressed = false;
+    private static bool isCompanionPressed = false;
     private static bool isLTPressed = false;
 
     public static bool GetLeftButtonDown()
@@ -75,6 +76,20 @@ public static class ControllerInputDevice
 
         if (Input.GetAxis("Dash") == 0)
             isDashPressed = false;
+
+        return false;
+    }
+
+    public static bool GetCompanionButtonDown()
+    {
+        if (Input.GetAxis("Companion") == 1 && !isCompanionPressed)
+        {
+            isCompanionPressed = true;
+            return true;
+        }
+
+        if (Input.GetAxis("Companion") == 0)
+            isCompanionPressed = false;
 
         return false;
     }
