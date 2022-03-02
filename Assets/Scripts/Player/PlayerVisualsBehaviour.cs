@@ -30,6 +30,10 @@ public class PlayerVisualsBehaviour : MonoBehaviour
                 ObjectPooler.Instance.SpawnFromPool("HitEffect", enemy.transform.position, enemy.transform.rotation);
             }
         }
+        if (other.tag == "Breakable")
+        {
+            other.GetComponent<BreakableObject>().Break(PlayerBehaviour.transform);
+        }
     }
 }
 
