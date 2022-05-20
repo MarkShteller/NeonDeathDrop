@@ -67,6 +67,13 @@ public class SpiderBossBehaviour : MonoBehaviour
 	
 	void Update ()
     {
+        /////temp
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            TriggerLegsJumping();
+            animator.SetTrigger("Jump");
+        }
+
         if (!isTransitioning)
         {
             timeToNextState -= Time.deltaTime;

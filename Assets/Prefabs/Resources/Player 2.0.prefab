@@ -5253,7 +5253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.1
-  totalHealthPoints: 10
+  totalHealthPoints: 100
   totalManaPoints: 10
   manaRegenAmount: 1.5
   holeTimeToRegen: 10
@@ -5263,7 +5263,7 @@ MonoBehaviour:
   somersaultManaCost: 5
   AOEManaCost: 5
   slomoFrameCost: 0.03
-  shockwaveCoreCost: 3
+  shockwaveCoreCost: 0
   dashDuration: 0.2
   dashSpeed: 250
   fallDamage: 1
@@ -6544,9 +6544,9 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 12
-  m_Range: 7.05
+  m_Color: {r: 1, g: 0.87230784, b: 0.8066038, a: 1}
+  m_Intensity: 21.79
+  m_Range: 12.5
   m_SpotAngle: 48
   m_InnerSpotAngle: 35.49019
   m_CookieSize: 10
@@ -6621,8 +6621,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8719997540116731659}
   m_LocalRotation: {x: -0.70590013, y: -0.041293062, z: 0.041293062, w: 0.70590013}
-  m_LocalPosition: {x: 0, y: 0, z: 2.67}
-  m_LocalScale: {x: 6.2126827, y: 10.8623905, z: 3.3529}
+  m_LocalPosition: {x: 0, y: -0, z: 0.8}
+  m_LocalScale: {x: 6.2126827, y: 17.294012, z: 3.3529}
   m_Children: []
   m_Father: {fileID: 8670568053455630557}
   m_RootOrder: 0

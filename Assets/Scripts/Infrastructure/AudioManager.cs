@@ -31,7 +31,9 @@ public class AudioManager : MonoBehaviour {
     [FMODUnity.EventRef] public string PlayerShockwave = "";
     [FMODUnity.EventRef] public string PlayerAOERepel = "";
     [FMODUnity.EventRef] public string PlayerSomersault = "";
-    //[FMODUnity.EventRef] public string PlayerSlomo = "";
+    [FMODUnity.EventRef] public string PlayerSprinting = "";
+    [FMODUnity.EventRef] public string PlayerSlomoEnter = "";
+    [FMODUnity.EventRef] public string PlayerSlomoExit = "";
 
     [FMODUnity.EventRef] public string EnemyTakePushHit = "";
     [FMODUnity.EventRef] public string EnemyTakeDashHit = "";
@@ -41,6 +43,8 @@ public class AudioManager : MonoBehaviour {
     [FMODUnity.EventRef] public string EnemyStompingStomp = "";
 
     [FMODUnity.EventRef] public string UIRestart = "";
+    [FMODUnity.EventRef] public string CompanionFloating = "";
+    [FMODUnity.EventRef] public string BoxBreak = "";
 
     EventInstance LevelMusic;
     //Parameter paramInstance;
@@ -78,7 +82,7 @@ public class AudioManager : MonoBehaviour {
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(LevelMusic, player, player.GetComponent<Rigidbody>());
         print("## setting music param and playing");
         LevelMusic.setParameterByName("level_isStarting", 1);
-        //LevelMusic.start();
+        LevelMusic.start();
     }
 
     public void SetLowIntensityMusic()

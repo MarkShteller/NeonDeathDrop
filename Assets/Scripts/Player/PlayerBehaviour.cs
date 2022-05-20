@@ -76,7 +76,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float revolutionCount;
     private float currentRevolutionCooldown;
     private float revolutionCooldown = 1;
-    private Enemy launchedEnemy;
+    private List<Enemy> launchedEnemies;
 
     private CapsuleCollider capsuleCollider;
 
@@ -89,6 +89,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     private CinemachineImpulseSource shakeSource;
     private FMOD.Studio.PARAMETER_ID pushParameterId;
+    
+    private FMOD.Studio.EventInstance sprintingSoundEvent;
+    private FMOD.Studio.EventInstance slomoSoundEvent;
 
     //private float defaultRadius = 0.35f;
     private Vector3 defaultForcePushTriggerSize;
@@ -151,6 +154,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         sprintTimer = sprintCountdown;
 
+        launchedEnemies = new List<Enemy>();
+
         isCharging = false;
         isFalling = false;
         isHoleSlomo = false;
@@ -162,10 +167,11 @@ public class PlayerBehaviour : MonoBehaviour
 
         activePowerUps = new List<BasePowerupBehaviour>();
 
-        /*FMOD.Studio.EventDescription pushEventDescription = FMODUnity.RuntimeManager.GetEventDescription(AudioManager.Instance.PlayerPush);
-        FMOD.Studio.PARAMETER_DESCRIPTION pushParameterDescription;
-        pushEventDescription.getParameterDescriptionByName("isCombo", out pushParameterDescription);
-        pushParameterId = pushParameterDescription.id;*/
+        sprintingSoundEvent = FMODUnity.RuntimeManager.CreateInstance(AudioManager.Instance.PlayerSprinting);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(sprintingSoundEvent, transform, GetComponent<Rigidbody>());
+        
+        slomoSoundEvent = FMODUnity.RuntimeManager.CreateInstance(AudioManager.Instance.PlayerSlomoEnter);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(slomoSoundEvent, transform, GetComponent<Rigidbody>());
     }
 
     void FixedUpdate()
@@ -194,11 +200,16 @@ public class PlayerBehaviour : MonoBehaviour
                     //start sprinting
                     totalMoveSpeed *= sprintSpeedMul;
                     isSprinting = true;
+                    //sprintingSoundEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                    sprintingSoundEvent.setParameterByName("Skate_Exit", 0);
+                    sprintingSoundEvent.start();
                 }
                 else
                 {
                     isSprinting = false;
                     totalMoveSpeed = movementSpeed;
+                    sprintingSoundEvent.setParameterByName("Skate_Exit", 1);
+
                 }
             }
 
@@ -306,7 +317,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (ControllerInputDevice.GetLeftTriggerDown())
             {
-                Enemy e = EnemyManager.Instance.GetStunnedEnemy();
+                /*Enemy e = EnemyManager.Instance.GetStunnedEnemy();
                 if (e != null)
                 {
                     Point p = e.GetPointPos();
@@ -315,6 +326,19 @@ public class PlayerBehaviour : MonoBehaviour
                     animator.SetTrigger("Launch");
                     launchedEnemy = e;
                     enableMovement = false;
+                }*/
+                List<Enemy> enemies = EnemyManager.Instance.GetStunnedEnemiesByDistance(6, transform.position);
+                if (enemies.Count > 0)
+                {
+                    animator.SetTrigger("Launch");
+                    enableMovement = false;
+                    foreach (Enemy e in enemies)
+                    {
+                        Point p = e.GetPointPos();
+                        BaseTileBehaviour tile = gridHolder.GetGridNode(p.x, p.y).GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>();
+                        tile?.Popup();
+                        launchedEnemies.Add(e);
+                    }
                 }
                 else
                 {
@@ -390,12 +414,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void PreformLaunch()
     { 
-        launchedEnemy.Launch();
+        foreach(Enemy e in launchedEnemies)
+            e.Launch();
         //GameManager.Instance.DashSlomo(2f);
 
         shakeSource.GenerateImpulse();
 
-        launchedEnemy = null;
+        launchedEnemies.Clear();
         //enableControlls = true;
         enableMovement = true;
     }
@@ -715,7 +740,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 isDashing = false;
                 isDashImpact = true;
-                enemy.ForcePush(lastDashDir, currentPushForce * 1.5f, PlayerAttackType.Dash, true);
+                enemy.ForcePush(lastDashDir, currentPushForce * 2f, PlayerAttackType.Dash, true);
 
                 GameManager.Instance.DashSlomo(2f);
                 GameManager.Instance.cameraRef.FastZoom(enemy.transform);
@@ -911,13 +936,15 @@ public class PlayerBehaviour : MonoBehaviour
         }*/
 
         // make a hole v2.0
-        if ((ControllerInputDevice.GetLeftButtonUp() && isHoleSlomo) || manaPoints <= holeManaCost)
+        if ((ControllerInputDevice.GetLeftButtonUp() && isHoleSlomo) || ( manaPoints <= holeManaCost && isHoleSlomo))
         {
             //stop slomo and make hole
             isHoleSlomo = false;
             isChargeMana = true;
             GameManager.Instance.EndSlomo();
             TriggerMakeHoleAction();
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSlomoExit, transform.position);
+            slomoSoundEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             print("ending hole slomo");
         }
         if (ControllerInputDevice.GetLeftButtonDown() && !isHoleSlomo && manaPoints >= holeManaCost) // add back mouse support
@@ -928,6 +955,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 isHoleSlomo = true;
                 GameManager.Instance.SetSlomo(0.1f);
+                slomoSoundEvent.start();
                 currentSlomoTriggerCooldown = slomoTriggerCooldown;
                 print("starting hole slomo");
             }
@@ -958,7 +986,14 @@ public class PlayerBehaviour : MonoBehaviour
             GridNode node = gridHolder.GetGridNode(name);
             if (node.GetTileType() != TileType.Occupied && node.GetTileType() != TileType.Pit && node.GetTileType() != TileType.PlayerPit && node.GetTileType() != TileType.EnemyPit)
             {
-                animator.SetTrigger("HoleA");
+                if (EnemyManager.Instance.GetLaunchedEnemies().Count == 0)
+                    animator.SetTrigger("HoleA");
+                else
+                {
+                    Vector3 holePos = node.GetGameNodeRef().transform.position;
+                    StartCoroutine(EnemyManager.Instance.SendLaunchedEnemiesIntoHole(holePos));
+                    animator.SetTrigger("FinisherA");
+                }
             }
             else
             {

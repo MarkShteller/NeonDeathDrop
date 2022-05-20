@@ -50,6 +50,8 @@ public class Enemy : MonoBehaviour, IPooledObject {
     private Point playerPointPos;
     private LinkedList<GridNode> pathList;
 
+    private Vector3 targetMovePos;
+
     internal Rigidbody rrigidBody;
     internal float savedDrag;
     private float onFloorYPos = 4f;
@@ -60,7 +62,9 @@ public class Enemy : MonoBehaviour, IPooledObject {
     internal MovementType movementStatus;
     internal RigidbodyConstraints constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
-    internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, SuperStunned, Launched, Falling, Shooting, Pulse, Dead }
+    internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, SuperStunned, Launched, Falling, Shooting, Pulse, Dead,
+        HoleFlying
+    }
     public enum DeathType { Pit, PlayerPit, EnemyPit, Shockwave }
     private PlayerBehaviour.PlayerAttackType lastAttackType;
     /*private void Awake()
@@ -263,6 +267,10 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 LaunchedAction();
                 break;
 
+            case MovementType.HoleFlying:
+                HoleFlyingAction();
+                break;
+
             case MovementType.Falling:
                 DyingAction();
                 break;
@@ -271,6 +279,21 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 EnemyManager.Instance.RemoveFromActiveEnemies(this);
                 break;
         }
+    }
+
+    public void FlyToHole(Vector3 holePosition)
+    {
+        targetMovePos = holePosition;
+        movementStatus = MovementType.HoleFlying;
+    }
+
+    private void HoleFlyingAction()
+    {
+        targetMovePos.y = transform.position.y;
+        float step = speed * Time.deltaTime *3;
+        transform.position = Vector3.Lerp(transform.position, targetMovePos, step);
+        if (Vector3.Distance(targetMovePos, transform.position) < 0.1f)
+            Die(DeathType.PlayerPit);
     }
 
     private void LaunchedAction()

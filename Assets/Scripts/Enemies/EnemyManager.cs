@@ -107,6 +107,17 @@ public class EnemyManager : MonoBehaviour {
         return e;
     }
 
+    public List<Enemy> GetStunnedEnemiesByDistance(float radius, Vector3 playerPosition)
+    {
+        List<Enemy> enemies = new List<Enemy>();
+        foreach (Enemy enemy in activeEnemies)
+        {
+            if (enemy.isSuperStunned && Vector3.Distance(playerPosition, enemy.transform.position) <= radius)
+                enemies.Add(enemy);
+        }
+        return enemies;
+    }
+
     public List<Enemy> GetLaunchedEnemies()
     {
         List<Enemy> launchedEnemies = new List<Enemy>();
@@ -118,4 +129,13 @@ public class EnemyManager : MonoBehaviour {
         return launchedEnemies;
     }
 
+    internal IEnumerator SendLaunchedEnemiesIntoHole(Vector3 holePos, float timeInterval = 0.5f)
+    {
+        List<Enemy> launchedEnemies = GetLaunchedEnemies();
+        foreach (Enemy e in launchedEnemies)
+        {
+            e.FlyToHole(holePos);
+            yield return new WaitForSeconds(timeInterval);
+        }
+    }
 }

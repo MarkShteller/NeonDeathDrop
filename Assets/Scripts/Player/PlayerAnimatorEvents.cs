@@ -60,6 +60,6 @@ public class PlayerAnimatorEvents : MonoBehaviour
 
     public void Dead()
     {
-        GameManager.Instance.GameOver();
+        //GameManager.Instance.GameOver();
     }
 }

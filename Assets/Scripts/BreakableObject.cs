@@ -19,6 +19,7 @@ public class BreakableObject : MonoBehaviour
         floatTarget.position = player.position;
         visuals.gameObject.SetActive(false);
         effect.Play();
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.BoxBreak, transform.position);
         StartCoroutine(SelfDestruct());
     }
 

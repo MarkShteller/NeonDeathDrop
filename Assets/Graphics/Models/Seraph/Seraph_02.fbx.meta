@@ -2882,7 +2882,7 @@ ModelImporter:
       takeName: Death
       internalID: 0
       firstFrame: 582
-      lastFrame: 644
+      lastFrame: 641
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2902,7 +2902,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.9762712
+      - time: 0.9549946
         functionName: Dead
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 8ec75a390c254fd41a5f46646bdbdbf6,
@@ -2913,7 +2913,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 582
     - serializedVersion: 16
       name: Charge Attack Intro
       takeName: Charge Attack Intro

@@ -23,7 +23,7 @@ public class PlayerVisualsBehaviour : MonoBehaviour
                 enemy.ForcePush(dir, PlayerBehaviour.currentPushForce, PlayerBehaviour.PlayerAttackType.Push);
                 if (PlayerBehaviour.isDoingSomersault)
                 {
-                    GameManager.Instance.DashSlomo(3f);
+                    GameManager.Instance.DashSlomo(10f);
                     enemy.ForcePush(dir, PlayerBehaviour.currentPushForce, PlayerBehaviour.PlayerAttackType.Heavy);
                 }
 

@@ -29,11 +29,13 @@ public static class ControllerInputDevice
 
     public static bool GetLeftButtonUp()
     {
-        if (isLBPressed && Input.GetAxis("LeftButton") == 0)
+        if (Input.GetKeyUp(KeyCode.Joystick1Button4))
+            return true;
+        /*if (isLBPressed && Input.GetAxis("LeftButton") == 0)
         {
             isLBPressed = false;
             return true;
-        }
+        }*/
         return false;
     }
 
