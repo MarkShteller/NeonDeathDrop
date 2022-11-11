@@ -58,6 +58,11 @@ public class PlayerAnimatorEvents : MonoBehaviour
         playerBehaviour.PreformLaunch();
     }
 
+    public void FinishFinisher()
+    {
+        playerBehaviour.FinishFinisher();
+    }
+
     public void Dead()
     {
         //GameManager.Instance.GameOver();

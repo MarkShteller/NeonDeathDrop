@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerShockwaveBehavior : MonoBehaviour
 {
     public SphereCollider capsuleCollider;
     public PlayerBehaviour playerBehaviour;
+    public VisualEffect explosionEffect;
 
     private bool isRegularShockwave;
 
@@ -50,8 +52,11 @@ public class PlayerShockwaveBehavior : MonoBehaviour
         isRegularShockwave = regularShockwave;
 
         capsuleCollider.enabled = true;
-
         float ogRadius = capsuleCollider.radius;
+
+        explosionEffect.gameObject.SetActive(true);
+        explosionEffect.Play();
+
         while (capsuleCollider.radius < radius)
         {
             capsuleCollider.radius += Time.deltaTime * 13;
@@ -60,6 +65,7 @@ public class PlayerShockwaveBehavior : MonoBehaviour
 
         //EnemyManager.Instance.isUpdateEnemies = true;
 
+        explosionEffect.gameObject.SetActive(true);
         playerBehaviour.isInvinsible = false;
         if(!regularShockwave)
             playerBehaviour.enableControlls = true;

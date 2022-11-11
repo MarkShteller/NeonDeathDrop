@@ -217,7 +217,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
         GameManager.Instance.AddScore(pointsReward);
     }
 
-    public void UpdateEnemy()
+    public void UpdateEnemy(bool isTrackPlayer = true)
     {
         DetectEnemyPositionOnGrid();
         //if the enemy is over a pit, fall down
@@ -230,8 +230,9 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 break;
 
             case MovementType.TrackingPlayer:
-                TrackingAction();
                 LookAtPlayer();
+                if(isTrackPlayer)
+                    TrackingAction();
                 break;
 
             case MovementType.Shooting:

@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using EZCameraShake;
+using SplineEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -105,6 +106,7 @@ public class PlayerBehaviour : MonoBehaviour
     public VisualEffect forcePushEffect;
     public VisualEffect somersaultEffect;
     public VisualEffect dashEffect;
+    public BezierSpline finisherSpline;
 
     public LevelGenerator gridHolder;
     public Transform visualsHolder;
@@ -457,7 +459,9 @@ public class PlayerBehaviour : MonoBehaviour
         EnemyManager.Instance.isUpdateEnemies = true;
 
         //GameManager.Instance.ShockwaveSlomo(8);
-        CameraShaker.Instance.ShakeOnce(2f, 8f, 0.1f, 2.5f);
+        //CameraShaker.Instance.ShakeOnce(2f, 8f, 0.1f, 2.5f);
+        shakeSource.GenerateImpulse();
+
         shockwaveBehavior.gameObject.SetActive(true);
         TrailsEnabled(true);
         StartCoroutine(shockwaveBehavior.Shockwave(10));
@@ -993,6 +997,10 @@ public class PlayerBehaviour : MonoBehaviour
                     Vector3 holePos = node.GetGameNodeRef().transform.position;
                     StartCoroutine(EnemyManager.Instance.SendLaunchedEnemiesIntoHole(holePos));
                     animator.SetTrigger("FinisherA");
+                    isInvinsible = true;
+                    enableControlls = false;
+                    MakeHole();
+                    StartCoroutine(GameManager.Instance.TriggerFinisher(node.GetGameNodeRef().transform,2f));
                 }
             }
             else
@@ -1062,6 +1070,12 @@ public class PlayerBehaviour : MonoBehaviour
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerMakeHole, transform.position);
 
         manaPoints = 0;
+    }
+
+    public void FinishFinisher()
+    {
+        isInvinsible = false;
+        enableControlls = true;
     }
 
     private void DetectPlayerPositionOnGrid()

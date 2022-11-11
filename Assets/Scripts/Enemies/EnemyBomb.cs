@@ -9,6 +9,7 @@ public class EnemyBomb : Enemy
     public float holeTimeToRegen;
     public SphereCollider sphereCollider;
     public VisualEffect chargeEffect;
+    public VisualEffect explosionEffect;
 
     private Coroutine explotionCoroutine = null;
 
@@ -36,6 +37,12 @@ public class EnemyBomb : Enemy
             sphereCollider.radius += Time.deltaTime * 4;//0.2f; ///
             yield return null;
         }
+
+        chargeEffect.gameObject.SetActive(false);
+        explosionEffect.gameObject.SetActive(true);
+        explosionEffect.Play();
+
+        yield return new WaitForSeconds(0.4f);
 
         sphereCollider.radius = ogRadius;
         Die(DeathType.EnemyPit);

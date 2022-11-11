@@ -16,6 +16,7 @@ public class EnemyManager : MonoBehaviour {
     private List<Enemy> enemiesToRemove;
 
     public bool isUpdateEnemies;
+    public bool isTrackPlayer;
 
     private int numEnemiesTrackingPlayer = 0;
 
@@ -23,6 +24,7 @@ public class EnemyManager : MonoBehaviour {
     {
         Instance = this;
         isUpdateEnemies = true;
+        isTrackPlayer = true;
         enemiesToRemove = new List<Enemy>();
         activeEnemies = new List<Enemy>();
         SpawnPoints = new List<EnemySpawnpointInstance>();
@@ -67,7 +69,7 @@ public class EnemyManager : MonoBehaviour {
             numEnemiesTrackingPlayer = 0;
             foreach (Enemy enemy in activeEnemies)
             {
-                enemy.UpdateEnemy();
+                enemy.UpdateEnemy(isTrackPlayer);
                 numEnemiesTrackingPlayer += enemy.GetIsTrackingPlayer();
             }
             if(numEnemiesTrackingPlayer > 0)
@@ -129,13 +131,17 @@ public class EnemyManager : MonoBehaviour {
         return launchedEnemies;
     }
 
-    internal IEnumerator SendLaunchedEnemiesIntoHole(Vector3 holePos, float timeInterval = 0.5f)
+    internal IEnumerator SendLaunchedEnemiesIntoHole(Vector3 holePos, float timeInterval = 1f)
     {
+        isTrackPlayer = false;
         List<Enemy> launchedEnemies = GetLaunchedEnemies();
         foreach (Enemy e in launchedEnemies)
         {
             e.FlyToHole(holePos);
-            yield return new WaitForSeconds(timeInterval);
+            yield return new WaitForSeconds(timeInterval / launchedEnemies.Count);
         }
+        yield return new WaitForSeconds(timeInterval);
+
+        isTrackPlayer = true;
     }
 }

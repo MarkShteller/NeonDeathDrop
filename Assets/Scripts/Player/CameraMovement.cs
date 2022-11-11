@@ -11,7 +11,9 @@ public class CameraMovement : MonoBehaviour {
     public CameraState currentState;
     public Transform targetB;
 
-    public GameObject VCamDashImpact;
+    public CinemachineVirtualCamera VCamDashImpact;
+    public CinemachineVirtualCamera finisherVCam;
+
     public Animation screenGlitchAnim;
     public Animator animator;
 
@@ -19,7 +21,7 @@ public class CameraMovement : MonoBehaviour {
 
     private void Start()
     {
-        VCamDashImpact.SetActive(false);
+        VCamDashImpact.gameObject.SetActive(false);
 
         GameObject go = GameObject.FindGameObjectWithTag("Player");
         if (go != null)
@@ -90,12 +92,27 @@ public class CameraMovement : MonoBehaviour {
         animator.SetBool("LowHealth", b);
     }
 
-    private IEnumerator SwitchVCam(GameObject vCamera, Transform additionalTarget, float time)
+    private IEnumerator SwitchVCam(CinemachineVirtualCamera vCamera, Transform additionalTarget, float time)
     {
-        targetGroup.AddMember(additionalTarget, 1, 0);
-        vCamera.SetActive(true);
+        //targetGroup.AddMember(additionalTarget, 1, 0);
+        vCamera.Follow = additionalTarget;
+        vCamera.gameObject.SetActive(true);
         yield return new WaitForSeconds(time);
-        targetGroup.RemoveMember(additionalTarget);
-        vCamera.SetActive(false);
+        //targetGroup.RemoveMember(additionalTarget);
+        vCamera.gameObject.SetActive(false);
+    }
+
+    public void SetFinisher(Transform target, float time)
+    {
+        StartCoroutine(SwitchFinisherCam(target, time));
+    }
+
+    private IEnumerator SwitchFinisherCam(Transform target, float time)
+    {
+        finisherVCam.Follow = GameManager.Instance.PlayerInstance.transform;
+        finisherVCam.LookAt = target;
+        finisherVCam.gameObject.SetActive(true);
+        yield return new WaitForSeconds(time);
+        finisherVCam.gameObject.SetActive(false);
     }
 }

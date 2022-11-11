@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.VFX;
 
 public class GameManager : MonoBehaviour {
 
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour {
     public CompanionBehaviour companion;
 
     public LevelManager levelManager;
+
+    [SerializeField] private VisualEffect HoleFinisherVFX;
 
     public AnimationCurve[] slomoCurves;
     public Volume slomoVolume;
@@ -253,6 +256,16 @@ public class GameManager : MonoBehaviour {
             UIManager.Instance.OpenEndLevelDialog(score, maxScoreMultiplier, levelTime, PlayerInstance.enemyDefeatedCount, damageTaken, currentLevelData);
         else
             NextLevel();
+    }
+
+    public IEnumerator TriggerFinisher(Transform target, float time)
+    {
+        companion.FinisherMove(PlayerInstance.finisherSpline);
+        cameraRef.SetFinisher(target, time);
+        HoleFinisherVFX.Play();
+        HoleFinisherVFX.transform.position = target.position;
+        yield return new WaitForSeconds(time);
+        HoleFinisherVFX.Stop();
     }
 
     public void SetSlomo(float timeScale)
