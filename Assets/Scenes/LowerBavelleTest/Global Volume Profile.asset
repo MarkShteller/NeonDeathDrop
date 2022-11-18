@@ -50,7 +50,7 @@ MonoBehaviour:
     m_Value: {fileID: 2800000, guid: 9a9317018885447eb8de771d2255daab, type: 3}
   dirtIntensity:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 4
     min: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -84,10 +84,10 @@ MonoBehaviour:
   m_AdvancedMode: 0
   postExposure:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: -0.75
   contrast:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 12
     min: -100
     max: 100
   colorFilter:
@@ -103,7 +103,7 @@ MonoBehaviour:
     max: 180
   saturation:
     m_OverrideState: 0
-    m_Value: -100
+    m_Value: -21.7
     min: -100
     max: 100
 --- !u!114 &6495141279791540206

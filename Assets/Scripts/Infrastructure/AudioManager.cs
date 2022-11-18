@@ -1,4 +1,5 @@
 ﻿using FMOD.Studio;
+using FMODUnity;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class AudioManager : MonoBehaviour {
     public AudioSource MusicSource2;
     //public AudioSource EffectSource;
 
-    [FMODUnity.EventRef] public string MusicAct1Track1 = "";
+    public EventReference MusicAct1Track1;
     [FMODUnity.EventRef] public string EnvAmbienceHighway = "";
     [FMODUnity.EventRef] public string EnvTileCracked = "";
 
