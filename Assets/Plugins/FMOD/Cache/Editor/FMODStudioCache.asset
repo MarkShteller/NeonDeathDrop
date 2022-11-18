@@ -1,380 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8806558785251774272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/UpperBavelle_Battle/level_isStarting
-  m_EditorClassIdentifier: 
-  Name: level_isStarting
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 3016666589
-    data2: 2951100223
-  Exists: 1
---- !u!114 &-8759021162454640333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/UpperBavelle_City/CurrentTrack_isLooping
-  m_EditorClassIdentifier: 
-  Name: CurrentTrack_isLooping
-  Min: 0
-  Max: 1
-  Default: 1
-  ID:
-    data1: 2060799246
-    data2: 151082796
-  Exists: 1
---- !u!114 &-8480811990521875930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/UpperBavelle_Battle/CurrentTrack_isLooping
-  m_EditorClassIdentifier: 
-  Name: CurrentTrack_isLooping
-  Min: 0
-  Max: 1
-  Default: 1
-  ID:
-    data1: 2060799246
-    data2: 151082796
-  Exists: 1
---- !u!114 &-8120503528334858453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Environment/Cube_Break
-  m_EditorClassIdentifier: 
-  Path: event:/Environment/Cube_Break
-  guid: 1c95b90f87de064d802994c50431baff
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2000
---- !u!114 &-8007143641643721975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/UpperBavelle_Battle
-  m_EditorClassIdentifier: 
-  Path: event:/Music/UpperBavelle_Battle
-  guid: 079414a34c59ee429e9de44f1e06d1a8
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 6003035290193836335}
-  - {fileID: 6973788409962205289}
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 92957
---- !u!114 &-7936025064322285052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Environment/Victory_Fanfare
-  m_EditorClassIdentifier: 
-  Path: event:/Environment/Victory_Fanfare
-  guid: e52d675e97bfac45bd58979893e35c57
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 4436
---- !u!114 &-7922501534861793709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/UpperBavelle_City
-  m_EditorClassIdentifier: 
-  Path: event:/Music/UpperBavelle_City
-  guid: 8f60cae343b34142b20de49ff015b1e1
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -8759021162454640333}
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 101408
---- !u!114 &-7870811749407588686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Slowmo/Energy_4SecondsLeft
-  m_EditorClassIdentifier: 
-  Name: Energy_4SecondsLeft
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 172345638
-    data2: 4136801443
-  Exists: 1
---- !u!114 &-7827981792060407411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/Contextual/Player_LowEnergy
-  m_EditorClassIdentifier: 
-  Path: event:/Player/Contextual/Player_LowEnergy
-  guid: 2ee61374f729434c943366a7dadbefab
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 156
---- !u!114 &-7736889659970531594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: snapshot:/lowHealth
-  m_EditorClassIdentifier: 
-  Path: snapshot:/lowHealth
-  guid: 54f6e5f5d3f26b46a5244a5354d8a5fb
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 0
---- !u!114 &-7553498955578961856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/SlowMo_Effect/SlowMo_Effect_Intensity
-  m_EditorClassIdentifier: 
-  Name: SlowMo_Effect_Intensity
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &-7519006870397999544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/CyberSeraph_Battle Theme
-  m_EditorClassIdentifier: 
-  Path: event:/Music/CyberSeraph_Battle Theme
-  guid: 079414a34c59ee429e9de44f1e06d1a8
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 485898668808265043}
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 87887
---- !u!114 &-7438511096811580561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/Abilities/Player_AOERepel
-  m_EditorClassIdentifier: 
-  Path: event:/Player/Abilities/Player_AOERepel
-  guid: afa06bd08c9fb143899c98230bcaebc0
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4000
---- !u!114 &-7134374132638652082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Slowmo/Energy_4SecondsLeft
-  m_EditorClassIdentifier: 
-  Name: Energy_4SecondsLeft
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 172345638
-    data2: 4136801443
-  Exists: 1
---- !u!114 &-6746130255678655216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/SlowMo_Effect/SlowMo_Effect_Intensity
-  m_EditorClassIdentifier: 
-  Name: SlowMo_Effect_Intensity
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &-6616388402695643576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Environment/Env_Highway_Ambience
-  m_EditorClassIdentifier: 
-  Path: event:/Environment/Env_Highway_Ambience
-  guid: 116326386830074ba2fb1b244bc5ed2f
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 40000
---- !u!114 &-6371114795960174451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/Abilities/Player_Push_Combo
-  m_EditorClassIdentifier: 
-  Path: event:/Player/Abilities/Player_Push_Combo
-  guid: 8ec91f0d35545242b57fcdcaabadd8ae
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4000
---- !u!114 &-6176536161014779404
+--- !u!114 &-8823334085942300514
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -387,14 +13,205 @@ MonoBehaviour:
   m_Name: parameter:/UpperBavelle_Battle/Music_Intensity
   m_EditorClassIdentifier: 
   Name: Music_Intensity
+  StudioPath: 
   Min: 0
   Max: 1
   Default: 0
   ID:
     data1: 1621409543
     data2: 3591637341
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
---- !u!114 &-6146210350988603060
+--- !u!114 &-8673949444296643837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/livesRemaining
+  m_EditorClassIdentifier: 
+  Name: livesRemaining
+  StudioPath: parameter:/livesRemaining
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 2833302782
+    data2: 2788351675
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-8584023375433892286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Items/ItemPickup_SmallHP
+  m_EditorClassIdentifier: 
+  Path: event:/Items/ItemPickup_SmallHP
+  Guid:
+    Data1: 282553909
+    Data2: 1216940076
+    Data3: 1172430265
+    Data4: 1202225925
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1983
+--- !u!114 &-8203950274007936289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Turret/Turret_Fall
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Turret/Turret_Fall
+  Guid:
+    Data1: -1774019770
+    Data2: 1303168706
+    Data3: 513729203
+    Data4: 1681669223
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
+--- !u!114 &-8200565215515275970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Events/Player_Fall
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Events/Player_Fall
+  Guid:
+    Data1: 1744499148
+    Data2: 1087574730
+    Data3: -1628562046
+    Data4: 798923901
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 3000
+--- !u!114 &-8189983186464081868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Enemy_Alert
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Enemy_Alert
+  Guid:
+    Data1: 1963040641
+    Data2: 1136974266
+    Data3: 915230903
+    Data4: 711406454
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
+--- !u!114 &-8022518198295673552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/Death_MusicDuck
+  m_EditorClassIdentifier: 
+  Path: snapshot:/Death_MusicDuck
+  Guid:
+    Data1: -784693779
+    Data2: 1144402535
+    Data3: -445179215
+    Data4: 23586522
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 6197355336883886103}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &-7880046672769696555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Contextual/Player_LowEnergy
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Contextual/Player_LowEnergy
+  Guid:
+    Data1: 1947461166
+    Data2: 1279470071
+    Data3: -1486474348
+    Data4: -1410343974
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 156
+--- !u!114 &-7462930278097115779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -407,187 +224,22 @@ MonoBehaviour:
   m_Name: snapshot:/SlowMo_Effect
   m_EditorClassIdentifier: 
   Path: snapshot:/SlowMo_Effect
-  guid: 347657260cf25b4ab90a0084bf14881d
+  Guid:
+    Data1: 643266100
+    Data2: 1247539724
+    Data3: -2080372039
+    Data4: 495457471
   Banks:
-  - {fileID: -1807988452389492102}
+  - {fileID: 974513200563754845}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -7553498955578961856}
+  - {fileID: -68149302474242859}
   MinDistance: 0
   MaxDistance: 0
   Length: 0
---- !u!114 &-6083413809519296834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/SlowMo_Effect/SlowMo_Effect_Intensity
-  m_EditorClassIdentifier: 
-  Name: SlowMo_Effect_Intensity
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &-5854626871227425968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/Abilities/Player_MakeHole
-  m_EditorClassIdentifier: 
-  Path: event:/Player/Abilities/Player_MakeHole
-  guid: ee1eeba50ca21c4ab1eb1314ec1ea9f4
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 10
-  Length: 500
---- !u!114 &-5657502673568456224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/UpperBavelle_Battle OLD/CurrentTrack_isLooping
-  m_EditorClassIdentifier: 
-  Name: CurrentTrack_isLooping
-  Min: 0
-  Max: 1
-  Default: 1
-  ID:
-    data1: 2060799246
-    data2: 151082796
-  Exists: 1
---- !u!114 &-5362934834509798011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/SlowMo_Effect/SlowMo_Effect_Intensity
-  m_EditorClassIdentifier: 
-  Name: SlowMo_Effect_Intensity
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &-5359565290221183195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Player_Somersault/Timeshift
-  m_EditorClassIdentifier: 
-  Name: Timeshift
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 3355024000
-    data2: 3850259037
-  Exists: 1
---- !u!114 &-5090580250536492221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/Events/Player_Land
-  m_EditorClassIdentifier: 
-  Path: event:/Player/Events/Player_Land
-  guid: bab2eb1d8f904644a8565a159d595d30
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 7644
---- !u!114 &-4530458740523183548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Turret/Turret_Ambience
-  m_EditorClassIdentifier: 
-  Path: event:/Enemy/Turret/Turret_Ambience
-  guid: 5dd48216831ad34699de0ed795b7dcc0
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4000
---- !u!114 &-4440142701935276549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Death_MusicDuck/Death_MusicDuck_Intensity
-  m_EditorClassIdentifier: 
-  Name: Death_MusicDuck_Intensity
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &-4356995047123747433
+--- !u!114 &-7424131312265044618
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -600,9 +252,13 @@ MonoBehaviour:
   m_Name: event:/Enemy/Enemy_Damaged
   m_EditorClassIdentifier: 
   Path: event:/Enemy/Enemy_Damaged
-  guid: 3119f22b0d0b4a48a5042757c1fea787
+  Guid:
+    Data1: 737286449
+    Data2: 1212812045
+    Data3: 1462174885
+    Data4: -2019033407
   Banks:
-  - {fileID: -1807988452389492102}
+  - {fileID: 974513200563754845}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -610,183 +266,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1875
---- !u!114 &-4312648342981379348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Turret_Projectile/playTail
-  m_EditorClassIdentifier: 
-  Name: playTail
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &-4063807747498336464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/UpperBavelle_Battle/CurrentTrack_isLooping
-  m_EditorClassIdentifier: 
-  Name: CurrentTrack_isLooping
-  Min: 0
-  Max: 1
-  Default: 1
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &-3900330111656291744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/Events/Player_Death
-  m_EditorClassIdentifier: 
-  Path: event:/Player/Events/Player_Death
-  guid: 45d3620ab98ebe47934453e419c245da
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 3000
---- !u!114 &-3713071986421932063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Items/ItemPickup_Core
-  m_EditorClassIdentifier: 
-  Path: event:/Items/ItemPickup_Core
-  guid: d0c0a191b6ca6942a7c6ee914055e7af
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 1983
---- !u!114 &-3691717959930923982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Items/ItemPickup_BigHP
-  m_EditorClassIdentifier: 
-  Path: event:/Items/ItemPickup_BigHP
-  guid: bacd533b5b71f1419cb1ee614370f15d
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 1996
---- !u!114 &-3570576977675693924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Turret/Turret_Projectile
-  m_EditorClassIdentifier: 
-  Path: event:/Enemy/Turret/Turret_Projectile
-  guid: 8173cabde9d34344955ece0bc5dda481
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 9022954188790263709}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4000
---- !u!114 &-3531974939388797790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Slowmo/Energy_4SecondsLeft
-  m_EditorClassIdentifier: 
-  Name: Energy_4SecondsLeft
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &-3066873815217849305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Enemy_Bump
-  m_EditorClassIdentifier: 
-  Path: event:/Enemy/Enemy_Bump
-  guid: 66cacf84a05b6b4eb6022c703f663f3a
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 500
---- !u!114 &-3026094993803456297
+--- !u!114 &-7103842180882071411
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -799,14 +279,285 @@ MonoBehaviour:
   m_Name: parameter:/UpperBavelle_City/CurrentTrack_isLooping
   m_EditorClassIdentifier: 
   Name: CurrentTrack_isLooping
+  StudioPath: 
   Min: 0
   Max: 1
   Default: 1
   ID:
-    data1: 0
-    data2: 0
+    data1: 2060799246
+    data2: 151082796
+  Type: 1
+  IsGlobal: 0
+  Labels: []
   Exists: 1
---- !u!114 &-2859370756223294747
+--- !u!114 &-6999961251188723388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/DamageSoundTriggered
+  m_EditorClassIdentifier: 
+  Name: DamageSoundTriggered
+  StudioPath: parameter:/DamageSoundTriggered
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1854675342
+    data2: 2140545151
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-6762314934370600023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/Raheem_Battle Theme
+  m_EditorClassIdentifier: 
+  Path: event:/Music/Raheem_Battle Theme
+  Guid:
+    Data1: 1553185766
+    Data2: 1284663879
+    Data3: -83168345
+    Data4: 1104080142
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 90000
+--- !u!114 &-5982022760645215820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Abilities/Player_Push
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Abilities/Player_Push
+  Guid:
+    Data1: 1655802082
+    Data2: 1313710701
+    Data3: -157602429
+    Data4: 2101026451
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 3336264019128745086}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
+--- !u!114 &-5934977034115602302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Turret/Turret_Projectile
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Turret/Turret_Projectile
+  Guid:
+    Data1: -1110805631
+    Data2: 1145295849
+    Data3: 198074005
+    Data4: -2119901755
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 2240299788734080362}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
+--- !u!114 &-5743753018638097408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Abilities/Player_Somersault
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Abilities/Player_Somersault
+  Guid:
+    Data1: 1289220346
+    Data2: 1219689615
+    Data3: -2038470994
+    Data4: -255856597
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 9131777695080191655}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
+--- !u!114 &-5111086998295680271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Events/Player_Land
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Events/Player_Land
+  Guid:
+    Data1: 501985978
+    Data2: 1145475215
+    Data3: 358241960
+    Data4: 811424157
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 7644
+--- !u!114 &-4908703318440816000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Stomping/Stomping_Ambience
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Stomping/Stomping_Ambience
+  Guid:
+    Data1: -1793154543
+    Data2: 1106049581
+    Data3: 750862765
+    Data4: -1631438163
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
+--- !u!114 &-4550633341096292559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Tracking/Tracking_Fall
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Tracking/Tracking_Fall
+  Guid:
+    Data1: 840665779
+    Data2: 1293058024
+    Data3: 1081106605
+    Data4: 2124527005
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
+--- !u!114 &-4426929376636028297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Boss Stage
+  m_EditorClassIdentifier: 
+  Name: Boss Stage
+  StudioPath: parameter:/Boss Stage
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 3818814804
+    data2: 2886229822
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-4288590163411881933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Abilities/Player_SpecialAttack_Shockwave
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Abilities/Player_SpecialAttack_Shockwave
+  Guid:
+    Data1: 1660077332
+    Data2: 1215139811
+    Data3: 187257772
+    Data4: -42912850
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5000
+--- !u!114 &-3709272073451505096
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -819,9 +570,13 @@ MonoBehaviour:
   m_Name: event:/Items/ItemPickup_PowerUp
   m_EditorClassIdentifier: 
   Path: event:/Items/ItemPickup_PowerUp
-  guid: 8a91b58f6ff64f45bee06511ac1a8d8b
+  Guid:
+    Data1: -1883926134
+    Data2: 1162868335
+    Data3: 291889342
+    Data4: -1953686868
   Banks:
-  - {fileID: -1807988452389492102}
+  - {fileID: 974513200563754845}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -829,7 +584,7 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 2000
---- !u!114 &-2846934157376204284
+--- !u!114 &-3627533986844835122
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -838,18 +593,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/comboMeter
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Enemy_Bump
   m_EditorClassIdentifier: 
-  Name: comboMeter
-  Min: 0
-  Max: 10
-  Default: 10
-  ID:
-    data1: 3484363923
-    data2: 1662981860
-  Exists: 1
---- !u!114 &-2845271652050513400
+  Path: event:/Enemy/Enemy_Bump
+  Guid:
+    Data1: -2066757018
+    Data2: 1315658656
+    Data3: 1881932470
+    Data4: 977233471
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
+--- !u!114 &-3418061657220303360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -862,9 +624,13 @@ MonoBehaviour:
   m_Name: event:/Environment/Tile_Cracked
   m_EditorClassIdentifier: 
   Path: event:/Environment/Tile_Cracked
-  guid: 3635665e47ee804ab7eabdd15389b3ab
+  Guid:
+    Data1: 1583756598
+    Data2: 1249963591
+    Data3: -776082761
+    Data4: -1414297261
   Banks:
-  - {fileID: -1807988452389492102}
+  - {fileID: 974513200563754845}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -872,86 +638,7 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 50
   Length: 375
---- !u!114 &-2480555396850411280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Player_Somersault/Timeshift
-  m_EditorClassIdentifier: 
-  Name: Timeshift
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &-2001258653605031973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Turret_Projectile/playTail
-  m_EditorClassIdentifier: 
-  Name: playTail
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &-1807988452389492102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: FMOD/Test1/Build/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 637815666730346018
-  LoadResult: 0
-  FileSizes: []
-  Exists: 1
---- !u!114 &-615476012591814930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/UpperBavelle_Battle/CurrentTrack_isLooping
-  m_EditorClassIdentifier: 
-  Name: CurrentTrack_isLooping
-  Min: 0
-  Max: 1
-  Default: 1
-  ID:
-    data1: 2060799246
-    data2: 151082796
-  Exists: 1
---- !u!114 &-405838246419972484
+--- !u!114 &-2483690655217333115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -961,20 +648,390 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/Alex/MotorLoop
+  m_Name: event:/Enemy/Enemy_DashImpact
   m_EditorClassIdentifier: 
-  Path: event:/Player/Alex/MotorLoop
-  guid: 1c3c08af9e34d641844cce4af10715f5
+  Path: event:/Enemy/Enemy_DashImpact
+  Guid:
+    Data1: -1069301503
+    Data2: 1151923414
+    Data3: -311111039
+    Data4: 1312221578
   Banks:
-  - {fileID: -1807988452389492102}
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1781
+--- !u!114 &-2401054859009211008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Player_TakeDamage/currentHealth
+  m_EditorClassIdentifier: 
+  Name: currentHealth
+  StudioPath: 
+  Min: 0
+  Max: 100
+  Default: 100
+  ID:
+    data1: 2102150997
+    data2: 1181155983
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-2383583692828004320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Environment/Slowmo
+  m_EditorClassIdentifier: 
+  Path: event:/Environment/Slowmo
+  Guid:
+    Data1: 941081122
+    Data2: 1133227755
+    Data3: -95260776
+    Data4: -417950979
+  Banks:
+  - {fileID: 974513200563754845}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 5899045931103352520}
+  - {fileID: 3684049346552088303}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 16000
+--- !u!114 &-2330862254936549819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Environment/Level_Begin
+  m_EditorClassIdentifier: 
+  Path: event:/Environment/Level_Begin
+  Guid:
+    Data1: -1612164132
+    Data2: 1245358046
+    Data3: 921120698
+    Data4: 1169699925
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 6579
+--- !u!114 &-2188642022697887930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Environment/Env_Highway_Ambience
+  m_EditorClassIdentifier: 
+  Path: event:/Environment/Env_Highway_Ambience
+  Guid:
+    Data1: 942039825
+    Data2: 1258762344
+    Data3: 605813666
+    Data4: 804111691
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 40000
+--- !u!114 &-2040076522343869041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/UpperBavelle_Battle
+  m_EditorClassIdentifier: 
+  Path: event:/Music/UpperBavelle_Battle
+  Guid:
+    Data1: -1558932473
+    Data2: 1122916684
+    Data3: 1340382622
+    Data4: -1462696418
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 7548125669030326193}
+  - {fileID: 7422878753161835453}
+  - {fileID: -8823334085942300514}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 92957
+--- !u!114 &-1737698495409235442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/MotorLoop/Alex_Velocity
+  m_EditorClassIdentifier: 
+  Name: Alex_Velocity
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 3924096646
+    data2: 1863841515
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-1731507818814821056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Environment/Area_Unlock
+  m_EditorClassIdentifier: 
+  Path: event:/Environment/Area_Unlock
+  Guid:
+    Data1: -1615659518
+    Data2: 1190810653
+    Data3: 464187562
+    Data4: -734831888
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1995
+--- !u!114 &-1587929149863399747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Environment/Slowmo_Exit
+  m_EditorClassIdentifier: 
+  Path: event:/Environment/Slowmo_Exit
+  Guid:
+    Data1: 1595251392
+    Data2: 1286285245
+    Data3: 14475179
+    Data4: 647099937
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1914
+--- !u!114 &-1510459369524948148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Turret/Turret_Shoot
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Turret/Turret_Shoot
+  Guid:
+    Data1: -2147166001
+    Data2: 1245140476
+    Data3: -101616200
+    Data4: 1377762361
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
+--- !u!114 &-1363773043562975884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/UpperBavelle_City
+  m_EditorClassIdentifier: 
+  Path: event:/Music/UpperBavelle_City
+  Guid:
+    Data1: -473276273
+    Data2: 1111601987
+    Data3: -1612444238
+    Data4: -508488208
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -7103842180882071411}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 101408
+--- !u!114 &-1326816861331932368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638037753701268178
+  FileSizes:
+  - Name: 
+    Value: 4284
+  Exists: 1
+--- !u!114 &-1181087731999231838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Bomb/Bomb_Ambience
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Bomb/Bomb_Ambience
+  Guid:
+    Data1: 1791249020
+    Data2: 1304133014
+    Data3: -77799763
+    Data4: 1299733051
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
+--- !u!114 &-267619335345495969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Bomb/Bomb_Fall
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Bomb/Bomb_Fall
+  Guid:
+    Data1: -147860686
+    Data2: 1187278166
+    Data3: -2008757862
+    Data4: -832079432
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-68149302474242859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/SlowMo_Effect/SlowMo_Effect_Intensity
+  m_EditorClassIdentifier: 
+  Name: SlowMo_Effect_Intensity
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 4031864706
+    data2: 1585795205
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -988,68 +1045,72 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 5308826359042508427}
-  - {fileID: -1807988452389492102}
+  - {fileID: -1326816861331932368}
+  - {fileID: 974513200563754845}
   EditorEvents:
-  - {fileID: 3905448302783591429}
-  - {fileID: -6616388402695643576}
-  - {fileID: 1095025828603667771}
-  - {fileID: 825477629626958489}
-  - {fileID: -7827981792060407411}
-  - {fileID: -4356995047123747433}
-  - {fileID: 2349457695535430397}
-  - {fileID: -6146210350988603060}
-  - {fileID: 826087401529840563}
-  - {fileID: -2845271652050513400}
-  - {fileID: -3900330111656291744}
-  - {fileID: 5616525835955879351}
-  - {fileID: -8007143641643721975}
-  - {fileID: 2254206152279886006}
-  - {fileID: 6456324031124758179}
-  - {fileID: -7736889659970531594}
-  - {fileID: -4530458740523183548}
-  - {fileID: 7765371672900069188}
-  - {fileID: 9112057517850193392}
-  - {fileID: -3570576977675693924}
-  - {fileID: -2859370756223294747}
-  - {fileID: -6371114795960174451}
-  - {fileID: -7922501534861793709}
-  - {fileID: 6554386029214864474}
-  - {fileID: -7438511096811580561}
-  - {fileID: 5670273155633076660}
-  - {fileID: -5090580250536492221}
-  - {fileID: -3691717959930923982}
-  - {fileID: 8189970782980126003}
-  - {fileID: 4805472478942879382}
-  - {fileID: 3061469496585553914}
-  - {fileID: 2041668437442252115}
-  - {fileID: 8477327594997329776}
-  - {fileID: -3713071986421932063}
-  - {fileID: 4201292920748586854}
-  - {fileID: 3180229987953519213}
-  - {fileID: 8985147690755143952}
-  - {fileID: 7949287256808272669}
-  - {fileID: -5854626871227425968}
-  - {fileID: 6947696655577327564}
-  - {fileID: 5630180615695356554}
-  - {fileID: 1764135232377319177}
-  - {fileID: 8956822434160332364}
-  - {fileID: -7936025064322285052}
-  - {fileID: -405838246419972484}
-  - {fileID: -8120503528334858453}
-  - {fileID: -3066873815217849305}
-  - {fileID: 8328587329074932174}
-  - {fileID: 8664468704810757779}
+  - {fileID: -2483690655217333115}
+  - {fileID: -1731507818814821056}
+  - {fileID: -2040076522343869041}
+  - {fileID: -2188642022697887930}
+  - {fileID: -4908703318440816000}
+  - {fileID: -4288590163411881933}
+  - {fileID: 4291416753398950311}
+  - {fileID: 6980817255218199040}
+  - {fileID: -2383583692828004320}
+  - {fileID: -7880046672769696555}
+  - {fileID: -7424131312265044618}
+  - {fileID: -267619335345495969}
+  - {fileID: -7462930278097115779}
+  - {fileID: -8584023375433892286}
+  - {fileID: -3418061657220303360}
+  - {fileID: 834698908650298240}
+  - {fileID: -8203950274007936289}
+  - {fileID: 1112169606422236469}
+  - {fileID: 5941326367001621212}
+  - {fileID: 5158057112429082460}
+  - {fileID: 7938185759336044778}
+  - {fileID: 3110328558016022005}
+  - {fileID: -3627533986844835122}
+  - {fileID: -1181087731999231838}
+  - {fileID: -5934977034115602302}
+  - {fileID: -8189983186464081868}
+  - {fileID: -3709272073451505096}
+  - {fileID: 7584137486336579601}
+  - {fileID: -1363773043562975884}
+  - {fileID: 4120326927254990214}
+  - {fileID: 8935542885541568077}
+  - {fileID: -4550633341096292559}
+  - {fileID: -5111086998295680271}
+  - {fileID: 9024843304384130479}
+  - {fileID: -1587929149863399747}
+  - {fileID: 8289126002187315099}
+  - {fileID: -8200565215515275970}
+  - {fileID: 8929117465618670319}
+  - {fileID: -1510459369524948148}
+  - {fileID: 6225244899012710174}
+  - {fileID: 6009120498586577893}
+  - {fileID: -2330862254936549819}
+  - {fileID: -5982022760645215820}
+  - {fileID: 1749013320033673649}
+  - {fileID: -6762314934370600023}
+  - {fileID: -8022518198295673552}
+  - {fileID: 2072294109204726856}
+  - {fileID: 2014701807684285178}
+  - {fileID: -5743753018638097408}
   EditorParameters:
-  - {fileID: 651737922961258712}
-  - {fileID: -2846934157376204284}
+  - {fileID: -6999961251188723388}
+  - {fileID: 7876756572006683159}
+  - {fileID: -8673949444296643837}
+  - {fileID: 3495773266240481889}
+  - {fileID: 11779207476791819}
+  - {fileID: -4426929376636028297}
   MasterBanks:
-  - {fileID: -1807988452389492102}
+  - {fileID: 974513200563754845}
   StringsBanks:
-  - {fileID: 5308826359042508427}
-  stringsBankWriteTime: 637815666730406070
-  cacheVersion: 6
---- !u!114 &485898668808265043
+  - {fileID: -1326816861331932368}
+  cacheTime: 638037753701268178
+  cacheVersion: 131593
+--- !u!114 &11779207476791819
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1059,37 +1120,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/CyberSeraph_Battle Theme/CurrentTrack_isLooping
+  m_Name: parameter:/comboMeter
   m_EditorClassIdentifier: 
-  Name: CurrentTrack_isLooping
+  Name: comboMeter
+  StudioPath: parameter:/comboMeter
   Min: 0
-  Max: 1
-  Default: 1
+  Max: 10
+  Default: 10
   ID:
-    data1: 0
-    data2: 0
+    data1: 3484363923
+    data2: 1662981860
+  Type: 0
+  IsGlobal: 1
+  Labels: []
   Exists: 1
---- !u!114 &651737922961258712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/currentHealth
-  m_EditorClassIdentifier: 
-  Name: currentHealth
-  Min: 0
-  Max: 100
-  Default: 100
-  ID:
-    data1: 2102150997
-    data2: 1181155983
-  Exists: 1
---- !u!114 &825477629626958489
+--- !u!114 &834698908650298240
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1099,43 +1144,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/Abilities/Player_SpecialAttack_Shockwave
+  m_Name: event:/Player/Events/Player_Death
   m_EditorClassIdentifier: 
-  Path: event:/Player/Abilities/Player_SpecialAttack_Shockwave
-  guid: 14c5f262e38f6d48ac53290bae3371fd
+  Path: event:/Player/Events/Player_Death
+  Guid:
+    Data1: 174248773
+    Data2: 1203670713
+    Data3: -464305005
+    Data4: -632962535
   Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 5000
---- !u!114 &826087401529840563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Items/ItemPickup_SmallHP
-  m_EditorClassIdentifier: 
-  Path: event:/Items/ItemPickup_SmallHP
-  guid: 356ed7102c088948b9dde1450583a847
-  Banks:
-  - {fileID: -1807988452389492102}
+  - {fileID: 974513200563754845}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
-  Length: 1983
---- !u!114 &1095025828603667771
+  Length: 3000
+--- !u!114 &974513200563754845
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1144,68 +1170,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Stomping/Stomping_Ambience
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
   m_EditorClassIdentifier: 
-  Path: event:/Enemy/Stomping/Stomping_Ambience
-  guid: 11a21e952dfaec41ad41c12cad3ac29e
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4000
---- !u!114 &1764135232377319177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Environment/Slowmo
-  m_EditorClassIdentifier: 
-  Path: event:/Environment/Slowmo
-  guid: 22c21738ebae8b43986f52fafd9216e7
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -7870811749407588686}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 16000
---- !u!114 &2041668437442252115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/Contextual/Player_TakeDamage
-  m_EditorClassIdentifier: 
-  Path: event:/Player/Contextual/Player_TakeDamage
-  guid: ce2679c2d504f74e936d50f1f796675a
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 4000
---- !u!114 &2254206152279886006
+  Path: FMOD/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638037753700999613
+  FileSizes: []
+  Exists: 1
+--- !u!114 &1112169606422236469
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1218,9 +1192,13 @@ MonoBehaviour:
   m_Name: event:/Enemy/Stomping/Stomping_Fall
   m_EditorClassIdentifier: 
   Path: event:/Enemy/Stomping/Stomping_Fall
-  guid: 4b33c0a48cfeb949bd2290ddd0b88832
+  Guid:
+    Data1: -1530907829
+    Data2: 1236926092
+    Data3: -577756483
+    Data4: 847821008
   Banks:
-  - {fileID: -1807988452389492102}
+  - {fileID: 974513200563754845}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1228,27 +1206,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2750
---- !u!114 &2268691052417453334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Death_MusicDuck/Death_MusicDuck_Intensity
-  m_EditorClassIdentifier: 
-  Name: Death_MusicDuck_Intensity
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &2349457695535430397
+--- !u!114 &1749013320033673649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1258,698 +1216,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Bomb/Bomb_Fall
+  m_Name: event:/Environment/Victory_Fanfare
   m_EditorClassIdentifier: 
-  Path: event:/Enemy/Bomb/Bomb_Fall
-  guid: 32d32ff7566dc4469ac94488b87967ce
+  Path: event:/Environment/Victory_Fanfare
+  Guid:
+    Data1: 1583820261
+    Data2: 1168949143
+    Data3: -1734911811
+    Data4: 1465705363
   Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &3061469496585553914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/Events/Player_Fall
-  m_EditorClassIdentifier: 
-  Path: event:/Player/Events/Player_Fall
-  guid: ccf1fa67ca12d340821dee9e7d9c9e2f
-  Banks:
-  - {fileID: -1807988452389492102}
+  - {fileID: 974513200563754845}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
-  Length: 3000
---- !u!114 &3180229987953519213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/Abilities/Player_Push
-  m_EditorClassIdentifier: 
-  Path: event:/Player/Abilities/Player_Push
-  guid: e288b1626da24d4e832d9bf6931e3b7d
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2000
---- !u!114 &3228969743121351948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/UpperBavelle_City/CurrentTrack_isLooping
-  m_EditorClassIdentifier: 
-  Name: CurrentTrack_isLooping
-  Min: 0
-  Max: 1
-  Default: 1
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &3338623193897979379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Player_Somersault/Timeshift
-  m_EditorClassIdentifier: 
-  Name: Timeshift
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &3905448302783591429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Enemy_DashImpact
-  m_EditorClassIdentifier: 
-  Path: event:/Enemy/Enemy_DashImpact
-  guid: 01c143c0d6f4a84481d274ed8ae9364e
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 1781
---- !u!114 &4119991443551159706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Player_Skating/Skate_Exit
-  m_EditorClassIdentifier: 
-  Name: Skate_Exit
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 3050527250
-    data2: 4200122386
-  Exists: 1
---- !u!114 &4201292920748586854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Tracking/Tracking_Ambience
-  m_EditorClassIdentifier: 
-  Path: event:/Enemy/Tracking/Tracking_Ambience
-  guid: d4938099db9aa14b8d7b6893a7e1a322
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 8000
---- !u!114 &4302694427105881682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Player_Somersault/Timeshift
-  m_EditorClassIdentifier: 
-  Name: Timeshift
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 3355024000
-    data2: 3850259037
-  Exists: 1
---- !u!114 &4355239280602822427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Death_MusicDuck/Death_MusicDuck_Intensity
-  m_EditorClassIdentifier: 
-  Name: Death_MusicDuck_Intensity
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &4604690394538637399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Environment/Slowmo_Enter
-  m_EditorClassIdentifier: 
-  Path: event:/Environment/Slowmo_Enter
-  guid: 22c21738ebae8b43986f52fafd9216e7
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &4805472478942879382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Bomb/Bomb_Triggered
-  m_EditorClassIdentifier: 
-  Path: event:/Enemy/Bomb/Bomb_Triggered
-  guid: c7c49d833f085a4084d3920a525f3ec9
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 3000
---- !u!114 &5308826359042508427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: 
-  Path: FMOD/Test1/Build/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 637815666730406070
-  LoadResult: 0
-  FileSizes:
-  - Name: Desktop
-    Value: 4284
-  Exists: 1
---- !u!114 &5336527382390552928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Death_MusicDuck/Death_MusicDuck_Intensity
-  m_EditorClassIdentifier: 
-  Name: Death_MusicDuck_Intensity
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &5616525835955879351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Turret/Turret_Fall
-  m_EditorClassIdentifier: 
-  Path: event:/Enemy/Turret/Turret_Fall
-  guid: 469b4296c2c6ac4db3e29e1e673c3c64
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2000
---- !u!114 &5630180615695356554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Environment/Area_Unlock
-  m_EditorClassIdentifier: 
-  Path: event:/Environment/Area_Unlock
-  guid: 02feb29f1d54fa46aaf0aa1bf05a33d4
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 1995
---- !u!114 &5670273155633076660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Tracking/Tracking_Fall
-  m_EditorClassIdentifier: 
-  Path: event:/Enemy/Tracking/Tracking_Fall
-  guid: b38a1b32e87f124dad6070409db5a17e
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2000
---- !u!114 &5899045931103352520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/MotorLoop/Alex_Velocity
-  m_EditorClassIdentifier: 
-  Name: Alex_Velocity
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 3924096646
-    data2: 1863841515
-  Exists: 1
---- !u!114 &6003035290193836335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/UpperBavelle_Battle/CurrentTrack_isLooping
-  m_EditorClassIdentifier: 
-  Name: CurrentTrack_isLooping
-  Min: 0
-  Max: 1
-  Default: 1
-  ID:
-    data1: 2060799246
-    data2: 151082796
-  Exists: 1
---- !u!114 &6432664206223370072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/UpperBavelle_City/CurrentTrack_isLooping
-  m_EditorClassIdentifier: 
-  Name: CurrentTrack_isLooping
-  Min: 0
-  Max: 1
-  Default: 1
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &6456324031124758179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Environment/UI_Restart
-  m_EditorClassIdentifier: 
-  Path: event:/Environment/UI_Restart
-  guid: 4f732eb20d2a544498da08560ae4398d
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 4000
---- !u!114 &6554386029214864474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Stomping/Stomping_Stomp
-  m_EditorClassIdentifier: 
-  Path: event:/Enemy/Stomping/Stomping_Stomp
-  guid: 955a478d09d9e64dbfde5c37ab90b4b6
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2000
---- !u!114 &6947696655577327564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/Abilities/Player_Somersault
-  m_EditorClassIdentifier: 
-  Path: event:/Player/Abilities/Player_Somersault
-  guid: faf0d74c8ffcb248ae667f862bf0bff0
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 4302694427105881682}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4000
---- !u!114 &6973788409962205289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/UpperBavelle_Battle/Music_Intensity
-  m_EditorClassIdentifier: 
-  Name: Music_Intensity
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 1621409543
-    data2: 3591637341
-  Exists: 1
---- !u!114 &7060951255153169415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/UpperBavelle_Battle OLD
-  m_EditorClassIdentifier: 
-  Path: event:/Music/UpperBavelle_Battle OLD
-  guid: 4a41803a207b334f95f958ea3a82b3af
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -5657502673568456224}
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 87887
---- !u!114 &7765371672900069188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player/Abilities/Player_Dash
-  m_EditorClassIdentifier: 
-  Path: event:/Player/Abilities/Player_Dash
-  guid: 6697d90c3812354d812acb370a2346b6
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 3500
---- !u!114 &7949287256808272669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: snapshot:/Death_MusicDuck
-  m_EditorClassIdentifier: 
-  Path: snapshot:/Death_MusicDuck
-  guid: ed853ad167323644b11a77e5dae66701
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 2268691052417453334}
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 0
---- !u!114 &7986121190189751098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/UpperBavelle_Battle/Music_Intensity
-  m_EditorClassIdentifier: 
-  Name: Music_Intensity
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 1621409543
-    data2: 3591637341
-  Exists: 1
---- !u!114 &8189970782980126003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Environment/Slowmo_Exit
-  m_EditorClassIdentifier: 
-  Path: event:/Environment/Slowmo_Exit
-  guid: c09a155fbd27ab4cabdfdc0021f69126
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1914
---- !u!114 &8328587329074932174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Enemy_Alert
-  m_EditorClassIdentifier: 
-  Path: event:/Enemy/Enemy_Alert
-  guid: 819f0175bad9c443b7508d367633672a
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 500
---- !u!114 &8477327594997329776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Turret/Turret_Shoot
-  m_EditorClassIdentifier: 
-  Path: event:/Enemy/Turret/Turret_Shoot
-  guid: cfd80480fc55374ab875f1f939fc1e52
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4000
---- !u!114 &8581743155005800880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Turret_Projectile/playTail
-  m_EditorClassIdentifier: 
-  Name: playTail
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 0
-    data2: 0
-  Exists: 1
---- !u!114 &8664468704810757779
+  Length: 4436
+--- !u!114 &2014701807684285178
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1962,18 +1246,22 @@ MonoBehaviour:
   m_Name: event:/Player/Abilities/Player_Skating
   m_EditorClassIdentifier: 
   Path: event:/Player/Abilities/Player_Skating
-  guid: f34bb94627b2be4e9713f9acf7b5e7a2
+  Guid:
+    Data1: 1186548723
+    Data2: 1321120295
+    Data3: -1392962665
+    Data4: -1561872905
   Banks:
-  - {fileID: -1807988452389492102}
+  - {fileID: 974513200563754845}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 4119991443551159706}
+  - {fileID: 2158742887969992421}
   MinDistance: 1
   MaxDistance: 20
   Length: 6937
---- !u!114 &8956822434160332364
+--- !u!114 &2072294109204726856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1983,20 +1271,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Environment/Level_Begin
+  m_Name: event:/Player/Abilities/Player_MakeHole
   m_EditorClassIdentifier: 
-  Path: event:/Environment/Level_Begin
-  guid: dc53e89fdea73a4aba2fe7365534b845
+  Path: event:/Player/Abilities/Player_MakeHole
+  Guid:
+    Data1: -1511317778
+    Data2: 1243390476
+    Data3: 336849841
+    Data4: -190243092
   Banks:
-  - {fileID: -1807988452389492102}
+  - {fileID: 974513200563754845}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
-  Length: 6579
---- !u!114 &8985147690755143952
+  MaxDistance: 10
+  Length: 500
+--- !u!114 &2158742887969992421
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2005,21 +1297,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/Raheem_Battle Theme
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Player_Skating/Skate_Exit
   m_EditorClassIdentifier: 
-  Path: event:/Music/Raheem_Battle Theme
-  guid: e6bb935c476a924ca7f30afb0eedce41
-  Banks:
-  - {fileID: -1807988452389492102}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 90000
---- !u!114 &9022954188790263709
+  Name: Skate_Exit
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3050527250
+    data2: 4200122386
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &2240299788734080362
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2032,14 +1325,18 @@ MonoBehaviour:
   m_Name: parameter:/Turret_Projectile/playTail
   m_EditorClassIdentifier: 
   Name: playTail
+  StudioPath: 
   Min: 0
   Max: 1
   Default: 0
   ID:
     data1: 3452360112
     data2: 3058904531
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
---- !u!114 &9112057517850193392
+--- !u!114 &3110328558016022005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2049,12 +1346,453 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemy/Bomb/Bomb_Ambience
+  m_Name: event:/Player/Abilities/Player_Dash
   m_EditorClassIdentifier: 
-  Path: event:/Enemy/Bomb/Bomb_Ambience
-  guid: 7c4ac46a967dbb4dadde5cfb3b5a784d
+  Path: event:/Player/Abilities/Player_Dash
+  Guid:
+    Data1: 215586662
+    Data2: 1295323704
+    Data3: 936061569
+    Data4: -1236917494
   Banks:
-  - {fileID: -1807988452389492102}
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 5574334812056649212}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 3500
+--- !u!114 &3336264019128745086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Player_Push/comboMeter
+  m_EditorClassIdentifier: 
+  Name: comboMeter
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 10
+  ID:
+    data1: 3484363923
+    data2: 1662981860
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &3495773266240481889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/level_isStarting
+  m_EditorClassIdentifier: 
+  Name: level_isStarting
+  StudioPath: parameter:/level_isStarting
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3016666589
+    data2: 2951100223
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &3684049346552088303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Slowmo/Energy_4SecondsLeft
+  m_EditorClassIdentifier: 
+  Name: Energy_4SecondsLeft
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 172345638
+    data2: 4136801443
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &4120326927254990214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Stomping/Stomping_Stomp
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Stomping/Stomping_Stomp
+  Guid:
+    Data1: -1924703595
+    Data2: 1306974473
+    Data3: 928833215
+    Data4: -1229680469
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
+--- !u!114 &4291416753398950311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Alex/MotorLoop
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Alex/MotorLoop
+  Guid:
+    Data1: -1358414820
+    Data2: 1104557214
+    Data3: 1255033988
+    Data4: -183171087
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -1737698495409235442}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5158057112429082460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/lowHealth
+  m_EditorClassIdentifier: 
+  Path: snapshot:/lowHealth
+  Guid:
+    Data1: -169478572
+    Data2: 1181479635
+    Data3: 1397367973
+    Data4: -73017260
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &5574334812056649212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Player_Dash/DamageSoundTriggered
+  m_EditorClassIdentifier: 
+  Name: DamageSoundTriggered
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1854675342
+    data2: 2140545151
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &5941326367001621212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Environment/UI_Restart
+  m_EditorClassIdentifier: 
+  Path: event:/Environment/UI_Restart
+  Guid:
+    Data1: -1305578673
+    Data2: 1146366477
+    Data3: 1443420824
+    Data4: -1925585910
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 4000
+--- !u!114 &6009120498586577893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Tracking/Tracking_Ambience
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Tracking/Tracking_Ambience
+  Guid:
+    Data1: -1719626796
+    Data2: 1268882139
+    Data3: -1821869171
+    Data4: 581165479
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 8000
+--- !u!114 &6197355336883886103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Death_MusicDuck/Death_MusicDuck_Intensity
+  m_EditorClassIdentifier: 
+  Name: Death_MusicDuck_Intensity
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 657515604
+    data2: 3920575736
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &6225244899012710174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Items/ItemPickup_Core
+  m_EditorClassIdentifier: 
+  Path: event:/Items/ItemPickup_Core
+  Guid:
+    Data1: -1851670320
+    Data2: 1114229430
+    Data3: -1846622553
+    Data4: -1343793856
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1983
+--- !u!114 &6980817255218199040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Environment/Cube_Break
+  m_EditorClassIdentifier: 
+  Path: event:/Environment/Cube_Break
+  Guid:
+    Data1: 263820572
+    Data2: 1292295815
+    Data3: -980145792
+    Data4: -4574972
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
+--- !u!114 &7422878753161835453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/UpperBavelle_Battle/level_isStarting
+  m_EditorClassIdentifier: 
+  Name: level_isStarting
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3016666589
+    data2: 2951100223
+  Type: 1
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &7548125669030326193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/UpperBavelle_Battle/CurrentTrack_isLooping
+  m_EditorClassIdentifier: 
+  Name: CurrentTrack_isLooping
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 1
+  ID:
+    data1: 2060799246
+    data2: 151082796
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &7584137486336579601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Abilities/Player_Push_Combo
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Abilities/Player_Push_Combo
+  Guid:
+    Data1: 220187022
+    Data2: 1112691765
+    Data3: -892502091
+    Data4: -1361531477
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
+--- !u!114 &7876756572006683159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/currentHealth
+  m_EditorClassIdentifier: 
+  Name: currentHealth
+  StudioPath: parameter:/currentHealth
+  Min: 0
+  Max: 100
+  Default: 100
+  ID:
+    data1: 2102150997
+    data2: 1181155983
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &7938185759336044778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Turret/Turret_Ambience
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Turret/Turret_Ambience
+  Guid:
+    Data1: 377672797
+    Data2: 1188240003
+    Data3: -686891367
+    Data4: -1059276907
+  Banks:
+  - {fileID: 974513200563754845}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -2062,3 +1800,136 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4000
+--- !u!114 &8289126002187315099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemy/Bomb/Bomb_Triggered
+  m_EditorClassIdentifier: 
+  Path: event:/Enemy/Bomb/Bomb_Triggered
+  Guid:
+    Data1: -2086812473
+    Data2: 1079642175
+    Data3: 177394564
+    Data4: -918659246
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3000
+--- !u!114 &8929117465618670319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Contextual/Player_TakeDamage
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Contextual/Player_TakeDamage
+  Guid:
+    Data1: -1032247602
+    Data2: 1324811477
+    Data3: -246387309
+    Data4: 1516738295
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -2401054859009211008}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 4000
+--- !u!114 &8935542885541568077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Abilities/Player_AOERepel
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Abilities/Player_AOERepel
+  Guid:
+    Data1: -798252881
+    Data2: 1135714188
+    Data3: 597204105
+    Data4: -1058289141
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4000
+--- !u!114 &9024843304384130479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Items/ItemPickup_BigHP
+  m_EditorClassIdentifier: 
+  Path: event:/Items/ItemPickup_BigHP
+  Guid:
+    Data1: 995347898
+    Data2: 1106342235
+    Data3: 1643032988
+    Data4: 1576104003
+  Banks:
+  - {fileID: 974513200563754845}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1996
+--- !u!114 &9131777695080191655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Player_Somersault/Timeshift
+  m_EditorClassIdentifier: 
+  Name: Timeshift
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3355024000
+    data2: 3850259037
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
