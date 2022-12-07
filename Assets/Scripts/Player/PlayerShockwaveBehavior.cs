@@ -9,7 +9,7 @@ public class PlayerShockwaveBehavior : MonoBehaviour
     public PlayerBehaviour playerBehaviour;
     public VisualEffect explosionEffect;
 
-    private bool isRegularShockwave;
+    private bool isDeathShockwave;
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class PlayerShockwaveBehavior : MonoBehaviour
         {
             BaseTileBehaviour tile = other.transform.GetComponent<BaseTileBehaviour>();
             if (tile != null)
-                if (!isRegularShockwave)
+                if (isDeathShockwave)
                     tile.Pulse();
                 else
                     tile.SmallPulse();
@@ -33,7 +33,7 @@ public class PlayerShockwaveBehavior : MonoBehaviour
         {
             Enemy e = other.GetComponent<Enemy>();
             if (e != null)
-                if (!isRegularShockwave)
+                if (isDeathShockwave)
                     e.Die(Enemy.DeathType.Shockwave);
                 else
                 {
@@ -47,15 +47,19 @@ public class PlayerShockwaveBehavior : MonoBehaviour
         }
     }
 
-    public IEnumerator Shockwave(float radius, bool regularShockwave = false)
+    public IEnumerator Shockwave(float radius, bool regularShockwave)
     {
-        isRegularShockwave = regularShockwave;
+        print("shockwaving "+ regularShockwave);
+        isDeathShockwave = regularShockwave;
 
         capsuleCollider.enabled = true;
         float ogRadius = capsuleCollider.radius;
 
-        explosionEffect.gameObject.SetActive(true);
-        explosionEffect.Play();
+        if (regularShockwave)
+        {
+            explosionEffect.gameObject.SetActive(true);
+            explosionEffect.Play();
+        }
 
         while (capsuleCollider.radius < radius)
         {
@@ -65,13 +69,13 @@ public class PlayerShockwaveBehavior : MonoBehaviour
 
         //EnemyManager.Instance.isUpdateEnemies = true;
 
-        explosionEffect.gameObject.SetActive(true);
+        explosionEffect.gameObject.SetActive(false);
         playerBehaviour.isInvinsible = false;
-        if(!regularShockwave)
+        if(regularShockwave)
             playerBehaviour.enableControlls = true;
         capsuleCollider.radius = ogRadius;
         capsuleCollider.enabled = false;
-        isRegularShockwave = false;
+        isDeathShockwave = false;
         playerBehaviour.TrailsEnabled(false);
         gameObject.SetActive(false);
     }

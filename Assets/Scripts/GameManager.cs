@@ -67,10 +67,27 @@ public class GameManager : MonoBehaviour {
         Application.targetFrameRate = 60;
         this.fixedDeltaTime = Time.fixedDeltaTime;
 
-
+        
         StartCoroutine(InitLevel());
         print("## GameManager ready");
 	}
+
+    private void Start()
+    {
+        //init music after once awakes are done
+        StartCoroutine(AudioManager.Instance.StartMusic());
+
+        SlomoSnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/SlowMo_Effect");
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(SlomoSnapshot, PlayerInstance.transform, PlayerInstance.GetComponent<Rigidbody>());
+        SlomoSnapshot.start();
+
+        SlomoSFX = FMODUnity.RuntimeManager.CreateInstance("event:/Environment/Slowmo");
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(SlomoSFX, PlayerInstance.transform, PlayerInstance.GetComponent<Rigidbody>());
+
+        DeathSnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/Death_MusicDuck");
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(DeathSnapshot, PlayerInstance.transform, PlayerInstance.GetComponent<Rigidbody>());
+        DeathSnapshot.start();
+    }
 
     private IEnumerator InitLevel()
     {
@@ -104,18 +121,7 @@ public class GameManager : MonoBehaviour {
         currentLevelData = levelManager.Init(CurrentLevelIndex);
 
         /////////////
-        StartCoroutine(AudioManager.Instance.StartMusic(PlayerInstance.transform));
-
-        SlomoSnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/SlowMo_Effect");
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(SlomoSnapshot, PlayerInstance.transform, PlayerInstance.GetComponent<Rigidbody>());
-        SlomoSnapshot.start();
-
-        SlomoSFX = FMODUnity.RuntimeManager.CreateInstance("event:/Environment/Slowmo");
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(SlomoSFX, PlayerInstance.transform, PlayerInstance.GetComponent<Rigidbody>());
-
-        DeathSnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/Death_MusicDuck");
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(DeathSnapshot, PlayerInstance.transform, PlayerInstance.GetComponent<Rigidbody>());
-        DeathSnapshot.start();
+        
     }
 
     private IEnumerator KillPointsUpdater()

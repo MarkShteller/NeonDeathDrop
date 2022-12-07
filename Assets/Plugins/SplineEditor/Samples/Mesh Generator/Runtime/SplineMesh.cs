@@ -19,7 +19,7 @@ namespace SplineEditor.MeshGenerator
 	[RequireComponent(typeof(MeshFilter))]
 	[RequireComponent(typeof(MeshRenderer))]
 	[RequireComponent(typeof(BezierSpline))]
-	[CanEditMultipleObjects]
+	//[CanEditMultipleObjects]
 	[ExecuteAlways]
 	public class SplineMesh : MonoBehaviour
 	{

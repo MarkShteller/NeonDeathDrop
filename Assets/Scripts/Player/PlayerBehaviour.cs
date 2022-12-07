@@ -176,6 +176,10 @@ public class PlayerBehaviour : MonoBehaviour
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(slomoSoundEvent, transform, GetComponent<Rigidbody>());
     }
 
+    private void OnDrawGizmos()
+    {
+        //Gizmos.DrawCube(forcePushTriggerCollider.center, forcePushTriggerCollider.size);
+    }
     void FixedUpdate()
     {
         if (enableControlls)
@@ -438,7 +442,7 @@ public class PlayerBehaviour : MonoBehaviour
         print("aaaa");
         shockwaveBehavior.gameObject.SetActive(true);
         currentPushForce *= 1.3f;
-        StartCoroutine(shockwaveBehavior.Shockwave(4, true));
+        StartCoroutine(shockwaveBehavior.Shockwave(4, false));
     }
 
     public void FinishRepelAttack()
@@ -464,7 +468,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         shockwaveBehavior.gameObject.SetActive(true);
         TrailsEnabled(true);
-        StartCoroutine(shockwaveBehavior.Shockwave(10));
+        StartCoroutine(shockwaveBehavior.Shockwave(10, true));
     }
 
     public void PreformSomersault()
@@ -520,10 +524,14 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void PreformPush(float pushRadiusMul, float effectTime, float floorEffectLength, float pushRadiusWidth = 2)
     {
+        //StartCoroutine(DebugSlomo());
         enableMovement = true;
         manaPoints -= pushManaCost;
-        forcePushTriggerCollider.size = new Vector3(forcePushTriggerCollider.size.x + pushRadiusWidth, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius * pushRadiusMul);
-        forcePushTriggerCollider.center = new Vector3(0, 0, -pushRadius * pushRadiusMul / 2);
+        
+        Vector3 size = new Vector3(forcePushTriggerCollider.size.x + pushRadiusWidth, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius * pushRadiusMul);
+        Vector3 center = new Vector3(0, 0, -pushRadius * pushRadiusMul / 2);
+        StartCoroutine(OverridePushCollider(0.1f, size, center));
+
         //StartCoroutine(ShowForcePushEffect(effectTime));
 
         forcePushEffect.SetFloat("ForceMultiplier", pushRadiusMul);
@@ -531,6 +539,27 @@ public class PlayerBehaviour : MonoBehaviour
             forcePushEffect.Play();
 
         StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(floorEffectLength));
+    }
+
+    private IEnumerator OverridePushCollider(float time, Vector3 size, Vector3 center)
+    {
+        float delayTime = 0;
+        while (delayTime <= time)
+        {
+            forcePushTriggerCollider.size = size;
+            forcePushTriggerCollider.center = center;
+            delayTime += Time.deltaTime;
+            yield return null;
+        }
+
+    }
+
+    private IEnumerator DebugSlomo()
+    {
+        Time.timeScale = 0.016f;
+        yield return new WaitForSeconds(0.1f);
+        Time.timeScale = 1f;
+
     }
 
     public void UseMana(float amount)
@@ -768,7 +797,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (isFalling && (collision.gameObject.CompareTag("FloorCube")|| collision.gameObject.CompareTag("CheckpointCube")))
         {
             shockwaveBehavior.gameObject.SetActive(true);
-            StartCoroutine(shockwaveBehavior.Shockwave(3, true));
+            StartCoroutine(shockwaveBehavior.Shockwave(3, false));
             isFalling = false;
             animator.SetBool("Falling", isFalling);
         }

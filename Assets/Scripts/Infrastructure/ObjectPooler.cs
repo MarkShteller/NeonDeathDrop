@@ -28,6 +28,7 @@ public class ObjectPooler : MonoBehaviour
         foreach (Pool pool in pools)
         {
             GameObject goHolder = new GameObject(pool.tag + "Pool");
+            goHolder.transform.position = new Vector3(0, 50, 0);
             Queue<GameObject> objectPool = new Queue<GameObject>();
             for (int i = 0; i < pool.size; i++)
             {

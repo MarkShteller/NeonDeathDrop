@@ -223,6 +223,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
         //if the enemy is over a pit, fall down
 
 
+            //print(movementStatus.ToString());
         switch (movementStatus)
         {
             case MovementType.Static:
@@ -333,22 +334,21 @@ public class Enemy : MonoBehaviour, IPooledObject {
         {
             stunnedEffect.gameObject.SetActive(false);
             movementStatus = MovementType.TrackingPlayer;
+            //stunnedTimer = 0;
         }
     }
 
     internal virtual void SuperStunnedAction()
     {
         stunnedRemaining -= Time.deltaTime;
-        //if (isSuperStunned)
-        {
-            stunnedEffect.gameObject.SetActive(true);
-            //isSuperStunned = false;
-        }
+        stunnedEffect.gameObject.SetActive(true);
+
         if (stunnedRemaining <= 0)
         {
             stunnedEffect.gameObject.SetActive(false);
             movementStatus = MovementType.TrackingPlayer;
             isSuperStunned = false;
+            stunnedTimer = 0;
         }
     }
 
@@ -484,8 +484,8 @@ public class Enemy : MonoBehaviour, IPooledObject {
             isSuperStunned = true;
             stunCounter = 0;
         }
-        else
-            isSuperStunned = false;
+        //else
+            //isSuperStunned = false;
         movementStatus = MovementType.Pushed;
     }
 

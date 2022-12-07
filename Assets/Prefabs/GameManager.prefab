@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1622218994986950087}
   - {fileID: 2698436215294900208}
@@ -147,7 +148,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   slomoVolume: {fileID: 1740457756955912243}
   takingDanmageVolume: {fileID: 3888814170404364218}
-  CurrentLevelIndex: 8
+  CurrentLevelIndex: 9
 --- !u!114 &114524042694302210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,6 +227,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4559910479656830}
   m_RootOrder: 0
@@ -242,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGlobal: 1
+  m_IsGlobal: 1
   priority: 1
   blendDistance: 0
   weight: 0
@@ -274,6 +276,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4559910479656830}
   m_RootOrder: 1
@@ -290,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGlobal: 1
+  m_IsGlobal: 1
   priority: 0
   blendDistance: 0
   weight: 0
@@ -340,7 +343,7 @@ PrefabInstance:
     - target: {fileID: 3857151748373982192, guid: ff1685109341d0b4f9ad0323ae49240e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.73
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3857151748373982192, guid: ff1685109341d0b4f9ad0323ae49240e,
         type: 3}
@@ -396,3 +399,29 @@ VisualEffect:
     type: 3}
   m_PrefabInstance: {fileID: 2270235548228285480}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3028147552955967829 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3857151747960397181, guid: ff1685109341d0b4f9ad0323ae49240e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2270235548228285480}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3020232089386934388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3028147552955967829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
