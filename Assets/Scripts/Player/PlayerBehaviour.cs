@@ -78,6 +78,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float currentRevolutionCooldown;
     private float revolutionCooldown = 1;
     private List<Enemy> launchedEnemies;
+    private Vector3 dashImpactEnemyLocation;
 
     private CapsuleCollider capsuleCollider;
 
@@ -501,7 +502,8 @@ public class PlayerBehaviour : MonoBehaviour
         float time = duration;
 
         float capsuleR = capsuleCollider.radius;
-        capsuleCollider.radius *= 2f;
+        capsuleCollider.radius *= 3.5f;
+        //StartCoroutine(DebugSlomo());
 
         while (time > 0 && enableDash && isDashing)
         {
@@ -515,7 +517,11 @@ public class PlayerBehaviour : MonoBehaviour
         isDashing = false;
         if (isDashImpact)
         {
+            transform.position = dashImpactEnemyLocation;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
             yield return new WaitForSeconds(0.3f);
+            //transform.Translate(direction * movementSpeed * dashSpeed * Time.deltaTime);
+
             isDashImpact = false;
         }
         if(!isDead)
@@ -773,7 +779,8 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 isDashing = false;
                 isDashImpact = true;
-                enemy.ForcePush(lastDashDir, currentPushForce * 2f, PlayerAttackType.Dash, true);
+                dashImpactEnemyLocation = enemy.transform.position;
+                enemy.ForcePush(lastDashDir, currentPushForce * 1.5f, PlayerAttackType.Dash, true);
 
                 GameManager.Instance.DashSlomo(2f);
                 GameManager.Instance.cameraRef.FastZoom(enemy.transform);
