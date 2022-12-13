@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 
 public class PlayerBehaviour : MonoBehaviour
@@ -133,6 +134,11 @@ public class PlayerBehaviour : MonoBehaviour
     public bool IsTestMode = false;
     private bool isDead;
 
+
+
+    private Vector2 inputMovement;
+    private Vector2 inputAim;
+
     void Start()
     {
         if (!IsTestMode)
@@ -175,12 +181,208 @@ public class PlayerBehaviour : MonoBehaviour
         
         slomoSoundEvent = FMODUnity.RuntimeManager.CreateInstance(AudioManager.Instance.PlayerSlomoEnter);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(slomoSoundEvent, transform, GetComponent<Rigidbody>());
+        GetComponent<PlayerInput>().actions.FindAction("MakeHole").started += MakeHoleStarted;
+        GetComponent<PlayerInput>().actions.FindAction("MakeHole").performed += MakeHolePrefomed;
+        GetComponent<PlayerInput>().actions.FindAction("MakeHole").canceled += MakeHoleCanceled;
     }
+
 
     private void OnDrawGizmos()
     {
         //Gizmos.DrawCube(forcePushTriggerCollider.center, forcePushTriggerCollider.size);
     }
+
+    void OnMove(InputValue value)
+    {
+        inputMovement = value.Get<Vector2>();
+    }
+
+    void OnLook(InputValue value)
+    {
+        inputAim = value.Get<Vector2>();
+    }
+
+    private void MakeHoleStarted(InputAction.CallbackContext obj)
+    {
+        print("make hole started.");
+    }
+
+    private void MakeHolePrefomed(InputAction.CallbackContext obj)
+    {
+        print("make hole preformed!");
+        isHoleSlomo = true;
+        GameManager.Instance.SetSlomo(0.1f);
+        slomoSoundEvent.start();
+    }
+    
+    private void MakeHoleCanceled(InputAction.CallbackContext obj)
+    {
+        if (manaPoints >= holeManaCost)
+        {
+            //stop slomo and make hole
+            isHoleSlomo = false;
+            isChargeMana = true;
+            GameManager.Instance.EndSlomo();
+            TriggerMakeHoleAction();
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSlomoExit, transform.position);
+            slomoSoundEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            print("ending hole slomo");
+        }
+    }
+
+    void OnLightAttack(InputValue value)
+    {
+        if (manaPoints >= pushManaCost)
+        {
+            enableMovement = false;
+
+            GameObject closestEnemy = aimAssist.GetClosestEnemyObject();
+            if (closestEnemy != null)
+            {
+                this.visualsHolder.LookAt(closestEnemy.transform, Vector3.up);
+                visualsHolder.Rotate(new Vector3(0, 180, 0));
+            }
+
+            //the animation triggers PreformPush()
+            animator.SetTrigger("PushA");
+            StopSprinting();
+        }
+        else
+            LowMana();
+    }
+
+    void OnHeavyAttack(InputValue value)
+    {
+        print("heavy button down");
+        if (manaPoints >= somersaultManaCost)
+        {
+            animator.SetTrigger("HeavyA");
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSomersault, transform.position);
+        }
+        else
+            LowMana();
+    }
+
+    void OnMakeHole(InputValue value)
+    {
+        //isHoleSlomo = !isHoleSlomo;
+        print(isHoleSlomo);
+        /*
+        // make a hole v2.0
+        if (manaPoints <= holeManaCost || isHoleSlomo)
+        {
+            //stop slomo and make hole
+            isHoleSlomo = false;
+            isChargeMana = true;
+            GameManager.Instance.EndSlomo();
+            TriggerMakeHoleAction();
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSlomoExit, transform.position);
+            slomoSoundEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            print("ending hole slomo");
+        }
+
+        //isHoleSlomo = !isHoleSlomo;
+        if (!isHoleSlomo && manaPoints >= holeManaCost) 
+        {
+            //start slomo
+            currentSlomoTriggerCooldown -= Time.deltaTime;
+            if (currentSlomoTriggerCooldown <= 0)
+            {
+                isHoleSlomo = true;
+                GameManager.Instance.SetSlomo(0.1f);
+                slomoSoundEvent.start();
+                currentSlomoTriggerCooldown = slomoTriggerCooldown;
+                print("starting hole slomo");
+            }
+        }
+        */
+    }
+
+    void OnLaunch(InputValue value)
+    {
+        List<Enemy> enemies = EnemyManager.Instance.GetStunnedEnemiesByDistance(6, transform.position);
+        if (enemies.Count > 0)
+        {
+            animator.SetTrigger("Launch");
+            enableMovement = false;
+            foreach (Enemy e in enemies)
+            {
+                Point p = e.GetPointPos();
+                BaseTileBehaviour tile = gridHolder.GetGridNode(p.x, p.y).GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>();
+                tile?.Popup();
+                launchedEnemies.Add(e);
+            }
+        }
+        else
+        {
+            //animator.SetTrigger("Launch");
+            print("# finisher button down but no stunned enemies.");
+        }
+    }
+
+    void OnSpecial(InputValue value)
+    {
+        if (coresCount >= shockwaveCoreCost)
+        {
+            coresCount -= shockwaveCoreCost;
+            UIManager.Instance.SetCoreCount(coresCount);
+            print("SHOCKWAVE!");
+            animator.SetTrigger("Shockwave");
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerShockwave, transform.position);
+            TrailsEnabled(true);
+
+            isInvinsible = true;
+            enableControlls = false;
+            EnemyManager.Instance.isUpdateEnemies = false;
+        }
+        else
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerLowEnergy, transform.position);
+    }
+
+    void OnDash(InputValue value)
+    {
+        if (manaPoints >= dashManaCost && enableDash)
+        {
+            manaPoints -= dashManaCost;
+
+            Vector3 rotation = this.visualsHolder.forward;
+            Vector2 moveAnimDirection = GetMovementDirection(inputMovement, new Vector2(rotation.x, rotation.z));
+            Vector3 dashDir = new Vector3(inputMovement.x, 0, inputMovement.y).normalized;
+            
+            if (dashDir == Vector3.zero)
+                dashDir = this.visualsHolder.forward * -1;
+            print("DASH! dir: " + dashDir);
+
+            //AudioManager.Instance.PlayEffect(soundEffectSource, 3);
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerDash, transform.position);
+
+            animator.SetTrigger("Dash");
+
+            //Vector3 rotation = this.visualsHolder.forward;//this.visualsHolder.rotation.eulerAngles.normalized * -1;
+            print("dash vis dir: " + rotation);
+
+            animator.SetFloat("DashX", moveAnimDirection.x);
+            animator.SetFloat("DashY", moveAnimDirection.y);
+
+            print("dashAnimDirection: " + moveAnimDirection);
+
+            StartCoroutine(DashCoroutine(dashDir, dashDuration));
+        }
+        else
+            LowMana();
+    }
+
+    void OnCompanionAction(InputValue value)
+    {
+        print("alex buttom pressed");
+        List<Enemy> launchedEnemies = EnemyManager.Instance.GetLaunchedEnemies();
+        foreach (Enemy enemy in launchedEnemies)
+        {
+            Point p = enemy.GetPointPos();
+            MakeFinisherHole(p.x, p.y);
+        }
+    }
+
     void FixedUpdate()
     {
         if (enableControlls)
@@ -189,13 +391,13 @@ public class PlayerBehaviour : MonoBehaviour
             float totalMoveSpeed = movementSpeed;
             if (enableMovement)
             {
-                xMove = Input.GetAxis("HorizontalMove");
-                zMove = Input.GetAxis("VerticalMove");
+                xMove = inputMovement.x;
+                zMove = inputMovement.y;
 
                 if (xMove == 0 && zMove == 0)
                 {
-                    xMove = Input.GetAxis("Horizontal");
-                    zMove = Input.GetAxis("Vertical");
+                    //xMove = Input.GetAxis("Horizontal");
+                    //zMove = Input.GetAxis("Vertical");
 
                     sprintTimer = sprintCountdown;
                     isSprinting = false;
@@ -234,11 +436,11 @@ public class PlayerBehaviour : MonoBehaviour
             animator.SetFloat("MoveY", targetY);
 
            
-            Vector3 playerAimRotation = Vector3.right * -Input.GetAxisRaw("HorizontalLook") + Vector3.forward * Input.GetAxisRaw("VerticalLook");
+            Vector3 playerAimRotation = Vector3.right * -inputAim.x + Vector3.forward * -inputAim.y;
             Vector3 playerDefaultRotation = Vector3.right * -xMove + Vector3.forward * -zMove;
 
-            if (Input.GetAxis("AltVLook") != 0 || Input.GetAxis("AltHLook") != 0)
-                playerAimRotation = Vector3.right * -Input.GetAxis("AltHLook") + Vector3.forward * (Input.GetAxis("AltVLook"));
+            if (inputAim.y != 0 || inputAim.x != 0)
+                playerAimRotation = Vector3.right * -inputAim.x + Vector3.forward * -inputAim.y;
 
             if (playerAimRotation.sqrMagnitude > 0.0f)
             {
@@ -256,135 +458,6 @@ public class PlayerBehaviour : MonoBehaviour
             TrailsEnabled(isSprinting);
             transform.Translate(xMove * totalMoveSpeed, 0, zMove * totalMoveSpeed);
 
-            if (ControllerInputDevice.GetDashButtonDown())
-            {
-                if (manaPoints >= dashManaCost && enableDash)
-                {
-                    manaPoints -= dashManaCost;
-
-                    Vector3 dashDir = new Vector3(xMove, 0, zMove).normalized;
-                    if (dashDir == Vector3.zero)
-                        dashDir = this.visualsHolder.forward * -1;
-                    print("DASH! dir: " + dashDir);
-
-                    //AudioManager.Instance.PlayEffect(soundEffectSource, 3);
-                    FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerDash, transform.position);
-
-                    animator.SetTrigger("Dash");
-
-                    //Vector3 rotation = this.visualsHolder.forward;//this.visualsHolder.rotation.eulerAngles.normalized * -1;
-                    print("dash vis dir: " + rotation);
-
-                    animator.SetFloat("DashX", moveAnimDirection.x);
-                    animator.SetFloat("DashY", moveAnimDirection.y);
-
-                    print("dashAnimDirection: " + moveAnimDirection);
-
-                    StartCoroutine(DashCoroutine(dashDir, dashDuration));
-                }
-                else
-                    LowMana();
-
-            }
-
-            if (ControllerInputDevice.GetSpecialButtonDown())
-            {
-                if (coresCount >= shockwaveCoreCost)
-                {
-                    coresCount -= shockwaveCoreCost;
-                    UIManager.Instance.SetCoreCount(coresCount);
-                    print("SHOCKWAVE!");
-                    animator.SetTrigger("Shockwave");
-                    FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerShockwave, transform.position);
-                    TrailsEnabled(true);
-
-                    isInvinsible = true;
-                    enableControlls = false;
-                    EnemyManager.Instance.isUpdateEnemies = false;
-                }
-                else
-                    FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerLowEnergy, transform.position);
-            }
-
-            if (ControllerInputDevice.GetHeavyButtonDown())
-            {
-                print("heavy button down");
-                //AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                //if (stateInfo.IsName("Force_Push_Right_3"))
-                {
-                    if (manaPoints >= somersaultManaCost)
-                    {
-                        animator.SetTrigger("HeavyA");
-                        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSomersault, transform.position);
-                    }
-                    else
-                        LowMana();
-                }
-            }
-
-            if (ControllerInputDevice.GetLeftTriggerDown())
-            {
-                /*Enemy e = EnemyManager.Instance.GetStunnedEnemy();
-                if (e != null)
-                {
-                    Point p = e.GetPointPos();
-                    BaseTileBehaviour tile = gridHolder.GetGridNode(p.x, p.y).GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>();
-                    tile?.Popup();
-                    animator.SetTrigger("Launch");
-                    launchedEnemy = e;
-                    enableMovement = false;
-                }*/
-                List<Enemy> enemies = EnemyManager.Instance.GetStunnedEnemiesByDistance(6, transform.position);
-                if (enemies.Count > 0)
-                {
-                    animator.SetTrigger("Launch");
-                    enableMovement = false;
-                    foreach (Enemy e in enemies)
-                    {
-                        Point p = e.GetPointPos();
-                        BaseTileBehaviour tile = gridHolder.GetGridNode(p.x, p.y).GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>();
-                        tile?.Popup();
-                        launchedEnemies.Add(e);
-                    }
-                }
-                else
-                {
-                    //animator.SetTrigger("Launch");
-                    print("# finisher button down but no stunned enemies.");
-                }
-            }
-
-            if (ControllerInputDevice.GetCompanionButtonDown())
-            {
-                print("alex buttom pressed");
-                List<Enemy> launchedEnemies = EnemyManager.Instance.GetLaunchedEnemies();
-                foreach (Enemy enemy in launchedEnemies)
-                {
-                    Point p = enemy.GetPointPos();
-                    MakeFinisherHole(p.x, p.y);
-                }
-            }
-
-            /*if (ControllerInputDevice.GetChargeButtonDown())
-            {
-                isCharging = true;
-                chargeTime += Time.deltaTime;
-                animator.SetBool("ChargeA", isCharging);
-                //print("charging..");
-            }
-
-            if (!ControllerInputDevice.GetChargeButtonDown() && isCharging)
-            {
-                if (chargeTime >= chargeTimeAttract && manaPoints >= chargeCost)
-                    AttractAttackAction();
-                else if (chargeTime >= chargeTimeRepel && manaPoints >= chargeCost)
-                    RepelAttackAction();
-                else
-                    LowMana();
-                chargeTime = 0;
-                isCharging = false;
-                animator.SetBool("ChargeA", isCharging);
-            }*/
         }
         DetectPlayerPositionOnGrid();
 
@@ -583,30 +656,14 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (enableControlls)
         {
-            currentButtonCooldown -= Time.deltaTime;
+            /*currentButtonCooldown -= Time.deltaTime;
             if ((Input.GetMouseButtonDown(1) || ControllerInputDevice.GetRightButtonDown()) && currentButtonCooldown <= 0)
             {
                 currentButtonCooldown = buttonPressCooldown;
-                if (manaPoints >= pushManaCost)
-                {
-                    enableMovement = false;
+                
+            }*/
 
-                    GameObject closestEnemy = aimAssist.GetClosestEnemyObject();
-                    if (closestEnemy != null)
-                    {
-                        this.visualsHolder.LookAt(closestEnemy.transform, Vector3.up);
-                        visualsHolder.Rotate(new Vector3(0, 180, 0));
-                    }
-
-                    //the animation triggers PreformPush()
-                    animator.SetTrigger("PushA");
-                    StopSprinting();
-                }
-                else
-                    LowMana();
-            }
-
-            float newAngle = Mathf.Atan2(Input.GetAxisRaw("VerticalLook"), Input.GetAxisRaw("HorizontalLook")) * Mathf.Rad2Deg;
+            float newAngle = Mathf.Atan2(inputAim.y, inputAim.x) * Mathf.Rad2Deg;
 
             float angleDifference = newAngle - prevRotationAngle;
             if (angleDifference > 180f) angleDifference -= 360f;
@@ -954,53 +1011,14 @@ public class PlayerBehaviour : MonoBehaviour
             if (prevHoveredObject.tag != "WeakCube")
             {
                 prevHoveredObject.GetComponent<BaseTileBehaviour>().DeselectPillar();
-
-                /*if (prevHoveredObject.tag == "WallCube")
-                    prevHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileWallOriginalColor);
-                else
-                    prevHoveredObject.GetComponent<BaseTileBehaviour>().DeselectPillar();*/
-                    //prevHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileOriginalColor);
             }
         }
 
         if (currHoveredObject != null)
             if (currHoveredObject.tag != "WeakCube")
-                //currHoveredObject.GetComponent<Renderer>().material.SetColor("_Color", tileHighlightColor);
                 if(isHoleSlomo)
                     currHoveredObject.GetComponent<BaseTileBehaviour>().SelectPillar();
-
-        //make a hole
-        /*if (Input.GetMouseButtonDown(0) || ControllerInputDevice.GetLeftTriggerDown())
-        {
-            TriggerMakeHoleAction();
-        }*/
-
-        // make a hole v2.0
-        if ((ControllerInputDevice.GetLeftButtonUp() && isHoleSlomo) || ( manaPoints <= holeManaCost && isHoleSlomo))
-        {
-            //stop slomo and make hole
-            isHoleSlomo = false;
-            isChargeMana = true;
-            GameManager.Instance.EndSlomo();
-            TriggerMakeHoleAction();
-            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSlomoExit, transform.position);
-            slomoSoundEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            print("ending hole slomo");
-        }
-        if (ControllerInputDevice.GetLeftButtonDown() && !isHoleSlomo && manaPoints >= holeManaCost) // add back mouse support
-        {
-            //start slomo
-            currentSlomoTriggerCooldown -= Time.deltaTime;
-            if (currentSlomoTriggerCooldown <= 0)
-            {
-                isHoleSlomo = true;
-                GameManager.Instance.SetSlomo(0.1f);
-                slomoSoundEvent.start();
-                currentSlomoTriggerCooldown = slomoTriggerCooldown;
-                print("starting hole slomo");
-            }
-
-        }
+ 
         if (isHoleSlomo)
         {
             isChargeMana = false;
