@@ -263,39 +263,11 @@ public class PlayerBehaviour : MonoBehaviour
             LowMana();
     }
 
-    void OnMakeHole(InputValue value)
+    void OnSprint(InputValue value)
     {
-        //isHoleSlomo = !isHoleSlomo;
-        print(isHoleSlomo);
-        /*
-        // make a hole v2.0
-        if (manaPoints <= holeManaCost || isHoleSlomo)
-        {
-            //stop slomo and make hole
-            isHoleSlomo = false;
-            isChargeMana = true;
-            GameManager.Instance.EndSlomo();
-            TriggerMakeHoleAction();
-            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSlomoExit, transform.position);
-            slomoSoundEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            print("ending hole slomo");
-        }
-
-        //isHoleSlomo = !isHoleSlomo;
-        if (!isHoleSlomo && manaPoints >= holeManaCost) 
-        {
-            //start slomo
-            currentSlomoTriggerCooldown -= Time.deltaTime;
-            if (currentSlomoTriggerCooldown <= 0)
-            {
-                isHoleSlomo = true;
-                GameManager.Instance.SetSlomo(0.1f);
-                slomoSoundEvent.start();
-                currentSlomoTriggerCooldown = slomoTriggerCooldown;
-                print("starting hole slomo");
-            }
-        }
-        */
+        isSprinting = true;
+        sprintingSoundEvent.setParameterByName("Skate_Exit", 0);
+        sprintingSoundEvent.start();
     }
 
     void OnLaunch(InputValue value)
@@ -399,12 +371,13 @@ public class PlayerBehaviour : MonoBehaviour
                     //xMove = Input.GetAxis("Horizontal");
                     //zMove = Input.GetAxis("Vertical");
 
-                    sprintTimer = sprintCountdown;
-                    isSprinting = false;
+                    //sprintTimer = sprintCountdown;
+                    //isSprinting = false;
+                    StopSprinting();
                 }
-
-                sprintTimer -= Time.deltaTime;
-                if (sprintTimer <= 0)
+                /*
+                //sprintTimer -= Time.deltaTime;
+                //if (sprintTimer <= 0)
                 {
                     //start sprinting
                     totalMoveSpeed *= sprintSpeedMul;
@@ -413,13 +386,13 @@ public class PlayerBehaviour : MonoBehaviour
                     sprintingSoundEvent.setParameterByName("Skate_Exit", 0);
                     sprintingSoundEvent.start();
                 }
-                else
+                //else
                 {
                     isSprinting = false;
                     totalMoveSpeed = movementSpeed;
                     sprintingSoundEvent.setParameterByName("Skate_Exit", 1);
 
-                }
+                }*/
             }
 
             Vector3 rotation = this.visualsHolder.forward;
@@ -454,6 +427,9 @@ public class PlayerBehaviour : MonoBehaviour
                 this.visualsHolder.rotation = Quaternion.LookRotation(playerDefaultRotation, Vector3.up);
             }
 
+            if(isSprinting)
+                totalMoveSpeed = movementSpeed * sprintSpeedMul;
+
             animator.SetBool("Sprinting", isSprinting);
             TrailsEnabled(isSprinting);
             transform.Translate(xMove * totalMoveSpeed, 0, zMove * totalMoveSpeed);
@@ -480,8 +456,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void StopSprinting()
     {
-        sprintTimer = sprintCountdown;
+        //sprintTimer = sprintCountdown;
         isSprinting = false;
+        sprintingSoundEvent.setParameterByName("Skate_Exit", 1);
         animator.SetBool("Sprinting", false);
         TrailsEnabled(false);
     }
