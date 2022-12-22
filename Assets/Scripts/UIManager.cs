@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour {
 
     public GameObject hudObject;
 
+    public GameObject interactableLableObject;
+
     private Animation praiseTextEnterAnim;
     private Coroutine TriggerPraiseCoroutine;
 
@@ -144,4 +146,8 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    public void SetInteractableVisible(bool b)
+    {
+        interactableLableObject.SetActive(b);
+    }
 }

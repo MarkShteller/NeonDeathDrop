@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 
@@ -134,10 +135,16 @@ public class PlayerBehaviour : MonoBehaviour
     public bool IsTestMode = false;
     private bool isDead;
 
+    private Transform prevPlayerTile;
+    private Transform currentPlayerTile;
 
+    public Action interactionEvent;
+    public Action submitEvent;
 
+    private PlayerInput playerInput;
     private Vector2 inputMovement;
     private Vector2 inputAim;
+
 
     void Start()
     {
@@ -181,15 +188,34 @@ public class PlayerBehaviour : MonoBehaviour
         
         slomoSoundEvent = FMODUnity.RuntimeManager.CreateInstance(AudioManager.Instance.PlayerSlomoEnter);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(slomoSoundEvent, transform, GetComponent<Rigidbody>());
-        GetComponent<PlayerInput>().actions.FindAction("MakeHole").started += MakeHoleStarted;
-        GetComponent<PlayerInput>().actions.FindAction("MakeHole").performed += MakeHolePrefomed;
-        GetComponent<PlayerInput>().actions.FindAction("MakeHole").canceled += MakeHoleCanceled;
+        
+        playerInput = GetComponent<PlayerInput>();
+        //GetComponent<PlayerInput>().actions.FindAction("MakeHole").started += MakeHoleStarted;
+        playerInput.actions.FindAction("MakeHole").performed += MakeHolePrefomed;
+        playerInput.actions.FindAction("MakeHole").canceled += MakeHoleCanceled;
     }
 
 
     private void OnDrawGizmos()
     {
         //Gizmos.DrawCube(forcePushTriggerCollider.center, forcePushTriggerCollider.size);
+    }
+
+    void OnSubmit(InputValue value)
+    {
+        submitEvent.Invoke();
+    }
+
+    void OnCancel(InputValue value)
+    { 
+        playerInput.SwitchCurrentActionMap("Player");
+
+    }
+
+    void OnInteract(InputValue value)
+    { 
+        playerInput.SwitchCurrentActionMap("UI");
+        interactionEvent.Invoke();
     }
 
     void OnMove(InputValue value)
@@ -202,16 +228,17 @@ public class PlayerBehaviour : MonoBehaviour
         inputAim = value.Get<Vector2>();
     }
 
-    private void MakeHoleStarted(InputAction.CallbackContext obj)
+    /*private void MakeHoleStarted(InputAction.CallbackContext obj)
     {
         print("make hole started.");
-    }
+    }*/
 
     private void MakeHolePrefomed(InputAction.CallbackContext obj)
     {
         print("make hole preformed!");
         isHoleSlomo = true;
-        GameManager.Instance.SetSlomo(0.1f);
+        GameManager.Instance.SetSlomo(1f);
+        StartCoroutine(TriggerMakeTrailHoles());
         slomoSoundEvent.start();
     }
     
@@ -223,7 +250,9 @@ public class PlayerBehaviour : MonoBehaviour
             isHoleSlomo = false;
             isChargeMana = true;
             GameManager.Instance.EndSlomo();
-            TriggerMakeHoleAction();
+
+            //TriggerMakeHoleAction();
+
             FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSlomoExit, transform.position);
             slomoSoundEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             print("ending hole slomo");
@@ -368,31 +397,8 @@ public class PlayerBehaviour : MonoBehaviour
 
                 if (xMove == 0 && zMove == 0)
                 {
-                    //xMove = Input.GetAxis("Horizontal");
-                    //zMove = Input.GetAxis("Vertical");
-
-                    //sprintTimer = sprintCountdown;
-                    //isSprinting = false;
                     StopSprinting();
                 }
-                /*
-                //sprintTimer -= Time.deltaTime;
-                //if (sprintTimer <= 0)
-                {
-                    //start sprinting
-                    totalMoveSpeed *= sprintSpeedMul;
-                    isSprinting = true;
-                    //sprintingSoundEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-                    sprintingSoundEvent.setParameterByName("Skate_Exit", 0);
-                    sprintingSoundEvent.start();
-                }
-                //else
-                {
-                    isSprinting = false;
-                    totalMoveSpeed = movementSpeed;
-                    sprintingSoundEvent.setParameterByName("Skate_Exit", 1);
-
-                }*/
             }
 
             Vector3 rotation = this.visualsHolder.forward;
@@ -456,7 +462,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void StopSprinting()
     {
-        //sprintTimer = sprintCountdown;
         isSprinting = false;
         sprintingSoundEvent.setParameterByName("Skate_Exit", 1);
         animator.SetBool("Sprinting", false);
@@ -578,7 +583,7 @@ public class PlayerBehaviour : MonoBehaviour
             enableControlls = true;
     }
 
-    public void PreformPush(float pushRadiusMul, float effectTime, float floorEffectLength, float pushRadiusWidth = 2)
+    public void PreformPush(float pushRadiusMul, float effectTime, float floorEffectLength, ForcePushFloorTrigger.PulseType pulseType, float pushRadiusWidth = 2)
     {
         //StartCoroutine(DebugSlomo());
         enableMovement = true;
@@ -594,7 +599,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (pushRadiusMul <= 1.7f) //exclude Somersault 
             forcePushEffect.Play();
 
-        StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(floorEffectLength));
+
+        StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(floorEffectLength, pushRadiusWidth, pulseType));
     }
 
     private IEnumerator OverridePushCollider(float time, Vector3 size, Vector3 center)
@@ -1010,6 +1016,26 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    private IEnumerator TriggerMakeTrailHoles()
+    {
+        while (isHoleSlomo)
+        {
+            string name = prevPlayerTile.parent.name;
+
+            var location = gridHolder.GetNodeLocation(name);
+            GridNode node = gridHolder.GetGridNode(location[0], location[1]);
+
+            if (/*node.GetTileType() != TileType.Occupied && */node.GetTileType() != TileType.Pit && node.GetTileType() != TileType.PlayerPit && node.GetTileType() != TileType.EnemyPit)
+            {
+                //set the selected node as a hole
+                print("making hole in "+ name+" "+node.GetTileType());
+                gridHolder.SetGridNodeType(node, TileType.PlayerPit, holeTimeToRegen);
+                prevPlayerTile.GetComponent<BaseTileBehaviour>().Drop();
+            }
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
     private void TriggerMakeHoleAction()
     {
         if (manaPoints >= holeManaCost)
@@ -1040,6 +1066,11 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
+
+    /*private void MakeHoleTrail(Transform tile)
+    {
+        tile.parent.GetComponent<BaseTileBehaviour>().Drop();
+    }*/
 
     public void MakeHole()
     {
@@ -1119,6 +1150,16 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 string name = hit.transform.parent.name;
                 string[] posArr = name.Split(',');
+
+
+                if (currentPlayerTile == null)
+                    currentPlayerTile = hit.transform;
+
+                if (!currentPlayerTile.Equals(hit.transform))
+                {
+                    prevPlayerTile = currentPlayerTile;
+                    currentPlayerTile = hit.transform;
+                }
 
                 Point pPoint = GameManager.Instance.playerPointPosition;
 
