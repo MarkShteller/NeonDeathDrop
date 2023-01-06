@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
+  m_Name: Opening 1-1
+  m_EditorClassIdentifier: 
+  map: {fileID: 2800000, guid: f5cc799f3467f964fa1acefc86ab39a7, type: 3}
+  Spawners: []
+  enemyDefeatedCountGoals: 
+  fieldRotationAngle: 45
+  musicName: 
+  backdrop: {fileID: 1476006235637259030, guid: ecc9882268cd39644ba4ed47027cb505,
+    type: 3}
+  powerupWeights: 0000000000000000000000000000000000000000000000000000000000000000
+  showEndLevelReport: 0
+  targetScore: 0
+  targetScoreRankMod: 0
+  targetMaxMultiplier: 0
+  targetMaxMultiplierRankMod: 0
+  targetTime: 0
+  targetTimeRankMod: 0
+  targetEnemyCount: 0
+  targetEnemyCountRankMod: 0
+  targetDamage: 0
+  targetDamageRankMod: 0

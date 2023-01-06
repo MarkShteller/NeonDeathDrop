@@ -141,7 +141,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Action interactionEvent;
     public Action submitEvent;
 
-    private PlayerInput playerInput;
+    [HideInInspector] public PlayerInput playerInput;
     private Vector2 inputMovement;
     private Vector2 inputAim;
 
@@ -203,7 +203,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     void OnSubmit(InputValue value)
     {
-        submitEvent.Invoke();
+        print("pressing submit");
+        if(submitEvent != null)
+            submitEvent.Invoke();
     }
 
     void OnCancel(InputValue value)
@@ -213,9 +215,12 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     void OnInteract(InputValue value)
-    { 
-        playerInput.SwitchCurrentActionMap("UI");
-        interactionEvent.Invoke();
+    {
+        if (interactionEvent != null)
+        {
+            playerInput.SwitchCurrentActionMap("UI");
+            interactionEvent.Invoke();
+        }
     }
 
     void OnMove(InputValue value)
@@ -384,6 +389,18 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    private void OnPull(InputValue value)
+    {
+        if (AOEManaCost <= manaPoints)
+        {
+            animator.SetTrigger("AOERepel");
+            manaPoints -= AOEManaCost;
+            enableControlls = false;
+        }
+        else
+            LowMana();
+    }
+
     void FixedUpdate()
     {
         if (enableControlls)
@@ -497,8 +514,8 @@ public class PlayerBehaviour : MonoBehaviour
     {
         print("aaaa");
         shockwaveBehavior.gameObject.SetActive(true);
-        currentPushForce *= 1.3f;
-        StartCoroutine(shockwaveBehavior.Shockwave(4, false));
+        currentPushForce *= -0.8f;
+        StartCoroutine(shockwaveBehavior.Shockwave(9, false));
     }
 
     public void FinishRepelAttack()
@@ -835,7 +852,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             //GameManager.Instance.NextLevel();
             GameManager.Instance.LevelFinished();
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
         if (collision.gameObject.CompareTag("WallCube") || collision.gameObject.CompareTag("GateCube"))
         {

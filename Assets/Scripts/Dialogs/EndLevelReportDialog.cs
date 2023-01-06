@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,6 +39,18 @@ public class EndLevelReportDialog : MonoBehaviour
 
         char grade = CalcGrade(score, maxMultiplier, time, enemyCount, damage);
         gradeText.text = grade.ToString();
+
+        GameManager.Instance.PlayerInstance.interactionEvent += PressNextAction;
+
+    }
+
+    private void PressNextAction()
+    {
+        print("pressing continue end level report");
+        GameManager.Instance.PlayerInstance.interactionEvent -= PressNextAction;
+        GameManager.Instance.PlayerInstance.playerInput.SwitchCurrentActionMap("Player");
+
+        GameManager.Instance.NextLevel();
     }
 
     private char CalcGrade(int score, float maxMultiplier, float time, int enemyCount, float damage)
@@ -108,19 +121,6 @@ public class EndLevelReportDialog : MonoBehaviour
 
         //clamp result between 0-4
         return RANKS[rankIndex > 0 ? rankIndex - 1 : 0];
-    }
-
-    public void NextLevelAction()
-    {
-        GameManager.Instance.NextLevel();
-    }
-
-    private void Update()
-    {
-        if (ControllerInputDevice.GetConfirmButtonDown())
-        {
-            NextLevelAction();
-        }
     }
 
 }

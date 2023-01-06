@@ -79,7 +79,8 @@ public class AudioManager : MonoBehaviour {
     public IEnumerator StartMusic()//(Transform player)
     {
         yield return null;
-        LevelMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Music/UpperBavelle_Battle");
+        LevelMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Music/UpperBavelle_City");
+        //LevelMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Music/UpperBavelle_Battle");
         //FMODUnity.RuntimeManager.AttachInstanceToGameObject(LevelMusic, player, player.GetComponent<Rigidbody>());
         print("## setting music param and playing");
         //LevelMusic.setParameterByName("level_isStarting", 1);

@@ -96,6 +96,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Pull",
+                    "type": "Button",
+                    "id": "538ab94b-e696-45d9-ba27-2e9a478e7bfb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "CompanionAction",
                     "type": "Button",
                     "id": "8b609706-9638-44ef-9b95-9bbcf1554138",
@@ -361,17 +370,6 @@
                 },
                 {
                     "name": "",
-                    "id": "e2563e9e-3687-4228-a63f-37f6a5f27b11",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Launch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "5cf82112-516a-40b8-9c75-796473e8b0aa",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -433,6 +431,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d203f0f9-e3d6-4054-a2d5-48f8bf73d4ac",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Pull",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91e6a329-6fbe-410f-a6db-79a24a5f0cfb",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pull",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -126,6 +126,7 @@ public class UIManager : MonoBehaviour {
     {
         EndLevelReportDialog dialog = Instantiate(endLevelReportDialog, this.transform);
         dialog.Init(score, maxMultiplier, time, enemyCount, damage, level);
+       // GameManager.Instance.PlayerInstance.playerInput.SwitchCurrentActionMap("UI");
     }
 
     public void AddPowerup(PowerUpObject powerupData)
