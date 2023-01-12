@@ -38,8 +38,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 2.221}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -129, y: -306.2047}
-  m_SizeDelta: {x: 864.4135, y: 228.006}
+  m_AnchoredPosition: {x: -129, y: -317.67}
+  m_SizeDelta: {x: 864.4135, y: 156.8422}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3506704425623881200
 CanvasRenderer:
@@ -114,8 +114,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -12.602737, y: 10.496307}
-  m_SizeDelta: {x: 864.4135, y: 228.006}
+  m_AnchoredPosition: {x: -13.9814, y: 0}
+  m_SizeDelta: {x: 864.4135, y: 156.8422}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3506704425706867907
 CanvasRenderer:
@@ -247,7 +247,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 4.834}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -285.03604, y: 156.8623}
+  m_AnchoredPosition: {x: -287.9, y: 106.9}
   m_SizeDelta: {x: 183.4135, y: 55.3186}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3506704425768973584
@@ -323,7 +323,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -136.25572, y: -294.03693}
+  m_AnchoredPosition: {x: -136.25572, y: -271.9}
   m_SizeDelta: {x: 803.4883, y: 195.4495}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3506704425912730900
@@ -354,11 +354,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce finibus
+  m_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce finibus
     non ante id feugiat. Praesent sodales mattis sem, finibus suscipit diam facilisis
-    ut. Integer dui lorem, facilisis vel congue a, elementum a libero. In nec massa
-    sit amet augue scelerisque vestibulum sit amet id sapien. elementum a libero.
-    In nec massa sit amet augue scelerisque vestibulum sit amet id sapien. '
+    ut. Integer dui lorem, facilisis vel congue a, elementum a libero. Lorem ipsum
+    dolor sit amet.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -421,7 +420,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 88.155334, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -462,7 +461,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -420.45682, y: -163}
+  m_AnchoredPosition: {x: -422.3, y: -221.8}
   m_SizeDelta: {x: 177.8864, y: 41.5906}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3506704426696608700
@@ -749,7 +748,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.122}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -286.56274, y: 153.61899}
+  m_AnchoredPosition: {x: -289.4, y: 103.7}
   m_SizeDelta: {x: 183.4135, y: 55.3186}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3506704427574640291

@@ -1037,17 +1037,20 @@ public class PlayerBehaviour : MonoBehaviour
     {
         while (isHoleSlomo)
         {
-            string name = prevPlayerTile.parent.name;
-
-            var location = gridHolder.GetNodeLocation(name);
-            GridNode node = gridHolder.GetGridNode(location[0], location[1]);
-
-            if (/*node.GetTileType() != TileType.Occupied && */node.GetTileType() != TileType.Pit && node.GetTileType() != TileType.PlayerPit && node.GetTileType() != TileType.EnemyPit)
+            if (prevPlayerTile != null)
             {
-                //set the selected node as a hole
-                print("making hole in "+ name+" "+node.GetTileType());
-                gridHolder.SetGridNodeType(node, TileType.PlayerPit, holeTimeToRegen);
-                prevPlayerTile.GetComponent<BaseTileBehaviour>().Drop();
+                string name = prevPlayerTile.parent.name;
+
+                var location = gridHolder.GetNodeLocation(name);
+                GridNode node = gridHolder.GetGridNode(location[0], location[1]);
+
+                if (node.GetTileType() != TileType.Pit && node.GetTileType() != TileType.PlayerPit && node.GetTileType() != TileType.Immoveable && node.GetTileType() != TileType.EnemyPit) /*node.GetTileType() != TileType.Occupied && */
+                {
+                    //set the selected node as a hole
+                    print("making hole in " + name + " " + node.GetTileType());
+                    gridHolder.SetGridNodeType(node, TileType.PlayerPit, holeTimeToRegen);
+                    prevPlayerTile.GetComponent<BaseTileBehaviour>().Drop();
+                }
             }
             yield return new WaitForFixedUpdate();
         }
@@ -1062,7 +1065,7 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.Log("pressed on grid cube: " + name);
 
             GridNode node = gridHolder.GetGridNode(name);
-            if (node.GetTileType() != TileType.Occupied && node.GetTileType() != TileType.Pit && node.GetTileType() != TileType.PlayerPit && node.GetTileType() != TileType.EnemyPit)
+            if (node.GetTileType() != TileType.Occupied && node.GetTileType() != TileType.Pit && node.GetTileType() != TileType.PlayerPit && node.GetTileType() != TileType.Immoveable && node.GetTileType() != TileType.EnemyPit)
             {
                 if (EnemyManager.Instance.GetLaunchedEnemies().Count == 0)
                     animator.SetTrigger("HoleA");

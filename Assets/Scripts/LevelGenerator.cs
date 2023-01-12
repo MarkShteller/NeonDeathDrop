@@ -18,6 +18,7 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject cubeGate;
     public GameObject checkpointCube;
     public GameObject weakCube;
+    public GameObject immoveableCube;
 
     private LevelScriptableObject levelData;
 
@@ -270,6 +271,9 @@ public class LevelGenerator : MonoBehaviour {
                         break;
                     case TileType.Weak:
                         grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, weakCube));
+                        break;
+                    case TileType.Immoveable:
+                        grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, immoveableCube));
                         break;
                     case TileType.None:
                         grid[x, y] = new GridNode(TileType.None);
