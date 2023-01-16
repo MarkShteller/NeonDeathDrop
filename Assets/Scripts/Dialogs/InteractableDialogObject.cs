@@ -8,22 +8,29 @@ public class InteractableDialogObject : MonoBehaviour
 {
     public string conversationID;
     public bool isPlayerTriggered;
+    public bool isTriggeredOnce;
+    private bool isEnabled = true;
     public UnityEvent automatedEvent;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if (isPlayerTriggered)
+            if (isEnabled)
             {
-                //show interact button
-                UIManager.Instance.SetInteractableVisible(true);
-                //attach interact action
-                GameManager.Instance.PlayerInstance.interactionEvent += OnInteract;
-            }
-            else
-            {
-                automatedEvent.Invoke();
+                if (isPlayerTriggered)
+                {
+                    //show interact button
+                    UIManager.Instance.SetInteractableVisible(true);
+                    //attach interact action
+                    GameManager.Instance.PlayerInstance.interactionEvent += OnInteract;
+                }
+                else
+                {
+                    if (isTriggeredOnce)
+                        isEnabled = false;
+                    automatedEvent.Invoke();
+                }
             }
         }
     }
@@ -34,6 +41,7 @@ public class InteractableDialogObject : MonoBehaviour
         {
             if (isPlayerTriggered)
             {
+
                 UIManager.Instance.SetInteractableVisible(false);
                 //detach interact action
                 GameManager.Instance.PlayerInstance.interactionEvent -= OnInteract;
@@ -42,10 +50,11 @@ public class InteractableDialogObject : MonoBehaviour
     }
 
     private void OnInteract()
-    { 
+    {
+        if (isTriggeredOnce)
+            isEnabled = false;
         UIManager.Instance.SetInteractableVisible(false);
         DialogManager.Instance.ShowCharacterDialog(conversationID);
-
     }
 
 
