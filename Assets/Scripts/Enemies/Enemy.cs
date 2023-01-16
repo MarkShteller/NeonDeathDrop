@@ -41,6 +41,9 @@ public class Enemy : MonoBehaviour, IPooledObject {
     public float launchAirDuration;
     private float launchAirTime = 0;
 
+    public float attackIntervalTimer = 3;
+    private float currentAttackTimer=0;
+
     public GameObject ZapEffect;
     public VisualEffect stunnedEffect;
     public Animator animator;
@@ -63,7 +66,8 @@ public class Enemy : MonoBehaviour, IPooledObject {
     internal RigidbodyConstraints constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
     internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, SuperStunned, Launched, Falling, Shooting, Pulse, Dead,
-        HoleFlying
+        HoleFlying,
+        Attacking
     }
     public enum DeathType { Pit, PlayerPit, EnemyPit, Shockwave }
     private PlayerBehaviour.PlayerAttackType lastAttackType;
@@ -236,6 +240,10 @@ public class Enemy : MonoBehaviour, IPooledObject {
                     TrackingAction();
                 break;
 
+            case MovementType.Attacking:
+                MeleeAttackAction();
+                break;
+
             case MovementType.Shooting:
                 LookAtPlayer();
                 ShootingAction();
@@ -280,6 +288,43 @@ public class Enemy : MonoBehaviour, IPooledObject {
             case MovementType.Dead:
                 EnemyManager.Instance.RemoveFromActiveEnemies(this);
                 break;
+        }
+    }
+
+    private void MeleeAttackAction()
+    {
+        currentAttackTimer -= Time.deltaTime;
+        LookAtPlayer();
+
+        if (currentAttackTimer <= 0)
+        {
+            print("attacking!");
+            animator.SetTrigger("Attack");
+            currentAttackTimer = attackIntervalTimer;
+            StartCoroutine(AttackCoroutine(0.5f));
+            movementStatus = MovementType.TrackingPlayer;
+            return;
+        }
+        
+        float distanceFromPlayer = Vector3.Distance(transform.position, playerObject.position);
+        if (distanceFromPlayer > minDistanceTargeting)
+        {
+            movementStatus = MovementType.TrackingPlayer;
+            currentAttackTimer = 0;
+        }
+    }
+
+    private IEnumerator AttackCoroutine(float time)
+    {
+        float t = 0;
+        Vector3 targetPos = playerObject.transform.position;
+        while (t <= time)
+        {
+            targetPos.y = transform.position.y;
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
+            t += Time.deltaTime;
+            yield return null;
         }
     }
 
@@ -378,7 +423,13 @@ public class Enemy : MonoBehaviour, IPooledObject {
         animator.SetBool("Moving", true);
 
         float distanceFromPlayer = Vector3.Distance(transform.position, playerObject.position);
-        if (distanceFromPlayer < minDistanceTargeting || distanceFromPlayer > maxDistanceTargeting)
+
+        if (distanceFromPlayer <= minDistanceTargeting)
+        {
+            movementStatus = MovementType.Attacking;
+            return;
+        }
+        if (distanceFromPlayer > maxDistanceTargeting)
         {
             movementStatus = MovementType.Static;
             return;

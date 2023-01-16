@@ -20,14 +20,17 @@ public class PlayerVisualsBehaviour : MonoBehaviour
                 Vector3 dir = transform.position - other.transform.position;
                 // We then get the opposite (-Vector3) and normalize it
                 dir = -dir.normalized;
-                enemy.ForcePush(dir, PlayerBehaviour.currentPushForce, PlayerBehaviour.PlayerAttackType.Push);
+                
+                if(PlayerBehaviour.currentAttackType == PlayerBehaviour.PlayerAttackType.Push)
+                    enemy.ForcePush(dir, PlayerBehaviour.currentPushForce, PlayerBehaviour.PlayerAttackType.Push);
+                
                 if (PlayerBehaviour.isDoingSomersault)
                 {
                     GameManager.Instance.DashSlomo(10f);
                     enemy.ForcePush(dir, PlayerBehaviour.currentPushForce, PlayerBehaviour.PlayerAttackType.Heavy);
                 }
-
                 ObjectPooler.Instance.SpawnFromPool("HitEffect", enemy.transform.position, enemy.transform.rotation);
+
             }
         }
         if (other.tag == "Breakable")

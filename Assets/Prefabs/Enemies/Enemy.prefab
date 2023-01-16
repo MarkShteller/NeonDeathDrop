@@ -75,7 +75,7 @@ MonoBehaviour:
   pointsReward: 100
   deathScoreMultiplier: 0.1
   shouldFollowPlayer: 1
-  minDistanceTargeting: 0
+  minDistanceTargeting: 1
   maxDistanceTargeting: 8
   shouldEvadePlayerPits: 0
   launchedYCurve:
@@ -148,6 +148,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   launchAirDuration: 3
+  attackIntervalTimer: 3
   ZapEffect: {fileID: 1648268210353138}
   stunnedEffect: {fileID: 8583929389713561381}
   animator: {fileID: 4598398498213673747}
@@ -170,7 +171,7 @@ Rigidbody:
   m_CollisionDetection: 0
 --- !u!95 &1609034456
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -187,7 +188,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1648268210353138
 GameObject:
   m_ObjectHideFlags: 0

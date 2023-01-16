@@ -30,7 +30,7 @@ public class EnemyBullet : MonoBehaviour, IPooledObject {
         {
             var player = other.GetComponent<PlayerBehaviour>();
             player.TakeDamage(damage);
-            player.isDashing = false;
+            //player.isDashing = false;
             gameObject.SetActive(false);
         }
     }

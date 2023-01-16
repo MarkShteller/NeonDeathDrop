@@ -131,6 +131,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject[] trails;
 
     public enum PlayerAttackType { None, Push, Dash, Heavy, Launch }
+    public PlayerAttackType currentAttackType;
 
     public bool IsTestMode = false;
     private bool isDead;
@@ -177,6 +178,7 @@ public class PlayerBehaviour : MonoBehaviour
         isHoleSlomo = false;
         isChargeMana = true;
         mainDirectionalLight = GameObject.FindGameObjectWithTag("MainLight");
+        currentAttackType = PlayerAttackType.None;
 
         animator.SetFloat("MoveX", 0);
         animator.SetFloat("MoveY", 0);
@@ -569,6 +571,8 @@ public class PlayerBehaviour : MonoBehaviour
         lastDashDir = direction;
         isDashing = true;
 
+        isInvinsible = true;
+
         dashEffect.Play();
 
         float time = duration;
@@ -596,13 +600,18 @@ public class PlayerBehaviour : MonoBehaviour
 
             isDashImpact = false;
         }
+
+        isInvinsible = false;
+
         if(!isDead)
             enableControlls = true;
     }
 
+
     public void PreformPush(float pushRadiusMul, float effectTime, float floorEffectLength, ForcePushFloorTrigger.PulseType pulseType, float pushRadiusWidth = 2)
     {
         //StartCoroutine(DebugSlomo());
+        currentAttackType = PlayerAttackType.Push;
         enableMovement = true;
         manaPoints -= pushManaCost;
         
@@ -630,6 +639,7 @@ public class PlayerBehaviour : MonoBehaviour
             delayTime += Time.deltaTime;
             yield return null;
         }
+        currentAttackType = PlayerAttackType.None;
 
     }
 
@@ -837,7 +847,7 @@ public class PlayerBehaviour : MonoBehaviour
                 isDashing = false;
                 isDashImpact = true;
                 dashImpactEnemyLocation = enemy.transform.position;
-                enemy.ForcePush(lastDashDir, currentPushForce * 1.5f, PlayerAttackType.Dash, true);
+                enemy.ForcePush(lastDashDir, currentPushForce * 2f, PlayerAttackType.Dash, true);
 
                 GameManager.Instance.DashSlomo(2f);
                 GameManager.Instance.cameraRef.FastZoom(enemy.transform);
@@ -848,6 +858,11 @@ public class PlayerBehaviour : MonoBehaviour
                 TakeDamage(enemy.damage);
             }
         }
+        /*if (collision.gameObject.CompareTag("EnemyBullet"))
+        {
+
+        }*/
+
         if (collision.gameObject.CompareTag("GoalCube"))
         {
             //GameManager.Instance.NextLevel();
