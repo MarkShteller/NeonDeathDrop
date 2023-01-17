@@ -43,7 +43,7 @@ public class GridNode : IPathNode<GridNode>
 
     public bool IsWalkable(GridNode inContext)
     {
-        return type == TileType.Normal || type == TileType.Occupied || type == TileType.Weak;
+        return type == TileType.Normal || type == TileType.Occupied || type == TileType.Weak || type == TileType.Immoveable;
     }
 
     public void SetType(TileType type)
