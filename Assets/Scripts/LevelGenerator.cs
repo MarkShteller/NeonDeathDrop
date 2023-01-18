@@ -14,6 +14,7 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject cube;
     public GameObject cubeAlt;
     public GameObject cubeWall;
+    public GameObject cubeWallHigh;
     public GameObject cubeGoal;
     public GameObject cubeGate;
     public GameObject checkpointCube;
@@ -243,6 +244,9 @@ public class LevelGenerator : MonoBehaviour {
                     case TileType.Wall:
                         grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT, cubeWall));
                         break;
+                    case TileType.WallHigh:
+                        grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT *2, cubeWallHigh));
+                        break;
                     case TileType.Pit:
                         grid[x, y].SetGameNodeRef(CreatePit(x, y));
                         break;
@@ -262,10 +266,9 @@ public class LevelGenerator : MonoBehaviour {
                     case TileType.Goal:
                         grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, cubeGoal));
                         break;
-                    case TileType.Gate:
-                        //print("### making a gate");
-                        grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT, cubeGate));
-                        break;
+                    /*case TileType.Gate:
+                        grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT *3, cubeGate));
+                        break;*/
                     case TileType.Checkpoint:
                         grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, checkpointCube));
                         break;
@@ -303,7 +306,7 @@ public class LevelGenerator : MonoBehaviour {
             //Get the index of the gate and apply it to the specific tile
             int index = 255 - Mathf.CeilToInt(pixelColor.b * 255);
 
-            GameObject gateTile = CreateTile(x, y, WALL_TILE_HEIGHT, cubeGate);
+            GameObject gateTile = CreateTile(x, y, WALL_TILE_HEIGHT *3, cubeGate);
             grid[x, y] = new GridNode(TileType.Gate);
             grid[x, y].SetGameNodeRef(gateTile);
             int gateGoal = levelData.enemyDefeatedCountGoals[index];

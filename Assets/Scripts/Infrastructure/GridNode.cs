@@ -4,7 +4,7 @@ using SettlersEngine;
 using System;
 
 
-public enum TileType { Pit, Normal, Wall, Occupied, PlayerPit, EnemyPit, PlayerOrigin = 10, EnemySpawn, Goal, Gate, Checkpoint, Weak, Immoveable, None = 99}
+public enum TileType { Pit, Normal, Wall, WallHigh, Occupied, PlayerPit, EnemyPit, PlayerOrigin = 10, EnemySpawn, Goal, Gate, Checkpoint, Weak, Immoveable, None = 99}
 
 public class GridNode : IPathNode<GridNode>
 {

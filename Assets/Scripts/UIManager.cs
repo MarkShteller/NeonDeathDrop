@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private GameOverDialog gameOverDialog;
     [SerializeField] private EndLevelReportDialog endLevelReportDialog;
 
+    public ProjectionCanvasController projectionCanvas;
 
     void Awake () {
         Instance = this;
@@ -78,8 +79,9 @@ public class UIManager : MonoBehaviour {
 
     public void SetScoreMultiplier(float scoreMultiplier, string praiseText)
     {
-        scoreMultiplierText.text = "x"+scoreMultiplier.ToString("N0"); //used to be N1
+        projectionCanvas.SetTrigger("RingOut");
 
+        scoreMultiplierText.text = "x"+scoreMultiplier.ToString("N0"); //used to be N1
 
         /*PraiseText.text = praiseText;
         praiseTextEnterAnim.Rewind();

@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3478483686251021479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3478483686251021476}
+  - component: {fileID: 3478483686251021482}
+  m_Layer: 0
+  m_Name: LevelGenerator
+  m_TagString: LevelGenerator
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3478483686251021476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478483686251021479}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3478483686251021482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478483686251021479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f88bf9ffeb132541af5c60a853385c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  map: {fileID: 0}
+  colorMappings:
+  - color: {r: 0, g: 0, b: 0, a: 1}
+    tileType: 0
+  - color: {r: 1, g: 1, b: 1, a: 1}
+    tileType: 1
+  - color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+    tileType: 2
+  - color: {r: 0.5019608, g: 0.39215687, b: 0.5019608, a: 1}
+    tileType: 3
+  - color: {r: 0, g: 0, b: 1, a: 1}
+    tileType: 10
+  - color: {r: 0, g: 1, b: 0, a: 1}
+    tileType: 12
+  - color: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
+    tileType: 99
+  - color: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    tileType: 13
+  - color: {r: 0, g: 0.5882353, b: 0, a: 1}
+    tileType: 14
+  - color: {r: 1, g: 0.78431374, b: 0.78431374, a: 1}
+    tileType: 15
+  - color: {r: 1, g: 1, b: 0.78431374, a: 1}
+    tileType: 16
+  cube: {fileID: 1000011195351270, guid: d41408fc664f74e41b6fa76018a9af8b, type: 3}
+  cubeAlt: {fileID: 1000011195351270, guid: e03ddca8b2ea50f4a9581d9b68f54ba6, type: 3}
+  cubeWall: {fileID: 1000011195351270, guid: 415d64f16de3ae24a90672b1ceec9b34, type: 3}
+  cubeWallHigh: {fileID: 1000011195351270, guid: 415d64f16de3ae24a90672b1ceec9b34,
+    type: 3}
+  cubeGoal: {fileID: 1868131461983634, guid: 5784ca9da759f4046ae343d9a365dc36, type: 3}
+  cubeGate: {fileID: 1000011195351270, guid: 7bd8ac91b8fd515419caf5043a05b3b1, type: 3}
+  checkpointCube: {fileID: 1000011195351270, guid: c00de0fcf1cdd8d4db2f41d5bf74ed5f,
+    type: 3}
+  weakCube: {fileID: 1000011195351270, guid: 60f03b7963c19604ca555569658034b9, type: 3}
+  immoveableCube: {fileID: 1000011195351270, guid: d2f25af23997ebf488bf79d17d682973,
+    type: 3}
+  finishedInit: 0
