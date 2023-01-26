@@ -21,7 +21,8 @@ public class DialogManager : MonoBehaviour
             Instance = this;
 
         dialogData = new Dictionary<string, DialogConversation>();
-        ParseCSV(dialogDataAssetPath);
+        //ParseCSV(dialogDataAssetPath);
+        ParseTSV(dialogDataAssetPath);
     }
 
     private void ParseCSV(string asset)
@@ -54,6 +55,40 @@ public class DialogManager : MonoBehaviour
         }
 
         Debug.Log("## Parsed num conversations: "+dialogData.Count);
+    }
+
+    private void ParseTSV(string asset)
+    {
+        print("## parsing CSV in dialog manager");
+        TextAsset fileData = Resources.Load<TextAsset>(asset);
+        var lines = fileData.text.Split('\n');
+
+        for (int i = 1; i < lines.Length; i++)
+        {
+            var lineData = lines[i].Split('\t');
+            string conversationID = lineData[0];
+
+            DialogConversation dc = new DialogConversation();
+            dc.AddDialogEntry(lineData[1], lineData[2], lineData[3], lineData[4]);
+
+            if (i + 1 < lines.Length) // prevent EOF overflow
+            {
+                var nextLine = lines[i + 1].Split('\t');
+                while (conversationID == nextLine[0])
+                {
+                    dc.AddDialogEntry(nextLine[1], nextLine[2], nextLine[3], nextLine[4]);
+                    i++;
+                    if (i + 1 == lines.Length)
+                        break;
+                    nextLine = lines[i + 1].Split('\t');
+                }
+            }
+
+            // Debug.Log("Adding conversation ID: " + conversationID);
+            dialogData.Add(conversationID, dc);
+        }
+
+        Debug.Log("## Parsed num conversations: " + dialogData.Count);
     }
 
     public void ShowCharacterDialog(string conversationID)
