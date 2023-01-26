@@ -29,6 +29,7 @@ public class InteractableDialogObject : MonoBehaviour
                 {
                     if (isTriggeredOnce)
                         isEnabled = false;
+                    OnInteract();
                     automatedEvent.Invoke();
                 }
             }
@@ -54,7 +55,13 @@ public class InteractableDialogObject : MonoBehaviour
         if (isTriggeredOnce)
             isEnabled = false;
         UIManager.Instance.SetInteractableVisible(false);
-        DialogManager.Instance.ShowCharacterDialog(conversationID);
+
+        if (!conversationID.Equals(""))
+        {
+            DialogManager.Instance.ShowCharacterDialog(conversationID);
+
+            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+        }
     }
 
 

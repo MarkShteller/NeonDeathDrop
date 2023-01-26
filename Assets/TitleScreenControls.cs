@@ -17,4 +17,10 @@ public class TitleScreenControls : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+    public void OnLevelSelect()
+    { 
+        SceneManager.LoadScene(2);
+
+    }
 }
