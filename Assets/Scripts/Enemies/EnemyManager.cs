@@ -79,6 +79,11 @@ public class EnemyManager : MonoBehaviour {
         }
     }
 
+    public void SetUpdateEnemies(bool b)
+    {
+        isUpdateEnemies = b;
+    }
+
     public void AddSpawnPoint(EnemySpawnpointInstance spawner)
     {
         SpawnPoints.Add(spawner);

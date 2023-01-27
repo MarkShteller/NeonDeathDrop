@@ -9,6 +9,8 @@ public class InteractableDialogObject : MonoBehaviour
     public string conversationID;
     public bool isPlayerTriggered;
     public bool isTriggeredOnce;
+    public bool isSubtitles;
+
     private bool isEnabled = true;
     public UnityEvent automatedEvent;
 
@@ -56,11 +58,22 @@ public class InteractableDialogObject : MonoBehaviour
             isEnabled = false;
         UIManager.Instance.SetInteractableVisible(false);
 
-        if (!conversationID.Equals(""))
+        if (!conversationID.Equals("") && DialogManager.Instance.IDExists(conversationID))
         {
-            DialogManager.Instance.ShowCharacterDialog(conversationID);
-
-            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+            if (!isSubtitles)
+            {
+                DialogManager.Instance.ShowCharacterDialog(conversationID);
+                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+            }
+            else
+            {
+                DialogManager.Instance.ShowSubtitlesDialog(conversationID);
+            }
+        }
+        else
+        {
+            Debug.LogError("Conversation ID "+ conversationID +" does not exist or empty.");
+            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
         }
     }
 
