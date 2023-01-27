@@ -9,11 +9,14 @@ public class CharacterDialogBox : MonoBehaviour
     public TMP_Text speakerLable;
     public TMP_Text contentLable;
     public Image portraitImage;
+    public Image portraitImageShadow;
 
     public void Populate(string speaker, string content, string image)
     {
         speakerLable.text = speaker;
         contentLable.text = content;
-        //apply image too
+        Sprite img = Resources.Load<Sprite>("Portraits/" + image);
+        portraitImage.sprite = img;
+        portraitImageShadow.sprite = img;
     }
 }

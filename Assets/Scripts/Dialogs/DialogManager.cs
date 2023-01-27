@@ -98,17 +98,40 @@ public class DialogManager : MonoBehaviour
         Debug.Log("## Parsed num conversations: " + dialogData.Count);
     }
 
+    private void PressNextAction()
+    {
+        currentEntryIndex++;
+
+        if (currentEntryIndex < currentConversation.dialogEntries.Count)
+        {
+            DialogEntry de = currentConversation.dialogEntries[currentEntryIndex];
+            characterDialogBox.Populate(de.speaker, de.message, de.tag);
+        }
+        else
+        {
+            EnemyManager.Instance.SetUpdateEnemies(true);
+            characterDialogBox.gameObject.SetActive(false);
+            GameManager.Instance.PlayerInstance.submitEvent -= PressNextAction;
+            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+            UIManager.Instance.SetHUDVisible(true);
+        }
+    }
+
     public void ShowCharacterDialog(string conversationID)
     {
-        characterDialogBox.gameObject.SetActive(true);
+        dialogSubtitles.gameObject.SetActive(false);
+        StopCoroutine(ProgressSubtitlesDialog());
+
         currentConversation = dialogData[conversationID];
         
         currentEntryIndex = 0;
         DialogEntry de = currentConversation.dialogEntries[currentEntryIndex];
 
-        characterDialogBox.Populate(de.speaker, de.message, "image");
+        characterDialogBox.gameObject.SetActive(true);
+        characterDialogBox.Populate(de.speaker, de.message, de.tag);
 
         EnemyManager.Instance.SetUpdateEnemies(false);
+        UIManager.Instance.SetHUDVisible(false);
 
         GameManager.Instance.PlayerInstance.submitEvent += PressNextAction;
     }
@@ -116,12 +139,12 @@ public class DialogManager : MonoBehaviour
     public void ShowSubtitlesDialog(string conversationID)
     {
         currentConversation = dialogData[conversationID];
-        currentEntryIndex = 0;
         StartCoroutine(ProgressSubtitlesDialog());
     }
 
     private IEnumerator ProgressSubtitlesDialog()
     {
+        currentEntryIndex = 0;
         dialogSubtitles.gameObject.SetActive(true);
         while (currentEntryIndex < currentConversation.dialogEntries.Count)
         {
@@ -134,22 +157,5 @@ public class DialogManager : MonoBehaviour
         dialogSubtitles.gameObject.SetActive(false);
     }
 
-    private void PressNextAction()
-    {
-        currentEntryIndex++;
-
-        if (currentEntryIndex < currentConversation.dialogEntries.Count)
-        {
-            DialogEntry de = currentConversation.dialogEntries[currentEntryIndex];
-            characterDialogBox.Populate(de.speaker, de.message, "image");
-        }
-        else
-        {
-            EnemyManager.Instance.SetUpdateEnemies(true);
-            characterDialogBox.gameObject.SetActive(false);
-            GameManager.Instance.PlayerInstance.submitEvent -= PressNextAction;
-            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
-        }
-    }
 
 }

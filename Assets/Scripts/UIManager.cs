@@ -153,4 +153,9 @@ public class UIManager : MonoBehaviour {
     {
         interactableLableObject.SetActive(b);
     }
+
+    public void SetHUDVisible(bool b)
+    {
+        hudObject.SetActive(b);
+    }
 }
