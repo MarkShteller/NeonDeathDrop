@@ -5268,8 +5268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa5c5c4d8a9c974288b946a1b684681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0.1
-  totalHealthPoints: 20
+  movementSpeed: 0.1025
+  totalHealthPoints: 30
   totalManaPoints: 10
   manaRegenAmount: 1.5
   holeTimeToRegen: 10
@@ -5280,8 +5280,8 @@ MonoBehaviour:
   AOEManaCost: 5
   slomoFrameCost: 0.03
   shockwaveCoreCost: 0
-  dashDuration: 0.2
-  dashSpeed: 250
+  dashDuration: 0.18
+  dashSpeed: 225
   fallDamage: 1
   takenDamageCooldown: 0.5
   buttonPressCooldown: 0.1
@@ -8954,7 +8954,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &1294368551690493927
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -8971,7 +8971,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &5081241318643657033
 MonoBehaviour:
   m_ObjectHideFlags: 0
