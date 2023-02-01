@@ -57,10 +57,10 @@ public class EnemyBomb : Enemy
             string[] posArr = name.Split(',');
 
             Point pointOther = new Point(int.Parse(posArr[0]), int.Parse(posArr[1]));
-            if (pointOther.x == pointPos.x && pointOther.y == pointPos.y)
+            /*if (pointOther.x == pointPos.x && pointOther.y == pointPos.y)
             {
                 return;
-            }
+            }*/
             other.GetComponent<BaseTileBehaviour>().Drop();
             LevelGenerator.Instance.SetGridNodeType(node, TileType.EnemyPit, holeTimeToRegen);
         }

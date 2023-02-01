@@ -46045,7 +46045,7 @@ Camera:
   m_GameObject: {fileID: 1686871185}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 1, g: 0.3820755, b: 0.7706461, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -46281,7 +46281,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -54271,6 +54271,80 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977382512}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1981629063
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1472465108660648682, guid: 4496ffb09338bea488823842d60b97ff,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472465108660648682, guid: 4496ffb09338bea488823842d60b97ff,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472465108660648682, guid: 4496ffb09338bea488823842d60b97ff,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472465108660648682, guid: 4496ffb09338bea488823842d60b97ff,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472465108660648682, guid: 4496ffb09338bea488823842d60b97ff,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472465108660648682, guid: 4496ffb09338bea488823842d60b97ff,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472465108660648682, guid: 4496ffb09338bea488823842d60b97ff,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472465108660648682, guid: 4496ffb09338bea488823842d60b97ff,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472465108660648682, guid: 4496ffb09338bea488823842d60b97ff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.262
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472465108660648682, guid: 4496ffb09338bea488823842d60b97ff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472465108660648682, guid: 4496ffb09338bea488823842d60b97ff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1476006235637259030, guid: 4496ffb09338bea488823842d60b97ff,
+        type: 3}
+      propertyPath: m_Name
+      value: Backdrop Platformer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1476006235637259030, guid: 4496ffb09338bea488823842d60b97ff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4496ffb09338bea488823842d60b97ff, type: 3}
 --- !u!1 &1982023014
 GameObject:
   m_ObjectHideFlags: 0

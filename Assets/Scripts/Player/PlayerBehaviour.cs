@@ -245,6 +245,10 @@ public class PlayerBehaviour : MonoBehaviour
         print("make hole preformed!");
         isHoleSlomo = true;
         GameManager.Instance.SetSlomo(1f);
+
+        isSprinting = true;
+        EnemyManager.Instance.SetUpdateEnemies(false);
+
         StartCoroutine(TriggerMakeTrailHoles());
         slomoSoundEvent.start();
     }
@@ -256,7 +260,11 @@ public class PlayerBehaviour : MonoBehaviour
             //stop slomo and make hole
             isHoleSlomo = false;
             isChargeMana = true;
+
             GameManager.Instance.EndSlomo();
+
+            isSprinting = false;
+            EnemyManager.Instance.SetUpdateEnemies(true);
 
             //TriggerMakeHoleAction();
 
@@ -1021,23 +1029,23 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void ManipulateFloor()
     {
-        if (prevHoveredObject != null)
+        /*if (prevHoveredObject != null)
         {
             if (prevHoveredObject.tag != "WeakCube")
             {
                 prevHoveredObject.GetComponent<BaseTileBehaviour>().DeselectPillar();
             }
-        }
+        }*/
 
-        if (currHoveredObject != null)
+        /*if (currHoveredObject != null)
             if (currHoveredObject.tag != "WeakCube")
                 if(isHoleSlomo)
-                    currHoveredObject.GetComponent<BaseTileBehaviour>().SelectPillar();
+                    currHoveredObject.GetComponent<BaseTileBehaviour>().SelectPillar();*/
  
         if (isHoleSlomo)
         {
             isChargeMana = false;
-            manaPoints -= slomoFrameCost;
+            manaPoints -= holeManaCost;
             if (manaPoints <= 0)
             {
                 isHoleSlomo = false;

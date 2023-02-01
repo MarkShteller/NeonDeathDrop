@@ -12,7 +12,8 @@ public class InteractableDialogObject : MonoBehaviour
     public bool isSubtitles;
 
     private bool isEnabled = true;
-    public UnityEvent automatedEvent;
+    public UnityEvent triggerEnterEvent;
+    public UnityEvent triggerExitEvent;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -32,7 +33,7 @@ public class InteractableDialogObject : MonoBehaviour
                     if (isTriggeredOnce)
                         isEnabled = false;
                     OnInteract();
-                    automatedEvent.Invoke();
+                    triggerEnterEvent.Invoke();
                 }
             }
         }
@@ -48,6 +49,7 @@ public class InteractableDialogObject : MonoBehaviour
                 UIManager.Instance.SetInteractableVisible(false);
                 //detach interact action
                 GameManager.Instance.PlayerInstance.interactionEvent -= OnInteract;
+                triggerExitEvent.Invoke();
             }
         }
     }
@@ -62,7 +64,7 @@ public class InteractableDialogObject : MonoBehaviour
         {
             if (!isSubtitles)
             {
-                DialogManager.Instance.ShowCharacterDialog(conversationID);
+                DialogManager.Instance.ShowCharacterDialog(conversationID, triggerExitEvent);
                 GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
             }
             else

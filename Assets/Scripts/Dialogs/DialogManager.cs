@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class DialogManager : MonoBehaviour
@@ -15,6 +16,7 @@ public class DialogManager : MonoBehaviour
 
     private DialogConversation currentConversation;
     private int currentEntryIndex;
+    private UnityEvent exitEvent;
 
     void Awake()
     {
@@ -109,6 +111,11 @@ public class DialogManager : MonoBehaviour
         }
         else
         {
+            if (exitEvent != null)
+            {
+                exitEvent.Invoke();
+                exitEvent.RemoveAllListeners();
+            }
             EnemyManager.Instance.SetUpdateEnemies(true);
             characterDialogBox.gameObject.SetActive(false);
             GameManager.Instance.PlayerInstance.submitEvent -= PressNextAction;
@@ -117,8 +124,10 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    public void ShowCharacterDialog(string conversationID)
+    public void ShowCharacterDialog(string conversationID, UnityEvent exitEvent = null)
     {
+        this.exitEvent = exitEvent;
+
         dialogSubtitles.gameObject.SetActive(false);
         StopCoroutine(ProgressSubtitlesDialog());
 

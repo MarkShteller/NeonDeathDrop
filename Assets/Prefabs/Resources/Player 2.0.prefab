@@ -5272,14 +5272,14 @@ MonoBehaviour:
   totalHealthPoints: 30
   totalManaPoints: 10
   manaRegenAmount: 1.5
-  holeTimeToRegen: 10
+  holeTimeToRegen: 5
   pushManaCost: -0.5
-  holeManaCost: 2
+  holeManaCost: 0.1
   dashManaCost: 3
   somersaultManaCost: 5
   AOEManaCost: 5
   slomoFrameCost: 0.03
-  shockwaveCoreCost: 0
+  shockwaveCoreCost: 3
   dashDuration: 0.18
   dashSpeed: 225
   fallDamage: 1
@@ -6111,7 +6111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5539433800529406655
 Transform:
   m_ObjectHideFlags: 0

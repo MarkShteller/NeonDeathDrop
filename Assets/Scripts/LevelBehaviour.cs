@@ -16,4 +16,12 @@ public class LevelBehaviour : MonoBehaviour
         if(camIndex != -1)
             CMCameras.transform.GetChild(camIndex).gameObject.SetActive(true);
     }
+
+    public void DisableALLCMCameras()
+    {
+        for (int i = 0; i < CMCameras.transform.childCount; i++)
+        {
+            CMCameras.transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
 }
