@@ -30,6 +30,7 @@ RectTransform:
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4153880113824154}
   m_RootOrder: 1
@@ -58,6 +59,7 @@ MeshRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -182,12 +184,12 @@ MonoBehaviour:
   m_margin: {x: 7.762781, y: 1.2720168, z: 7.718323, w: 2.035366}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 23362706042163006}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 23362706042163006}
+  m_maskType: 0
 --- !u!1 &1485574802841940
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +219,7 @@ Transform:
   m_LocalRotation: {x: 0.46193978, y: 0.19134173, z: 0.19134173, w: 0.84462327}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.50749284, y: 0.50749296, z: 0.50749296}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4153880113824154}
   m_RootOrder: 0
@@ -240,6 +243,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -294,6 +298,7 @@ GameObject:
   - component: {fileID: 4153880113824154}
   - component: {fileID: 114347553688691284}
   - component: {fileID: 65655241297131500}
+  - component: {fileID: 3367773367699618792}
   m_Layer: 0
   m_Name: Regen Powerup
   m_TagString: Untagged
@@ -311,6 +316,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -12.809435, y: 15.920518, z: -12.181373}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4657898082921478}
   - {fileID: 224506436961643560}
@@ -344,7 +350,20 @@ BoxCollider:
   m_GameObject: {fileID: 1648966094222646}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.82, y: 0.82, z: 0.82}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &3367773367699618792
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648966094222646}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}

@@ -33,9 +33,19 @@ public class BasePowerupBehaviour : MonoBehaviour {
     {
         if (other.CompareTag("PlayerInteractTrigger"))
         {
-            GameManager.Instance.PlayerInstance.AddPowerup(this);
-            PickUpAction();
+            StartCoroutine(DrawIn(other.transform));
         }
+    }
+
+    private IEnumerator DrawIn(Transform target)
+    {
+        while (Vector3.Distance(transform.position, target.position) > 0.5f)
+        {
+            transform.position = Vector3.Lerp(transform.position, target.position, 0.25f);
+            yield return null;
+        }
+        GameManager.Instance.PlayerInstance.AddPowerup(this);
+        PickUpAction();
     }
 
 }

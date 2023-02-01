@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4385835626490652}
   - component: {fileID: 114016009102762554}
-  - component: {fileID: 65869158237506962}
+  - component: {fileID: 823064844532651288}
   m_Layer: 0
   m_Name: Dash Powerup
   m_TagString: Untagged
@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.872911, y: 15.197862, z: -13.417701}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4668686352517404}
   - {fileID: 224833432733582712}
@@ -52,8 +53,8 @@ MonoBehaviour:
   effectTime: 0
   count: 0
   powerUpName: 
---- !u!65 &65869158237506962
-BoxCollider:
+--- !u!135 &823064844532651288
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -63,7 +64,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.82, y: 0.82, z: 0.82}
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1370083784904864
 GameObject:
@@ -95,6 +96,7 @@ RectTransform:
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4385835626490652}
   m_RootOrder: 1
@@ -123,6 +125,7 @@ MeshRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -247,12 +250,12 @@ MonoBehaviour:
   m_margin: {x: 7.762781, y: 1.2720168, z: 7.718323, w: 2.035366}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 23514533443166330}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 23514533443166330}
+  m_maskType: 0
 --- !u!1 &1718959388398240
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +285,7 @@ Transform:
   m_LocalRotation: {x: 0.46193978, y: 0.19134173, z: 0.19134173, w: 0.84462327}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.50749284, y: 0.50749296, z: 0.50749296}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4385835626490652}
   m_RootOrder: 0
@@ -305,6 +309,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
