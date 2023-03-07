@@ -67,4 +67,15 @@ public class PlayerAnimatorEvents : MonoBehaviour
     {
         //GameManager.Instance.GameOver();
     }
+
+    public void DeathDrop()
+    {
+        //GameManager.Instance.GameOver();
+
+        //shockwave
+        playerBehaviour.PreformShockwaveTrailer();
+
+        //paticles 
+    }
+
 }

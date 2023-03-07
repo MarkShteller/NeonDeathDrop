@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Level 0-0", menuName = "Level")]
 public class LevelScriptableObject : ScriptableObject
 {
+    public AudioManager.LevelMusicTracks levelMusicTrack;
     public Texture2D map;
     public EnemySpawner[] Spawners;
     public int[] enemyDefeatedCountGoals;

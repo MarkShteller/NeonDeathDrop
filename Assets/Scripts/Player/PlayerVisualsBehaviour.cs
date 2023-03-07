@@ -27,6 +27,7 @@ public class PlayerVisualsBehaviour : MonoBehaviour
                 if (PlayerBehaviour.isDoingSomersault)
                 {
                     GameManager.Instance.DashSlomo(10f);
+                    GameManager.Instance.cameraRef.FrameHeavyAttack(other.transform);
                     enemy.ForcePush(dir, PlayerBehaviour.currentPushForce, PlayerBehaviour.PlayerAttackType.Heavy);
                 }
                 ObjectPooler.Instance.SpawnFromPool("HitEffect", enemy.transform.position, enemy.transform.rotation);

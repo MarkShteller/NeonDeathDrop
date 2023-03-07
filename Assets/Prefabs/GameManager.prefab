@@ -146,9 +146,59 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+  - serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1.0339886
+      outSlope: -1.0339886
+      tangentMode: 34
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.34612176
+      value: 0.64211404
+      inSlope: -0.8272488
+      outSlope: -0.8272488
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.50451434
+      outWeight: 0.22356795
+    - serializedVersion: 3
+      time: 0.4578716
+      value: 0.06678613
+      inSlope: -0.29652604
+      outSlope: -0.29652604
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.3740938
+      outWeight: 0.59445846
+    - serializedVersion: 3
+      time: 0.8647787
+      value: 0.06320652
+      inSlope: 0.7666132
+      outSlope: 0.7666132
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.09709806
+      outWeight: 0.44336578
+    - serializedVersion: 3
+      time: 0.9892473
+      value: 1
+      inSlope: 0.025066342
+      outSlope: 0.025066342
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.68585277
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   slomoVolume: {fileID: 1740457756955912243}
   takingDanmageVolume: {fileID: 3888814170404364218}
-  CurrentLevelIndex: 17
+  CurrentLevelIndex: 9
 --- !u!114 &114524042694302210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +230,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f36603a4cc171504787582bf755ae09b, type: 2}
   - {fileID: 11400000, guid: ca9f6c7ab06b74dd6a379ede643ca92f, type: 2}
   - {fileID: 11400000, guid: 9c388530aa1404da59cb228a8ddf3996, type: 2}
+  - {fileID: 11400000, guid: d0311ad7b869b7f48b1a7ca7650da901, type: 2}
+  - {fileID: 11400000, guid: 70873831652bbf44ab157df9b3a44309, type: 2}
 --- !u!114 &114770275826884334
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class CameraMovement : MonoBehaviour {
 
     public CinemachineVirtualCamera VCamDashImpact;
     public CinemachineVirtualCamera finisherVCam;
+    public CinemachineVirtualCamera heavyAttackVCam;
 
     public Animation screenGlitchAnim;
     public Animator animator;
@@ -85,6 +86,11 @@ public class CameraMovement : MonoBehaviour {
     {
         //animator.SetTrigger("FastZoom");
         StartCoroutine(SwitchVCam(VCamDashImpact,additionalTarget, 0.3f));
+    }
+
+    public void FrameHeavyAttack(Transform additionalTarget)
+    { 
+        StartCoroutine(SwitchVCam(heavyAttackVCam, additionalTarget, 0.3f));
     }
 
     public void SetLowHealth(bool b)

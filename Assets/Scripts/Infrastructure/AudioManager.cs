@@ -52,6 +52,8 @@ public class AudioManager : MonoBehaviour {
 
     public static AudioManager Instance;
 
+    public enum LevelMusicTracks { NONE, UpperBavelle_City, UpperBavelle_Battle }
+
     private void Awake()
     {
         if (Instance == null)
@@ -76,14 +78,22 @@ public class AudioManager : MonoBehaviour {
 
     }
 
-    public IEnumerator StartMusic()//(Transform player)
+    public IEnumerator StartMusic(LevelMusicTracks levelTrack)
     {
         yield return null;
-        LevelMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Music/UpperBavelle_City");
+        
         //LevelMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Music/UpperBavelle_Battle");
         //FMODUnity.RuntimeManager.AttachInstanceToGameObject(LevelMusic, player, player.GetComponent<Rigidbody>());
         print("## setting music param and playing");
         //LevelMusic.setParameterByName("level_isStarting", 1);
+        
+        PLAYBACK_STATE playState;
+        LevelMusic.getPlaybackState(out playState);
+        if (playState == PLAYBACK_STATE.PLAYING)
+            LevelMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
+        LevelMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Music/"+ levelTrack.ToString());
+        
         LevelMusic.start();
     }
 

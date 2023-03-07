@@ -74,8 +74,7 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
-        //init music after once awakes are done
-        StartCoroutine(AudioManager.Instance.StartMusic());
+        
 
         SlomoSnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/SlowMo_Effect");
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(SlomoSnapshot, PlayerInstance.transform, PlayerInstance.GetComponent<Rigidbody>());
@@ -120,8 +119,11 @@ public class GameManager : MonoBehaviour {
         print(cameraRef.currentState);
         currentLevelData = levelManager.Init(CurrentLevelIndex);
 
+        //init music after once awakes are done
+        StartCoroutine(AudioManager.Instance.StartMusic(currentLevelData.levelMusicTrack));
+
         /////////////
-        
+
     }
 
     private IEnumerator KillPointsUpdater()
@@ -175,6 +177,7 @@ public class GameManager : MonoBehaviour {
         }
         DeathSnapshot.setParameterByName("Death_MusicDuck_Intensity", 0);
 
+        UIManager.Instance.hudObject.SetActive(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         StartCoroutine(InitLevel());
     }
@@ -195,7 +198,8 @@ public class GameManager : MonoBehaviour {
     public void GameOver()
     {
         DeathSnapshot.setParameterByName("Death_MusicDuck_Intensity", 1f);
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
+        EnemyManager.Instance.SetUpdateEnemies(false);
         UIManager.Instance.OpenGameOverScreen(score);
     }
 
@@ -267,7 +271,7 @@ public class GameManager : MonoBehaviour {
     public IEnumerator TriggerFinisher(Transform target, float time)
     {
         companion.FinisherMove(PlayerInstance.finisherSpline);
-        cameraRef.SetFinisher(target, time);
+        //cameraRef.SetFinisher(target, time);
         HoleFinisherVFX.Play();
         HoleFinisherVFX.transform.position = target.position;
         yield return new WaitForSeconds(time);
@@ -328,6 +332,11 @@ public class GameManager : MonoBehaviour {
     public void DashSlomo(float duration)
     {
         StartCoroutine(SlomoCoroutine(duration, slomoCurves[0]));
+    }
+
+    public void LandingShockwaveSlomo(float duration)
+    {
+        StartCoroutine(SlomoCoroutine(duration, slomoCurves[2]));
     }
 
     public void ShockwaveSlomo(float duration)

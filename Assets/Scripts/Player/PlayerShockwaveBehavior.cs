@@ -69,7 +69,6 @@ public class PlayerShockwaveBehavior : MonoBehaviour
 
         //EnemyManager.Instance.isUpdateEnemies = true;
 
-        explosionEffect.gameObject.SetActive(false);
         playerBehaviour.isInvinsible = false;
         if(regularShockwave)
             playerBehaviour.enableControlls = true;
@@ -78,6 +77,9 @@ public class PlayerShockwaveBehavior : MonoBehaviour
         isDeathShockwave = false;
         playerBehaviour.TrailsEnabled(false);
         gameObject.SetActive(false);
+        
+        yield return new WaitForSeconds(1);
+        explosionEffect.gameObject.SetActive(false);
     }
 
 }

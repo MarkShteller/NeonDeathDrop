@@ -13,45 +13,34 @@ MonoBehaviour:
   m_Name: Bloom
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
     m_Value: 1.45
-    min: 0
   intensity:
     m_OverrideState: 1
     m_Value: 1
-    min: 0
   scatter:
     m_OverrideState: 1
     m_Value: 0.5
-    min: 0
-    max: 1
   clamp:
     m_OverrideState: 0
     m_Value: 65472
-    min: 0
   tint:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
-    hdr: 0
-    showAlpha: 0
-    showEyeDropper: 1
   highQualityFiltering:
     m_OverrideState: 1
     m_Value: 0
   skipIterations:
     m_OverrideState: 0
     m_Value: 1
-    min: 0
-    max: 16
   dirtTexture:
     m_OverrideState: 1
     m_Value: {fileID: 2800000, guid: cb57283a68e7442e7a9243fe91b01286, type: 3}
+    dimension: 1
   dirtIntensity:
     m_OverrideState: 1
-    m_Value: 20
-    min: 0
+    m_Value: 9.85
 --- !u!114 &-2165638739888078322
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -65,11 +54,10 @@ MonoBehaviour:
   m_Name: ColorCurves
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   master:
     m_OverrideState: 1
     m_Value:
-      <length>k__BackingField: 3
+      <length>k__BackingField: 4
       m_Loop: 0
       m_ZeroValue: 0
       m_Range: 1
@@ -79,17 +67,26 @@ MonoBehaviour:
         - serializedVersion: 3
           time: 0
           value: 0
-          inSlope: 0.4604393
-          outSlope: 0.4604393
+          inSlope: 0.5306749
+          outSlope: 0.5306749
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.3004292
-          value: 0.20179373
+          time: 0.30924857
+          value: 0.19631904
           inSlope: 0.93923974
           outSlope: 0.93923974
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.7716763
+          value: 0.7361963
+          inSlope: 1.20242
+          outSlope: 1.20242
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
@@ -327,20 +324,15 @@ MonoBehaviour:
   m_Name: FilmGrain
   m_EditorClassIdentifier: 
   active: 0
-  m_AdvancedMode: 0
   type:
     m_OverrideState: 1
     m_Value: 9
   intensity:
     m_OverrideState: 1
     m_Value: 0.856
-    min: 0
-    max: 1
   response:
     m_OverrideState: 1
     m_Value: 0
-    min: 0
-    max: 1
   texture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -357,17 +349,12 @@ MonoBehaviour:
   m_Name: WhiteBalance
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   temperature:
     m_OverrideState: 1
-    m_Value: 16
-    min: -100
-    max: 100
+    m_Value: 36
   tint:
     m_OverrideState: 1
     m_Value: 0
-    min: -100
-    max: 100
 --- !u!114 &-1535187758315299772
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -380,8 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf1aba9553839d41ae37dd52e9ebcce, type: 3}
   m_Name: MotionBlur
   m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
+  active: 0
   mode:
     m_OverrideState: 0
     m_Value: 0
@@ -391,13 +377,9 @@ MonoBehaviour:
   intensity:
     m_OverrideState: 1
     m_Value: 0.16
-    min: 0
-    max: 1
   clamp:
     m_OverrideState: 1
     m_Value: 0.062
-    min: 0
-    max: 0.2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,12 +416,9 @@ MonoBehaviour:
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
   active: 0
-  m_AdvancedMode: 0
   intensity:
     m_OverrideState: 1
     m_Value: 0.931
-    min: 0
-    max: 1
 --- !u!114 &7524824283067792258
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -453,55 +432,39 @@ MonoBehaviour:
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   mode:
     m_OverrideState: 1
     m_Value: 2
   gaussianStart:
     m_OverrideState: 1
     m_Value: 96.2
-    min: 0
   gaussianEnd:
     m_OverrideState: 1
     m_Value: 322.6
-    min: 0
   gaussianMaxRadius:
     m_OverrideState: 1
     m_Value: 0.5
-    min: 0.5
-    max: 1.5
   highQualitySampling:
     m_OverrideState: 1
     m_Value: 0
   focusDistance:
     m_OverrideState: 1
-    m_Value: 16.67
-    min: 0.1
+    m_Value: 8.99
   aperture:
     m_OverrideState: 1
-    m_Value: 7.8
-    min: 1
-    max: 32
+    m_Value: 1.4
   focalLength:
     m_OverrideState: 1
-    m_Value: 175
-    min: 1
-    max: 300
+    m_Value: 59
   bladeCount:
     m_OverrideState: 1
     m_Value: 5
-    min: 3
-    max: 9
   bladeCurvature:
     m_OverrideState: 1
     m_Value: 1
-    min: 0
-    max: 1
   bladeRotation:
     m_OverrideState: 1
     m_Value: 0
-    min: -180
-    max: 180
 --- !u!114 &7727719740919563376
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -515,26 +478,18 @@ MonoBehaviour:
   m_Name: Vignette
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   color:
     m_OverrideState: 1
     m_Value: {r: 0, g: 0, b: 0, a: 1}
-    hdr: 0
-    showAlpha: 0
-    showEyeDropper: 1
   center:
     m_OverrideState: 0
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.337
-    min: 0
-    max: 1
+    m_Value: 0.221
   smoothness:
     m_OverrideState: 0
     m_Value: 0.2
-    min: 0.01
-    max: 1
   rounded:
     m_OverrideState: 0
     m_Value: 0
@@ -551,7 +506,6 @@ MonoBehaviour:
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   mode:
     m_OverrideState: 1
     m_Value: 2
@@ -568,28 +522,18 @@ MonoBehaviour:
   m_Name: ColorAdjustments
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   postExposure:
     m_OverrideState: 1
-    m_Value: 0.33
+    m_Value: 0.24
   contrast:
-    m_OverrideState: 1
-    m_Value: 17
-    min: -100
-    max: 100
+    m_OverrideState: 0
+    m_Value: 0
   colorFilter:
     m_OverrideState: 0
-    m_Value: {r: 1, g: 0.9651926, b: 0.9386792, a: 1}
-    hdr: 1
-    showAlpha: 0
-    showEyeDropper: 1
+    m_Value: {r: 1, g: 0.9905655, b: 0.9575472, a: 1}
   hueShift:
-    m_OverrideState: 0
-    m_Value: 0
-    min: -180
-    max: 180
+    m_OverrideState: 1
+    m_Value: -5
   saturation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: -100
-    max: 100
+    m_OverrideState: 1
+    m_Value: 5

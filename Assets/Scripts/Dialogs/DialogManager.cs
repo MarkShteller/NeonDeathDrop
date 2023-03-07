@@ -161,7 +161,7 @@ public class DialogManager : MonoBehaviour
             dialogSubtitles.Populate(de.speaker, de.message);
             currentEntryIndex++;
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(3.5f);
         }
         dialogSubtitles.gameObject.SetActive(false);
     }

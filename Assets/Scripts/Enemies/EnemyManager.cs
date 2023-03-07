@@ -56,7 +56,7 @@ public class EnemyManager : MonoBehaviour {
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isUpdateEnemies)
         {

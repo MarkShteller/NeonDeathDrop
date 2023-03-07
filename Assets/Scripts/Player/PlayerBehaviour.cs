@@ -276,7 +276,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void OnLightAttack(InputValue value)
     {
-        if (manaPoints >= pushManaCost)
+        if (manaPoints >= pushManaCost && !isHoleSlomo)
         {
             enableMovement = false;
 
@@ -298,10 +298,15 @@ public class PlayerBehaviour : MonoBehaviour
     void OnHeavyAttack(InputValue value)
     {
         print("heavy button down");
-        if (manaPoints >= somersaultManaCost)
+        if (manaPoints >= somersaultManaCost && !isHoleSlomo)
         {
-            animator.SetTrigger("HeavyA");
-            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSomersault, transform.position);
+            if (!isDoingSomersault)
+            {
+                isDoingSomersault = true;
+                StopSprinting();
+                animator.SetTrigger("HeavyA");
+                FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSomersault, transform.position);
+            }
         }
         else
             LowMana();
@@ -357,32 +362,35 @@ public class PlayerBehaviour : MonoBehaviour
 
     void OnDash(InputValue value)
     {
-        if (manaPoints >= dashManaCost && enableDash)
+        if (manaPoints >= dashManaCost && enableDash && !isHoleSlomo)
         {
-            manaPoints -= dashManaCost;
+            if (!isDashing)
+            {
+                manaPoints -= dashManaCost;
 
-            Vector3 rotation = this.visualsHolder.forward;
-            Vector2 moveAnimDirection = GetMovementDirection(inputMovement, new Vector2(rotation.x, rotation.z));
-            Vector3 dashDir = new Vector3(inputMovement.x, 0, inputMovement.y).normalized;
-            
-            if (dashDir == Vector3.zero)
-                dashDir = this.visualsHolder.forward * -1;
-            print("DASH! dir: " + dashDir);
+                Vector3 rotation = this.visualsHolder.forward;
+                Vector2 moveAnimDirection = GetMovementDirection(inputMovement, new Vector2(rotation.x, rotation.z));
+                Vector3 dashDir = new Vector3(inputMovement.x, 0, inputMovement.y).normalized;
 
-            //AudioManager.Instance.PlayEffect(soundEffectSource, 3);
-            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerDash, transform.position);
+                if (dashDir == Vector3.zero)
+                    dashDir = this.visualsHolder.forward * -1;
+                print("DASH! dir: " + dashDir);
 
-            animator.SetTrigger("Dash");
+                //AudioManager.Instance.PlayEffect(soundEffectSource, 3);
+                FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerDash, transform.position);
 
-            //Vector3 rotation = this.visualsHolder.forward;//this.visualsHolder.rotation.eulerAngles.normalized * -1;
-            print("dash vis dir: " + rotation);
+                animator.SetTrigger("Dash");
 
-            animator.SetFloat("DashX", moveAnimDirection.x);
-            animator.SetFloat("DashY", moveAnimDirection.y);
+                //Vector3 rotation = this.visualsHolder.forward;//this.visualsHolder.rotation.eulerAngles.normalized * -1;
+                print("dash vis dir: " + rotation);
 
-            print("dashAnimDirection: " + moveAnimDirection);
+                animator.SetFloat("DashX", moveAnimDirection.x);
+                animator.SetFloat("DashY", moveAnimDirection.y);
 
-            StartCoroutine(DashCoroutine(dashDir, dashDuration));
+                print("dashAnimDirection: " + moveAnimDirection);
+
+                StartCoroutine(DashCoroutine(dashDir, dashDuration));
+            }
         }
         else
             LowMana();
@@ -406,6 +414,7 @@ public class PlayerBehaviour : MonoBehaviour
             animator.SetTrigger("AOERepel");
             manaPoints -= AOEManaCost;
             enableControlls = false;
+            StartCoroutine(GameManager.Instance.TriggerFinisher(transform, 2f));
         }
         else
             LowMana();
@@ -441,14 +450,14 @@ public class PlayerBehaviour : MonoBehaviour
             animator.SetFloat("MoveX", targetX);
             animator.SetFloat("MoveY", targetY);
 
-           
+
             Vector3 playerAimRotation = Vector3.right * -inputAim.x + Vector3.forward * -inputAim.y;
             Vector3 playerDefaultRotation = Vector3.right * -xMove + Vector3.forward * -zMove;
 
             if (inputAim.y != 0 || inputAim.x != 0)
                 playerAimRotation = Vector3.right * -inputAim.x + Vector3.forward * -inputAim.y;
 
-            if (playerAimRotation.sqrMagnitude > 0.0f)
+            if (playerAimRotation.sqrMagnitude > 0.0f && !isHoleSlomo)
             {
                 this.visualsHolder.rotation = Quaternion.Slerp(visualsHolder.rotation, Quaternion.LookRotation(playerAimRotation, Vector3.up), 0.25f);
 
@@ -554,6 +563,19 @@ public class PlayerBehaviour : MonoBehaviour
         StartCoroutine(shockwaveBehavior.Shockwave(10, true));
     }
 
+    public void PreformShockwaveTrailer()
+    {
+        EnemyManager.Instance.isUpdateEnemies = true;
+
+        //GameManager.Instance.ShockwaveSlomo(8);
+        //CameraShaker.Instance.ShakeOnce(2f, 8f, 0.1f, 2.5f);
+        shakeSource.GenerateImpulse();
+
+        shockwaveBehavior.gameObject.SetActive(true);
+        TrailsEnabled(true);
+        StartCoroutine(shockwaveBehavior.Shockwave(15, true));
+    }
+
     public void PreformSomersault()
     {
         isDoingSomersault = true;
@@ -562,8 +584,6 @@ public class PlayerBehaviour : MonoBehaviour
         enableControlls = false;
         ObjectPooler.Instance.SpawnFromPool("SomersaultEffect", transform.position, visualsHolder.rotation);
         TrailsEnabled(true);
-
-        //FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSomersault, transform.position);
     }
 
     public void FinishSomersault()
@@ -585,7 +605,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         float time = duration;
 
-        float capsuleR = capsuleCollider.radius;
+        float originRadius = capsuleCollider.radius;
         capsuleCollider.radius *= 3.5f;
         //StartCoroutine(DebugSlomo());
 
@@ -597,8 +617,12 @@ public class PlayerBehaviour : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        capsuleCollider.radius = capsuleR;
+        capsuleCollider.radius = originRadius;
+
+        yield return new WaitForSeconds(duration/2f);
+
         isDashing = false;
+
         if (isDashImpact)
         {
             transform.position = dashImpactEnemyLocation;
@@ -671,6 +695,13 @@ public class PlayerBehaviour : MonoBehaviour
 
         forcePushTriggerCollider.center = Vector3.zero;
         forcePushTriggerCollider.size = defaultForcePushTriggerSize;
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y + 25, transform.position.z);
+            isFalling = true;
+            animator.SetBool("Falling", isFalling);
+        }
 
         if (enableControlls)
         {
@@ -885,8 +916,14 @@ public class PlayerBehaviour : MonoBehaviour
         {
             shockwaveBehavior.gameObject.SetActive(true);
             StartCoroutine(shockwaveBehavior.Shockwave(3, false));
+
+            //StartCoroutine(shockwaveBehavior.Shockwave(30, true));
+            //GameManager.Instance.LandingShockwaveSlomo(10f);
+
             isFalling = false;
+
             animator.SetBool("Falling", isFalling);
+            animator.SetBool("LedgeWiggle", false);
         }
     }
 
@@ -916,8 +953,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        StopSprinting();
         currentPushForce = pushForce;
+
+        StopSprinting();
+        if (isDoingSomersault)
+            FinishSomersault();
 
         if (Time.time - lastTimeDamageTaken > takenDamageCooldown && !isInvinsible)
         {
@@ -934,13 +974,14 @@ public class PlayerBehaviour : MonoBehaviour
             UIManager.Instance.SetHealth(healthPoints / totalHealthPoints);
             if (healthPoints <= 0)
             {
-                //GameManager.Instance.GameOver();
+                GameManager.Instance.GameOver();
                 isDead = true;
                 EnemyManager.Instance.isUpdateEnemies = false;
                 animator.SetTrigger("Dead");
                 FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerDeath, transform.position);
 
                 enableControlls = false;
+                enableMovement = false;
                 isInvinsible = true;
                 
                 spotlight.SetActive(true);
@@ -987,6 +1028,8 @@ public class PlayerBehaviour : MonoBehaviour
     private IEnumerator WaitToRecover()
     {
         animator.SetBool("Falling", isFalling);
+        animator.SetBool("LedgeWiggle", false);
+
         //enableDash = false; 
         enableControlls = false;
 
