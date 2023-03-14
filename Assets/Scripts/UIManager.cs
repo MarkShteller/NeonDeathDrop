@@ -79,7 +79,7 @@ public class UIManager : MonoBehaviour {
 
     public void SetScoreMultiplier(float scoreMultiplier, string praiseText)
     {
-        //projectionCanvas.SetTrigger("RingOut");
+        projectionCanvas.SetTrigger("RingOut");
 
         scoreMultiplierText.text = "x"+scoreMultiplier.ToString("N0"); //used to be N1
 
