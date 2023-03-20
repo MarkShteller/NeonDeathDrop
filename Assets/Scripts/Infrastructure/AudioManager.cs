@@ -8,12 +8,8 @@ public class AudioManager : MonoBehaviour {
 
     public Sound[] sounds;
 
-    public AudioSource MusicSource1;
-    public AudioSource MusicSource2;
-    //public AudioSource EffectSource;
-
     public EventReference MusicAct1Track1;
-    [FMODUnity.EventRef] public string EnvAmbienceHighway = "";
+    public FMODUnity.EventReference EnvAmbienceHighway;
     [FMODUnity.EventRef] public string EnvTileCracked = "";
 
     [FMODUnity.EventRef] public string PlayerDash = "";
@@ -53,6 +49,9 @@ public class AudioManager : MonoBehaviour {
     public static AudioManager Instance;
 
     public enum LevelMusicTracks { NONE, UpperBavelle_City, UpperBavelle_Battle }
+
+
+    private EventInstance voiceoverEvent;
 
     private void Awake()
     {
@@ -110,4 +109,43 @@ public class AudioManager : MonoBehaviour {
 
     }
 
+
+    public void PlayVoiceline(string voPath, Action callback = null)
+    {
+        try
+        {
+            voiceoverEvent = RuntimeManager.CreateInstance("event:/Dialogue/" + voPath);
+        }
+        catch (Exception e) 
+        {
+            Debug.LogWarning(e.Message);
+            if (callback != null) callback();
+            return;
+        }
+
+        EventDescription ed;
+        voiceoverEvent.getDescription(out ed);
+        int length;
+        ed.getLength(out length);
+
+        voiceoverEvent.set3DAttributes(RuntimeUtils.To3DAttributes(GameManager.Instance.PlayerInstance.gameObject));
+        voiceoverEvent.start();
+
+        StartCoroutine(StopVoicelineAfter(length, callback));
+        //EventReference eventVO = RuntimeManager.PathToEventReference("event:/Dialogue/" + voPath);
+        //FMODUnity.RuntimeManager.PlayOneShot(eventVO, GameManager.Instance.PlayerInstance.transform.position);
+    }
+
+    private IEnumerator StopVoicelineAfter(int length, Action callback = null)
+    {
+        yield return new WaitForSeconds((float) length / 1000);
+        StopCurrentVoiceline();
+        if(callback!= null) callback();
+    }
+
+    public void StopCurrentVoiceline()
+    {
+        voiceoverEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        voiceoverEvent.release();
+    }
 }

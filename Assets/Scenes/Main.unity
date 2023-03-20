@@ -19283,6 +19283,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114499001748739972, guid: 4af4285cad3965746945b70a5c3f81ef,
         type: 3}
+      propertyPath: EnvAmbienceHighway.Path
+      value: event:/Environment/Env_Highway_Ambience
+      objectReference: {fileID: 0}
+    - target: {fileID: 114499001748739972, guid: 4af4285cad3965746945b70a5c3f81ef,
+        type: 3}
       propertyPath: MusicAct1Track1.Guid.Data1
       value: -1558932473
       objectReference: {fileID: 0}
@@ -19300,6 +19305,26 @@ PrefabInstance:
         type: 3}
       propertyPath: MusicAct1Track1.Guid.Data4
       value: -1462696418
+      objectReference: {fileID: 0}
+    - target: {fileID: 114499001748739972, guid: 4af4285cad3965746945b70a5c3f81ef,
+        type: 3}
+      propertyPath: EnvAmbienceHighway.Guid.Data1
+      value: 942039825
+      objectReference: {fileID: 0}
+    - target: {fileID: 114499001748739972, guid: 4af4285cad3965746945b70a5c3f81ef,
+        type: 3}
+      propertyPath: EnvAmbienceHighway.Guid.Data2
+      value: 1258762344
+      objectReference: {fileID: 0}
+    - target: {fileID: 114499001748739972, guid: 4af4285cad3965746945b70a5c3f81ef,
+        type: 3}
+      propertyPath: EnvAmbienceHighway.Guid.Data3
+      value: 605813666
+      objectReference: {fileID: 0}
+    - target: {fileID: 114499001748739972, guid: 4af4285cad3965746945b70a5c3f81ef,
+        type: 3}
+      propertyPath: EnvAmbienceHighway.Guid.Data4
+      value: 804111691
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4af4285cad3965746945b70a5c3f81ef, type: 3}

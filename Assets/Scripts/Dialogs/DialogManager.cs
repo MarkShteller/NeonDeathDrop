@@ -40,7 +40,7 @@ public class DialogManager : MonoBehaviour
             var lineData = lines[i].Split(",");
             string conversationID = lineData[0];
 
-            DialogConversation dc = new DialogConversation();
+            DialogConversation dc = new DialogConversation(conversationID);
             dc.AddDialogEntry(lineData[1], lineData[2], lineData[3], lineData[4]);
 
             if (i + 1 < lines.Length) // prevent EOF overflow
@@ -77,7 +77,7 @@ public class DialogManager : MonoBehaviour
             var lineData = lines[i].Split('\t');
             string conversationID = lineData[0];
 
-            DialogConversation dc = new DialogConversation();
+            DialogConversation dc = new DialogConversation(conversationID);
             dc.AddDialogEntry(lineData[1], lineData[2], lineData[3], lineData[4]);
 
             if (i + 1 < lines.Length) // prevent EOF overflow
@@ -103,11 +103,14 @@ public class DialogManager : MonoBehaviour
     private void PressNextAction()
     {
         currentEntryIndex++;
+        AudioManager.Instance.StopCurrentVoiceline();
 
         if (currentEntryIndex < currentConversation.dialogEntries.Count)
         {
             DialogEntry de = currentConversation.dialogEntries[currentEntryIndex];
             characterDialogBox.Populate(de.speaker, de.message, de.tag);
+
+            CreateVoicelineTagAndPlay(de, currentEntryIndex);
         }
         else
         {
@@ -116,6 +119,7 @@ public class DialogManager : MonoBehaviour
                 exitEvent.Invoke();
                 exitEvent.RemoveAllListeners();
             }
+
             EnemyManager.Instance.SetUpdateEnemies(true);
             characterDialogBox.gameObject.SetActive(false);
             GameManager.Instance.PlayerInstance.submitEvent -= PressNextAction;
@@ -128,16 +132,17 @@ public class DialogManager : MonoBehaviour
     {
         this.exitEvent = exitEvent;
 
-        dialogSubtitles.gameObject.SetActive(false);
-        StopCoroutine(ProgressSubtitlesDialog());
+        StopSubtitles();
 
         currentConversation = dialogData[conversationID];
-        
+
         currentEntryIndex = 0;
         DialogEntry de = currentConversation.dialogEntries[currentEntryIndex];
 
         characterDialogBox.gameObject.SetActive(true);
         characterDialogBox.Populate(de.speaker, de.message, de.tag);
+        
+        CreateVoicelineTagAndPlay(de, currentEntryIndex);
 
         EnemyManager.Instance.SetUpdateEnemies(false);
         UIManager.Instance.SetHUDVisible(false);
@@ -145,26 +150,51 @@ public class DialogManager : MonoBehaviour
         GameManager.Instance.PlayerInstance.submitEvent += PressNextAction;
     }
 
+    private void CreateVoicelineTagAndPlay(DialogEntry de, int index, Action callback = null)
+    {
+        string speakerName = de.speaker.Equals("AL-X") ? "Alex" : de.speaker;
+        string s = string.Format("Level1/{0}/level1.{1}.{2}.{3}", speakerName, currentConversation.conversationID, speakerName.ToLower(), index + 1);
+
+        if (de.flags != "")
+            s += "." + de.flags;
+
+        AudioManager.Instance.PlayVoiceline(s, callback);
+    }
+
     public void ShowSubtitlesDialog(string conversationID)
     {
         currentConversation = dialogData[conversationID];
-        StartCoroutine(ProgressSubtitlesDialog());
-    }
-
-    private IEnumerator ProgressSubtitlesDialog()
-    {
+        
         currentEntryIndex = 0;
         dialogSubtitles.gameObject.SetActive(true);
-        while (currentEntryIndex < currentConversation.dialogEntries.Count)
+
+        DialogEntry de = currentConversation.dialogEntries[currentEntryIndex];
+        dialogSubtitles.Populate(de.speaker, de.message);
+
+        CreateVoicelineTagAndPlay(de, currentEntryIndex, ProgressSubtitlesDialog);
+        currentEntryIndex++;
+    }
+
+    private void ProgressSubtitlesDialog()
+    {
+        //dialogSubtitles.gameObject.SetActive(true);
+        if (currentEntryIndex < currentConversation.dialogEntries.Count)
         {
             DialogEntry de = currentConversation.dialogEntries[currentEntryIndex];
             dialogSubtitles.Populate(de.speaker, de.message);
-            currentEntryIndex++;
 
-            yield return new WaitForSeconds(3.5f);
+            CreateVoicelineTagAndPlay(de, currentEntryIndex, ProgressSubtitlesDialog);
+            currentEntryIndex++;
+           
         }
-        dialogSubtitles.gameObject.SetActive(false);
+        else
+            dialogSubtitles.gameObject.SetActive(false);
     }
 
+    private void StopSubtitles()
+    {
+        AudioManager.Instance.StopCurrentVoiceline();
+        dialogSubtitles.gameObject.SetActive(false);
+    }
 
 }

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class DialogConversation
 {
-   // public string convTag;
+    public string conversationID;
 
     public List<DialogEntry> dialogEntries { get; set; }
     //timeline asset
 
-    public DialogConversation(/*string conversationTag*/)
+    public DialogConversation(string conversationTag)
     {
-        //convTag = conversationTag;
+        conversationID = conversationTag;
         dialogEntries = new List<DialogEntry>();
     }
 
