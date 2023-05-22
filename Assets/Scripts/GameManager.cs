@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.VFX;
+using static Loader;
 
 public class GameManager : MonoBehaviour {
 
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour {
     public Volume slomoVolume;
     public Volume takingDanmageVolume;
     public int CurrentLevelIndex = 0;
+    public AdditiveScenes additiveScene;
 
     private LevelScriptableObject currentLevelData;
 
@@ -74,8 +76,6 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
-        
-
         SlomoSnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/SlowMo_Effect");
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(SlomoSnapshot, PlayerInstance.transform, PlayerInstance.GetComponent<Rigidbody>());
         SlomoSnapshot.start();
@@ -88,19 +88,28 @@ public class GameManager : MonoBehaviour {
         DeathSnapshot.start();
     }
 
+    
+
     private IEnumerator InitLevel()
     {
         //wait frame for the scene to load.
         yield return null;
 
-        print("Init level number "+CurrentLevelIndex);
+        print("Loading level number "+CurrentLevelIndex);
+        currentLevelData = levelManager.Init(CurrentLevelIndex);
+        
         PlayerObject = Resources.Load("Player 2.0") as GameObject;
         GameObject go = Instantiate(PlayerObject);
         PlayerInstance = go.GetComponent<PlayerBehaviour>();
         playerPointPosition = null;
+        if (currentLevelData.isVRSpace)
+            PlayerInstance.SwitchToVRSpaceOutfit();
 
-        GameObject companionObject = Resources.Load("Alex") as GameObject;
-        companion = Instantiate(companionObject).GetComponent<CompanionBehaviour>();
+        if (currentLevelData.includeCompanion)
+        {
+            GameObject companionObject = Resources.Load("Alex") as GameObject;
+            companion = Instantiate(companionObject).GetComponent<CompanionBehaviour>();
+        }
 
         score = 0;
         scoreMultiplier = 1;
@@ -108,16 +117,15 @@ public class GameManager : MonoBehaviour {
         killPoints = 0;
         timeLevelStarted = Time.time;
         damageTaken = 0;
-        scoreUpdaterCoroutine = StartCoroutine(KillPointsUpdater());
-
-        UIManager.Instance.SetScore(score);
-        UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
 
         yield return null;
 
+        scoreUpdaterCoroutine = StartCoroutine(KillPointsUpdater());
+        UIManager.Instance.SetScore(score);
+        UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
+
         cameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>();
         print(cameraRef.currentState);
-        currentLevelData = levelManager.Init(CurrentLevelIndex);
 
         //init music after once awakes are done
         StartCoroutine(AudioManager.Instance.StartMusic(currentLevelData.levelMusicTrack));
@@ -153,8 +161,11 @@ public class GameManager : MonoBehaviour {
         }
         PlayerInstance.transform.position = position;
 
-        companion.transform.position = new Vector3(position.x - companion.stopDistance, position.y, position.z);
-        companion.SetPlayerRef(PlayerInstance);
+        if (currentLevelData.includeCompanion)
+        {
+            companion.transform.position = new Vector3(position.x - companion.stopDistance, position.y, position.z);
+            companion.SetPlayerRef(PlayerInstance);
+        }
     }
 
     public void SetPlayerSpawnPosition(Vector3 position)
@@ -171,20 +182,22 @@ public class GameManager : MonoBehaviour {
     {
         print("## restarting level");
         Time.timeScale = 1;
-        if (isDead)
-        {
-            score = 0;
-        }
         DeathSnapshot.setParameterByName("Death_MusicDuck_Intensity", 0);
+        if(UIManager.Instance != null)
+            UIManager.Instance.hudObject.SetActive(true);
 
-        UIManager.Instance.hudObject.SetActive(true);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        score = 0;
+        this.StopAllCoroutines();
+        AudioManager.Instance.StopAllSounds();
+        SceneManager.LoadScene(1); // Load MainCore scene which will load the rest of the scenes
+
         StartCoroutine(InitLevel());
     }
 
     public void NextLevel()
     {
         CurrentLevelIndex++;
+        additiveScene = AdditiveScenes.UpperBavelle;
         cameraRef.SetLowHealth(false);
         RestartLevel(false);
     }
@@ -201,6 +214,11 @@ public class GameManager : MonoBehaviour {
         //Time.timeScale = 0;
         EnemyManager.Instance.SetUpdateEnemies(false);
         UIManager.Instance.OpenGameOverScreen(score);
+    }
+
+    public void SetDuckMusicIntensity(float value)
+    { 
+        DeathSnapshot.setParameterByName("Death_MusicDuck_Intensity", value);
     }
 
     public void AddKillPoints(float value)

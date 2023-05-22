@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Start",
+                    "type": "Button",
+                    "id": "29736a4d-ce56-46e7-9f00-aa50b79dc9b7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -440,7 +449,7 @@
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
+                    "groups": "",
                     "action": "Pull",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -453,6 +462,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Pull",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c90403fb-c289-4945-b020-2ec326671eb1",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Start",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -529,6 +549,15 @@
                     "name": "RightClick",
                     "type": "PassThrough",
                     "id": "2f94993f-83ba-4123-a7d5-0186fdc6ab72",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StartUI",
+                    "type": "Button",
+                    "id": "bec3471d-1d57-44b7-864f-885c93922ffa",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -951,6 +980,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bcf74857-bbbe-4f78-be97-93b0d22f8caa",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "StartUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

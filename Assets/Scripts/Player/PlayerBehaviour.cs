@@ -113,6 +113,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public LevelGenerator gridHolder;
     public Transform visualsHolder;
+    public Transform defaultMeshHolder;
+    public Transform VRSpaceMeshHolder;
 
     public PlayerShockwaveBehavior shockwaveBehavior;
     public ForcePushFloorTrigger forcePushFloorTrigger;
@@ -130,7 +132,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public GameObject[] trails;
 
-    public enum PlayerAttackType { None, Push, Dash, Heavy, Launch }
+    public enum PlayerAttackType { None, Push, Dash, Heavy, Launch, ParryBullet }
     public PlayerAttackType currentAttackType;
 
     public bool IsTestMode = false;
@@ -186,10 +188,10 @@ public class PlayerBehaviour : MonoBehaviour
         activePowerUps = new List<BasePowerupBehaviour>();
 
         sprintingSoundEvent = FMODUnity.RuntimeManager.CreateInstance(AudioManager.Instance.PlayerSprinting);
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(sprintingSoundEvent, transform, GetComponent<Rigidbody>());
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(sprintingSoundEvent, transform);
         
         slomoSoundEvent = FMODUnity.RuntimeManager.CreateInstance(AudioManager.Instance.PlayerSlomoEnter);
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(slomoSoundEvent, transform, GetComponent<Rigidbody>());
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(slomoSoundEvent, transform);
         
         playerInput = GetComponent<PlayerInput>();
         //GetComponent<PlayerInput>().actions.FindAction("MakeHole").started += MakeHoleStarted;
@@ -197,6 +199,12 @@ public class PlayerBehaviour : MonoBehaviour
         playerInput.actions.FindAction("MakeHole").canceled += MakeHoleCanceled;
     }
 
+    private void OnDestroy()
+    {
+        playerInput.actions.RemoveAllBindingOverrides();
+        playerInput.actions.FindAction("MakeHole").canceled -= MakeHoleCanceled;
+        playerInput.actions.FindAction("MakeHole").performed -= MakeHolePrefomed;
+    }
 
     private void OnDrawGizmos()
     {
@@ -409,7 +417,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnPull(InputValue value)
     {
-        if (AOEManaCost <= manaPoints)
+        /*if (AOEManaCost <= manaPoints)
         {
             animator.SetTrigger("AOERepel");
             manaPoints -= AOEManaCost;
@@ -417,7 +425,19 @@ public class PlayerBehaviour : MonoBehaviour
             StartCoroutine(GameManager.Instance.TriggerFinisher(transform, 2f));
         }
         else
-            LowMana();
+            LowMana();*/
+    }
+
+    private void OnStart(InputValue value)
+    {
+        print("pressed start");
+        UIManager.Instance.OpenPauseDialog();
+    }
+
+    private void OnStartUI(InputValue value)
+    {
+        print("pressed start UI");
+        UIManager.Instance.ClosePauseDialog();
     }
 
     void FixedUpdate()
@@ -897,10 +917,6 @@ public class PlayerBehaviour : MonoBehaviour
                 TakeDamage(enemy.damage);
             }
         }
-        /*if (collision.gameObject.CompareTag("EnemyBullet"))
-        {
-
-        }*/
 
         if (collision.gameObject.CompareTag("GoalCube"))
         {
@@ -941,6 +957,13 @@ public class PlayerBehaviour : MonoBehaviour
         {
             print("# setting new checkpoint: "+other.name);
             SetCheckpoint(other.transform);
+        }
+
+        if (currentAttackType == PlayerAttackType.Push && other.gameObject.CompareTag("EnemyBullet"))
+        {
+            other.gameObject.GetComponent<EnemyBullet>().Parry(visualsHolder.forward, 2);
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakeDashHit, transform.position);
+            //GameManager.Instance.DashSlomo(1f);
         }
         /*if (other.CompareTag("EnemyPulseTrigger"))
         {
@@ -1224,6 +1247,13 @@ public class PlayerBehaviour : MonoBehaviour
     {
         isInvinsible = false;
         enableControlls = true;
+    }
+
+    public void SwitchToVRSpaceOutfit()
+    {
+        VRSpaceMeshHolder.gameObject.SetActive(true);
+        defaultMeshHolder.gameObject.SetActive(false);
+        animator = VRSpaceMeshHolder.GetComponent<Animator>();
     }
 
     private void DetectPlayerPositionOnGrid()

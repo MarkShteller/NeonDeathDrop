@@ -7,6 +7,8 @@ public class LevelGenerator : MonoBehaviour {
 
     public static LevelGenerator Instance;
 
+    public bool isVRSpace;
+
     public Texture2D map;
     public ColorToEnum[] colorMappings;
 
@@ -20,6 +22,14 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject checkpointCube;
     public GameObject weakCube;
     public GameObject immoveableCube;
+
+    public GameObject cubeVR;
+    public GameObject cubeWallVR;
+    public GameObject cubeWallHighVR;
+    public GameObject cubeGoalVR;
+    public GameObject checkpointCubeVR;
+
+
 
     private LevelScriptableObject levelData;
 
@@ -222,11 +232,14 @@ public class LevelGenerator : MonoBehaviour {
             return;
 		}
 
-        GameObject tintedBaseCube;
+        GameObject baseCubeRef;
         if ((y % 2 == 0 && x % 2 == 0) || (y % 2 != 0 && x % 2 != 0))
-            tintedBaseCube = cube;
+            baseCubeRef = cube;
         else
-            tintedBaseCube = cubeAlt;
+            baseCubeRef = cubeAlt;
+
+        if (isVRSpace)
+            baseCubeRef = cubeVR;
 
 
         foreach (ColorToEnum colorMapping in colorMappings)
@@ -238,20 +251,26 @@ public class LevelGenerator : MonoBehaviour {
                 switch (colorMapping.tileType)
                 {
                     case TileType.Normal:
-                        grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, tintedBaseCube));
+                        grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, baseCubeRef));
 
                         break;
                     case TileType.Wall:
-                        grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT, cubeWall));
+                        if(!isVRSpace)
+                            grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT, cubeWall));
+                        else
+                            grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT, cubeWallVR));
                         break;
                     case TileType.WallHigh:
-                        grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT *2, cubeWallHigh));
+                        if(!isVRSpace)
+                            grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT *2, cubeWallHigh));
+                        else
+                            grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT * 2, cubeWallHighVR));
                         break;
                     case TileType.Pit:
                         grid[x, y].SetGameNodeRef(CreatePit(x, y));
                         break;
                     case TileType.PlayerOrigin:
-                        GameObject goo = CreateTile(x, y, NORMAL_TILE_HEIGHT, tintedBaseCube);
+                        GameObject goo = CreateTile(x, y, NORMAL_TILE_HEIGHT, baseCubeRef);
                         grid[x, y].SetGameNodeRef(goo);
                         PlayerSpawnObj = CreateSpawnPoint("PlayerSpawn", new Vector3(goo.transform.position.x, PLAYER_SPAWN_HEIGHT, goo.transform.position.z));
                         break;
@@ -270,7 +289,10 @@ public class LevelGenerator : MonoBehaviour {
                         grid[x, y].SetGameNodeRef(CreateTile(x, y, WALL_TILE_HEIGHT *3, cubeGate));
                         break;*/
                     case TileType.Checkpoint:
-                        grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, checkpointCube));
+                        if (!isVRSpace)
+                            grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, checkpointCube));
+                        else
+                            grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, checkpointCubeVR));
                         break;
                     case TileType.Weak:
                         grid[x, y].SetGameNodeRef(CreateTile(x, y, NORMAL_TILE_HEIGHT, weakCube));
@@ -291,7 +313,7 @@ public class LevelGenerator : MonoBehaviour {
             int spawnerIndex = 255 - Mathf.CeilToInt(pixelColor.r * 255);
             EnemySpawnpointInstance spawnpointInstance = new EnemySpawnpointInstance(levelData.Spawners[spawnerIndex]);
 
-            GameObject go = CreateTile(x, y, NORMAL_TILE_HEIGHT, tintedBaseCube);
+            GameObject go = CreateTile(x, y, NORMAL_TILE_HEIGHT, baseCubeRef);
             grid[x, y] = new GridNode(TileType.EnemySpawn);
             grid[x, y].SetGameNodeRef(go);
 

@@ -48,7 +48,7 @@ public class AudioManager : MonoBehaviour {
 
     public static AudioManager Instance;
 
-    public enum LevelMusicTracks { NONE, UpperBavelle_City, UpperBavelle_Battle }
+    public enum LevelMusicTracks { NONE, UpperBavelle_City, UpperBavelle_Battle, Raheem_Battle }
 
 
     private EventInstance voiceoverEvent;
@@ -91,7 +91,10 @@ public class AudioManager : MonoBehaviour {
         if (playState == PLAYBACK_STATE.PLAYING)
             LevelMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
-        LevelMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Music/"+ levelTrack.ToString());
+        if(levelTrack == LevelMusicTracks.Raheem_Battle)
+            LevelMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Music/Raheem_Battle Theme");
+        else
+            LevelMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Music/"+ levelTrack.ToString());
         
         LevelMusic.start();
     }
@@ -119,7 +122,7 @@ public class AudioManager : MonoBehaviour {
         catch (Exception e) 
         {
             Debug.LogWarning(e.Message);
-            if (callback != null) callback();
+            //if (callback != null) callback();
             return;
         }
 
@@ -128,12 +131,10 @@ public class AudioManager : MonoBehaviour {
         int length;
         ed.getLength(out length);
 
-        voiceoverEvent.set3DAttributes(RuntimeUtils.To3DAttributes(GameManager.Instance.PlayerInstance.gameObject));
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(voiceoverEvent, GameManager.Instance.PlayerInstance.transform);
         voiceoverEvent.start();
 
         StartCoroutine(StopVoicelineAfter(length, callback));
-        //EventReference eventVO = RuntimeManager.PathToEventReference("event:/Dialogue/" + voPath);
-        //FMODUnity.RuntimeManager.PlayOneShot(eventVO, GameManager.Instance.PlayerInstance.transform.position);
     }
 
     private IEnumerator StopVoicelineAfter(int length, Action callback = null)
@@ -147,5 +148,12 @@ public class AudioManager : MonoBehaviour {
     {
         voiceoverEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         voiceoverEvent.release();
+    }
+
+    public void StopAllSounds()
+    {
+        StopCurrentVoiceline();
+        LevelMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        LevelMusic.release();
     }
 }

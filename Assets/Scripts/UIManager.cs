@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
@@ -28,6 +29,8 @@ public class UIManager : MonoBehaviour {
 
     [SerializeField] private GameOverDialog gameOverDialog;
     [SerializeField] private EndLevelReportDialog endLevelReportDialog;
+
+    [SerializeField] private PauseDialog pauseDialog;
 
     public ProjectionCanvasController projectionCanvas;
 
@@ -122,6 +125,22 @@ public class UIManager : MonoBehaviour {
         killPointsBar.min = 0;
         killPointsBar.max = maxValue;
         killPointsBar.current = value;
+    }
+
+    public void OpenPauseDialog()
+    {
+        GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+        GameManager.Instance.SetDuckMusicIntensity(1f);
+        Time.timeScale = 0;
+        pauseDialog.gameObject.SetActive(true);
+    }
+
+    public void ClosePauseDialog()
+    {
+        GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+        GameManager.Instance.SetDuckMusicIntensity(0f);
+        Time.timeScale = 1;
+        pauseDialog.gameObject.SetActive(false);
     }
 
     public void OpenEndLevelDialog(int score, float maxMultiplier, float time, int enemyCount, float damage, LevelScriptableObject level)

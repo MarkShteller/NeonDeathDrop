@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
+  m_Name: VR Tutorial 1
+  m_EditorClassIdentifier: 
+  levelMusicTrack: 2
+  map: {fileID: 2800000, guid: 27d92a160b7da461f89bad948f5fb4f1, type: 3}
+  Spawners:
+  - {fileID: 11400000, guid: 09d8fc6be1b48134ab4c6e94599a4cdd, type: 2}
+  enemyDefeatedCountGoals: 0b0000001e000000000000000000000000000000
+  fieldRotationAngle: 315
+  musicName: 
+  backdrop: {fileID: 1087948328264584, guid: b2aef072e294ed645ad1dbcdd96dd71f, type: 3}
+  powerupWeights: 0000000000000000000000000000000000000000000000000000000000000000
+  includeCompanion: 0
+  isVRSpace: 1
+  showEndLevelReport: 0
+  targetScore: 0
+  targetScoreRankMod: 0
+  targetMaxMultiplier: 0
+  targetMaxMultiplierRankMod: 0
+  targetTime: 0
+  targetTimeRankMod: 0
+  targetEnemyCount: 0
+  targetEnemyCountRankMod: 0
+  targetDamage: 0
+  targetDamageRankMod: 0

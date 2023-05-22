@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3478483686251021479}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f88bf9ffeb132541af5c60a853385c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isVRSpace: 1
   map: {fileID: 0}
   colorMappings:
   - color: {r: 0, g: 0, b: 0, a: 1}
@@ -79,5 +80,12 @@ MonoBehaviour:
     type: 3}
   weakCube: {fileID: 1000011195351270, guid: 60f03b7963c19604ca555569658034b9, type: 3}
   immoveableCube: {fileID: 1000011195351270, guid: d2f25af23997ebf488bf79d17d682973,
+    type: 3}
+  cubeVR: {fileID: 1000011195351270, guid: 0ecd214958fdf23478c0e2a1c0f91d1c, type: 3}
+  cubeWallVR: {fileID: 1000011195351270, guid: 0ecd214958fdf23478c0e2a1c0f91d1c, type: 3}
+  cubeWallHighVR: {fileID: 1000011195351270, guid: 0ecd214958fdf23478c0e2a1c0f91d1c,
+    type: 3}
+  cubeGoalVR: {fileID: 0}
+  checkpointCubeVR: {fileID: 1000011195351270, guid: 5155f876597e3c54389449fa06986af3,
     type: 3}
   finishedInit: 0

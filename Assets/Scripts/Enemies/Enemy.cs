@@ -529,6 +529,11 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 // need heavy hit sound
                 FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakePushHit, transform.position);
                 break;
+            case PlayerBehaviour.PlayerAttackType.ParryBullet:
+                stunnedTimer += pushStunTimer;
+                stunCounter += pushStunTimer;
+                FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakePushHit, transform.position);
+                break;
         }
         if (stunCounter >= superStunThreshhold)
         {

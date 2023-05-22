@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
   m_Name: Level 0-9
   m_EditorClassIdentifier: 
-  levelMusicTrack: 2
+  levelMusicTrack: 3
   map: {fileID: 2800000, guid: 9e0e2f83c5a03d445b16f71dd0cc7b6a, type: 3}
   Spawners:
   - {fileID: 11400000, guid: b5817390fe814824facbe11a8e466ef3, type: 2}
@@ -23,6 +23,8 @@ MonoBehaviour:
   musicName: Club_high1
   backdrop: {fileID: 1553529043616714, guid: 38fed1f3afe485e4388e129afe645419, type: 3}
   powerupWeights: 1e0000000a000000140000000500000000000000050000000500000005000000
+  includeCompanion: 1
+  isVRSpace: 0
   showEndLevelReport: 1
   targetScore: 20000
   targetScoreRankMod: 0.2

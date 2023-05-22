@@ -14,6 +14,11 @@ public class LevelScriptableObject : ScriptableObject
     public GameObject backdrop;
     public int[] powerupWeights;
 
+    public LevelScriptableObject[] linkedSublevelList;
+
+    public bool includeCompanion = true;
+    public bool isVRSpace = false;
+    
     public bool showEndLevelReport;
 
     public int targetScore;
