@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour {
 
     public GameObject interactableLableObject;
 
+    public GameObject buttonsHUDObject;
+
     private Animation praiseTextEnterAnim;
     private Coroutine TriggerPraiseCoroutine;
 
@@ -132,6 +134,8 @@ public class UIManager : MonoBehaviour {
         GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
         GameManager.Instance.SetDuckMusicIntensity(1f);
         Time.timeScale = 0;
+        
+        pauseDialog.GetComponent<PauseDialog>().Populate();
         pauseDialog.gameObject.SetActive(true);
     }
 

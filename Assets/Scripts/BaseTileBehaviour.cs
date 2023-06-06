@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +24,12 @@ public class BaseTileBehaviour : MonoBehaviour {
     public void Drop()
     {
         StartCoroutine(Animate(dropAnim, dropDuration));
+    }
+
+    public IEnumerator WeakDrop(float targetHeight, Action callback = null)
+    {
+        yield return StartCoroutine(Animate(dropAnim, dropDuration, targetHeight));
+        if(callback !=  null) callback();
     }
 
     public void Rise()
@@ -55,27 +62,49 @@ public class BaseTileBehaviour : MonoBehaviour {
 
     public void Pulse()
     {
-        StartCoroutine(Animate(pulseAnim, pulseDuration));
+        StartCoroutine(AnimateVisuals(pulseAnim, pulseDuration));
     }
 
     public void SmallPulse()
     {
-        StartCoroutine(Animate(smallPulseAnim, smallPulseDuration));
+        StartCoroutine(AnimateVisuals(smallPulseAnim, smallPulseDuration));
     }
 
     public void Popup()
     {
-        StartCoroutine(Animate(popupAnim, popupDuration));
+        StartCoroutine(AnimateVisuals(popupAnim, popupDuration));
     }
 
-    private IEnumerator Animate(AnimationCurve curve, float duration)
+    private IEnumerator AnimateVisuals(AnimationCurve curve, float duration, float targetHeight =0)
     {
         float time = 0;
         while (time < duration)
         {
             float yPos = curve.Evaluate(time/duration);
             //print("time: "+time +" duration: "+duration +" ypos: "+yPos);
+            MainPillar.transform.localPosition = new Vector3(transform.localPosition.x, yPos, transform.localPosition.z);
+            
+            if(targetHeight != 0 && yPos <= -targetHeight)
+                break;
+
+            //print(transform.position);
+            yield return null;
+            time += Time.deltaTime;
+        }
+    }
+
+    private IEnumerator Animate(AnimationCurve curve, float duration, float targetHeight = 0)
+    {
+        float time = 0;
+        while (time < duration)
+        {
+            float yPos = curve.Evaluate(time / duration);
+            //print("time: "+time +" duration: "+duration +" ypos: "+yPos);
             transform.localPosition = new Vector3(transform.localPosition.x, yPos, transform.localPosition.z);
+
+            if (targetHeight != 0 && yPos <= -targetHeight)
+                break;
+
             //print(transform.position);
             yield return null;
             time += Time.deltaTime;

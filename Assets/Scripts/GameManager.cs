@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour {
 
     private LevelScriptableObject currentLevelData;
 
+    
+
     private float maxScoreMultiplier;
     private float timeLevelStarted;
     private float damageTaken;
@@ -95,21 +97,27 @@ public class GameManager : MonoBehaviour {
         //wait frame for the scene to load.
         yield return null;
 
-        print("Loading level number "+CurrentLevelIndex);
-        currentLevelData = levelManager.Init(CurrentLevelIndex);
         
         PlayerObject = Resources.Load("Player 2.0") as GameObject;
         GameObject go = Instantiate(PlayerObject);
         PlayerInstance = go.GetComponent<PlayerBehaviour>();
         playerPointPosition = null;
-        if (currentLevelData.isVRSpace)
-            PlayerInstance.SwitchToVRSpaceOutfit();
 
-        if (currentLevelData.includeCompanion)
+        GameObject companionObject = Resources.Load("Alex") as GameObject;
+        companion = Instantiate(companionObject).GetComponent<CompanionBehaviour>();
+
+        print("Loading level number "+CurrentLevelIndex);
+        currentLevelData = levelManager.Init(CurrentLevelIndex);
+
+        if (currentLevelData.isVRSpace)
+        {
+            PlayerInstance.SwitchToVRSpaceOutfit();
+        }
+        /*if (currentLevelData.includeCompanion)
         {
             GameObject companionObject = Resources.Load("Alex") as GameObject;
             companion = Instantiate(companionObject).GetComponent<CompanionBehaviour>();
-        }
+        }*/
 
         score = 0;
         scoreMultiplier = 1;
@@ -125,7 +133,7 @@ public class GameManager : MonoBehaviour {
         UIManager.Instance.SetScoreMultiplier(scoreMultiplier);
 
         cameraRef = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>();
-        print(cameraRef.currentState);
+        //print(cameraRef.currentState);
 
         //init music after once awakes are done
         StartCoroutine(AudioManager.Instance.StartMusic(currentLevelData.levelMusicTrack));
@@ -152,7 +160,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void SetPlayerPosition(Vector3 position)
+    public void SetPlayerPosition(Vector3 position, LevelScriptableObject levelData)
     {
         if (PlayerInstance == null)
         {
@@ -161,7 +169,7 @@ public class GameManager : MonoBehaviour {
         }
         PlayerInstance.transform.position = position;
 
-        if (currentLevelData.includeCompanion)
+        if (levelData.includeCompanion)
         {
             companion.transform.position = new Vector3(position.x - companion.stopDistance, position.y, position.z);
             companion.SetPlayerRef(PlayerInstance);
@@ -188,6 +196,7 @@ public class GameManager : MonoBehaviour {
 
         score = 0;
         this.StopAllCoroutines();
+        levelManager.ClearActiveLevels();
         AudioManager.Instance.StopAllSounds();
         SceneManager.LoadScene(1); // Load MainCore scene which will load the rest of the scenes
 
@@ -200,6 +209,12 @@ public class GameManager : MonoBehaviour {
         additiveScene = AdditiveScenes.UpperBavelle;
         cameraRef.SetLowHealth(false);
         RestartLevel(false);
+    }
+
+    public LevelGenerator GetCurrentSublevel()
+    {
+        //print("getting sublevel");
+        return levelManager.GetCurrentSublevel();
     }
 
     public void AddScore(int points)
@@ -284,6 +299,16 @@ public class GameManager : MonoBehaviour {
             UIManager.Instance.OpenEndLevelDialog(score, maxScoreMultiplier, levelTime, PlayerInstance.enemyDefeatedCount, damageTaken, currentLevelData);
         else
             NextLevel();
+    }
+
+    internal void MoveLevelDown()
+    {
+        levelManager.NextSublevel(true);
+    }
+
+    internal void MoveLevelUp()
+    {
+        levelManager.NextSublevel(false);
     }
 
     public IEnumerator TriggerFinisher(Transform target, float time)
@@ -375,4 +400,15 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public string GetCurrentLevelName()
+    {
+        return currentLevelData.name;
+    }
+
+    internal void ClearLevel()
+    {
+        levelManager.ClearActiveLevels();
+    }
+
+    
 }

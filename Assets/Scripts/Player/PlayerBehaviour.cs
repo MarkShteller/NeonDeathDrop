@@ -75,6 +75,9 @@ public class PlayerBehaviour : MonoBehaviour
     [HideInInspector] public bool enableControlls = true;
     [HideInInspector] public bool enableMovement = true;
     private bool isFalling;
+    private bool isChangingSublevel;
+    [SerializeField] private float currentFalloffHeight;
+
     private float prevRotationAngle;
     private float revolutionCount;
     private float currentRevolutionCooldown;
@@ -132,6 +135,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public GameObject[] trails;
 
+    public AnimationCurve jumpPadCurve;
+
     public enum PlayerAttackType { None, Push, Dash, Heavy, Launch, ParryBullet }
     public PlayerAttackType currentAttackType;
 
@@ -152,10 +157,14 @@ public class PlayerBehaviour : MonoBehaviour
     void Start()
     {
         if (!IsTestMode)
-            gridHolder = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>();
+            gridHolder = GameManager.Instance.GetCurrentSublevel();
+            //gridHolder = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>();
 
         capsuleCollider = GetComponent<CapsuleCollider>();
+
         aimAssist = GetComponentInChildren<PlayerAimAssist>();
+        aimAssist.gameObject.SetActive(false);
+
         shakeSource = GetComponent<CinemachineImpulseSource>();
         currentPushForce = pushForce;
         defaultForcePushTriggerSize = forcePushTriggerCollider.size;
@@ -170,15 +179,18 @@ public class PlayerBehaviour : MonoBehaviour
         prevRotationAngle = 0;
         revolutionCount = 0;
         currentRevolutionCooldown = revolutionCooldown;
-
         sprintTimer = sprintCountdown;
+
+        currentFalloffHeight = -0.2f;
 
         launchedEnemies = new List<Enemy>();
 
         isCharging = false;
         isFalling = false;
+        isChangingSublevel = false;
         isHoleSlomo = false;
         isChargeMana = true;
+
         mainDirectionalLight = GameObject.FindGameObjectWithTag("MainLight");
         currentAttackType = PlayerAttackType.None;
 
@@ -288,6 +300,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             enableMovement = false;
 
+            aimAssist.gameObject.SetActive(true);
             GameObject closestEnemy = aimAssist.GetClosestEnemyObject();
             if (closestEnemy != null)
             {
@@ -417,15 +430,24 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnPull(InputValue value)
     {
-        /*if (AOEManaCost <= manaPoints)
+        if (manaPoints >= pushManaCost && !isHoleSlomo)
         {
-            animator.SetTrigger("AOERepel");
-            manaPoints -= AOEManaCost;
-            enableControlls = false;
-            StartCoroutine(GameManager.Instance.TriggerFinisher(transform, 2f));
+            enableMovement = false;
+
+            aimAssist.gameObject.SetActive(true);
+            GameObject closestEnemy = aimAssist.GetClosestEnemyObject();
+            if (closestEnemy != null)
+            {
+                this.visualsHolder.LookAt(closestEnemy.transform, Vector3.up);
+                visualsHolder.Rotate(new Vector3(0, 180, 0));
+            }
+
+            //the animation triggers PreformPush()
+            animator.SetTrigger("PullA");
+            StopSprinting();
         }
         else
-            LowMana();*/
+            LowMana();
     }
 
     private void OnStart(InputValue value)
@@ -500,7 +522,7 @@ public class PlayerBehaviour : MonoBehaviour
         DetectPlayerPositionOnGrid();
 
 
-        if (transform.position.y < -0.2f)
+        if (transform.position.y < currentFalloffHeight)
         {
             FellIntoAPit();
             StopSprinting();
@@ -541,6 +563,11 @@ public class PlayerBehaviour : MonoBehaviour
         launchedEnemies.Clear();
         //enableControlls = true;
         enableMovement = true;
+    }
+
+    public void PreformPullAttack()
+    { 
+        currentPushForce *= -1f;
     }
 
     private void RepelAttackAction()
@@ -663,6 +690,8 @@ public class PlayerBehaviour : MonoBehaviour
     public void PreformPush(float pushRadiusMul, float effectTime, float floorEffectLength, ForcePushFloorTrigger.PulseType pulseType, float pushRadiusWidth = 2)
     {
         //StartCoroutine(DebugSlomo());
+        aimAssist.gameObject.SetActive(false);
+
         currentAttackType = PlayerAttackType.Push;
         enableMovement = true;
         manaPoints -= pushManaCost;
@@ -692,7 +721,7 @@ public class PlayerBehaviour : MonoBehaviour
             yield return null;
         }
         currentAttackType = PlayerAttackType.None;
-
+        currentPushForce = pushForce;
     }
 
     private IEnumerator DebugSlomo()
@@ -924,6 +953,25 @@ public class PlayerBehaviour : MonoBehaviour
             GameManager.Instance.LevelFinished();
             //gameObject.SetActive(false);
         }
+        
+        if (isChangingSublevel && collision.gameObject.CompareTag("FloorCube"))
+        {
+            FinishSublevelMovement();
+        }
+        if (collision.gameObject.CompareTag("LevelUpCube") && !isChangingSublevel)
+        {
+            enableControlls = false;
+            enableMovement = false;
+            isChangingSublevel = true;
+            //transform.position = new Vector3(collision.gameObject.transform.position.x, transform.position.y, collision.gameObject.transform.position.z);
+            currentFalloffHeight += 30;
+
+            StartCoroutine(JumpPadMovement(3.5f, 40, new Vector3(collision.gameObject.transform.position.x, transform.position.y, collision.gameObject.transform.position.z)));
+            animator.SetBool("JumpingUp", true);
+            GameManager.Instance.cameraRef.currentState = CameraMovement.CameraState.FollowVertically;
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.AreaUnlock, transform.position);
+        }
+
         if (collision.gameObject.CompareTag("WallCube") || collision.gameObject.CompareTag("GateCube"))
         {
             enableDash = false;
@@ -965,6 +1013,18 @@ public class PlayerBehaviour : MonoBehaviour
             FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakeDashHit, transform.position);
             //GameManager.Instance.DashSlomo(1f);
         }
+        if (other.gameObject.CompareTag("LevelDownCube") && !isChangingSublevel)
+        {
+            enableControlls = false;
+            enableMovement = false;
+            isChangingSublevel = true;
+            transform.position = new Vector3(other.gameObject.transform.position.x, transform.position.y, other.gameObject.transform.position.z);
+            currentFalloffHeight += -30;
+            animator.SetBool("SlidingDown", true);
+            GameManager.Instance.cameraRef.currentState = CameraMovement.CameraState.FollowVertically;
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.AreaUnlock, transform.position);
+        }
+
         /*if (other.CompareTag("EnemyPulseTrigger"))
         {
             Enemy enemy = other.transform.parent.GetComponent<Enemy>();
@@ -973,6 +1033,59 @@ public class PlayerBehaviour : MonoBehaviour
         }*/
     }
 
+    private void FinishSublevelMovement(bool isDown = true)
+    {
+        if(isDown)
+            GameManager.Instance.MoveLevelDown();
+        else
+            GameManager.Instance.MoveLevelUp();
+
+        gridHolder = GameManager.Instance.GetCurrentSublevel();
+
+        isChangingSublevel = false;
+        enableControlls = true;
+        enableMovement = true;
+        animator.SetBool("SlidingDown", false);
+
+        GameManager.Instance.cameraRef.currentState = CameraMovement.CameraState.Point;
+        GameManager.Instance.cameraRef.RecenterCameraHeight(transform.position.y);
+        
+            shockwaveBehavior.gameObject.SetActive(true);
+        StartCoroutine(shockwaveBehavior.Shockwave(3, false));
+    }
+
+    private IEnumerator JumpPadMovement(float time, float totalHeight, Vector3 jumpPadPos)
+    {
+        GameManager.Instance.cameraRef.FrameSublevelUpJump(time *2);
+
+        float t = 0;
+        float startY = transform.position.y;
+        float deltaY;
+        Vector3 newPos;
+        while (t <= time) // jump translation 
+        {
+            deltaY = jumpPadCurve.Evaluate(t / time) * totalHeight;
+            newPos = new Vector3(jumpPadPos.x, startY + deltaY, jumpPadPos.z);
+            transform.position = Vector3.Lerp(transform.position, newPos, 0.5f);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        enableControlls = true;
+        enableMovement = true;
+        isFalling = true;
+        animator.SetBool("JumpingUp", false);
+        animator.SetBool("Falling", isFalling);
+
+        t = 0;
+        startY = transform.position.y;
+        while (t <= time/2) // airtime translation
+        {
+            transform.position = new Vector3(transform.position.x, startY, transform.position.z);
+            t += Time.deltaTime;
+            yield return null;
+        }
+    }
 
     public void TakeDamage(float damage)
     {
@@ -1033,7 +1146,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void FellIntoAPit()
     {
-        if (!isFalling)
+        if (!isFalling && !isChangingSublevel)
         {
             enableControlls = false;
             isFalling = true;
@@ -1070,9 +1183,9 @@ public class PlayerBehaviour : MonoBehaviour
 
         Vector3 retryPostion;
         if (checkpoint != null)
-            retryPostion = new Vector3(checkpoint.position.x, 10, checkpoint.position.z);
+            retryPostion = new Vector3(checkpoint.position.x, currentFalloffHeight + 10, checkpoint.position.z);
         else
-            retryPostion = new Vector3(spawnPosition.x, 10, spawnPosition.z);
+            retryPostion = new Vector3(spawnPosition.x, currentFalloffHeight + 10, spawnPosition.z);
         transform.position = retryPostion;
 
         yield return new WaitForSeconds(4f);
@@ -1295,6 +1408,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                     if (gNode.GetTileType() == TileType.Weak)
                     {
+                        print("## player weak tile broke");
                         gNode.GetGameNodeRef().GetComponentInChildren<WeakTileBehaviour>().StepOnTile(()=> gNode.SetType(TileType.Pit));
                     }
 

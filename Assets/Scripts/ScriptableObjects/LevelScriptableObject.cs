@@ -14,6 +14,8 @@ public class LevelScriptableObject : ScriptableObject
     public GameObject backdrop;
     public int[] powerupWeights;
 
+    public bool hasSublevels;
+    public Vector2 positionOffset;
     public LevelScriptableObject[] linkedSublevelList;
 
     public bool includeCompanion = true;

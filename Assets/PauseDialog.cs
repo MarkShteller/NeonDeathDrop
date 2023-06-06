@@ -10,11 +10,17 @@ public class PauseDialog : MonoBehaviour
     public Button restartBtn;
     public Button optionsBtn;
     public Button quitBtn;
+    public TMPro.TMP_Text lvlDetailsText;
 
     // Start is called before the first frame update
     void Start()
     {
         continueBtn.Select();
+    }
+
+    public void Populate()
+    { 
+        lvlDetailsText.text = "[debug] Level name: "+GameManager.Instance.GetCurrentLevelName();
     }
 
     public void OnContinue()
@@ -37,6 +43,7 @@ public class PauseDialog : MonoBehaviour
     {
         UIManager.Instance.ClosePauseDialog();
         AudioManager.Instance.StopAllSounds();
+        GameManager.Instance.ClearLevel();
         SceneManager.LoadScene(0);
     }
 }

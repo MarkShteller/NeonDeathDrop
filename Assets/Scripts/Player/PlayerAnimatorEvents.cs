@@ -9,15 +9,20 @@ public class PlayerAnimatorEvents : MonoBehaviour
     public void PreformPush()
     {
         playerBehaviour.PreformPush(1, 0.1f, 0.2f, ForcePushFloorTrigger.PulseType.Light);
-        //playerBehaviour.PlayCorrespondingPushSound();
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerPush, transform.position);
     }
 
     public void PreformPush2()
     {
         playerBehaviour.PreformPush(1.5f, 0.2f, 0.4f, ForcePushFloorTrigger.PulseType.Light);
-        //playerBehaviour.PlayCorrespondingPushSound();
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerPushCombo, transform.position);
+    }
+
+    public void PreformPull()
+    {
+        playerBehaviour.PreformPush(1.5f, 0.2f, 0.4f, ForcePushFloorTrigger.PulseType.Light);
+        playerBehaviour.PreformPullAttack();
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerPush, transform.position);
     }
 
     public void PreformSomersault()

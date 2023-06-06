@@ -7,13 +7,14 @@ public class CameraMovement : MonoBehaviour {
 	public Transform target;
     public Vector3 targetPosition;
 
-    public enum CameraState { Point, Interpolate, Triangulate }
+    public enum CameraState { Point, FollowVertically, Interpolate, Triangulate }
     public CameraState currentState;
     public Transform targetB;
 
     public CinemachineVirtualCamera VCamDashImpact;
     public CinemachineVirtualCamera finisherVCam;
     public CinemachineVirtualCamera heavyAttackVCam;
+    public CinemachineVirtualCamera sublevelUpVCam;
 
     public Animation screenGlitchAnim;
     public Animator animator;
@@ -49,8 +50,12 @@ public class CameraMovement : MonoBehaviour {
                 else
                 {
                     target = GameObject.FindGameObjectWithTag("Player").transform;
-                    targetGroup.AddMember(target, 1, 0);
+                    if(target != null && targetGroup != null) targetGroup.AddMember(target, 1, 0);
                 }
+                break;
+            case CameraState.FollowVertically:
+                if (target != null)
+                    targetPosition = new Vector3(target.localPosition.x, target.localPosition.y +15f, target.localPosition.z - 14.5f);
                 break;
             case CameraState.Interpolate:
                 if (target != null && targetB != null)
@@ -65,7 +70,7 @@ public class CameraMovement : MonoBehaviour {
                 break;
         }
         Vector3 lerpedCamPos = Vector3.Lerp(transform.position, targetPosition, 0.2f);
-        transform.position = new Vector3(lerpedCamPos.x, transform.localPosition.y, lerpedCamPos.z);
+        transform.position = new Vector3(lerpedCamPos.x, lerpedCamPos.y, lerpedCamPos.z);
     }
 
     public void SetSecondTargerAndInterpolate(Transform targetB)
@@ -91,6 +96,11 @@ public class CameraMovement : MonoBehaviour {
     public void FrameHeavyAttack(Transform additionalTarget)
     { 
         StartCoroutine(SwitchVCam(heavyAttackVCam, additionalTarget, 0.3f));
+    }
+
+    public void FrameSublevelUpJump(float time)
+    { 
+        StartCoroutine(SwitchVCam(sublevelUpVCam, null, time));
     }
 
     public void SetLowHealth(bool b)
@@ -120,5 +130,10 @@ public class CameraMovement : MonoBehaviour {
         finisherVCam.gameObject.SetActive(true);
         yield return new WaitForSeconds(time);
         finisherVCam.gameObject.SetActive(false);
+    }
+
+    public void RecenterCameraHeight(float y)
+    {
+        transform.position = new Vector3(transform.position.x, y+15, transform.position.z);
     }
 }

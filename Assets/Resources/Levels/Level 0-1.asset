@@ -18,10 +18,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1fadf30ba7e34214d804cbda1fff6e74, type: 2}
   - {fileID: 11400000, guid: b5817390fe814824facbe11a8e466ef3, type: 2}
   enemyDefeatedCountGoals: 02000000
-  fieldRotationAngle: -45
+  fieldRotationAngle: -135
   musicName: Club_low
   backdrop: {fileID: 1672696130396096, guid: 0b39517a651c6bb459fc03a64afff70e, type: 3}
   powerupWeights: 0000000000000000000000000000000000000000000000000000000000000000
+  hasSublevels: 0
+  positionOffset: {x: -10.5, y: 27.5}
+  linkedSublevelList: []
+  includeCompanion: 1
+  isVRSpace: 0
   showEndLevelReport: 1
   targetScore: 230
   targetScoreRankMod: 0.2

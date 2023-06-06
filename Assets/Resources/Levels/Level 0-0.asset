@@ -13,13 +13,22 @@ MonoBehaviour:
   m_Name: Level 0-0
   m_EditorClassIdentifier: 
   levelMusicTrack: 2
-  map: {fileID: 2800000, guid: 71299b95a86646242838e649a3ec3c5c, type: 3}
-  Spawners: []
+  map: {fileID: 2800000, guid: 5e79ad342fe0d3144a89d8335ea75249, type: 3}
+  Spawners:
+  - {fileID: 11400000, guid: b5817390fe814824facbe11a8e466ef3, type: 2}
   enemyDefeatedCountGoals: 
   fieldRotationAngle: -45
   musicName: Club_low
   backdrop: {fileID: 1672696130396096, guid: 0b39517a651c6bb459fc03a64afff70e, type: 3}
   powerupWeights: 0000000000000000000000000000000000000000000000000000000000000000
+  hasSublevels: 1
+  positionOffset: {x: 0, y: 0}
+  linkedSublevelList:
+  - {fileID: 11400000, guid: 6eac977c57f315f419eeac6f2f982eb8, type: 2}
+  - {fileID: 11400000, guid: 1894e384b8c0ad04a8ee1c7564cf28a9, type: 2}
+  - {fileID: 11400000, guid: ae0616869cc37f845b3cadea275260a9, type: 2}
+  includeCompanion: 1
+  isVRSpace: 0
   showEndLevelReport: 0
   targetScore: 0
   targetScoreRankMod: 0

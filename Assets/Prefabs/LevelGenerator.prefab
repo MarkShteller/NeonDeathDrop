@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f88bf9ffeb132541af5c60a853385c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVRSpace: 1
+  isVRSpace: 0
   map: {fileID: 0}
   colorMappings:
   - color: {r: 0, g: 0, b: 0, a: 1}
@@ -69,17 +69,26 @@ MonoBehaviour:
     tileType: 15
   - color: {r: 1, g: 1, b: 0.78431374, a: 1}
     tileType: 16
+  - color: {r: 0.5882353, g: 0.5882353, b: 0, a: 1}
+    tileType: 17
+  - color: {r: 0.5882353, g: 0.5882353, b: 1, a: 1}
+    tileType: 18
   cube: {fileID: 1000011195351270, guid: d41408fc664f74e41b6fa76018a9af8b, type: 3}
   cubeAlt: {fileID: 1000011195351270, guid: e03ddca8b2ea50f4a9581d9b68f54ba6, type: 3}
   cubeWall: {fileID: 1000011195351270, guid: 415d64f16de3ae24a90672b1ceec9b34, type: 3}
   cubeWallHigh: {fileID: 1000011195351270, guid: 415d64f16de3ae24a90672b1ceec9b34,
     type: 3}
+  cubePit: {fileID: 1000011195351270, guid: dff3cb3301fdc3a408343170fc0e0a47, type: 3}
   cubeGoal: {fileID: 1868131461983634, guid: 5784ca9da759f4046ae343d9a365dc36, type: 3}
   cubeGate: {fileID: 1000011195351270, guid: 7bd8ac91b8fd515419caf5043a05b3b1, type: 3}
   checkpointCube: {fileID: 1000011195351270, guid: c00de0fcf1cdd8d4db2f41d5bf74ed5f,
     type: 3}
   weakCube: {fileID: 1000011195351270, guid: 60f03b7963c19604ca555569658034b9, type: 3}
   immoveableCube: {fileID: 1000011195351270, guid: d2f25af23997ebf488bf79d17d682973,
+    type: 3}
+  sublevelDownCube: {fileID: 1868131461983634, guid: d64d353315b8d09479e136a2bdb3e80e,
+    type: 3}
+  sublevelUpCube: {fileID: 1868131461983634, guid: f00e8b45ca6e26a4daacbd67d320b020,
     type: 3}
   cubeVR: {fileID: 1000011195351270, guid: 0ecd214958fdf23478c0e2a1c0f91d1c, type: 3}
   cubeWallVR: {fileID: 1000011195351270, guid: 0ecd214958fdf23478c0e2a1c0f91d1c, type: 3}

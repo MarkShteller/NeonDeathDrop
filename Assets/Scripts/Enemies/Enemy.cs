@@ -81,10 +81,9 @@ public class Enemy : MonoBehaviour, IPooledObject {
     {
         playerPointPos = GameManager.Instance.playerPointPosition;
         playerObject = GameManager.Instance.PlayerInstance.transform;
-        gridHolder = LevelGenerator.Instance;
-        DetectEnemyPositionOnGrid();
+        //gridHolder = GameManager.Instance.GetCurrentSublevel();//LevelGenerator.Instance;
+        //DetectEnemyPositionOnGrid();
 
-        StartCoroutine(FindPathEverySeconds(findPlayerInterval));
 
         movementStatus = MovementType.Static;
         rrigidBody = GetComponent<Rigidbody>();
@@ -95,12 +94,20 @@ public class Enemy : MonoBehaviour, IPooledObject {
         Init();
     }
 
+    public void SetGridHolder(LevelGenerator sublevel)
+    {
+        //print("### setting grid");
+        gridHolder = sublevel;
+        DetectEnemyPositionOnGrid();
+        StartCoroutine(FindPathEverySeconds(findPlayerInterval));
+    }
+
     internal virtual void Init() { }
 
     IEnumerator FindPathEverySeconds(float t)
     {
         yield return null;
-        yield return null;
+        //yield return null;
         while (true)
         {
             if (shouldFollowPlayer)
@@ -121,9 +128,9 @@ public class Enemy : MonoBehaviour, IPooledObject {
     internal virtual void DetectEnemyPositionOnGrid()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, gridHolder.GetDistanceToPit()))
         {
-            if (hit.transform.CompareTag("FloorCube") || hit.transform.CompareTag("WallCube") || hit.transform.CompareTag("WeakCube"))
+            if (hit.transform.CompareTag("FloorCube") || hit.transform.CompareTag("WallCube") || hit.transform.CompareTag("WeakCube") || hit.transform.CompareTag("PitCube"))
             {
                 //if the old pointpos is occupied, set it to normal.
                 if(pointPos != null && gridHolder.GetGridNodeType(pointPos.x, pointPos.y) == TileType.Occupied)
@@ -140,6 +147,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
                 if (gNode.GetTileType() == TileType.Weak)
                 {
+                    print("## enemy weak tile broke");
                     gNode.GetGameNodeRef().GetComponentInChildren<WeakTileBehaviour>().StepOnTile(() => gNode.SetType(TileType.Pit));
                 }
                 else if (gNode.GetTileType() == TileType.Pit)
@@ -174,9 +182,11 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
     public void Die(DeathType deathType)
     {
+        print("enemy died. death type: "+ deathType.ToString());
         if (movementStatus != MovementType.Dead)
         {
-            movementStatus = MovementType.Falling;
+            //movementStatus = MovementType.Falling;
+            DyingAction();
             PowerUpObject powerup = PowerupFactory.Instance.RollPowerup();
             if (powerup != null && prevPointPos != null)
             {
@@ -282,7 +292,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 break;
 
             case MovementType.Falling:
-                DyingAction();
+                //DyingAction();
                 break;
 
             case MovementType.Dead:
@@ -367,6 +377,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
         animator.SetTrigger("Dead");
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyFall, transform.position);
 
+        GetComponent<Collider>().enabled = false;
         movementStatus = MovementType.Dead;
     }
 

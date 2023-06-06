@@ -15,6 +15,8 @@ public class EnemyManager : MonoBehaviour {
     public List<Enemy> activeEnemies;
     private List<Enemy> enemiesToRemove;
 
+    private Dictionary<int, List<Enemy>> sublevelEnemies;
+
     public bool isUpdateEnemies;
     public bool isTrackPlayer;
 
@@ -28,17 +30,29 @@ public class EnemyManager : MonoBehaviour {
         enemiesToRemove = new List<Enemy>();
         activeEnemies = new List<Enemy>();
         SpawnPoints = new List<EnemySpawnpointInstance>();
+
+        sublevelEnemies = new Dictionary<int, List<Enemy>>();
     }
 
-    public void Init()
+    public IEnumerator InitAllSpawnpoints()
     {
-        //print("## inting spawn points count: " + SpawnPoints.Count);
+        print("## inting enemy spawn points count: " + SpawnPoints.Count);
+        foreach (EnemySpawnpointInstance spawner in SpawnPoints)
+        {
+            if (!sublevelEnemies.ContainsKey(spawner.sublevel))
+            {
+                sublevelEnemies.Add(spawner.sublevel, new List<Enemy>());
+            }
+        }
 
         foreach (EnemySpawnpointInstance spawner in SpawnPoints)
         {
             //print("Inting spawn point " + spawner.spawnPoint.position);
-            StartCoroutine(SpawnCoroutine(spawner));
+            yield return StartCoroutine(SpawnCoroutine(spawner));
         }
+
+        //activeEnemies = sublevelEnemies[0];
+        SetSublevelActiveEnemies(0);
     }
 
     IEnumerator SpawnCoroutine(EnemySpawnpointInstance spawner)
@@ -49,10 +63,12 @@ public class EnemyManager : MonoBehaviour {
             //print("spawner "+spawner.name+" spawning enemy... quantity: "+quantity);
             //Instantiate(spawner.enemy, spawner.spawnPoint.position, Quaternion.identity);
             Enemy enemy = ObjectPooler.Instance.SpawnFromPool(spawner.enemyName, spawner.spawnPoint.position, Quaternion.identity).GetComponent<Enemy>();
-            activeEnemies.Add(enemy);
+
+            //activeEnemies.Add(enemy);
+            sublevelEnemies[spawner.sublevel].Add(enemy);
 
             quantity--;
-            yield return new WaitForSeconds(spawner.interval);
+            yield return null;//new WaitForSeconds(spawner.interval);
         }
     }
 
@@ -67,11 +83,14 @@ public class EnemyManager : MonoBehaviour {
                 enemiesToRemove.Clear();
             }
             numEnemiesTrackingPlayer = 0;
+            //print("### num of active enemies: " + activeEnemies.Count);
             foreach (Enemy enemy in activeEnemies)
             {
                 enemy.UpdateEnemy(isTrackPlayer);
                 numEnemiesTrackingPlayer += enemy.GetIsTrackingPlayer();
             }
+
+
             if(numEnemiesTrackingPlayer > 0)
                 AudioManager.Instance.SetHighIntensityMusic();
             else
@@ -84,9 +103,10 @@ public class EnemyManager : MonoBehaviour {
         isUpdateEnemies = b;
     }
 
-    public void AddSpawnPoint(EnemySpawnpointInstance spawner)
+    public void AddSpawnPoint(EnemySpawnpointInstance spawner, int sublevel)
     {
         SpawnPoints.Add(spawner);
+        spawner.sublevel = sublevel;
     }
 
     public void SpawnEnemiesForBossBattle(BossEnemySpawnPoint[] enemySpawners)
@@ -112,6 +132,18 @@ public class EnemyManager : MonoBehaviour {
                 return enemy;
         }
         return e;
+    }
+
+    public void SetSublevelActiveEnemies(int sublevel)
+    {
+        if (sublevelEnemies.ContainsKey(sublevel))
+        {
+            activeEnemies = sublevelEnemies[sublevel];
+            foreach (var enemy in activeEnemies)
+            {
+                enemy.SetGridHolder(GameManager.Instance.GetCurrentSublevel());
+            }
+        }
     }
 
     public List<Enemy> GetStunnedEnemiesByDistance(float radius, Vector3 playerPosition)

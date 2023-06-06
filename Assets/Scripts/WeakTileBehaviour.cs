@@ -6,10 +6,16 @@ using UnityEngine;
 public class WeakTileBehaviour : BaseTileBehaviour
 {
     public float timeToFall;
+    public GameObject visuals;
+    private bool isSteppedOn = false;
 
     public void StepOnTile(Action callback)
     {
-        StartCoroutine(FallCoroutine(callback));
+        if (!isSteppedOn)
+        { 
+            StartCoroutine(FallCoroutine(callback));
+            isSteppedOn = true;
+        }
     }
 
     private IEnumerator FallCoroutine(Action callback)
@@ -17,7 +23,7 @@ public class WeakTileBehaviour : BaseTileBehaviour
         yield return new WaitForSeconds(timeToFall);
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnvTileCracked, transform.position);
 
-        base.Drop();
+        StartCoroutine(WeakDrop(5, () => visuals.SetActive(false)));
         callback();
     }
 }

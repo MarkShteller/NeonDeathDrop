@@ -42,6 +42,7 @@ public class AudioManager : MonoBehaviour {
     [FMODUnity.EventRef] public string UIRestart = "";
     [FMODUnity.EventRef] public string CompanionFloating = "";
     [FMODUnity.EventRef] public string BoxBreak = "";
+    public EventReference AreaUnlock;
 
     EventInstance LevelMusic;
     //Parameter paramInstance;

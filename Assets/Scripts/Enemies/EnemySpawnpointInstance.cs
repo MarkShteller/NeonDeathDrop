@@ -11,6 +11,7 @@ public class EnemySpawnpointInstance
     public Enemy enemy;
 
     public Transform spawnPoint;
+    public int sublevel;
 
     public EnemySpawnpointInstance(EnemySpawner enemySpawner)
     {
