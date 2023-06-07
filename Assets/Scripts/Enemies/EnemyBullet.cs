@@ -54,6 +54,7 @@ public class EnemyBullet : MonoBehaviour, IPooledObject {
 
     public void OnObjectSpawn()
     {
+        vForward = transform.forward;
         lifetimeRemaining = lifetime;
     }
 

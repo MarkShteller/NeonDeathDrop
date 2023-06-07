@@ -568,6 +568,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void PreformPullAttack()
     { 
         currentPushForce *= -1f;
+        print("force pull: " + currentPushForce);
     }
 
     private void RepelAttackAction()
@@ -689,7 +690,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void PreformPush(float pushRadiusMul, float effectTime, float floorEffectLength, ForcePushFloorTrigger.PulseType pulseType, float pushRadiusWidth = 2)
     {
-        //StartCoroutine(DebugSlomo());
         aimAssist.gameObject.SetActive(false);
 
         currentAttackType = PlayerAttackType.Push;
@@ -698,14 +698,18 @@ public class PlayerBehaviour : MonoBehaviour
         
         Vector3 size = new Vector3(forcePushTriggerCollider.size.x + pushRadiusWidth, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius * pushRadiusMul);
         Vector3 center = new Vector3(0, 0, -pushRadius * pushRadiusMul / 2);
-        StartCoroutine(OverridePushCollider(0.1f, size, center));
-
-        //StartCoroutine(ShowForcePushEffect(effectTime));
 
         forcePushEffect.SetFloat("ForceMultiplier", pushRadiusMul);
+        //print("## pushing force: "+ currentPushForce);
+
+        if (currentPushForce > 0)
+            forcePushEffect.SetBool("IsPull", false);
+        else
+            forcePushEffect.SetBool("IsPull", true);
         if (pushRadiusMul <= 1.7f) //exclude Somersault 
             forcePushEffect.Play();
 
+        StartCoroutine(OverridePushCollider(0.1f, size, center));
 
         StartCoroutine(forcePushFloorTrigger.PlayEffectCoroutine(floorEffectLength, pushRadiusWidth, pulseType));
     }

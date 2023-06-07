@@ -26,7 +26,9 @@ public class SpiderLegBehaviour : EnemyPulsing
         shouldFollowPlayer = false;
         shakeScreen = true;
         playerObject = GameManager.Instance.PlayerInstance.transform;
-        gridHolder = LevelGenerator.Instance;
+        //gridHolder = LevelGenerator.Instance;
+
+        EnemyManager.Instance.AddBossLegToActiveList(this);
 
         movementStatus = MovementType.Static;
         rrigidBody = GetComponent<Rigidbody>();
@@ -71,7 +73,7 @@ public class SpiderLegBehaviour : EnemyPulsing
     internal override void PulseAction()
     {
         base.PulseAction();
-
+        print("## spider leg pulse");
         //float yLookRotation = transform.localRotation.eulerAngles.y;
         //print("yLookRotation: "+ yLookRotation + " minRotation: " + minRotation + " maxRotation: "+ maxRotation);
 

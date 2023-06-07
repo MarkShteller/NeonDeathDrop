@@ -111,11 +111,25 @@ public class EnemyManager : MonoBehaviour {
 
     public void SpawnEnemiesForBossBattle(BossEnemySpawnPoint[] enemySpawners)
     {
+        if(!sublevelEnemies.ContainsKey(0))
+            sublevelEnemies.Add(0, new List<Enemy>());
         foreach (BossEnemySpawnPoint spawner in enemySpawners)
         {
             Enemy enemy = ObjectPooler.Instance.SpawnFromPool(spawner.enemySpawner.enemyName, spawner.transform.position, Quaternion.identity).GetComponent<Enemy>();
-            activeEnemies.Add(enemy);
+            //activeEnemies.Add(enemy);
+            
+            sublevelEnemies[0].Add(enemy);
+            SetSublevelActiveEnemies(0);
         }
+    }
+
+    public void AddBossLegToActiveList(Enemy enemy)
+    {
+        if (!sublevelEnemies.ContainsKey(0))
+            sublevelEnemies.Add(0, new List<Enemy>());
+        
+        sublevelEnemies[0].Add(enemy);
+        SetSublevelActiveEnemies(0);
     }
 
     internal void RemoveFromActiveEnemies(Enemy enemy)

@@ -20,8 +20,8 @@ public class PlayerAnimatorEvents : MonoBehaviour
 
     public void PreformPull()
     {
-        playerBehaviour.PreformPush(1.5f, 0.2f, 0.4f, ForcePushFloorTrigger.PulseType.Light);
         playerBehaviour.PreformPullAttack();
+        playerBehaviour.PreformPush(1.5f, 0.2f, 0.4f, ForcePushFloorTrigger.PulseType.Light);
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerPush, transform.position);
     }
 

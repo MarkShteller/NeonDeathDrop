@@ -58,8 +58,7 @@ public class SpiderBossBehaviour : MonoBehaviour
             spiderLeg.Init();
         }
 
-        GameManager.Instance.cameraRef.SetSecondTargerAndInterpolate(transform);
-
+        StartCoroutine(InitCamera());
         //ReorderLegs();
 
         print("# Boss finish init");
@@ -110,6 +109,13 @@ public class SpiderBossBehaviour : MonoBehaviour
 
                 break;
         }
+    }
+
+    private IEnumerator InitCamera()
+    {
+        yield return null;
+        yield return null;
+        GameManager.Instance.cameraRef.SetSecondTargerAndInterpolate(transform);
     }
 
     private void ShouldMoveToNextStage(int countLegs)
@@ -211,6 +217,8 @@ public class SpiderBossBehaviour : MonoBehaviour
 
                 if (timeToStomp <= 0)
                 {
+                    print("## preparing spider leg pulse");
+
                     int rndLegA = Random.Range(0, spiderLegs.Length / 2); ;
                     while (rndLegA == stompingLegA) //make sure to have a different leg every time 
                         rndLegA = Random.Range(0, spiderLegs.Length / 2);
