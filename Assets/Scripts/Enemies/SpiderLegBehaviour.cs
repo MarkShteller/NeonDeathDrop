@@ -73,7 +73,6 @@ public class SpiderLegBehaviour : EnemyPulsing
     internal override void PulseAction()
     {
         base.PulseAction();
-        print("## spider leg pulse");
         //float yLookRotation = transform.localRotation.eulerAngles.y;
         //print("yLookRotation: "+ yLookRotation + " minRotation: " + minRotation + " maxRotation: "+ maxRotation);
 

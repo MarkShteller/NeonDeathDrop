@@ -104,6 +104,8 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector3 defaultForcePushTriggerSize;
     public float pushRadius = 4f;
 
+    private Coroutine dashCoroutine;
+
     [SerializeField]
     private float pushForce;
     [HideInInspector]
@@ -283,7 +285,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             GameManager.Instance.EndSlomo();
 
-            isSprinting = false;
+            //isSprinting = false;
             EnemyManager.Instance.SetUpdateEnemies(true);
 
             //TriggerMakeHoleAction();
@@ -310,7 +312,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             //the animation triggers PreformPush()
             animator.SetTrigger("PushA");
-            StopSprinting();
+            //StopSprinting();
         }
         else
             LowMana();
@@ -324,7 +326,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (!isDoingSomersault)
             {
                 isDoingSomersault = true;
-                StopSprinting();
+                //StopSprinting();
                 animator.SetTrigger("HeavyA");
                 FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSomersault, transform.position);
             }
@@ -335,9 +337,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     void OnSprint(InputValue value)
     {
-        isSprinting = true;
+        /*isSprinting = true;
         sprintingSoundEvent.setParameterByName("Skate_Exit", 0);
-        sprintingSoundEvent.start();
+        sprintingSoundEvent.start();*/
     }
 
     void OnLaunch(InputValue value)
@@ -385,7 +387,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (manaPoints >= dashManaCost && enableDash && !isHoleSlomo)
         {
-            if (!isDashing)
+            if (!isDashing && dashCoroutine == null)
             {
                 manaPoints -= dashManaCost;
 
@@ -403,14 +405,15 @@ public class PlayerBehaviour : MonoBehaviour
                 animator.SetTrigger("Dash");
 
                 //Vector3 rotation = this.visualsHolder.forward;//this.visualsHolder.rotation.eulerAngles.normalized * -1;
-                print("dash vis dir: " + rotation);
+                //print("dash vis dir: " + rotation);
 
                 animator.SetFloat("DashX", moveAnimDirection.x);
                 animator.SetFloat("DashY", moveAnimDirection.y);
 
                 print("dashAnimDirection: " + moveAnimDirection);
 
-                StartCoroutine(DashCoroutine(dashDir, dashDuration));
+                //if(dashCoroutine == null)
+                    dashCoroutine = StartCoroutine(DashCoroutine(dashDir, dashDuration));
             }
         }
         else
@@ -444,7 +447,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             //the animation triggers PreformPush()
             animator.SetTrigger("PullA");
-            StopSprinting();
+            //StopSprinting();
         }
         else
             LowMana();
@@ -477,6 +480,11 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     StopSprinting();
                 }
+                
+                if (inputMovement.magnitude >= 0.9f)
+                    isSprinting = true;
+                else
+                    isSprinting = false;
             }
 
             Vector3 rotation = this.visualsHolder.forward;
@@ -492,6 +500,7 @@ public class PlayerBehaviour : MonoBehaviour
             animator.SetFloat("MoveX", targetX);
             animator.SetFloat("MoveY", targetY);
 
+            
 
             Vector3 playerAimRotation = Vector3.right * -inputAim.x + Vector3.forward * -inputAim.y;
             Vector3 playerDefaultRotation = Vector3.right * -xMove + Vector3.forward * -zMove;
@@ -568,7 +577,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void PreformPullAttack()
     { 
         currentPushForce *= -1f;
-        print("force pull: " + currentPushForce);
+        //print("force pull: " + currentPushForce);
     }
 
     private void RepelAttackAction()
@@ -669,7 +678,6 @@ public class PlayerBehaviour : MonoBehaviour
 
         yield return new WaitForSeconds(duration/2f);
 
-        isDashing = false;
 
         if (isDashImpact)
         {
@@ -680,11 +688,14 @@ public class PlayerBehaviour : MonoBehaviour
 
             isDashImpact = false;
         }
+        isDashing = false;
 
         isInvinsible = false;
 
         if(!isDead)
             enableControlls = true;
+
+        dashCoroutine = null;
     }
 
 
@@ -1095,7 +1106,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         currentPushForce = pushForce;
 
-        StopSprinting();
+        //StopSprinting();
         if (isDoingSomersault)
             FinishSomersault();
 

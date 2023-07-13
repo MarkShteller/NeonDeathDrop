@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224714707859890684}
-  - component: {fileID: 33772586074453462}
   - component: {fileID: 23967558042030054}
   - component: {fileID: 222845995341360240}
   - component: {fileID: 114616453000884852}
@@ -19,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &224714707859890684
 RectTransform:
   m_ObjectHideFlags: 0
@@ -40,14 +39,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!33 &33772586074453462
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1480035692472034}
-  m_Mesh: {fileID: 0}
 --- !u!23 &23967558042030054
 MeshRenderer:
   m_ObjectHideFlags: 0
