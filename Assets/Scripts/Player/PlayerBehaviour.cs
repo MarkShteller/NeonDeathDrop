@@ -234,8 +234,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     void OnCancel(InputValue value)
     { 
-        playerInput.SwitchCurrentActionMap("Player");
-
+        //playerInput.SwitchCurrentActionMap("Player");
+        UIManager.Instance.CloseTopDialog();
     }
 
     void OnInteract(InputValue value)
@@ -462,7 +462,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void OnStartUI(InputValue value)
     {
         print("pressed start UI");
-        UIManager.Instance.ClosePauseDialog();
+        UIManager.Instance.CloseAllDialogs();
     }
 
     void FixedUpdate()

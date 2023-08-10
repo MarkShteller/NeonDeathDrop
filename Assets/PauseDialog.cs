@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PauseDialog : MonoBehaviour
+public class PauseDialog : AbstractDialog
 {
     public Button continueBtn;
     public Button restartBtn;
@@ -15,7 +15,7 @@ public class PauseDialog : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        continueBtn.Select();
+        SelectFirst();
     }
 
     public void Populate()
@@ -25,25 +25,31 @@ public class PauseDialog : MonoBehaviour
 
     public void OnContinue()
     {
-        UIManager.Instance.ClosePauseDialog();
+        UIManager.Instance.CloseAllDialogs();
     }
 
     public void OnRestart()
     { 
-        UIManager.Instance.ClosePauseDialog();
+        UIManager.Instance.CloseAllDialogs();
         GameManager.Instance.RestartLevel(true);
     }
 
     public void OnOptions()
-    { 
-        UIManager.Instance.ClosePauseDialog();
+    {
+        //UIManager.Instance.ClosePauseDialog();
+        UIManager.Instance.OpenOptionsDialog();
     }
 
     public void OnQuit()
     {
-        UIManager.Instance.ClosePauseDialog();
+        UIManager.Instance.CloseAllDialogs();
         AudioManager.Instance.StopAllSounds();
         GameManager.Instance.ClearLevel();
         SceneManager.LoadScene(0);
+    }
+
+    public override void SelectFirst()
+    {
+        continueBtn.Select();
     }
 }

@@ -59,13 +59,16 @@ public class Enemy : MonoBehaviour, IPooledObject {
     internal float savedDrag;
     private float onFloorYPos = 4f;
 
+    private float collisionCooldown = 0.2f;
+    private float currentCollisionCooldown;
+
     [HideInInspector] public LevelGenerator gridHolder;
 
 
     internal MovementType movementStatus;
     internal RigidbodyConstraints constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
-    internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, SuperStunned, Launched, Falling, Shooting, Pulse, Dead,
+    internal enum MovementType { Static, TrackingPlayer, Pushed, Stunned, SuperStunned, Launched, Falling, Shooting, Bounce, Pulse, Dead,
         HoleFlying,
         Attacking
     }
@@ -265,7 +268,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
             case MovementType.Pushed:
                 //recover from push and continue following the player
-                if (rrigidBody.velocity.x < 0.1f && rrigidBody.velocity.y < 0.1f)
+                if (rrigidBody.velocity.x < 0.05f && rrigidBody.velocity.y < 0.05f)
                 {
                     if(!isSuperStunned)
                         movementStatus = MovementType.Stunned;
@@ -299,6 +302,9 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 EnemyManager.Instance.RemoveFromActiveEnemies(this);
                 break;
         }
+
+        if (currentCollisionCooldown > 0)
+            currentCollisionCooldown -= Time.deltaTime;
     }
 
     private void MeleeAttackAction()
@@ -470,11 +476,42 @@ public class Enemy : MonoBehaviour, IPooledObject {
             if (ZapEffect != null)
                 StartCoroutine(Zap(0.5f));
         }
-        /*if (collision.gameObject.CompareTag("FloorCube"))
+
+        if (currentCollisionCooldown <= 0)
         {
-            //print("enemy colides with floor tile");
-            rrigidBody.drag = savedDrag;
-        }*/
+
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                currentCollisionCooldown = collisionCooldown;
+                print("## enemy collision current state: " + movementStatus + " collision: " + collision.gameObject.name);
+                if (movementStatus == MovementType.Pushed || movementStatus == MovementType.Stunned)// || movementStatus == MovementType.SuperStunned)
+                {
+                    TransferVelocity(collision.gameObject);
+                }
+            }
+
+            if (collision.gameObject.CompareTag("WallCube"))
+            {
+                currentCollisionCooldown = collisionCooldown;
+                //print("enemy hitting wall velocity " + rrigidBody.velocity.normalized);
+                if (movementStatus == MovementType.Pushed || movementStatus == MovementType.Stunned || movementStatus == MovementType.SuperStunned)
+                {
+                    FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyTakePushHit, transform.position);
+
+                    //Vector3 dir = rrigidBody.velocity.normalized * GameManager.Instance.PlayerInstance.currentPushForce * 0.5f;
+                    //Vector2 v2dir = Vector2.Perpendicular(rrigidBody.velocity.normalized);
+                    //ForcePush(new Vector3(v2dir.x, 0, v2dir.y), GameManager.Instance.PlayerInstance.currentPushForce, PlayerBehaviour.PlayerAttackType.Push);
+                    //ForcePush(-rrigidBody.velocity.normalized, GameManager.Instance.PlayerInstance.currentPushForce, PlayerBehaviour.PlayerAttackType.Push);
+                }
+            }
+        }
+    }
+
+    private void TransferVelocity(GameObject other)
+    {
+        print("## transfer velocity");
+        other.GetComponent<Enemy>().ForcePush(rrigidBody.velocity.normalized, GameManager.Instance.PlayerInstance.currentPushForce, PlayerBehaviour.PlayerAttackType.Push);
+        this.rrigidBody.velocity = Vector3.zero;
     }
 
     private IEnumerator Zap(float duration)

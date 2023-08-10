@@ -33,11 +33,15 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private EndLevelReportDialog endLevelReportDialog;
 
     [SerializeField] private PauseDialog pauseDialog;
+    [SerializeField] private OptionsDialog optionsDialog;
+
+    private Stack dialogStack;
 
     public ProjectionCanvasController projectionCanvas;
 
     void Awake () {
         Instance = this;
+        dialogStack = new Stack();
 	}
 
     private void Start()
@@ -131,20 +135,62 @@ public class UIManager : MonoBehaviour {
 
     public void OpenPauseDialog()
     {
-        GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
-        GameManager.Instance.SetDuckMusicIntensity(1f);
-        Time.timeScale = 0;
-        
-        pauseDialog.GetComponent<PauseDialog>().Populate();
-        pauseDialog.gameObject.SetActive(true);
+        OpenDialogGeneric(pauseDialog.gameObject);
     }
 
-    public void ClosePauseDialog()
+    public void OpenOptionsDialog()
     {
+        OpenDialogGeneric(optionsDialog.gameObject);
+    }
+
+    private void OpenDialogGeneric(GameObject dialog)
+    {
+        //hide the dialog thats on top of the stack for future recovery
+        if (dialogStack.Count > 0)
+        {
+            GameObject topDialog = dialogStack.Peek() as GameObject;
+            topDialog.SetActive(false);
+        }
+
+        dialogStack.Push(dialog);
+        GameManager.Instance.SetDuckMusicIntensity(1f);
+        GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+        Time.timeScale = 0;
+        dialog.SetActive(true);
+        dialog.GetComponent<AbstractDialog>().SelectFirst();
+    }
+
+    public void CloseTopDialog()
+    {
+        if (dialogStack.Count > 0)
+        {
+            GameObject topDialog = dialogStack.Pop() as GameObject;
+            topDialog.SetActive(false);
+        }
+
+        if (dialogStack.Count == 0)
+        {
+            Time.timeScale = 1;
+            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+            GameManager.Instance.SetDuckMusicIntensity(0f);
+        }
+        else
+        {
+            GameObject topDialog = dialogStack.Peek() as GameObject;
+            topDialog.SetActive(true);
+            topDialog.GetComponent<AbstractDialog>().SelectFirst();
+        }
+    }
+
+    public void CloseAllDialogs()
+    {
+        GameObject topDialog = dialogStack.Peek() as GameObject;
+        topDialog.SetActive(false);
+        dialogStack.Clear();
+
+        Time.timeScale = 1;
         GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
         GameManager.Instance.SetDuckMusicIntensity(0f);
-        Time.timeScale = 1;
-        pauseDialog.gameObject.SetActive(false);
     }
 
     public void OpenEndLevelDialog(int score, float maxMultiplier, float time, int enemyCount, float damage, LevelScriptableObject level)
