@@ -139,7 +139,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public AnimationCurve jumpPadCurve;
 
-    public enum PlayerAttackType { None, Push, Dash, Heavy, Launch, ParryBullet }
+    public enum PlayerAttackType { None, Push, Pull, Dash, Heavy, Launch, ParryBullet }
     public PlayerAttackType currentAttackType;
 
     public bool IsTestMode = false;
@@ -703,10 +703,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         aimAssist.gameObject.SetActive(false);
 
-        currentAttackType = PlayerAttackType.Push;
         enableMovement = true;
         manaPoints -= pushManaCost;
-        
+
         Vector3 size = new Vector3(forcePushTriggerCollider.size.x + pushRadiusWidth, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius * pushRadiusMul);
         Vector3 center = new Vector3(0, 0, -pushRadius * pushRadiusMul / 2);
 
@@ -714,9 +713,16 @@ public class PlayerBehaviour : MonoBehaviour
         //print("## pushing force: "+ currentPushForce);
 
         if (currentPushForce > 0)
+        { 
+            currentAttackType = PlayerAttackType.Push;
             forcePushEffect.SetBool("IsPull", false);
+        }
         else
+        { 
+            currentAttackType = PlayerAttackType.Pull;
             forcePushEffect.SetBool("IsPull", true);
+        }
+
         if (pushRadiusMul <= 1.7f) //exclude Somersault 
             forcePushEffect.Play();
 
@@ -783,7 +789,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (angleDifference < -180f) angleDifference += 360f;
             prevRotationAngle = newAngle;
 
-            currentRevolutionCooldown -= Time.deltaTime;
+           /*currentRevolutionCooldown -= Time.deltaTime;
             if (currentRevolutionCooldown <= 0)
             {
                 currentRevolutionCooldown = revolutionCooldown;
@@ -803,7 +809,7 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 else
                     LowMana();
-            }
+            }*/
             //print(angleDifference);
         }
 
@@ -1163,13 +1169,12 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (!isFalling && !isChangingSublevel)
         {
+            print("Player fell");
             enableControlls = false;
+            enableDash = false;
             isFalling = true;
             EnemyManager.Instance.isUpdateEnemies = false;
             FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerFall, transform.position);
-
-            //Transform respawnPoint = prevHoveredObject.transform;
-            //transform.position = new Vector3(respawnPoint.position.x, 10, respawnPoint.position.z);
             TrailsEnabled(true);
 
             StartCoroutine(WaitToRecover());
@@ -1207,6 +1212,7 @@ public class PlayerBehaviour : MonoBehaviour
         TrailsEnabled(false);
 
         isInvinsible = false;
+        enableDash = true;
         enableControlls = true;
         EnemyManager.Instance.isUpdateEnemies = true;
     }
@@ -1390,7 +1396,7 @@ public class PlayerBehaviour : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit))
         {
-            if (hit.transform.tag == "FloorCube" || hit.transform.tag == "WeakCube")
+            if (hit.transform.tag == "FloorCube" || hit.transform.tag == "WeakCube" || hit.transform.tag == "PitCube")
             {
                 string name = hit.transform.parent.name;
                 string[] posArr = name.Split(',');
@@ -1436,7 +1442,7 @@ public class PlayerBehaviour : MonoBehaviour
                     else if (gNode.GetTileType() == TileType.Pit)
                     {
                         timeOverPit += Time.deltaTime;
-                        if (!isDashing && timeOverPit >= 0.3f)
+                        if (!isDashing && timeOverPit >= 0.3f) ///0.3
                             FellIntoAPit();
                     }
                 }

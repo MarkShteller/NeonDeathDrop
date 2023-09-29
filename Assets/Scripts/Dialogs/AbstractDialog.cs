@@ -5,4 +5,5 @@ using UnityEngine;
 public abstract class AbstractDialog : MonoBehaviour
 {
     public abstract void SelectFirst();
+    public abstract void CloseDialog();
 }

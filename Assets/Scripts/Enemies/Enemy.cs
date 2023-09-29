@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
         Attacking
     }
     public enum DeathType { Pit, PlayerPit, EnemyPit, Shockwave }
-    private PlayerBehaviour.PlayerAttackType lastAttackType;
+    internal PlayerBehaviour.PlayerAttackType lastAttackType;
     /*private void Awake()
     {
         gridHolder = LevelGenerator.Instance;
@@ -267,16 +267,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 break;
 
             case MovementType.Pushed:
-                //recover from push and continue following the player
-                if (rrigidBody.velocity.x < 0.05f && rrigidBody.velocity.y < 0.05f)
-                {
-                    if(!isSuperStunned)
-                        movementStatus = MovementType.Stunned;
-                    else
-                        movementStatus = MovementType.SuperStunned;
-
-                    stunnedRemaining = stunnedTimer;
-                }
+                PushedAction();
                 break;
 
             case MovementType.Stunned:
@@ -305,6 +296,20 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
         if (currentCollisionCooldown > 0)
             currentCollisionCooldown -= Time.deltaTime;
+    }
+
+    internal virtual void PushedAction()
+    {
+        //recover from push and continue following the player
+        if (rrigidBody.velocity.x < 0.05f && rrigidBody.velocity.y < 0.05f)
+        {
+            if (!isSuperStunned)
+                movementStatus = MovementType.Stunned;
+            else
+                movementStatus = MovementType.SuperStunned;
+
+            stunnedRemaining = stunnedTimer;
+        }
     }
 
     private void MeleeAttackAction()

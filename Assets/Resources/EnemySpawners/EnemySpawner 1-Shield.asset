@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e80d38449bc2741b2d9d744910b107, type: 3}
+  m_Name: EnemySpawner 1-Shield
+  m_EditorClassIdentifier: 
+  interval: 1
+  quantity: 1
+  startTime: 1
+  enemyName: EnemyShield
+  enemy: {fileID: 6233804886211624179, guid: e4349d411abd4ad418ac28c085ae0445, type: 3}

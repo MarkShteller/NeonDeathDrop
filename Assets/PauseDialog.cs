@@ -52,4 +52,9 @@ public class PauseDialog : AbstractDialog
     {
         continueBtn.Select();
     }
+
+    public override void CloseDialog()
+    {
+        //throw new System.NotImplementedException();
+    }
 }

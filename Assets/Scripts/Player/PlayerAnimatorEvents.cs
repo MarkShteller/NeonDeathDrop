@@ -27,7 +27,7 @@ public class PlayerAnimatorEvents : MonoBehaviour
 
     public void PreformSomersault()
     {
-        playerBehaviour.PreformPush(2f, 0.2f, 0.4f, ForcePushFloorTrigger.PulseType.Heavy, 4);
+        playerBehaviour.PreformPush(2f, 0.2f, 0.35f, ForcePushFloorTrigger.PulseType.Heavy, 4);
         playerBehaviour.PreformSomersault();
     }
 

@@ -165,6 +165,7 @@ public class UIManager : MonoBehaviour {
         if (dialogStack.Count > 0)
         {
             GameObject topDialog = dialogStack.Pop() as GameObject;
+            topDialog.GetComponent<AbstractDialog>().CloseDialog();
             topDialog.SetActive(false);
         }
 

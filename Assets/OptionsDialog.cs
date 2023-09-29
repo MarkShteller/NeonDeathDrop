@@ -1,11 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class OptionsDialog : AbstractDialog
 {
+    public InputActionAsset actions;
     public Toggle fulscreenToggle;
     public TMP_Dropdown graphicsPresetDropdown;
     public TMP_Dropdown resolutionDropdown;
@@ -15,7 +16,16 @@ public class OptionsDialog : AbstractDialog
     private void OnEnable()
     {
         print("# Populating settings menu");
-        
+
+        //actions.Disable();
+
+        var rebinds = PlayerPrefs.GetString("rebinds");
+        if (!string.IsNullOrEmpty(rebinds))
+        {
+            print("found saved rebind settings");
+            actions.LoadBindingOverridesFromJson(rebinds);
+        }
+
         graphicsPresetDropdown.SetValueWithoutNotify(QualitySettings.GetQualityLevel());
         graphicsPresetDropdown.RefreshShownValue();
 
@@ -54,5 +64,20 @@ public class OptionsDialog : AbstractDialog
     public override void SelectFirst()
     {
         fulscreenToggle.Select();
+    }
+
+    public override void CloseDialog()
+    {
+        print("closing options dialog and updating key bindings");
+        //actions.Enable();
+
+        var rebinds = actions.SaveBindingOverridesAsJson();
+        PlayerPrefs.SetString("rebinds", rebinds);
+    }
+
+    private void OnDisable()
+    {
+        var rebinds = actions.SaveBindingOverridesAsJson();
+        PlayerPrefs.SetString("rebinds", rebinds);
     }
 }

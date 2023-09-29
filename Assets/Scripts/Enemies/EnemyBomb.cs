@@ -7,6 +7,7 @@ public class EnemyBomb : Enemy
 {
     public float explotionRadius;
     public float holeTimeToRegen;
+    public float explotionTimer;
     public SphereCollider sphereCollider;
     public VisualEffect chargeEffect;
     public VisualEffect explosionEffect;
@@ -19,6 +20,20 @@ public class EnemyBomb : Enemy
             explotionCoroutine = StartCoroutine(Explode(explotionRadius));
     }
 
+    /* internal override void SuperStunnedAction()
+     {
+         if (explotionCoroutine == null)
+             explotionCoroutine = StartCoroutine(Explode(explotionRadius));
+     }*/
+
+    internal override void PushedAction()
+    {
+        if (rrigidBody.velocity.x < 0.05f && rrigidBody.velocity.y < 0.05f)
+        {
+            movementStatus = MovementType.Stunned;
+        }
+    }
+
     public IEnumerator Explode(float radius)
     {
         print("bomb explode action");
@@ -28,7 +43,7 @@ public class EnemyBomb : Enemy
         chargeEffect.gameObject.SetActive(true);
         chargeEffect.Play();
 
-        yield return new WaitForSeconds(stunnedTimer);
+        yield return new WaitForSeconds(explotionTimer);
 
         sphereCollider.gameObject.SetActive(true);
         float ogRadius = sphereCollider.radius;

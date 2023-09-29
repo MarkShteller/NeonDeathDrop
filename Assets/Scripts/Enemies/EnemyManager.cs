@@ -11,7 +11,6 @@ public class EnemyManager : MonoBehaviour {
     //public float CreateEnemyInterval;
     public List<EnemySpawnpointInstance> SpawnPoints;
 
-    [HideInInspector]
     public List<Enemy> activeEnemies;
     private List<Enemy> enemiesToRemove;
 
