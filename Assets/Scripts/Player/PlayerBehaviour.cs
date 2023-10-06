@@ -957,6 +957,7 @@ public class PlayerBehaviour : MonoBehaviour
                 isDashImpact = true;
                 dashImpactEnemyLocation = enemy.transform.position;
                 enemy.ForcePush(lastDashDir, currentPushForce * 2f, PlayerAttackType.Dash, true);
+                UseMana(dashManaCost);
 
                 GameManager.Instance.DashSlomo(2f);
                 GameManager.Instance.cameraRef.FastZoom(enemy.transform);

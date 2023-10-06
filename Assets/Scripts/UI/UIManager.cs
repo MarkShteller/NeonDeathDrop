@@ -34,6 +34,9 @@ public class UIManager : MonoBehaviour {
 
     [SerializeField] private PauseDialog pauseDialog;
     [SerializeField] private OptionsDialog optionsDialog;
+    [SerializeField] private TutorialDialog tutorialDialog;
+    [SerializeField] private TutorialManager tutorialManager;
+
 
     private Stack dialogStack;
 
@@ -141,6 +144,12 @@ public class UIManager : MonoBehaviour {
     public void OpenOptionsDialog()
     {
         OpenDialogGeneric(optionsDialog.gameObject);
+    }
+
+    public void OpenTutorialDialog(int tutorialIndex)
+    {
+        OpenDialogGeneric(tutorialDialog.gameObject);
+        tutorialDialog.Populate(tutorialManager.tutorialObjects[tutorialIndex]);
     }
 
     private void OpenDialogGeneric(GameObject dialog)

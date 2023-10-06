@@ -6,10 +6,12 @@ using UnityEngine.InputSystem;
 
 public class InteractableDialogObject : MonoBehaviour
 {
-    public string conversationID;
+    public enum InteractionType { NONE, ConvoProtraits, ConvoSubtitles, TutorialDialog }
+    public InteractionType interactionType;
+    public string interactionID;
     public bool isPlayerTriggered;
     public bool isTriggeredOnce;
-    public bool isSubtitles;
+    //public bool isSubtitles;
 
     private bool isEnabled = true;
     public UnityEvent triggerEnterEvent;
@@ -60,22 +62,27 @@ public class InteractableDialogObject : MonoBehaviour
             isEnabled = false;
         UIManager.Instance.SetInteractableVisible(false);
 
-        if (!conversationID.Equals("") && DialogManager.Instance.IDExists(conversationID))
+        if (interactionID == "" || (interactionType != InteractionType.TutorialDialog && !DialogManager.Instance.IDExists(interactionID)))
         {
-            if (!isSubtitles)
-            {
-                DialogManager.Instance.ShowCharacterDialog(conversationID, triggerExitEvent);
-                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
-            }
-            else
-            {
-                DialogManager.Instance.ShowSubtitlesDialog(conversationID);
-            }
-        }
-        else
-        {
-            Debug.LogError("Conversation ID "+ conversationID +" does not exist or empty.");
+            Debug.LogError("Interaction ID " + interactionID + " does not exist or empty.");
             GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+            return;
+        }
+
+        switch (interactionType)
+        {
+            case InteractionType.ConvoProtraits:
+                DialogManager.Instance.ShowCharacterDialog(interactionID, triggerExitEvent);
+                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+                break;
+
+            case InteractionType.ConvoSubtitles:
+                DialogManager.Instance.ShowSubtitlesDialog(interactionID);
+                break;
+
+            case InteractionType.TutorialDialog:
+                UIManager.Instance.OpenTutorialDialog(int.Parse(interactionID));
+                break;
         }
     }
 

@@ -485,7 +485,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
         if (currentCollisionCooldown <= 0)
         {
 
-            if (collision.gameObject.CompareTag("Enemy"))
+            /*if (collision.gameObject.CompareTag("Enemy"))
             {
                 currentCollisionCooldown = collisionCooldown;
                 print("## enemy collision current state: " + movementStatus + " collision: " + collision.gameObject.name);
@@ -493,7 +493,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 {
                     TransferVelocity(collision.gameObject);
                 }
-            }
+            }*/
 
             if (collision.gameObject.CompareTag("WallCube"))
             {
