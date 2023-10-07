@@ -19,7 +19,10 @@ public class TutorialDialog : AbstractDialog
         body.text = tutorialObjRef.body;
 
         if (tutorialObjRef.image != null)
+        {
+            image.gameObject.SetActive(true);
             image.sprite = tutorialObjRef.image;
+        }
         else
             image.gameObject.SetActive(false);
     }
