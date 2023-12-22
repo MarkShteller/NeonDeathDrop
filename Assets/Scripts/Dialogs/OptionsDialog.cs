@@ -8,6 +8,7 @@ public class OptionsDialog : AbstractDialog
 {
     public InputActionAsset actions;
     public Toggle fulscreenToggle;
+    public Toggle hudToggle;
     public TMP_Dropdown graphicsPresetDropdown;
     public TMP_Dropdown resolutionDropdown;
 
@@ -16,6 +17,9 @@ public class OptionsDialog : AbstractDialog
     private void OnEnable()
     {
         print("# Populating settings menu");
+
+        hudToggle.isOn = !UIManager.Instance.recordingMode;
+        fulscreenToggle.isOn = Screen.fullScreen;
 
         //actions.Disable();
 
@@ -61,9 +65,14 @@ public class OptionsDialog : AbstractDialog
         Screen.fullScreen = isFullscreen;
     }
 
+    public void SetHUDVisible(bool isHUD)
+    {
+        UIManager.Instance.SetHUDVisible(isHUD);
+    }
+
     public override void SelectFirst()
     {
-        fulscreenToggle.Select();
+        hudToggle.Select();
     }
 
     public override void CloseDialog()

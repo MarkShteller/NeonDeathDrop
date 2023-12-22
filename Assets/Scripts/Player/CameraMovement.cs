@@ -15,6 +15,7 @@ public class CameraMovement : MonoBehaviour {
     public CinemachineVirtualCamera finisherVCam;
     public CinemachineVirtualCamera heavyAttackVCam;
     public CinemachineVirtualCamera sublevelUpVCam;
+    public CinemachineVirtualCamera shockwaveVCam;
 
     public Animation screenGlitchAnim;
     public Animator animator;
@@ -87,6 +88,7 @@ public class CameraMovement : MonoBehaviour {
         animator.SetTrigger("Glitch");
     }
 
+
     public void FastZoom(Transform additionalTarget)
     {
         //animator.SetTrigger("FastZoom");
@@ -103,15 +105,23 @@ public class CameraMovement : MonoBehaviour {
         StartCoroutine(SwitchVCam(sublevelUpVCam, null, time));
     }
 
+    public void FrameShockwave(float time, Transform lookAt)
+    { 
+        StartCoroutine(SwitchVCam(shockwaveVCam, null, time, lookAt));
+    }
+
     public void SetLowHealth(bool b)
     {
         animator.SetBool("LowHealth", b);
     }
 
-    private IEnumerator SwitchVCam(CinemachineVirtualCamera vCamera, Transform additionalTarget, float time)
+    private IEnumerator SwitchVCam(CinemachineVirtualCamera vCamera, Transform additionalTarget, float time, Transform lookAtTarget = null)
     {
         //targetGroup.AddMember(additionalTarget, 1, 0);
-        vCamera.Follow = additionalTarget;
+        if(additionalTarget != null)
+            vCamera.Follow = additionalTarget;
+        if(lookAtTarget != null)
+            vCamera.LookAt = lookAtTarget;
         vCamera.gameObject.SetActive(true);
         yield return new WaitForSeconds(time);
         //targetGroup.RemoveMember(additionalTarget);

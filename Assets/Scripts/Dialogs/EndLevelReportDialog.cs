@@ -29,7 +29,7 @@ public class EndLevelReportDialog : MonoBehaviour
     public void Init(int score, float maxMultiplier, float time, int enemyCount, float damage, LevelScriptableObject levelData)
     {
         scoreText.text = score.ToString("N0");
-        maxMultiplierText.text = "x" + maxMultiplier.ToString("N1");
+        maxMultiplierText.text = "x" + maxMultiplier.ToString("N0");
         timeText.text = string.Format("{0}:{1:00}", (int)time / 60, (int)time % 60);
         enemyCountText.text = enemyCount.ToString("N0");
         damageText.text = damage.ToString("N0");
@@ -55,30 +55,32 @@ public class EndLevelReportDialog : MonoBehaviour
 
     private char CalcGrade(int score, float maxMultiplier, float time, int enemyCount, float damage)
     {
-        float scoreGrade=0, multGrade=0, timeGrade=0, enemyCountGrade=0, damageGrade=0, totalGrade;
+        float scoreGrade=0, multGrade=0, timeGrade=4, enemyCountGrade=0, damageGrade=4, totalGrade;
         int rankIndex;
 
-        for (int i = 0; i < RANKS_COUNT; i++)
+        for (int i = RANKS_COUNT; i > 0; i--)
         {
-            if (time <= levelData.targetTime + levelData.targetTime * levelData.targetTimeRankMod * i)
+            if (time > levelData.targetTime + levelData.targetTime * (levelData.targetTimeRankMod * (i-1)))
             {
                 timeGrade = RANKS_COUNT - i;
                 break;
             }
         }
         rankIndex = Mathf.RoundToInt(timeGrade);
-        timeGradeText.text = RANKS[rankIndex > 0 ? rankIndex - 1 : 0].ToString();
+        timeGradeText.text = RANKS[rankIndex].ToString();
 
-        for (int i = 0; i < RANKS_COUNT; i++)
+
+        for (int i = RANKS_COUNT; i > 0; i--)
         {
-            if (damage <= levelData.targetDamage + levelData.targetDamage * levelData.targetDamageRankMod * i)
+            if (damage > levelData.targetDamage * levelData.targetDamageRankMod * (i-1))
             {
                 damageGrade = RANKS_COUNT - i;
                 break;
             }
         }
         rankIndex = Mathf.RoundToInt(damageGrade);
-        damageGradeText.text = RANKS[rankIndex > 0 ? rankIndex - 1 : 0].ToString();
+        damageGradeText.text = RANKS[rankIndex].ToString();
+
 
         for (int i = 0; i < RANKS_COUNT; i++)
         {
@@ -114,10 +116,10 @@ public class EndLevelReportDialog : MonoBehaviour
         enemyCountGradeText.text = RANKS[rankIndex > 0 ? rankIndex - 1 : 0].ToString();
 
         totalGrade = scoreGrade + multGrade + timeGrade + enemyCountGrade + damageGrade;
-        totalGrade /= RANKS_COUNT;
+        totalGrade /= 5;
         print("totalGrade: " + totalGrade);
 
-        rankIndex = Mathf.RoundToInt(totalGrade);
+        rankIndex = Mathf.CeilToInt(totalGrade);
 
         //clamp result between 0-4
         return RANKS[rankIndex > 0 ? rankIndex - 1 : 0];

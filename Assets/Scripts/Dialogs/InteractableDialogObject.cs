@@ -51,8 +51,8 @@ public class InteractableDialogObject : MonoBehaviour
                 UIManager.Instance.SetInteractableVisible(false);
                 //detach interact action
                 GameManager.Instance.PlayerInstance.interactionEvent -= OnInteract;
-                triggerExitEvent.Invoke();
             }
+            triggerExitEvent.Invoke();
         }
     }
 

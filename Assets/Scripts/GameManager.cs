@@ -36,7 +36,8 @@ public class GameManager : MonoBehaviour {
     public Volume slomoVolume;
     public Volume takingDanmageVolume;
     public int CurrentLevelIndex = 0;
-    public AdditiveScenes additiveScene;
+
+    [HideInInspector] public AdditiveScenes additiveScene;
 
     private LevelScriptableObject currentLevelData;
 
@@ -71,7 +72,7 @@ public class GameManager : MonoBehaviour {
         Application.targetFrameRate = 60;
         this.fixedDeltaTime = Time.fixedDeltaTime;
 
-        
+        additiveScene = levelManager.GetLevelData(CurrentLevelIndex).additiveScene;
         StartCoroutine(InitLevel());
         print("## GameManager ready");
 	}
@@ -108,6 +109,8 @@ public class GameManager : MonoBehaviour {
 
         print("Loading level number "+CurrentLevelIndex);
         currentLevelData = levelManager.Init(CurrentLevelIndex);
+
+        DialogManager.Instance.InitLevelDialogManager(currentLevelData.dialogSheetName);
 
         if (currentLevelData.isVRSpace)
         {
@@ -168,6 +171,7 @@ public class GameManager : MonoBehaviour {
             PlayerInstance = go.GetComponent<PlayerBehaviour>();
         }
         PlayerInstance.transform.position = position;
+        PlayerInstance.visualsHolder.transform.eulerAngles = levelData.PlayerSpawnRotation;
 
         if (levelData.includeCompanion)
         {
@@ -198,6 +202,7 @@ public class GameManager : MonoBehaviour {
         this.StopAllCoroutines();
         levelManager.ClearActiveLevels();
         AudioManager.Instance.StopAllSounds();
+        additiveScene = levelManager.GetLevelData(CurrentLevelIndex).additiveScene;
         SceneManager.LoadScene(1); // Load MainCore scene which will load the rest of the scenes
 
         StartCoroutine(InitLevel());
@@ -274,6 +279,8 @@ public class GameManager : MonoBehaviour {
         {
             scoreMultiplier = value;
             UIManager.Instance.SetScoreMultiplier(scoreMultiplier, praiseTiers[currentMultiplierTierIndex + 1]);
+            if (maxScoreMultiplier < scoreMultiplier)
+                maxScoreMultiplier = scoreMultiplier;
         }
     }
 

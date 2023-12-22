@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bush Shell Lit
+  m_Name: Bush Shell Lit long
   m_Shader: {fileID: 4800000, guid: 589ea0397284e0e42b1985a0455d66b2, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -22,7 +22,7 @@ Material:
     m_TexEnvs:
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 1ef6a1f75a15307458db5bbebf34f93e, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 2.5, y: 1.3}
         m_Offset: {x: 0, y: 0}
     - _FurMap:
         m_Texture: {fileID: 2800000, guid: c22fc16178bfeb94cb1b5985380c4287, type: 3}
@@ -44,7 +44,7 @@ Material:
     - _ShadowExtraBias: -0.3
     - _ShellAmount: 3
     - _ShellStep: 0.0339
-    - _Smoothness: 0.468
+    - _Smoothness: 0.494
     m_Colors:
     - _AmbientColor: {r: 0.30286062, g: 0.3301887, b: 0, a: 1}
     - _BaseColor: {r: 0.47433615, g: 1, b: 0, a: 1}

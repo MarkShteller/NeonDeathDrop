@@ -49,8 +49,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     private float lastTimeDamageTaken = 0;
     private bool enableDash = true;
-    [HideInInspector] public bool isDashing = false;
-    [HideInInspector] public bool isInvinsible = false;
+    private bool isDashing = false;
+    public bool isInvinsible = false;
     private Vector3 lastDashDir;
     private bool isDashImpact = false;
 
@@ -72,8 +72,8 @@ public class PlayerBehaviour : MonoBehaviour
     [HideInInspector] public GameObject prevHoveredObject;
     [HideInInspector] public GameObject currHoveredObject;
 
-    [HideInInspector] public bool enableControlls = true;
-    [HideInInspector] public bool enableMovement = true;
+    public bool enableControlls = true;
+    public bool enableMovement = true;
     private bool isFalling;
     private bool isChangingSublevel;
     [SerializeField] private float currentFalloffHeight;
@@ -118,6 +118,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public LevelGenerator gridHolder;
     public Transform visualsHolder;
+    public Transform visualsMotionRoot;
     public Transform defaultMeshHolder;
     public Transform VRSpaceMeshHolder;
 
@@ -373,6 +374,7 @@ public class PlayerBehaviour : MonoBehaviour
             print("SHOCKWAVE!");
             animator.SetTrigger("Shockwave");
             FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerShockwave, transform.position);
+            GameManager.Instance.cameraRef.FrameShockwave(1f, visualsMotionRoot);
             TrailsEnabled(true);
 
             isInvinsible = true;
@@ -527,8 +529,8 @@ public class PlayerBehaviour : MonoBehaviour
             TrailsEnabled(isSprinting);
             transform.Translate(xMove * totalMoveSpeed, 0, zMove * totalMoveSpeed);
 
+            DetectPlayerPositionOnGrid();
         }
-        DetectPlayerPositionOnGrid();
 
 
         if (transform.position.y < currentFalloffHeight)
@@ -698,7 +700,13 @@ public class PlayerBehaviour : MonoBehaviour
         dashCoroutine = null;
     }
 
+   /* private void StopDashCoroutine()
+    {
+        StopCoroutine(dashCoroutine);
+        capsuleCollider.radius = originRadius;
 
+    }
+   */
     public void PreformPush(float pushRadiusMul, float effectTime, float floorEffectLength, ForcePushFloorTrigger.PulseType pulseType, float pushRadiusWidth = 2)
     {
         aimAssist.gameObject.SetActive(false);
@@ -976,7 +984,7 @@ public class PlayerBehaviour : MonoBehaviour
             //gameObject.SetActive(false);
         }
         
-        if (isChangingSublevel && collision.gameObject.CompareTag("FloorCube"))
+        if (isChangingSublevel && (collision.gameObject.CompareTag("FloorCube") || collision.gameObject.CompareTag("ImmovableCube")))
         {
             FinishSublevelMovement();
         }
@@ -1037,6 +1045,10 @@ public class PlayerBehaviour : MonoBehaviour
         }
         if (other.gameObject.CompareTag("LevelDownCube") && !isChangingSublevel)
         {
+            if (dashCoroutine != null)
+            {
+                isDashing = false;
+            }
             enableControlls = false;
             enableMovement = false;
             isChangingSublevel = true;
@@ -1057,16 +1069,18 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void FinishSublevelMovement(bool isDown = true)
     {
-        if(isDown)
+        isChangingSublevel = false;
+        print("## finishing sublevel movement");
+        if (isDown)
             GameManager.Instance.MoveLevelDown();
         else
             GameManager.Instance.MoveLevelUp();
 
         gridHolder = GameManager.Instance.GetCurrentSublevel();
 
-        isChangingSublevel = false;
         enableControlls = true;
         enableMovement = true;
+        enableDash = true;
         animator.SetBool("SlidingDown", false);
 
         GameManager.Instance.cameraRef.currentState = CameraMovement.CameraState.Point;
@@ -1274,6 +1288,7 @@ public class PlayerBehaviour : MonoBehaviour
                     print("making hole in " + name + " " + node.GetTileType());
                     gridHolder.SetGridNodeType(node, TileType.PlayerPit, holeTimeToRegen);
                     prevPlayerTile.GetComponent<BaseTileBehaviour>().Drop();
+                    FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSlomoExit, transform.position);
                 }
             }
             yield return new WaitForFixedUpdate();
@@ -1389,6 +1404,7 @@ public class PlayerBehaviour : MonoBehaviour
         VRSpaceMeshHolder.gameObject.SetActive(true);
         defaultMeshHolder.gameObject.SetActive(false);
         animator = VRSpaceMeshHolder.GetComponent<Animator>();
+        visualsMotionRoot = null;
     }
 
     private void DetectPlayerPositionOnGrid()

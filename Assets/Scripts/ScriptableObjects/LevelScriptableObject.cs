@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Loader;
 
 [CreateAssetMenu(fileName = "Level 0-0", menuName = "Level")]
 public class LevelScriptableObject : ScriptableObject
 {
+    public AdditiveScenes additiveScene;
     public AudioManager.LevelMusicTracks levelMusicTrack;
     public Texture2D map;
+    public string dialogSheetName;
+
+    public Vector3 PlayerSpawnRotation;
+
     public EnemySpawner[] Spawners;
     public int[] enemyDefeatedCountGoals;
     public float fieldRotationAngle;

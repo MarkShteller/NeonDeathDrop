@@ -21,12 +21,12 @@ public class TitleScreenControls : MonoBehaviour
     {
         if (GameManager.Instance == null)
         {
-            gameManagerRef.CurrentLevelIndex = 1;
+            gameManagerRef.CurrentLevelIndex = 0;
             gameManagerRef.additiveScene = Loader.AdditiveScenes.UpperBavelle;
         }
         else
         {
-            GameManager.Instance.CurrentLevelIndex = 1;
+            GameManager.Instance.CurrentLevelIndex = 0;
             GameManager.Instance.additiveScene = Loader.AdditiveScenes.UpperBavelle;
             GameManager.Instance.RestartLevel(false);
         }
@@ -37,12 +37,12 @@ public class TitleScreenControls : MonoBehaviour
     {
         if (GameManager.Instance == null)
         {
-            gameManagerRef.CurrentLevelIndex = 0;
+            gameManagerRef.CurrentLevelIndex = 1;
             gameManagerRef.additiveScene = Loader.AdditiveScenes.VRSpace;
         }
         else
         {
-            GameManager.Instance.CurrentLevelIndex = 0;
+            GameManager.Instance.CurrentLevelIndex = 1;
             GameManager.Instance.additiveScene = Loader.AdditiveScenes.VRSpace;
             GameManager.Instance.RestartLevel(false);
         }
@@ -51,7 +51,7 @@ public class TitleScreenControls : MonoBehaviour
 
     public void OnLevelSelect()
     { 
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(6);
 
     }
 

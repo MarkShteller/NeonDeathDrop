@@ -19,6 +19,10 @@ public class LevelManager : MonoBehaviour
         return levelDatas[levelIndex];
     }
 
+    public LevelScriptableObject GetLevelData(int levelIndex)
+    {
+        return levelDatas[levelIndex];
+    }
 
     private IEnumerator GenerateLevel(LevelScriptableObject levelData, int index)
     {
@@ -44,6 +48,7 @@ public class LevelManager : MonoBehaviour
                 subLevelGenerator.GenerateSublevels(sublevel, sublevelIndex);
                 sublevelIndex++;
                 sublevelHeight -= 30;
+
                 sublevelList.Add(subLevelGenerator);
                 yield return null;
             }

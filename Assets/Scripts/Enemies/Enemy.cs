@@ -211,7 +211,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 killpoints = 3;
                 break;
             case DeathType.EnemyPit:
-                killpoints = 1.5f;
+                killpoints = 2f;
                 break;
             case DeathType.Shockwave:
                 killpoints = 1;
@@ -223,11 +223,17 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 break;
             case PlayerBehaviour.PlayerAttackType.Push:
                 break;
+            case PlayerBehaviour.PlayerAttackType.Pull:
+                killpoints += 2;
+                break;
             case PlayerBehaviour.PlayerAttackType.Dash:
                 killpoints += 1;
                 break;
             case PlayerBehaviour.PlayerAttackType.Heavy:
                 killpoints += 1;
+                break;
+            case PlayerBehaviour.PlayerAttackType.ParryBullet:
+                killpoints += 3;
                 break;
         }
         GameManager.Instance.AddKillPoints(killpoints);
@@ -387,6 +393,9 @@ public class Enemy : MonoBehaviour, IPooledObject {
         //gameObject.SetActive(false);
         animator.SetTrigger("Dead");
         FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyFall, transform.position);
+        
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.velocity = rb.velocity / 3;
 
         GetComponent<Collider>().enabled = false;
         movementStatus = MovementType.Dead;

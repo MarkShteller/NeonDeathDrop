@@ -5275,11 +5275,10 @@ MonoBehaviour:
   fallDamage: 1
   takenDamageCooldown: 0.5
   buttonPressCooldown: 0.1
-  coresCount: 0
+  coresCount: 3
   enemyDefeatedCount: 0
   soundEffectSource: {fileID: 0}
   spawnPosition: {x: 0, y: 0, z: 0}
-  isDashing: 0
   isInvinsible: 0
   isDoingSomersault: 0
   chargeTimeAttract: 3
@@ -5300,6 +5299,7 @@ MonoBehaviour:
   finisherSpline: {fileID: 2607208410922195069}
   gridHolder: {fileID: 0}
   visualsHolder: {fileID: 4034636670262688}
+  visualsMotionRoot: {fileID: 6726351150780565015}
   defaultMeshHolder: {fileID: 6726351150780565365}
   VRSpaceMeshHolder: {fileID: 8968033440354590965}
   shockwaveBehavior: {fileID: 114396184773858024}
@@ -9532,6 +9532,12 @@ Transform:
 --- !u!4 &6726351150780563821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400536, guid: c87cf272d9904e2409d3f6068f2f5a57,
+    type: 3}
+  m_PrefabInstance: {fileID: 6726351150780964341}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6726351150780565015 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400354, guid: c87cf272d9904e2409d3f6068f2f5a57,
     type: 3}
   m_PrefabInstance: {fileID: 6726351150780964341}
   m_PrefabAsset: {fileID: 0}

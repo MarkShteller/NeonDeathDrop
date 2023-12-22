@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour {
 
     public static UIManager Instance;
 
+    public bool recordingMode;
     public Slider manaSlider;
     public Slider healthSlider;
     public Text scoreText;
@@ -25,6 +26,7 @@ public class UIManager : MonoBehaviour {
     public GameObject interactableLableObject;
 
     public GameObject buttonsHUDObject;
+    public GameObject poleInstructionObject;
 
     private Animation praiseTextEnterAnim;
     private Coroutine TriggerPraiseCoroutine;
@@ -51,6 +53,7 @@ public class UIManager : MonoBehaviour {
     {
         praiseTextEnterAnim = PraiseText.GetComponent<Animation>();
         PraiseText.gameObject.SetActive(false);
+        SetRecordingMode(recordingMode);
     }
 
     /*private void Update()
@@ -233,8 +236,22 @@ public class UIManager : MonoBehaviour {
         interactableLableObject.SetActive(b);
     }
 
+    public void SetPoleInstructionVisible(bool b)
+    {
+        poleInstructionObject.SetActive(b);
+    }
+
     public void SetHUDVisible(bool b)
     {
-        hudObject.SetActive(b);
+        if(!recordingMode)
+            hudObject.SetActive(b);
+        else
+            hudObject.SetActive(false);
+    }
+
+    public void SetRecordingMode(bool b)
+    {
+        recordingMode = b;
+        SetHUDVisible(!recordingMode);
     }
 }

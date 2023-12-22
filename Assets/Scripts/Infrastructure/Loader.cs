@@ -7,9 +7,7 @@ public class Loader : MonoBehaviour
     public GameObject gameManager;
     public LevelGenerator levelGenerator;
 
-    public int overrideLevelIndex = -1;
-    //public GameObject soundManager;
-    public enum AdditiveScenes { TitleScreen, UpperBavelle, LowerBavelle, VRSpace }
+    public enum AdditiveScenes { TitleScreen, MainCore, UpperBavelle, LowerBavelle, VRSpace, NONE = 99 }
 
 
     void Awake()
@@ -30,7 +28,7 @@ public class Loader : MonoBehaviour
     {
         if (GameManager.Instance.additiveScene == AdditiveScenes.VRSpace)
             levelGenerator.isVRSpace = true;
-
+        print("## Loading additive scene: "+ GameManager.Instance.additiveScene.ToString());
         SceneManager.LoadScene(GameManager.Instance.additiveScene.ToString(), LoadSceneMode.Additive);
         yield return null; // wait a frame, so it can finish loading
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(GameManager.Instance.additiveScene.ToString()));

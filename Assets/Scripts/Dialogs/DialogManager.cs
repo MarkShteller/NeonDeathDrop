@@ -20,12 +20,25 @@ public class DialogManager : MonoBehaviour
 
     void Awake()
     {
-        print("## initing dialog manager");
         if (Instance == null)
             Instance = this;
 
         dialogData = new Dictionary<string, DialogConversation>();
-        //ParseCSV(dialogDataAssetPath);
+    }
+
+    public void InitLevelDialogManager(string dialogSheetPath)
+    {
+        if (dialogSheetPath == "")
+        {
+            print("## dialog sheet path empty");
+            return;
+        }
+
+        print("## initing dialog manager with sheet: "+dialogSheetPath);
+        if (dialogData.Count > 0)
+            dialogData.Clear();
+
+        dialogDataAssetPath = dialogSheetPath;
         ParseTSV(dialogDataAssetPath);
     }
 
@@ -68,7 +81,7 @@ public class DialogManager : MonoBehaviour
 
     private void ParseTSV(string asset)
     {
-        print("## parsing CSV in dialog manager");
+        print("## parsing TSV in dialog manager");
         TextAsset fileData = Resources.Load<TextAsset>(asset);
         var lines = fileData.text.Split('\n');
 

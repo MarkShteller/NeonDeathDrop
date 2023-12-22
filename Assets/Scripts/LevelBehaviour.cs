@@ -24,4 +24,14 @@ public class LevelBehaviour : MonoBehaviour
             CMCameras.transform.GetChild(i).gameObject.SetActive(false);
         }
     }
+
+    public void ShowPoleInstruction()
+    { 
+        UIManager.Instance.SetPoleInstructionVisible(true);
+    }
+
+    public void DisableUIInstructions()
+    {
+        UIManager.Instance.SetPoleInstructionVisible(false);
+    }
 }
