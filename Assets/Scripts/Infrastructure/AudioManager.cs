@@ -53,6 +53,8 @@ public class AudioManager : MonoBehaviour {
 
 
     private EventInstance voiceoverEvent;
+    private Action currentVOCallback;
+    private Coroutine voCoroutine;
 
     private void Awake()
     {
@@ -116,6 +118,15 @@ public class AudioManager : MonoBehaviour {
 
     public void PlayVoiceline(string voPath, Action callback = null)
     {
+        if (voCoroutine != null)
+        {
+            print("stopping current vo line");
+            StopCoroutine(voCoroutine);
+            StopCurrentVoiceline();
+            currentVOCallback = null;
+            voCoroutine = null;
+        }
+
         try
         {
             voiceoverEvent = RuntimeManager.CreateInstance("event:/Dialogue/" + voPath);
@@ -123,7 +134,6 @@ public class AudioManager : MonoBehaviour {
         catch (Exception e) 
         {
             Debug.LogWarning(e.Message);
-            //if (callback != null) callback();
             return;
         }
 
@@ -135,14 +145,17 @@ public class AudioManager : MonoBehaviour {
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(voiceoverEvent, GameManager.Instance.PlayerInstance.transform);
         voiceoverEvent.start();
 
-        StartCoroutine(StopVoicelineAfter(length, callback));
+        print("playing vo line: "+ voPath + " length: "+length);
+        currentVOCallback = callback;
+        voCoroutine = StartCoroutine(StopVoicelineAfter(length));
     }
 
-    private IEnumerator StopVoicelineAfter(int length, Action callback = null)
+    private IEnumerator StopVoicelineAfter(int length)
     {
         yield return new WaitForSeconds((float) length / 1000);
         StopCurrentVoiceline();
-        if(callback!= null) callback();
+        if(currentVOCallback != null) currentVOCallback();
+        voCoroutine = null;
     }
 
     public void StopCurrentVoiceline()
