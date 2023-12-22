@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
-  m_Name: Level 1-10
+  m_Name: Level 1-10-Arena
   m_EditorClassIdentifier: 
+  additiveScene: 2
   levelMusicTrack: 2
   map: {fileID: 2800000, guid: 6b37d74c2c7db4bbdb3e7222e8d00a82, type: 3}
+  dialogSheetName: 
+  PlayerSpawnRotation: {x: 0, y: 0, z: 0}
   Spawners:
   - {fileID: 11400000, guid: b5817390fe814824facbe11a8e466ef3, type: 2}
   - {fileID: 11400000, guid: 1fadf30ba7e34214d804cbda1fff6e74, type: 2}
@@ -24,14 +27,19 @@ MonoBehaviour:
   musicName: 
   backdrop: {fileID: 1553529043616714, guid: 87027935d433b834c9815d48cc08d3d8, type: 3}
   powerupWeights: 1e00000000000000190000000500000000000000000000000000000000000000
+  hasSublevels: 0
+  positionOffset: {x: 0, y: 0}
+  linkedSublevelList: []
+  includeCompanion: 1
+  isVRSpace: 0
   showEndLevelReport: 1
-  targetScore: 50000
-  targetScoreRankMod: 0
-  targetMaxMultiplier: 8
-  targetMaxMultiplierRankMod: 0
-  targetTime: 0
-  targetTimeRankMod: 0
-  targetEnemyCount: 0
-  targetEnemyCountRankMod: 0
-  targetDamage: 0
-  targetDamageRankMod: 0
+  targetScore: 28000
+  targetScoreRankMod: 0.2
+  targetMaxMultiplier: 7
+  targetMaxMultiplierRankMod: 0.2
+  targetTime: 150
+  targetTimeRankMod: 0.2
+  targetEnemyCount: 102
+  targetEnemyCountRankMod: 0.2
+  targetDamage: 10
+  targetDamageRankMod: 1

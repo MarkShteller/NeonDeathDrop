@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
   m_Name: Level 0-5-shields
   m_EditorClassIdentifier: 
+  additiveScene: 2
   levelMusicTrack: 2
   map: {fileID: 2800000, guid: f4c7bbe893368fc4d94e10b565447de8, type: 3}
+  dialogSheetName: 
   Spawners:
   - {fileID: 11400000, guid: 6cdd20f29fa3fdc45980cb50ce4d86f1, type: 2}
   - {fileID: 11400000, guid: 592eb8bcd1931f7439955f39cac59076, type: 2}

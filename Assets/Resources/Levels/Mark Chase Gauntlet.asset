@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
   m_Name: Mark Chase Gauntlet
   m_EditorClassIdentifier: 
+  additiveScene: 2
   levelMusicTrack: 0
   map: {fileID: 2800000, guid: 96bb2069786236c43a23fa00a137a60f, type: 3}
+  dialogSheetName: 
   Spawners:
   - {fileID: 11400000, guid: 1fadf30ba7e34214d804cbda1fff6e74, type: 2}
   - {fileID: 11400000, guid: 94d99057db147a24a9d848017af9e632, type: 2}
@@ -24,6 +26,11 @@ MonoBehaviour:
   musicName: Club_low
   backdrop: {fileID: 1672696130396096, guid: 0bdaa5f1f44e96c4e9980abe1865998e, type: 3}
   powerupWeights: 0000000000000000000000000000000000000000000000000000000000000000
+  hasSublevels: 0
+  positionOffset: {x: 0, y: 0}
+  linkedSublevelList: []
+  includeCompanion: 1
+  isVRSpace: 0
   showEndLevelReport: 1
   targetScore: 230
   targetScoreRankMod: 0.2

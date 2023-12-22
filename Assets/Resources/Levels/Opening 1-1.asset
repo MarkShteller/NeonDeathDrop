@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
   m_Name: Opening 1-1
   m_EditorClassIdentifier: 
+  additiveScene: 2
+  levelMusicTrack: 1
   map: {fileID: 2800000, guid: 19487d4e42485c142bcafce94307c073, type: 3}
+  dialogSheetName: 
   Spawners: []
   enemyDefeatedCountGoals: 
   fieldRotationAngle: 45
@@ -20,6 +23,11 @@ MonoBehaviour:
   backdrop: {fileID: 1476006235637259030, guid: ecc9882268cd39644ba4ed47027cb505,
     type: 3}
   powerupWeights: 0000000000000000000000000000000000000000000000000000000000000000
+  hasSublevels: 0
+  positionOffset: {x: 0, y: 0}
+  linkedSublevelList: []
+  includeCompanion: 0
+  isVRSpace: 0
   showEndLevelReport: 0
   targetScore: 0
   targetScoreRankMod: 0

@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
-  m_Name: Level 0-9
+  m_Name: Level 0-9-Flow
   m_EditorClassIdentifier: 
+  additiveScene: 2
   levelMusicTrack: 3
   map: {fileID: 2800000, guid: 9e0e2f83c5a03d445b16f71dd0cc7b6a, type: 3}
+  dialogSheetName: 
+  PlayerSpawnRotation: {x: 0, y: 0, z: 0}
   Spawners:
   - {fileID: 11400000, guid: b5817390fe814824facbe11a8e466ef3, type: 2}
   - {fileID: 11400000, guid: 1fadf30ba7e34214d804cbda1fff6e74, type: 2}
@@ -29,13 +32,13 @@ MonoBehaviour:
   includeCompanion: 1
   isVRSpace: 0
   showEndLevelReport: 1
-  targetScore: 20000
+  targetScore: 30000
   targetScoreRankMod: 0.2
-  targetMaxMultiplier: 6
+  targetMaxMultiplier: 8
   targetMaxMultiplierRankMod: 0.2
   targetTime: 165
-  targetTimeRankMod: 0.4
-  targetEnemyCount: 84
+  targetTimeRankMod: 0.2
+  targetEnemyCount: 100
   targetEnemyCountRankMod: 0.2
-  targetDamage: 1
-  targetDamageRankMod: 2
+  targetDamage: 7
+  targetDamageRankMod: 1

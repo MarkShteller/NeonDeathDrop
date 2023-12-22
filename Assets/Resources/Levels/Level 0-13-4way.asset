@@ -10,19 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
-  m_Name: Level 0-8
+  m_Name: Level 0-13-4way
   m_EditorClassIdentifier: 
+  additiveScene: 2
   levelMusicTrack: 2
-  map: {fileID: 2800000, guid: 8c4b13142e9390a4a9147457f619a31f, type: 3}
+  map: {fileID: 2800000, guid: de2c448175887fe4f82436dfc13c180b, type: 3}
+  dialogSheetName: 
+  PlayerSpawnRotation: {x: 0, y: 0, z: 0}
   Spawners:
+  - {fileID: 11400000, guid: 8d5f2a36915320f49afdf69f17e661fe, type: 2}
   - {fileID: 11400000, guid: 592eb8bcd1931f7439955f39cac59076, type: 2}
   - {fileID: 11400000, guid: b5817390fe814824facbe11a8e466ef3, type: 2}
+  - {fileID: 11400000, guid: 0706b85e7a91b6f4392068977d564fc8, type: 2}
   - {fileID: 11400000, guid: 1fadf30ba7e34214d804cbda1fff6e74, type: 2}
-  enemyDefeatedCountGoals: 
+  - {fileID: 11400000, guid: d19566828332efe43a3c3ee9fcd2a8f0, type: 2}
+  enemyDefeatedCountGoals: 0000000032000000320000003200000032000000
   fieldRotationAngle: -45
-  musicName: Club_high1
+  musicName: Club_high3
   backdrop: {fileID: 1553529043616714, guid: 9bec7594d03f5494084df6621ad6e47e, type: 3}
-  powerupWeights: 1e00000005000000140000000500000000000000050000000500000005000000
+  powerupWeights: 1e00000005000000320000000f00000000000000050000000500000005000000
+  hasSublevels: 0
+  positionOffset: {x: 0, y: 0}
+  linkedSublevelList: []
   includeCompanion: 1
   isVRSpace: 0
   showEndLevelReport: 0

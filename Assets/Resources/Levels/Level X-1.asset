@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
   m_Name: Level X-1
   m_EditorClassIdentifier: 
+  additiveScene: 2
   levelMusicTrack: 2
   map: {fileID: 2800000, guid: 1c62cce737d77bf4881823d4e55cf085, type: 3}
+  dialogSheetName: 
   Spawners:
   - {fileID: 11400000, guid: 1fadf30ba7e34214d804cbda1fff6e74, type: 2}
   - {fileID: 11400000, guid: 6802e165a1b9d9b41a0e635011dff503, type: 2}
@@ -22,6 +24,11 @@ MonoBehaviour:
   musicName: Club_high2
   backdrop: {fileID: 1553529043616714, guid: 9bec7594d03f5494084df6621ad6e47e, type: 3}
   powerupWeights: 1e00000005000000140000000500000000000000050000000500000005000000
+  hasSublevels: 0
+  positionOffset: {x: 0, y: 0}
+  linkedSublevelList: []
+  includeCompanion: 1
+  isVRSpace: 0
   showEndLevelReport: 0
   targetScore: 0
   targetScoreRankMod: 0

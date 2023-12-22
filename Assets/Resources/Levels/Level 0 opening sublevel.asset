@@ -10,23 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
-  m_Name: Level 2-1
+  m_Name: Level 0 opening sublevel
   m_EditorClassIdentifier: 
   additiveScene: 2
-  levelMusicTrack: 2
-  map: {fileID: 2800000, guid: 0adae41508ef11f43914248aa627e5b3, type: 3}
+  levelMusicTrack: 1
+  map: {fileID: 2800000, guid: 19487d4e42485c142bcafce94307c073, type: 3}
   dialogSheetName: 
-  Spawners:
-  - {fileID: 11400000, guid: b5817390fe814824facbe11a8e466ef3, type: 2}
+  Spawners: []
   enemyDefeatedCountGoals: 
-  fieldRotationAngle: -45
-  musicName: Club_low
-  backdrop: {fileID: 1672696130396096, guid: 0b39517a651c6bb459fc03a64afff70e, type: 3}
-  powerupWeights: 0000000000000000000000000000000000000000000000000000000000000000
+  fieldRotationAngle: 45
+  musicName: 
+  backdrop: {fileID: 0}
+  powerupWeights: 
   hasSublevels: 0
-  positionOffset: {x: 0, y: 0}
+  positionOffset: {x: -2, y: 6}
   linkedSublevelList: []
-  includeCompanion: 1
+  includeCompanion: 0
   isVRSpace: 0
   showEndLevelReport: 0
   targetScore: 0
