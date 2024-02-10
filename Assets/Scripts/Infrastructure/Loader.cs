@@ -7,7 +7,7 @@ public class Loader : MonoBehaviour
     public GameObject gameManager;
     public LevelGenerator levelGenerator;
 
-    public enum AdditiveScenes { TitleScreen, MainCore, UpperBavelle, LowerBavelle, VRSpace, NONE = 99 }
+    public enum AdditiveScenes { TitleScreen, MainCore, UpperBavelle_daytime, UpperBavelle_sunset, LowerBavelle, VRSpace, NONE = 99 }
 
 
     void Awake()

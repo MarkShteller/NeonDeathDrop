@@ -22,12 +22,12 @@ public class TitleScreenControls : MonoBehaviour
         if (GameManager.Instance == null)
         {
             gameManagerRef.CurrentLevelIndex = 0;
-            gameManagerRef.additiveScene = Loader.AdditiveScenes.UpperBavelle;
+            gameManagerRef.additiveScene = Loader.AdditiveScenes.UpperBavelle_daytime;
         }
         else
         {
             GameManager.Instance.CurrentLevelIndex = 0;
-            GameManager.Instance.additiveScene = Loader.AdditiveScenes.UpperBavelle;
+            GameManager.Instance.additiveScene = Loader.AdditiveScenes.UpperBavelle_daytime;
             GameManager.Instance.RestartLevel(false);
         }
         SceneManager.LoadScene(1);

@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviour {
     public void NextLevel()
     {
         CurrentLevelIndex++;
-        additiveScene = AdditiveScenes.UpperBavelle;
+        additiveScene = AdditiveScenes.UpperBavelle_sunset;
         cameraRef.SetLowHealth(false);
         RestartLevel(false);
     }

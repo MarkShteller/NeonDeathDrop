@@ -6,6 +6,7 @@ public class CameraMovement : MonoBehaviour {
 
 	public Transform target;
     public Vector3 targetPosition;
+    public float smoothStep;
 
     public enum CameraState { Point, FollowVertically, Interpolate, Triangulate }
     public CameraState currentState;
@@ -70,7 +71,7 @@ public class CameraMovement : MonoBehaviour {
                     Debug.LogError("Cant find camera target B.");
                 break;
         }
-        Vector3 lerpedCamPos = Vector3.Lerp(transform.position, targetPosition, 0.2f);
+        Vector3 lerpedCamPos = Vector3.Lerp(transform.position, targetPosition, smoothStep * Time.deltaTime);
         transform.position = new Vector3(lerpedCamPos.x, lerpedCamPos.y, lerpedCamPos.z);
     }
 
