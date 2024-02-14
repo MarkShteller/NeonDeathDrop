@@ -198,7 +198,7 @@ MonoBehaviour:
     m_RotationOrder: 0
   slomoVolume: {fileID: 1740457756955912243}
   takingDanmageVolume: {fileID: 3888814170404364218}
-  CurrentLevelIndex: 2
+  CurrentLevelIndex: 1
   additiveScene: 2
 --- !u!114 &114524042694302210
 MonoBehaviour:
@@ -256,14 +256,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupList:
-  - {fileID: 11400000, guid: bcd893a31a9445c48bc7a3424eb19b99, type: 2}
-  - {fileID: 11400000, guid: ead31d6cdfa7f394fa075c7fd2316f89, type: 2}
   - {fileID: 11400000, guid: 152d92d3b7ce6684c83c3cb2230a918e, type: 2}
   - {fileID: 11400000, guid: b817a9dad1e40d749bdc8dbc89f3a1de, type: 2}
-  - {fileID: 11400000, guid: 31cbef846f2b0c045b6ef439b84f67b7, type: 2}
+  - {fileID: 11400000, guid: c56a544261273ce41af44f8ee9191aed, type: 2}
   - {fileID: 11400000, guid: c375e1fd27a833c4682c2a1ec838777a, type: 2}
   - {fileID: 11400000, guid: 236c383b0e286154baca89791b1819ac, type: 2}
-  - {fileID: 11400000, guid: c56a544261273ce41af44f8ee9191aed, type: 2}
+  - {fileID: 11400000, guid: 31cbef846f2b0c045b6ef439b84f67b7, type: 2}
+  - {fileID: 11400000, guid: ead31d6cdfa7f394fa075c7fd2316f89, type: 2}
+  - {fileID: 11400000, guid: bcd893a31a9445c48bc7a3424eb19b99, type: 2}
+  powerupTutorialList: 0000000000000000
   nullWeight: 170
 --- !u!1 &7748001067822906946
 GameObject:

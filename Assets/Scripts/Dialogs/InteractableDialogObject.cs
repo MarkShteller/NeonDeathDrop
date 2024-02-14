@@ -16,6 +16,7 @@ public class InteractableDialogObject : MonoBehaviour
     private bool isEnabled = true;
     public UnityEvent triggerEnterEvent;
     public UnityEvent triggerExitEvent;
+   // public UnityEvent OnInteractionEndedEvent;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -85,6 +86,10 @@ public class InteractableDialogObject : MonoBehaviour
                 break;
         }
     }
-
-
+/*
+    public void InteractionDoneEvent()
+    {
+        OnInteractionEndedEvent.Invoke();
+    }
+*/
 }

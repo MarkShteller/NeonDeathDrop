@@ -379,7 +379,7 @@ public class LevelGenerator : MonoBehaviour {
             //Get the index of the gate and apply it to the specific tile
             int index = 255 - Mathf.CeilToInt(pixelColor.b * 255);
 
-            GameObject gateTile = CreateTile(x, y, WALL_TILE_HEIGHT * 3 + sublevelHeight, cubeGate);
+            GameObject gateTile = CreateTile(x, y, WALL_TILE_HEIGHT * 3 + sublevelHeight, cubeGate, false);
             grid[x, y] = new GridNode(TileType.Gate);
             grid[x, y].SetGameNodeRef(gateTile);
             int gateGoal = levelData.enemyDefeatedCountGoals[index];

@@ -23,4 +23,4 @@ public class PowerUpObject : ScriptableObject
     public Image powerupImage;
     
 }
-public enum PowerUpType { Health, RegenBoost, PushForceBoost, PushRangeBoost, DashBoost, MoveSpeedBoost, Core }
+public enum PowerUpType { HealthSmall, HealthLarge, RegenBoost, PushForceBoost, PushRangeBoost, DashBoost, MoveSpeedBoost, Core }

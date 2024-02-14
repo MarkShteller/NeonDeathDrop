@@ -8,6 +8,7 @@ public class PowerupFactory : MonoBehaviour {
 
     public static PowerupFactory Instance;
     public List<PowerUpObject> powerupList;
+    public List<bool> powerupTutorialList;
     public float nullWeight = 40;
 
     private void Awake()
@@ -24,6 +25,13 @@ public class PowerupFactory : MonoBehaviour {
         CalcRanges();
         RollPowerup();
     }
+
+    /*private void Start()
+    {
+        powerupTutorialList = new List<bool>(powerupList.Capacity);
+        for (int i = 0; i < powerupTutorialList.Count; i++)
+            powerupTutorialList[i] = false;
+    }*/
 
     public void CalcRanges()
     {

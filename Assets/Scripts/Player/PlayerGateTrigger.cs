@@ -12,8 +12,14 @@ public class PlayerGateTrigger : MonoBehaviour
         {
             GateTileBehaviour tile = other.transform.GetComponent<GateTileBehaviour>();
             if (tile != null)
-                if(player.enemyDefeatedCount >= tile.gateEnemyDeathGoal)
-                    tile.SlideDown();
+                if (player.enemyDefeatedCount >= tile.gateEnemyDeathGoal)
+                {
+                    if (!tile.isOpen)
+                    {
+                        tile.SlideDown();
+                        tile.isOpen = true;
+                    }
+                }
                 else
                     Debug.LogFormat("GateCube needs {0} enemies defeated.", tile.gateEnemyDeathGoal);
             else

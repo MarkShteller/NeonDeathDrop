@@ -869,7 +869,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         switch (powerUp.type)
         {
-            case PowerUpType.Health:
+            case PowerUpType.HealthSmall:
+            case PowerUpType.HealthLarge:
 
                 healthPoints += powerUp.bonus;
 
@@ -893,7 +894,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
         }
 
-        if (powerUp.type != PowerUpType.Health && powerUp.type != PowerUpType.Core)
+        if (powerUp.type != PowerUpType.HealthSmall && powerUp.type != PowerUpType.HealthLarge && powerUp.type != PowerUpType.Core)
         {
             FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerItemPickup, transform.position);
 
@@ -1011,9 +1012,6 @@ public class PlayerBehaviour : MonoBehaviour
             shockwaveBehavior.gameObject.SetActive(true);
             StartCoroutine(shockwaveBehavior.Shockwave(3, false));
 
-            //StartCoroutine(shockwaveBehavior.Shockwave(30, true));
-            //GameManager.Instance.LandingShockwaveSlomo(10f);
-
             isFalling = false;
 
             animator.SetBool("Falling", isFalling);
@@ -1035,6 +1033,17 @@ public class PlayerBehaviour : MonoBehaviour
         {
             print("# setting new checkpoint: "+other.name);
             SetCheckpoint(other.transform);
+
+            if (isFalling)
+            {
+                shockwaveBehavior.gameObject.SetActive(true);
+                StartCoroutine(shockwaveBehavior.Shockwave(3, false));
+
+                isFalling = false;
+
+                animator.SetBool("Falling", isFalling);
+                animator.SetBool("LedgeWiggle", false);
+            }
         }
 
         if (currentAttackType == PlayerAttackType.Push && other.gameObject.CompareTag("EnemyBullet"))
@@ -1178,6 +1187,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void SetCheckpoint(Transform checkpointTransform)
     {
         this.checkpoint = checkpointTransform;
+        checkpointTransform.GetComponentInChildren<CheckpointTileBehaviour>().SetCheckpoint();
     }
 
     private void FellIntoAPit()

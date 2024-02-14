@@ -155,6 +155,13 @@ public class UIManager : MonoBehaviour {
         tutorialDialog.Populate(tutorialManager.tutorialObjects[tutorialIndex]);
     }
 
+    public void OpenPowerupTutorialDialog(PowerUpType type)
+    {
+        int indexOffset = 4;
+        OpenDialogGeneric(tutorialDialog.gameObject);
+        tutorialDialog.Populate(tutorialManager.tutorialObjects[indexOffset + (int)type]);
+    }
+
     private void OpenDialogGeneric(GameObject dialog)
     {
         //hide the dialog thats on top of the stack for future recovery

@@ -13,6 +13,8 @@ public class BasePowerupBehaviour : MonoBehaviour {
     [HideInInspector] public int count;
     [HideInInspector] public string powerUpName;
 
+    //private bool showTutorial = false;
+
     private void Start()
     {
         type = powerUpData.type;
@@ -27,6 +29,12 @@ public class BasePowerupBehaviour : MonoBehaviour {
         //todo: do some particles 
         //Destroy(gameObject);
         this.gameObject.SetActive(false);
+
+        if (!PowerupFactory.Instance.powerupTutorialList[(int)type])
+        {
+            PowerupFactory.Instance.powerupTutorialList[(int)type] = true;
+            UIManager.Instance.OpenPowerupTutorialDialog(type);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
