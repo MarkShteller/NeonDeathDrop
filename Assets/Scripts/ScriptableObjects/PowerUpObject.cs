@@ -20,7 +20,7 @@ public class PowerUpObject : ScriptableObject
     [HideInInspector]
     public DropRange dropRange;
 
-    public Image powerupImage;
+    public Sprite powerupImage;
     
 }
 public enum PowerUpType { HealthSmall, HealthLarge, RegenBoost, PushForceBoost, PushRangeBoost, DashBoost, MoveSpeedBoost, Core }

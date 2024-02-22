@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour {
     public Transform powerupsGrid;
     public PowerupUIBehaviour powerupUIPrefab;
 
+    public GameObject SuperBurst;
     public GameObject hudObject;
 
     public GameObject interactableLableObject;
@@ -139,6 +140,14 @@ public class UIManager : MonoBehaviour {
         killPointsBar.current = value;
     }
 
+    public IEnumerator PlaySuperBurst()
+    {
+        SuperBurst.SetActive(true);
+        SuperBurst.GetComponent<Animator>().SetTrigger("Play");
+        yield return new WaitForSeconds(1);
+        SuperBurst.SetActive(false);
+    }
+
     public void OpenPauseDialog()
     {
         OpenDialogGeneric(pauseDialog.gameObject);
@@ -157,7 +166,7 @@ public class UIManager : MonoBehaviour {
 
     public void OpenPowerupTutorialDialog(PowerUpType type)
     {
-        int indexOffset = 4;
+        int indexOffset = 5;
         OpenDialogGeneric(tutorialDialog.gameObject);
         tutorialDialog.Populate(tutorialManager.tutorialObjects[indexOffset + (int)type]);
     }

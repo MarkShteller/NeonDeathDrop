@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.2706335, g: 0.5579782, b: 1.043169, a: 1}
   m_AmbientEquatorColor: {r: 0.7397338, g: 0.2774002, b: 0.17232436, a: 1}
   m_AmbientGroundColor: {r: 0.7735849, g: 0.7697537, b: 0.6020826, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0.48
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 97d88463ffd07af4288039a1d06f3862, type: 2}
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.27446222, g: 0.41799992, b: 0.76591045, a: 1}
+  m_IndirectSpecularColor: {r: 0.32515788, g: 0.4952641, b: 0.90738446, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -637,7 +637,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
+  near clip plane: 10
   far clip plane: 5000
   field of view: 30
   orthographic: 0
@@ -1730,7 +1730,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 30
     OrthographicSize: 10
-    NearClipPlane: 0.1
+    NearClipPlane: 10
     FarClipPlane: 5000
     Dutch: 0
     ModeOverride: 0

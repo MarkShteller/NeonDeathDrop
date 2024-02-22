@@ -13,6 +13,7 @@ public class DialogManager : MonoBehaviour
     public string dialogDataAssetPath;
     public CharacterDialogBox characterDialogBox;
     public DialogSubtitles dialogSubtitles;
+    public bool isAutoScroll = false;
 
     private DialogConversation currentConversation;
     private int currentEntryIndex;
@@ -160,8 +161,25 @@ public class DialogManager : MonoBehaviour
         EnemyManager.Instance.SetUpdateEnemies(false);
         UIManager.Instance.SetHUDVisible(false);
 
-        GameManager.Instance.PlayerInstance.submitEvent += PressNextAction;
+        if(!isAutoScroll)
+            GameManager.Instance.PlayerInstance.submitEvent += PressNextAction;
     }
+
+    /*private void ProgressCharacterDialog()
+    {
+        //dialogSubtitles.gameObject.SetActive(true);
+        if (currentEntryIndex < currentConversation.dialogEntries.Count)
+        {
+            DialogEntry de = currentConversation.dialogEntries[currentEntryIndex];
+            dialogSubtitles.Populate(de.speaker, de.message);
+
+            CreateVoicelineTagAndPlay(de, currentEntryIndex, ProgressCharacterDialog);
+            currentEntryIndex++;
+
+        }
+        else
+            dialogSubtitles.gameObject.SetActive(false);
+    }*/
 
     private void CreateVoicelineTagAndPlay(DialogEntry de, int index, Action callback = null)
     {
@@ -203,6 +221,8 @@ public class DialogManager : MonoBehaviour
         else
             dialogSubtitles.gameObject.SetActive(false);
     }
+
+    
 
     private void StopSubtitles()
     {

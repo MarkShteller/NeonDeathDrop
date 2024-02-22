@@ -11,6 +11,7 @@ public class PowerupUIBehaviour : MonoBehaviour
     public Image powerupImage;
     public Image timerMask;
     public Text timer;
+    public Text name;
 
     private float totalTime;
     private float currentTimer;
@@ -19,7 +20,8 @@ public class PowerupUIBehaviour : MonoBehaviour
     {
         this.powerUpData = powerUpData;
         totalTime = currentTimer = powerUpData.effectTime;
-        powerupImage = powerUpData.powerupImage;
+        powerupImage.sprite = powerUpData.powerupImage;
+        name.text = powerUpData.powerUpName;
     }
 
     public void UpdateTimer(float newTime)

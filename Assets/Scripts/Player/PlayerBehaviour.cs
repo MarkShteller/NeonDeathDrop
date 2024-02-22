@@ -234,9 +234,16 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     void OnCancel(InputValue value)
-    { 
+    {
         //playerInput.SwitchCurrentActionMap("Player");
+        print("Pressed Cancel button");
         UIManager.Instance.CloseTopDialog();
+    }
+
+    void OnToggleAutoScroll(InputValue value)
+    {
+        print("Pressed auto button");
+        //UIManager.Instance.CloseTopDialog();
     }
 
     void OnInteract(InputValue value)
@@ -371,6 +378,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             coresCount -= shockwaveCoreCost;
             UIManager.Instance.SetCoreCount(coresCount);
+            StartCoroutine(UIManager.Instance.PlaySuperBurst());
             print("SHOCKWAVE!");
             animator.SetTrigger("Shockwave");
             FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerShockwave, transform.position);
@@ -1160,6 +1168,9 @@ public class PlayerBehaviour : MonoBehaviour
                 EnemyManager.Instance.isUpdateEnemies = false;
                 animator.SetTrigger("Dead");
                 FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerDeath, transform.position);
+                GameManager.Instance.cameraRef.FrameDeath(100, transform);
+
+                playerInput.SwitchCurrentActionMap("UI");
 
                 enableControlls = false;
                 enableMovement = false;

@@ -10,6 +10,7 @@ public class CharacterDialogBox : MonoBehaviour
     public TMP_Text contentLable;
     public Image portraitImage;
     public Image portraitImageShadow;
+    public Image autoToggle;
 
     public void Populate(string speaker, string content, string image)
     {
@@ -18,5 +19,10 @@ public class CharacterDialogBox : MonoBehaviour
         Sprite img = Resources.Load<Sprite>("Portraits/" + image);
         portraitImage.sprite = img;
         portraitImageShadow.sprite = img;
+    }
+
+    public void ToggleAuto(bool b)
+    {
+        autoToggle.gameObject.SetActive(b);
     }
 }

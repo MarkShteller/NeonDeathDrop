@@ -17,6 +17,7 @@ public class CameraMovement : MonoBehaviour {
     public CinemachineVirtualCamera heavyAttackVCam;
     public CinemachineVirtualCamera sublevelUpVCam;
     public CinemachineVirtualCamera shockwaveVCam;
+    public CinemachineVirtualCamera DeathVCam;
 
     public Animation screenGlitchAnim;
     public Animator animator;
@@ -109,6 +110,11 @@ public class CameraMovement : MonoBehaviour {
     public void FrameShockwave(float time, Transform lookAt)
     { 
         StartCoroutine(SwitchVCam(shockwaveVCam, null, time, lookAt));
+    }
+
+    public void FrameDeath(float time, Transform lookAt)
+    {
+        StartCoroutine(SwitchVCam(DeathVCam, null, time, lookAt));
     }
 
     public void SetLowHealth(bool b)

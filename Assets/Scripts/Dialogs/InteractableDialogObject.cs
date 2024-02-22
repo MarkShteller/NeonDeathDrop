@@ -74,7 +74,7 @@ public class InteractableDialogObject : MonoBehaviour
         {
             case InteractionType.ConvoProtraits:
                 DialogManager.Instance.ShowCharacterDialog(interactionID, triggerExitEvent);
-                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Dialog");
                 break;
 
             case InteractionType.ConvoSubtitles:
