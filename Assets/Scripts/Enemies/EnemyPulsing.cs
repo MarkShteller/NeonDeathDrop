@@ -58,13 +58,16 @@ public class EnemyPulsing : Enemy
 
         if (shakeScreen)
         {
-            CameraShaker.Instance.ShakeOnce(2f, 4f, 0.1f, 1f);
+            //CameraShaker.Instance.ShakeOnce(2f, 4f, 0.1f, 1f);
+            ShakeScreen();
         }
         yield return new WaitForSeconds(duration);
 
         pulseEffect.SetActive(false);
         movementStatus = MovementType.Static;
     }
+
+    internal virtual void ShakeScreen() { }
 
     private void OnTriggerEnter(Collider other)
     {

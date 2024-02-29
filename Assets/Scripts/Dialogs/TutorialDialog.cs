@@ -11,6 +11,7 @@ public class TutorialDialog : AbstractDialog
     public TMP_Text title;
     public TMP_Text body;
     public Image image;
+    public Image imageBg;
 
     public void Populate(TutorialObject tutorialObjRef)
     {
@@ -22,9 +23,14 @@ public class TutorialDialog : AbstractDialog
         {
             image.gameObject.SetActive(true);
             image.sprite = tutorialObjRef.image;
+            imageBg.gameObject.SetActive(true);
         }
         else
+        {
             image.gameObject.SetActive(false);
+            imageBg.gameObject.SetActive(false);
+
+        }
     }
 
     public override void CloseDialog()

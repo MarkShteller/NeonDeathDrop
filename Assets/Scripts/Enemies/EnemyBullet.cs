@@ -7,6 +7,7 @@ public class EnemyBullet : MonoBehaviour, IPooledObject {
 
     public float damage;
     public float speed = 0.5f;
+    private float m_speed;
     public float rotationSpeed;
     public float lifetime;
     public bool isParried;
@@ -20,11 +21,12 @@ public class EnemyBullet : MonoBehaviour, IPooledObject {
     {
         vForward = transform.forward;
         isParried = false;
+        m_speed = speed;
     }
 
     void Update ()
     {
-        transform.position += vForward * speed * Time.deltaTime;
+        transform.position += vForward * m_speed * Time.deltaTime;
         Vector3 rot = visuals.rotation.eulerAngles;
         visuals.Rotate(0, rotationSpeed *Time.deltaTime , 0);
 
@@ -56,12 +58,14 @@ public class EnemyBullet : MonoBehaviour, IPooledObject {
     {
         vForward = transform.forward;
         lifetimeRemaining = lifetime;
+        isParried = false;
+        m_speed = speed;
     }
 
     public void Parry(Vector3 newDirection, float speedMul)
     {
         vForward = newDirection;
-        speed *= -speedMul;
+        m_speed = speed * -speedMul;
         isParried = true;
     }
 }

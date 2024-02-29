@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,12 +26,15 @@ public class SpiderBossBehaviour : MonoBehaviour
     public Transform[] wavePhaseBBulletSpawnPoints;
     public SpiderLegBehaviour[] spiderLegs;
     public BossEnemySpawnPoint[] EnemySpawnPoints;
+    public GameObject FinalBlowVFX;
     public Animator animator;
+    public CinemachineImpulseSource shakeSource;
 
     public string bulletANameInPool;
     public string bulletBNameInPool;
 
     public Transform FinalLegPoint;
+    public SpiderLegBehaviour lastLeg;
 
     public bool shouldSpawnEnemies;
 
@@ -63,13 +67,18 @@ public class SpiderBossBehaviour : MonoBehaviour
 
         print("# Boss finish init");
     }
+
+    public void IntroBossEvent()
+    {
+        StartCoroutine(AudioManager.Instance.StartMusic(AudioManager.LevelMusicTracks.Raheem_Battle));
+    }
 	
 	void Update ()
     {
         /////temp
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyUp(KeyCode.Q))
         {
-            TriggerLegsJumping();
+            //TriggerLegsJumping();
             animator.SetTrigger("Jump");
         }
 
@@ -139,17 +148,29 @@ public class SpiderBossBehaviour : MonoBehaviour
             {
                 animator.SetTrigger("Jump");
             }
-            else
+            else // one leg left
             {
                 animator.SetTrigger("Falling");
-                if (lastAliveLeg == null || aliveLegs == 0)
+                FinalBlowVFX.SetActive(true);
+                LookDiagonal();
+                AudioManager.Instance.StopMusic();
+                EnemyManager.Instance.KillAllEnemiesInSublevel(0);
+                foreach (SpiderLegBehaviour leg in spiderLegs)
                 {
+                    leg.gameObject.SetActive(false);
+                }
+                lastLeg.gameObject.SetActive(true);
+                lastLeg.ClingForYourLife(FinalLegPoint);
+
+                /*if (lastAliveLeg == null || aliveLegs == 0 || lastAliveLeg.isActive == false)
+                {
+                    print("activating last leg");
                     lastAliveLeg = spiderLegs[0];
                     lastAliveLeg.gameObject.SetActive(true);
                     lastAliveLeg.isDead = false;
-                }
+                }*/
 
-                lastAliveLeg.ClingForYourLife(FinalLegPoint);
+                //astAliveLeg.ClingForYourLife(FinalLegPoint);
             }
             print("# Changing boss phase!");
         }
@@ -245,10 +266,13 @@ public class SpiderBossBehaviour : MonoBehaviour
                     if (timeToNextState <= 0)
                         timeToNextState = 5;
 
+                    LookForward();
                     if (!hasSpawnedEnemies)
                     {
                         hasSpawnedEnemies = true;
                         EnemyManager.Instance.SpawnEnemiesForBossBattle(EnemySpawnPoints);
+                        animator.SetTrigger("Scream");
+                        shakeSource.GenerateImpulse();
                     }
                 }
                 break;
@@ -350,10 +374,13 @@ public class SpiderBossBehaviour : MonoBehaviour
                     if (timeToNextState <= 0)
                         timeToNextState = 5;
 
+                    LookForward();
                     if (!hasSpawnedEnemies)
                     {
                         hasSpawnedEnemies = true;
                         EnemyManager.Instance.SpawnEnemiesForBossBattle(EnemySpawnPoints);
+                        animator.SetTrigger("Scream");
+                        shakeSource.GenerateImpulse();
                     }
                 }
                 break;
@@ -388,8 +415,28 @@ public class SpiderBossBehaviour : MonoBehaviour
         //bodyVisuals.LookAt(lookPosition, Vector3.up);
     }
 
+    private void LookForward()
+    {
+        bodyVisuals.rotation = Quaternion.Euler(0, 180, 0);
+    }
+
+    private void LookDiagonal()
+    {
+        bodyVisuals.rotation = Quaternion.Euler(0, 135, 0);
+    }
+
+    public void FinalBlow()
+    {
+        print("## boss final blow!");
+        GameManager.Instance.DashSlomo(20f);
+        currentState = SpiderBossState.Die;
+        FinalBlowVFX.SetActive(false);
+        animator.SetTrigger("Falling");
+    }
+
     public void TriggerLegsJumping()
     {
+        print("## TriggerLegsJumping");
         foreach (SpiderLegBehaviour leg in spiderLegs)
         {
             if (!leg.isDead)
@@ -412,7 +459,7 @@ public class SpiderBossBehaviour : MonoBehaviour
             leg.isDead = true;
             leg.gameObject.SetActive(false);
         }
-
+        print("## calling leg land");
         spiderLegs[0].isDead = false;
         spiderLegs[0].gameObject.SetActive(true);
         spiderLegs[0].animator.SetTrigger("Land");

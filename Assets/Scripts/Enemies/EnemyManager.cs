@@ -114,11 +114,21 @@ public class EnemyManager : MonoBehaviour {
             sublevelEnemies.Add(0, new List<Enemy>());
         foreach (BossEnemySpawnPoint spawner in enemySpawners)
         {
+            spawner.transform.Translate(UnityEngine.Random.Range(-2, 2), 0, 0);
             Enemy enemy = ObjectPooler.Instance.SpawnFromPool(spawner.enemySpawner.enemyName, spawner.transform.position, Quaternion.identity).GetComponent<Enemy>();
             //activeEnemies.Add(enemy);
             
             sublevelEnemies[0].Add(enemy);
             SetSublevelActiveEnemies(0);
+        }
+    }
+
+    public void KillAllEnemiesInSublevel(int sublevel)
+    {
+        foreach (Enemy e in sublevelEnemies[sublevel])
+        {
+            e.Die(Enemy.DeathType.Pit);
+            RemoveFromActiveEnemies(e);
         }
     }
 

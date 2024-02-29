@@ -139,7 +139,8 @@ public class GameManager : MonoBehaviour {
         //print(cameraRef.currentState);
 
         //init music after once awakes are done
-        StartCoroutine(AudioManager.Instance.StartMusic(currentLevelData.levelMusicTrack));
+        if(!currentLevelData.startMusicWithEvent)
+            StartCoroutine(AudioManager.Instance.StartMusic(currentLevelData.levelMusicTrack));
 
         /////////////
 

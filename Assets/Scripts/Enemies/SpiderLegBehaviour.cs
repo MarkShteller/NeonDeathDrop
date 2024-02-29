@@ -10,7 +10,9 @@ public class SpiderLegBehaviour : EnemyPulsing
     private bool shouldLookAtPlayer;
 
     public bool isDead;
-    public bool isActive; 
+    public bool isActive;
+
+    public SpiderBossBehaviour spiderBoss;
 
     internal override void DetectEnemyPositionOnGrid()
     {
@@ -52,7 +54,14 @@ public class SpiderLegBehaviour : EnemyPulsing
 
     public override void ForcePush(Vector3 direction, float force, PlayerBehaviour.PlayerAttackType attackType, bool superStun = false)
     {
-        animator.SetTrigger("Pushed");
+        if (isActive)
+            animator.SetTrigger("Pushed");
+        else //final blow
+        {
+            animator.SetTrigger("Dead");
+            isDead = true;
+            spiderBoss.FinalBlow();
+        }
     }
 
     public void ClingForYourLife(Transform FinalLegPoint)
@@ -68,6 +77,12 @@ public class SpiderLegBehaviour : EnemyPulsing
     public void Stopm()
     {
         movementStatus = MovementType.Pulse;
+    }
+
+    internal override void ShakeScreen()
+    {
+        base.ShakeScreen();
+        spiderBoss.shakeSource.GenerateImpulse(0.5f);
     }
 
     internal override void PulseAction()
@@ -87,7 +102,9 @@ public class SpiderLegBehaviour : EnemyPulsing
             //gameObject.SetActive(false);
             animator.SetTrigger("Dead");
             isDead = true;
+            ShakeScreen();
         }
+        
     }
 
     public void Dead()

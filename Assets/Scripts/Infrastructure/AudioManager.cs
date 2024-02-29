@@ -150,6 +150,12 @@ public class AudioManager : MonoBehaviour {
         voCoroutine = StartCoroutine(StopVoicelineAfter(length));
     }
 
+    internal void StopMusic()
+    {
+        LevelMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        LevelMusic.release();
+    }
+
     private IEnumerator StopVoicelineAfter(int length)
     {
         yield return new WaitForSeconds((float) length / 1000);

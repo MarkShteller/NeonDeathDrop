@@ -8,6 +8,7 @@ public class LevelScriptableObject : ScriptableObject
 {
     public AdditiveScenes additiveScene;
     public AudioManager.LevelMusicTracks levelMusicTrack;
+    public bool startMusicWithEvent;
     public Texture2D map;
     public string dialogSheetName;
 

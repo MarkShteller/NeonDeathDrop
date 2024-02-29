@@ -9,7 +9,7 @@ public class PlayerVisualsBehaviour : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         //print("In radius: " + other.name);
-        if (other.tag == "Enemy")
+        if (other.tag == "Enemy" || other.tag == "BossSpiderLeg")
         {
             Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null)

@@ -691,7 +691,9 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (isDashImpact)
         {
-            transform.position = dashImpactEnemyLocation;
+            if(dashImpactEnemyLocation != Vector3.zero)
+                transform.position = dashImpactEnemyLocation;
+
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             yield return new WaitForSeconds(0.3f);
             //transform.Translate(direction * movementSpeed * dashSpeed * Time.deltaTime);
@@ -965,14 +967,19 @@ public class PlayerBehaviour : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("BossSpiderLeg"))
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             if (isDashing)
             {
                 isDashing = false;
                 isDashImpact = true;
-                dashImpactEnemyLocation = enemy.transform.position;
+
+                if (!collision.gameObject.CompareTag("BossSpiderLeg"))
+                    dashImpactEnemyLocation = enemy.transform.position;
+                else
+                    dashImpactEnemyLocation = Vector3.zero;
+
                 enemy.ForcePush(lastDashDir, currentPushForce * 2f, PlayerAttackType.Dash, true);
                 UseMana(dashManaCost);
 
