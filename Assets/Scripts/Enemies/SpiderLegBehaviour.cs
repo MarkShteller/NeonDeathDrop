@@ -96,7 +96,7 @@ public class SpiderLegBehaviour : EnemyPulsing
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("EnemyBombTrigger"))
+        if (other.CompareTag("EnemyBombTrigger") && isActive)
         {
             //override die?
             //gameObject.SetActive(false);

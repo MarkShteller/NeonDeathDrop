@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour {
 
     public GameObject SuperBurst;
     public GameObject hudObject;
+    public GameObject blackBG;
 
     public GameObject interactableLableObject;
 
@@ -39,7 +40,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private OptionsDialog optionsDialog;
     [SerializeField] private TutorialDialog tutorialDialog;
     [SerializeField] private TutorialManager tutorialManager;
-
+    [SerializeField] private GameObject bossSlainScreen;
 
     private Stack dialogStack;
 
@@ -84,6 +85,11 @@ public class UIManager : MonoBehaviour {
     public void SetCoreCount(int value)
     {
         coreCount.text = value.ToString("N0");
+    }
+
+    public void SetBlackBG(bool b)
+    {
+        blackBG.SetActive(b);
     }
 
     public void OpenGameOverScreen(int score)
@@ -226,7 +232,15 @@ public class UIManager : MonoBehaviour {
     {
         EndLevelReportDialog dialog = Instantiate(endLevelReportDialog, this.transform);
         dialog.Init(score, maxMultiplier, time, enemyCount, damage, level);
-       // GameManager.Instance.PlayerInstance.playerInput.SwitchCurrentActionMap("UI");
+        dialog.SelectFirst();
+        GameManager.Instance.PlayerInstance.playerInput.SwitchCurrentActionMap("UI");
+    }
+
+    public void BossSlain()
+    {
+        print("show slay UI");
+        bossSlainScreen.SetActive(true);
+        bossSlainScreen.GetComponent<Animator>().SetTrigger("Slay");
     }
 
     public void AddPowerup(PowerUpObject powerupData)

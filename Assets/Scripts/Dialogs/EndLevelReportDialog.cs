@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EndLevelReportDialog : MonoBehaviour
+public class EndLevelReportDialog : AbstractDialog
 {
     public Text levelNameText;
     public Text scoreText;
@@ -19,6 +19,8 @@ public class EndLevelReportDialog : MonoBehaviour
     public Text damageGradeText;
 
     public Text gradeText;
+
+    public Button continueBtn;
 
     private LevelScriptableObject levelData;
 
@@ -35,19 +37,19 @@ public class EndLevelReportDialog : MonoBehaviour
         damageText.text = damage.ToString("N0");
         this.levelData = levelData;
 
-        levelNameText.text = this.levelData.name + " complete!";
+        levelNameText.text = this.levelData.displayName + " complete!";
 
         char grade = CalcGrade(score, maxMultiplier, time, enemyCount, damage);
         gradeText.text = grade.ToString();
 
-        GameManager.Instance.PlayerInstance.interactionEvent += PressNextAction;
+        //GameManager.Instance.PlayerInstance.interactionEvent += PressNextAction;
 
     }
 
-    private void PressNextAction()
+    public void PressNextAction()
     {
         print("pressing continue end level report");
-        GameManager.Instance.PlayerInstance.interactionEvent -= PressNextAction;
+        //GameManager.Instance.PlayerInstance.interactionEvent -= PressNextAction;
         GameManager.Instance.PlayerInstance.playerInput.SwitchCurrentActionMap("Player");
 
         GameManager.Instance.NextLevel();
@@ -125,4 +127,18 @@ public class EndLevelReportDialog : MonoBehaviour
         return RANKS[rankIndex > 0 ? rankIndex - 1 : 0];
     }
 
+    public override void SelectFirst()
+    {
+        continueBtn.Select();
+    }
+
+    public void RetryLevel()
+    {
+        GameManager.Instance.RestartLevel(false);
+    }
+
+    public override void CloseDialog()
+    {
+        //throw new NotImplementedException();
+    }
 }

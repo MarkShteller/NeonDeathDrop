@@ -68,6 +68,11 @@ public class PlayerAnimatorEvents : MonoBehaviour
         playerBehaviour.FinishFinisher();
     }
 
+    public void BossSlainSound()
+    { 
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerItemPickupHP2, transform.position);
+    }
+
     public void Dead()
     {
         //GameManager.Instance.GameOver();

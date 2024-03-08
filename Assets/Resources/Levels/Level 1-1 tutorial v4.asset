@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
   m_Name: Level 1-1 tutorial v4
   m_EditorClassIdentifier: 
+  displayName: Level 1 - Beginings
   additiveScene: 2
   levelMusicTrack: 1
+  startMusicWithEvent: 0
   map: {fileID: 2800000, guid: ac41e40968a10ec40b4327fc20a503a5, type: 3}
   dialogSheetName: Level 1-1 Stable
   PlayerSpawnRotation: {x: 0, y: 145, z: 0}
   Spawners:
   - {fileID: 11400000, guid: b5817390fe814824facbe11a8e466ef3, type: 2}
   - {fileID: 11400000, guid: 1fadf30ba7e34214d804cbda1fff6e74, type: 2}
-  enemyDefeatedCountGoals: 010000000b0000001e0000002300000023000000
+  enemyDefeatedCountGoals: 010000000b0000001e0000002300000003000000
   fieldRotationAngle: 315
   musicName: 
   backdrop: {fileID: 1476006235637259030, guid: 923a0e454f17e3f45af79ef38a872d2c,
@@ -29,6 +31,8 @@ MonoBehaviour:
   hasSublevels: 0
   positionOffset: {x: 0, y: 0}
   linkedSublevelList: []
+  isPlayVideoOnStart: 1
+  videoClip: {fileID: 32900000, guid: c5805a9b8fee1cc46bb9109cffb43135, type: 3}
   includeCompanion: 1
   isVRSpace: 0
   showEndLevelReport: 0

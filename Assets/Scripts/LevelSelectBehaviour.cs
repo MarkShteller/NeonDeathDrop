@@ -12,6 +12,13 @@ public class LevelSelectBehaviour : MonoBehaviour
     public void StartAction()
     {
         gameManagerPrefab.CurrentLevelIndex = int.Parse(inputField.text);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.CurrentLevelIndex = gameManagerPrefab.CurrentLevelIndex;
+            //GameManager.Instance.additiveScene = Loader.AdditiveScenes.UpperBavelle_daytime;
+            GameManager.Instance.RestartLevel(false);
+            return;
+        }
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 }

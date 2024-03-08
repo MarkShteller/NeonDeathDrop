@@ -427,11 +427,21 @@ public class SpiderBossBehaviour : MonoBehaviour
 
     public void FinalBlow()
     {
+        StartCoroutine(FinalBlowCor());
+    }
+
+    public IEnumerator FinalBlowCor()
+    {
         print("## boss final blow!");
         GameManager.Instance.DashSlomo(20f);
         currentState = SpiderBossState.Die;
         FinalBlowVFX.SetActive(false);
         animator.SetTrigger("Falling");
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerFall, transform.position);
+
+        yield return new WaitForSeconds(3f);
+        
+        UIManager.Instance.BossSlain();
     }
 
     public void TriggerLegsJumping()

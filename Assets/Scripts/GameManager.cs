@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.VFX;
+using UnityEngine.Video;
 using static Loader;
 
 public class GameManager : MonoBehaviour {
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour {
     public AnimationCurve[] slomoCurves;
     public Volume slomoVolume;
     public Volume takingDanmageVolume;
+    public VideoPlayer videoPlayer;
     public int CurrentLevelIndex = 0;
 
     [HideInInspector] public AdditiveScenes additiveScene;
@@ -122,6 +124,16 @@ public class GameManager : MonoBehaviour {
             companion = Instantiate(companionObject).GetComponent<CompanionBehaviour>();
         }*/
 
+        if (currentLevelData.isPlayVideoOnStart)
+        {
+            UIManager.Instance.SetBlackBG(true);
+            videoPlayer.gameObject.SetActive(true);
+            //videoPlayer.targetCamera = Camera.main;
+            videoPlayer.clip = currentLevelData.videoClip;
+            videoPlayer.loopPointReached += VideoEnd;
+           // videoPlayer.audioOutputMode = VideoAudioOutputMode.APIOnly;
+        }
+
         score = 0;
         scoreMultiplier = 1;
         maxScoreMultiplier = scoreMultiplier;
@@ -144,6 +156,13 @@ public class GameManager : MonoBehaviour {
 
         /////////////
 
+    }
+
+    private void VideoEnd(VideoPlayer vp)
+    {
+        UIManager.Instance.SetBlackBG(false);
+        videoPlayer.loopPointReached -= VideoEnd;
+        videoPlayer.gameObject.SetActive(false);
     }
 
     private IEnumerator KillPointsUpdater()

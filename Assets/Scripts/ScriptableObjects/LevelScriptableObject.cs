@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 using static Loader;
 
 [CreateAssetMenu(fileName = "Level 0-0", menuName = "Level")]
 public class LevelScriptableObject : ScriptableObject
 {
+    public string displayName;
     public AdditiveScenes additiveScene;
     public AudioManager.LevelMusicTracks levelMusicTrack;
     public bool startMusicWithEvent;
@@ -24,6 +26,9 @@ public class LevelScriptableObject : ScriptableObject
     public bool hasSublevels;
     public Vector2 positionOffset;
     public LevelScriptableObject[] linkedSublevelList;
+
+    public bool isPlayVideoOnStart;
+    public VideoClip videoClip;
 
     public bool includeCompanion = true;
     public bool isVRSpace = false;

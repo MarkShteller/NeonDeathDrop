@@ -184,7 +184,7 @@ public class PlayerBehaviour : MonoBehaviour
         currentRevolutionCooldown = revolutionCooldown;
         sprintTimer = sprintCountdown;
 
-        currentFalloffHeight = -0.2f;
+        currentFalloffHeight = 2f;
 
         launchedEnemies = new List<Enemy>();
 
@@ -209,6 +209,7 @@ public class PlayerBehaviour : MonoBehaviour
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(slomoSoundEvent, transform);
         
         playerInput = GetComponent<PlayerInput>();
+        playerInput.SwitchCurrentActionMap("Player");
         //GetComponent<PlayerInput>().actions.FindAction("MakeHole").started += MakeHoleStarted;
         playerInput.actions.FindAction("MakeHole").performed += MakeHolePrefomed;
         playerInput.actions.FindAction("MakeHole").canceled += MakeHoleCanceled;
