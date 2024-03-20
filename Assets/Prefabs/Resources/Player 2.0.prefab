@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 114084821038195596}
   m_Layer: 6
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: PlayerVisuals
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5262,10 +5262,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 0.1025
   totalHealthPoints: 15
-  totalManaPoints: 20
+  totalManaPoints: 30
   manaRegenAmount: 1.5
   holeTimeToRegen: 5
-  pushManaCost: -0.5
+  pushManaCost: -1.5
   holeManaCost: 0.2
   dashManaCost: 3
   somersaultManaCost: 4
@@ -5351,6 +5351,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   currentAttackType: 0
+  isStartWithFalling: 0
   IsTestMode: 0
   playerInput: {fileID: 0}
 --- !u!54 &54492051674860394
@@ -5858,7 +5859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4709237071793849707
 Transform:
   m_ObjectHideFlags: 0

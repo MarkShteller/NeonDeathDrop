@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
+using Unity.Services.Core;
+using Unity.Services.Analytics;
 
 public class TitleScreenControls : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class TitleScreenControls : MonoBehaviour
     public Button firstBtn;
     public PlayableDirector creditsTimeline;
     public PlayableDirector introTimeline;
+    public AnalyticsBehavoiur analyticsBehavoiur;
 
     private bool enableControls = false;
 
@@ -20,7 +23,10 @@ public class TitleScreenControls : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         playerInput.SwitchCurrentActionMap("UI");
-        firstBtn.Select();
+        
+
+        print("Unity services state: "+UnityServices.State);
+        //print("TitleScreen event analyticsResult: " + analyticsResult);
     }
 
     public void OnNewGame()
@@ -40,6 +46,10 @@ public class TitleScreenControls : MonoBehaviour
                 GameManager.Instance.RestartLevel(false);
             }
         }
+        AnalyticsService.Instance.RecordEvent("NewGame");
+        print("## analytics init with session id: " + AnalyticsService.Instance.SessionID);
+        //AnalyticsResult analyticsResult = Analytics.CustomEvent("NewGame");
+        //print("NewGame event analyticsResult: " + analyticsResult);
     }
 
     public void OnTutorial()
@@ -69,8 +79,11 @@ public class TitleScreenControls : MonoBehaviour
 
     public void OnCredits()
     {
-        if(enableControls)
+        if (enableControls)
+        { 
             creditsTimeline.Play();
+            AnalyticsService.Instance.RecordEvent("Credits");
+        }
     }
 
     public void OnCancel()
@@ -79,16 +92,45 @@ public class TitleScreenControls : MonoBehaviour
         creditsTimeline.Evaluate();
         creditsTimeline.Stop();
 
-        introTimeline.time = 4.4f;
+        introTimeline.time = 5.5f;
         introTimeline.Evaluate();
         //introTimeline.Stop();
 
-        IntroFinished();
+       // IntroFinished();
     }
 
     public void IntroFinished()
-    {
+    { 
         enableControls = true;
+    }
+
+    public void PrivacyMessage()
+    {
+        playerInput.SwitchCurrentActionMap("Privacy");
+        introTimeline.Stop();
+        print("privacy message");
+    }
+
+    public void OnAccept()
+    {
+        analyticsBehavoiur.ConsentGiven();
+        introTimeline.time = 6.4f;
+        introTimeline.Evaluate();
+        introTimeline.Play();
+        playerInput.SwitchCurrentActionMap("UI");
+        AnalyticsService.Instance.RecordEvent("TitleScreen");
+        firstBtn.Select();
+    }
+
+    public void OnDecline()
+    {
+        //AnalyticsService.Instance.StopDataCollection();
+        introTimeline.time = 6.4f;
+        introTimeline.Evaluate();
+        introTimeline.Play();
+        playerInput.SwitchCurrentActionMap("UI");
+        firstBtn.Select();
+        //enableControls = true;
     }
 
     public void OnQuit()

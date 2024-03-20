@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -40,6 +42,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private OptionsDialog optionsDialog;
     [SerializeField] private TutorialDialog tutorialDialog;
     [SerializeField] private TutorialManager tutorialManager;
+    [SerializeField] private EndDemoScreen endDemoScreen;
     [SerializeField] private GameObject bossSlainScreen;
 
     private Stack dialogStack;
@@ -97,6 +100,7 @@ public class UIManager : MonoBehaviour {
         GameOverDialog dialog = Instantiate(gameOverDialog, this.transform);
         dialog.Init(score);
         hudObject.SetActive(false);
+
     }
 
     public void SetScoreMultiplier(float scoreMultiplier, string praiseText)
@@ -162,6 +166,11 @@ public class UIManager : MonoBehaviour {
     public void OpenOptionsDialog()
     {
         OpenDialogGeneric(optionsDialog.gameObject);
+    }
+
+    public void OpenEndDemoDialog()
+    {
+        OpenDialogGeneric(endDemoScreen.gameObject);
     }
 
     public void OpenTutorialDialog(int tutorialIndex)
@@ -234,6 +243,17 @@ public class UIManager : MonoBehaviour {
         dialog.Init(score, maxMultiplier, time, enemyCount, damage, level);
         dialog.SelectFirst();
         GameManager.Instance.PlayerInstance.playerInput.SwitchCurrentActionMap("UI");
+
+        Analytics.CustomEvent("EndLevelReport",
+            new Dictionary<string, object> {
+                { "currentLevelName", level.displayName },
+                { "score", score },
+                { "maxMultiplier", maxMultiplier},
+                { "time", time},
+                { "enemyCount", enemyCount},
+                { "damage", damage}
+            }
+        );
     }
 
     public void BossSlain()
@@ -241,6 +261,8 @@ public class UIManager : MonoBehaviour {
         print("show slay UI");
         bossSlainScreen.SetActive(true);
         bossSlainScreen.GetComponent<Animator>().SetTrigger("Slay");
+
+        Analytics.CustomEvent("BossSlain");
     }
 
     public void AddPowerup(PowerUpObject powerupData)

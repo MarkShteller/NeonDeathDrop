@@ -174,6 +174,7 @@ public class AudioManager : MonoBehaviour {
     {
         StopCurrentVoiceline();
         LevelMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        GameManager.Instance.companion.StopFloatSound();
         LevelMusic.release();
     }
 }

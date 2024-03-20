@@ -73,4 +73,9 @@ public class CompanionBehaviour : MonoBehaviour
         playerRef = player;
         playerLookDirection = player.GetComponentInChildren<DetectFloorTiles>().transform;
     }
+
+    public void StopFloatSound()
+    {
+        floatingSoundEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
 }

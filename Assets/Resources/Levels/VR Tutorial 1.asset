@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
   m_Name: VR Tutorial 1
   m_EditorClassIdentifier: 
-  additiveScene: 4
-  levelMusicTrack: 2
+  displayName: 
+  additiveScene: 5
+  levelMusicTrack: 0
+  startMusicWithEvent: 0
   map: {fileID: 2800000, guid: 27d92a160b7da461f89bad948f5fb4f1, type: 3}
   dialogSheetName: 
+  PlayerSpawnRotation: {x: 0, y: 0, z: 0}
   Spawners:
   - {fileID: 11400000, guid: 09d8fc6be1b48134ab4c6e94599a4cdd, type: 2}
   enemyDefeatedCountGoals: 0b0000001e000000000000000000000000000000
@@ -26,6 +29,8 @@ MonoBehaviour:
   hasSublevels: 0
   positionOffset: {x: 0, y: 0}
   linkedSublevelList: []
+  isPlayVideoOnStart: 0
+  videoClip: {fileID: 0}
   includeCompanion: 0
   isVRSpace: 1
   showEndLevelReport: 0

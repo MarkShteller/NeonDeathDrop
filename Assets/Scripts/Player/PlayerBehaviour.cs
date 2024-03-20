@@ -78,6 +78,8 @@ public class PlayerBehaviour : MonoBehaviour
     private bool isChangingSublevel;
     [SerializeField] private float currentFalloffHeight;
 
+    private Rigidbody rrigidbody;
+
     private float prevRotationAngle;
     private float revolutionCount;
     private float currentRevolutionCooldown;
@@ -143,6 +145,8 @@ public class PlayerBehaviour : MonoBehaviour
     public enum PlayerAttackType { None, Push, Pull, Dash, Heavy, Launch, ParryBullet }
     public PlayerAttackType currentAttackType;
 
+    public bool isStartWithFalling;
+
     public bool IsTestMode = false;
     private bool isDead;
 
@@ -161,8 +165,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (!IsTestMode)
             gridHolder = GameManager.Instance.GetCurrentSublevel();
-            //gridHolder = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>();
+        //gridHolder = GameObject.FindGameObjectWithTag("LevelGenerator").GetComponent<LevelGenerator>();
 
+        rrigidbody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
 
         aimAssist = GetComponentInChildren<PlayerAimAssist>();
@@ -213,6 +218,15 @@ public class PlayerBehaviour : MonoBehaviour
         //GetComponent<PlayerInput>().actions.FindAction("MakeHole").started += MakeHoleStarted;
         playerInput.actions.FindAction("MakeHole").performed += MakeHolePrefomed;
         playerInput.actions.FindAction("MakeHole").canceled += MakeHoleCanceled;
+
+        if (isStartWithFalling)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y + 15, transform.position.z);
+            isFalling = true;
+            animator.SetBool("Falling", isFalling);
+            Vector3 soundPos = new Vector3(transform.position.x, 0, transform.position.z);
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerFallLand, soundPos);
+        }
     }
 
     private void OnDestroy()
@@ -452,7 +466,7 @@ public class PlayerBehaviour : MonoBehaviour
             GameObject closestEnemy = aimAssist.GetClosestEnemyObject();
             if (closestEnemy != null)
             {
-                this.visualsHolder.LookAt(closestEnemy.transform, Vector3.up);
+                this.visualsHolder.LookAt(closestEnemy.transform, Vector3.up); // lookat vector.y needs to be = players height
                 visualsHolder.Rotate(new Vector3(0, 180, 0));
             }
 
@@ -628,7 +642,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         shockwaveBehavior.gameObject.SetActive(true);
         TrailsEnabled(true);
-        StartCoroutine(shockwaveBehavior.Shockwave(10, true));
+        StartCoroutine(shockwaveBehavior.Shockwave(12, true));
     }
 
     public void PreformShockwaveTrailer()
@@ -991,6 +1005,7 @@ public class PlayerBehaviour : MonoBehaviour
             else
             {
                 TakeDamage(enemy.damage);
+                rrigidbody.velocity = Vector3.zero;
             }
         }
 

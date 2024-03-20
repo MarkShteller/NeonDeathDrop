@@ -220,8 +220,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 52c652bbd181e58429cfdd90f085e645, type: 2}
   - {fileID: 11400000, guid: d6e8c382d18a8c24d8332d1221199eaa, type: 2}
   - {fileID: 11400000, guid: 47233b425e58b4943b8a737ca61c59b0, type: 2}
-  - {fileID: 11400000, guid: b6ccd9f0d5ca822469b01003694c5b17, type: 2}
   - {fileID: 11400000, guid: ac3e23c35dc6a5a47a79f95821213407, type: 2}
+  - {fileID: 11400000, guid: b6ccd9f0d5ca822469b01003694c5b17, type: 2}
   - {fileID: 11400000, guid: 9c388530aa1404da59cb228a8ddf3996, type: 2}
   - {fileID: 11400000, guid: cd679bc94f215ed4b80f09d73e41a421, type: 2}
   - {fileID: 11400000, guid: d7ccc29005789e8439d85d609ba8e24b, type: 2}
@@ -795,6 +795,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VideoPlayback
+      objectReference: {fileID: 0}
+    - target: {fileID: 5374765826080765534, guid: 3964e8887f9a2354e97318f03c753cd7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3964e8887f9a2354e97318f03c753cd7, type: 3}

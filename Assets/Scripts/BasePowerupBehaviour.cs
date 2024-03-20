@@ -39,7 +39,8 @@ public class BasePowerupBehaviour : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PlayerInteractTrigger"))
+        if (other.CompareTag("PlayerInteractTrigger") || 
+            (other.CompareTag("PlayerVisuals") && GameManager.Instance.PlayerInstance.currentAttackType == PlayerBehaviour.PlayerAttackType.Pull))
         {
             StartCoroutine(DrawIn(other.transform));
         }

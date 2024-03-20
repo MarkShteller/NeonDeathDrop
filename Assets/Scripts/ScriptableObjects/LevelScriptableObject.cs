@@ -30,6 +30,7 @@ public class LevelScriptableObject : ScriptableObject
     public bool isPlayVideoOnStart;
     public VideoClip videoClip;
 
+    public bool startPlayerFalling = false;
     public bool includeCompanion = true;
     public bool isVRSpace = false;
     

@@ -27,12 +27,13 @@ MonoBehaviour:
   musicName: 
   backdrop: {fileID: 1476006235637259030, guid: 923a0e454f17e3f45af79ef38a872d2c,
     type: 3}
-  powerupWeights: 1e0000000000000000000000000000000000000000000000000000001e000000
+  powerupWeights: 3c0000001e00000000000000000000000000000000000000000000001e000000
   hasSublevels: 0
   positionOffset: {x: 0, y: 0}
   linkedSublevelList: []
   isPlayVideoOnStart: 1
   videoClip: {fileID: 32900000, guid: c5805a9b8fee1cc46bb9109cffb43135, type: 3}
+  startPlayerFalling: 0
   includeCompanion: 1
   isVRSpace: 0
   showEndLevelReport: 0

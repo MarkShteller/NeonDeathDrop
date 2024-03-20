@@ -1,6 +1,8 @@
 ﻿using FMOD.Studio;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.Services.Analytics;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -134,6 +136,11 @@ public class GameManager : MonoBehaviour {
            // videoPlayer.audioOutputMode = VideoAudioOutputMode.APIOnly;
         }
 
+        if (currentLevelData.startPlayerFalling)
+        {
+            PlayerInstance.isStartWithFalling = true;
+        }
+
         score = 0;
         scoreMultiplier = 1;
         maxScoreMultiplier = scoreMultiplier;
@@ -153,9 +160,6 @@ public class GameManager : MonoBehaviour {
         //init music after once awakes are done
         if(!currentLevelData.startMusicWithEvent)
             StartCoroutine(AudioManager.Instance.StartMusic(currentLevelData.levelMusicTrack));
-
-        /////////////
-
     }
 
     private void VideoEnd(VideoPlayer vp)
@@ -254,6 +258,15 @@ public class GameManager : MonoBehaviour {
         //Time.timeScale = 0;
         EnemyManager.Instance.SetUpdateEnemies(false);
         UIManager.Instance.OpenGameOverScreen(score);
+
+        try
+        {
+            AnalyticsService.Instance.RecordEvent(new GameOverEvent()
+            {
+                currentLevelIndex = CurrentLevelIndex,
+                lastPlayerPosition = playerPointPosition.x.ToString() + "," + playerPointPosition.y.ToString()
+            });
+        } catch (Exception e) { Debug.LogWarning(e.Message); }
     }
 
     public void SetDuckMusicIntensity(float value)
@@ -326,6 +339,13 @@ public class GameManager : MonoBehaviour {
             UIManager.Instance.OpenEndLevelDialog(score, maxScoreMultiplier, levelTime, PlayerInstance.enemyDefeatedCount, damageTaken, currentLevelData);
         else
             NextLevel();
+
+        AnalyticsService.Instance.RecordEvent(new LevelFinishedEvent() {    currentLevelIndex = CurrentLevelIndex,
+                                                                            damageTaken = (int)damageTaken,
+                                                                            enemyCount = PlayerInstance.enemyDefeatedCount,
+                                                                            maxMultiplier = (int)maxScoreMultiplier,
+                                                                            totalTime = levelTime,
+                                                                            score = score});
     }
 
     internal void MoveLevelDown()

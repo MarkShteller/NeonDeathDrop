@@ -442,6 +442,10 @@ public class SpiderBossBehaviour : MonoBehaviour
         yield return new WaitForSeconds(3f);
         
         UIManager.Instance.BossSlain();
+
+        yield return new WaitForSeconds(8f);
+
+        UIManager.Instance.OpenEndDemoDialog();
     }
 
     public void TriggerLegsJumping()

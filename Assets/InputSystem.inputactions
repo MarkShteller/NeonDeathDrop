@@ -997,6 +997,76 @@
             ]
         },
         {
+            "name": "Privacy",
+            "id": "60d3b0f0-5471-46c6-9d8b-9b22dfa4f69e",
+            "actions": [
+                {
+                    "name": "Accept",
+                    "type": "Button",
+                    "id": "eb1e0ae0-3dc0-40ca-a1e7-b2f1d7a10c6e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Decline",
+                    "type": "Button",
+                    "id": "ff94fd2f-8a16-4e10-ab6c-6f07ec8c2949",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "db37c7f3-362a-40f7-9968-138e4d5cb071",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Accept",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d739eaa3-55ad-40d8-8898-554349e3f650",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Accept",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ef42b8a-3b91-43ca-a109-39b9260c50c4",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Decline",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "32803bc3-2693-4177-8d74-20f284c5034f",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Decline",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "Dialog",
             "id": "ea86b49a-c3b1-4b7d-b5ac-8ecfd52594d3",
             "actions": [
