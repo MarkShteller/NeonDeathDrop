@@ -192,11 +192,11 @@ public class DialogManager : MonoBehaviour
         AudioManager.Instance.PlayVoiceline(s, callback);
     }
 
-    public void ShowSubtitlesDialog(string conversationID)
+    public void ShowSubtitlesDialog(string conversationID, int startIndex =0)
     {
         currentConversation = dialogData[conversationID];
         
-        currentEntryIndex = 0;
+        currentEntryIndex = startIndex;
         dialogSubtitles.gameObject.SetActive(true);
 
         DialogEntry de = currentConversation.dialogEntries[currentEntryIndex];

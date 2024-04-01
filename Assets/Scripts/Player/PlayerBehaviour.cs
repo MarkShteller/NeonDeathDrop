@@ -54,7 +54,7 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector3 lastDashDir;
     private bool isDashImpact = false;
 
-    [HideInInspector] public bool isDoingSomersault = false;
+    public bool isDoingSomersault = false;
 
     private bool isCharging;
     private float chargeTime;
@@ -325,17 +325,10 @@ public class PlayerBehaviour : MonoBehaviour
         {
             enableMovement = false;
 
-            aimAssist.gameObject.SetActive(true);
-            GameObject closestEnemy = aimAssist.GetClosestEnemyObject();
-            if (closestEnemy != null)
-            {
-                this.visualsHolder.LookAt(closestEnemy.transform, Vector3.up);
-                visualsHolder.Rotate(new Vector3(0, 180, 0));
-            }
+            AimAtClosestEnemy();
 
             //the animation triggers PreformPush()
             animator.SetTrigger("PushA");
-            //StopSprinting();
         }
         else
             LowMana();
@@ -349,7 +342,8 @@ public class PlayerBehaviour : MonoBehaviour
             if (!isDoingSomersault)
             {
                 isDoingSomersault = true;
-                //StopSprinting();
+                AimAtClosestEnemy();
+
                 animator.SetTrigger("HeavyA");
                 FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.PlayerSomersault, transform.position);
             }
@@ -462,13 +456,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             enableMovement = false;
 
-            aimAssist.gameObject.SetActive(true);
-            GameObject closestEnemy = aimAssist.GetClosestEnemyObject();
-            if (closestEnemy != null)
-            {
-                this.visualsHolder.LookAt(closestEnemy.transform, Vector3.up); // lookat vector.y needs to be = players height
-                visualsHolder.Rotate(new Vector3(0, 180, 0));
-            }
+            AimAtClosestEnemy();
 
             //the animation triggers PreformPush()
             animator.SetTrigger("PullA");
@@ -564,7 +552,25 @@ public class PlayerBehaviour : MonoBehaviour
 
     }
 
-    public void TrailsEnabled(bool enabled)
+    private void AimAtClosestEnemy()
+    {
+        try
+        {
+            aimAssist.gameObject.SetActive(true);
+            GameObject closestEnemy = aimAssist.GetClosestEnemyObject();
+            if (closestEnemy != null)
+            {
+                print("## aim assist closest enemy pos: " + closestEnemy.transform.position);
+                visualsHolder.LookAt(new Vector3(closestEnemy.transform.position.x, transform.position.y, closestEnemy.transform.position.z), Vector3.up);//this.visualsHolder.LookAt(closestEnemy.transform, Vector3.up);
+                visualsHolder.Rotate(new Vector3(0, 180, 0));
+            }
+            else
+                print("## closest enemy null");
+        }
+        catch (Exception e) { print("## closest enemy null"); }
+        }
+
+        public void TrailsEnabled(bool enabled)
     {
         foreach (var go in trails)
         {
@@ -1168,8 +1174,8 @@ public class PlayerBehaviour : MonoBehaviour
         currentPushForce = pushForce;
 
         //StopSprinting();
-        if (isDoingSomersault)
-            FinishSomersault();
+        //if (isDoingSomersault)
+        FinishSomersault();
 
         if (Time.time - lastTimeDamageTaken > takenDamageCooldown && !isInvinsible)
         {

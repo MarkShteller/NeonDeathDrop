@@ -442,6 +442,7 @@ public class SpiderBossBehaviour : MonoBehaviour
         yield return new WaitForSeconds(3f);
         
         UIManager.Instance.BossSlain();
+        DialogManager.Instance.ShowSubtitlesDialog("convo0005");
 
         yield return new WaitForSeconds(8f);
 

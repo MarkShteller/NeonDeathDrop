@@ -26,6 +26,17 @@ public class PlayerAimAssist : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Enemy")
+        {
+            if (enemyList.Contains(other.gameObject))
+            {
+                enemyList.Remove(other.gameObject);
+            }
+        }
+    }
+
     public GameObject GetClosestEnemyObject()
     {
         float minDistance = 10;
@@ -33,7 +44,7 @@ public class PlayerAimAssist : MonoBehaviour
         foreach (GameObject enemy in enemyList)
         {
             float dist = Vector3.Distance(PlayerBehaviour.gameObject.transform.position, enemy.transform.position);
-            if (dist < minDistance)
+            if (dist < minDistance && enemy.GetComponent<Enemy>().movementStatus != Enemy.MovementType.Dead)
             {
                 minDistance = dist;
                 closestEnemy = enemy;
