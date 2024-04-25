@@ -141,4 +141,8 @@ public class EndLevelReportDialog : AbstractDialog
     {
         //throw new NotImplementedException();
     }
+
+    public override void SetIcons(IconManager.InteractionIcons icons)
+    {
+    }
 }

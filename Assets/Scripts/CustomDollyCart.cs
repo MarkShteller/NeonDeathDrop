@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,16 +32,20 @@ public class CustomDollyCart : MonoBehaviour
 
         if (cartTransforms.Count > 0)
         {
-            for (int i = cartTransforms.Count - 1; i <= 0; i--)
+            try
             {
-                if (cartTransforms[i].cartPosition >= 0.95f)
+                for (int i = cartTransforms.Count - 1; i <= 0; i--)
                 {
-                    cartTransforms[i].cartTransform.gameObject.SetActive(false);
-                    cartTransforms.RemoveAt(i);
-                    //break to prevent list iteration during list editing
-                    break;
+                    if (cartTransforms[i].cartPosition >= 0.95f)
+                    {
+                        cartTransforms[i].cartTransform.gameObject.SetActive(false);
+                        cartTransforms.RemoveAt(i);
+                        //break to prevent list iteration during list editing
+                        break;
+                    }
                 }
             }
+            catch (Exception e) { }
         }
         for (int i = 0; i < cartTransforms.Count; i++)
         {
@@ -64,7 +69,8 @@ public class CustomDollyCart : MonoBehaviour
         CustomCart cart = new CustomCart();
         cart.cartTransform = transform;
         cart.cartPosition = 0;
-        cartTransforms.Add(cart);
+        if(cartTransforms != null)
+            cartTransforms.Add(cart);
     }
 
     public class CustomCart

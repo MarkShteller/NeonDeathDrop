@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance;
 
+    public bool isTutorial;
+
     public Point playerPointPosition;
     public int score = 0;
     public float scoreMultiplier = 1;
@@ -60,6 +62,8 @@ public class GameManager : MonoBehaviour {
     private EventInstance DeathSnapshot;
     private float slomoIntensity;
 
+    public Action GameManagerReady;
+
     // Use this for initialization
     void Awake ()
     {
@@ -78,10 +82,9 @@ public class GameManager : MonoBehaviour {
 
         additiveScene = levelManager.GetLevelData(CurrentLevelIndex).additiveScene;
         StartCoroutine(InitLevel());
-        print("## GameManager ready");
 	}
 
-    private void Start()
+    private void InitSFX()
     {
         SlomoSnapshot = FMODUnity.RuntimeManager.CreateInstance("snapshot:/SlowMo_Effect");
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(SlomoSnapshot, PlayerInstance.transform, PlayerInstance.GetComponent<Rigidbody>());
@@ -160,6 +163,12 @@ public class GameManager : MonoBehaviour {
         //init music after once awakes are done
         if(!currentLevelData.startMusicWithEvent)
             StartCoroutine(AudioManager.Instance.StartMusic(currentLevelData.levelMusicTrack));
+        AudioManager.Instance.StartAmbiance(AudioManager.Instance.EnvAmbienceHighway);
+
+        InitSFX();
+
+        print("## GameManager ready");
+        GameManagerReady();
     }
 
     private void VideoEnd(VideoPlayer vp)
@@ -271,6 +280,12 @@ public class GameManager : MonoBehaviour {
 
     public void SetDuckMusicIntensity(float value)
     { 
+        //DeathSnapshot.setParameterByName("Death_MusicDuck_Intensity", value);
+        SlomoSnapshot.setParameterByName("SlowMo_Effect_Intensity", value);
+    }
+
+    public void SetDeathSnapshotIntensity(float value)
+    {
         DeathSnapshot.setParameterByName("Death_MusicDuck_Intensity", value);
     }
 
@@ -339,13 +354,19 @@ public class GameManager : MonoBehaviour {
             UIManager.Instance.OpenEndLevelDialog(score, maxScoreMultiplier, levelTime, PlayerInstance.enemyDefeatedCount, damageTaken, currentLevelData);
         else
             NextLevel();
-
-        AnalyticsService.Instance.RecordEvent(new LevelFinishedEvent() {    currentLevelIndex = CurrentLevelIndex,
-                                                                            damageTaken = (int)damageTaken,
-                                                                            enemyCount = PlayerInstance.enemyDefeatedCount,
-                                                                            maxMultiplier = (int)maxScoreMultiplier,
-                                                                            totalTime = levelTime,
-                                                                            score = score});
+        try
+        {
+            AnalyticsService.Instance.RecordEvent(new LevelFinishedEvent()
+            {
+                currentLevelIndex = CurrentLevelIndex,
+                damageTaken = (int)damageTaken,
+                enemyCount = PlayerInstance.enemyDefeatedCount,
+                maxMultiplier = (int)maxScoreMultiplier,
+                totalTime = levelTime,
+                score = score
+            });
+        }
+        catch (Exception e) { }
     }
 
     internal void MoveLevelDown()
@@ -440,12 +461,14 @@ public class GameManager : MonoBehaviour {
         float timeStarted = Time.time;
         while (time <= duration)
         {
-            Time.timeScale = curve.Evaluate(time / duration);
+            float result = curve.Evaluate(time / duration);
+            Time.timeScale = result < 0 ? 0 : result;
 
             time += Time.time - timeStarted;
             yield return null;
         }
     }
+
 
     public string GetCurrentLevelName()
     {

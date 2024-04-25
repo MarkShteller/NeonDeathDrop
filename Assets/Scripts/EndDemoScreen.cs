@@ -23,4 +23,8 @@ public class EndDemoScreen : AbstractDialog
         GameManager.Instance.ClearLevel();
         SceneManager.LoadScene(0);
     }
+
+    public override void SetIcons(IconManager.InteractionIcons icons)
+    {
+    }
 }

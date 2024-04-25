@@ -40,11 +40,13 @@ public class AudioManager : MonoBehaviour {
     [FMODUnity.EventRef] public string EnemyStompingStomp = "";
 
     [FMODUnity.EventRef] public string UIRestart = "";
+    public FMODUnity.EventReference VictoryFanfare;
     [FMODUnity.EventRef] public string CompanionFloating = "";
     [FMODUnity.EventRef] public string BoxBreak = "";
     public EventReference AreaUnlock;
 
     EventInstance LevelMusic;
+    EventInstance LevelAmbiance;
     //Parameter paramInstance;
 
     public static AudioManager Instance;
@@ -100,6 +102,12 @@ public class AudioManager : MonoBehaviour {
             LevelMusic = FMODUnity.RuntimeManager.CreateInstance("event:/Music/"+ levelTrack.ToString());
         
         LevelMusic.start();
+    }
+
+    public void StartAmbiance(EventReference ambianceSound)
+    {
+        LevelAmbiance = FMODUnity.RuntimeManager.CreateInstance(ambianceSound);
+        LevelAmbiance.start();
     }
 
     public void SetLowIntensityMusic()
@@ -174,7 +182,9 @@ public class AudioManager : MonoBehaviour {
     {
         StopCurrentVoiceline();
         LevelMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        GameManager.Instance.companion.StopFloatSound();
+        LevelAmbiance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        if(GameManager.Instance != null)
+            GameManager.Instance.companion.StopFloatSound();
         LevelMusic.release();
     }
 }

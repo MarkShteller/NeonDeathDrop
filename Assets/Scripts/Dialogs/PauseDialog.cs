@@ -57,4 +57,8 @@ public class PauseDialog : AbstractDialog
     {
         //throw new System.NotImplementedException();
     }
+
+    public override void SetIcons(IconManager.InteractionIcons icons)
+    {
+    }
 }

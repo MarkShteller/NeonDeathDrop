@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Services.Analytics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -11,6 +13,9 @@ public class OptionsDialog : AbstractDialog
     public Toggle hudToggle;
     public TMP_Dropdown graphicsPresetDropdown;
     public TMP_Dropdown resolutionDropdown;
+    public Image confirmIcon;
+    public Image closeIcon;
+
 
     private Resolution[] resolutions;
 
@@ -18,7 +23,8 @@ public class OptionsDialog : AbstractDialog
     {
         print("# Populating settings menu");
 
-        hudToggle.isOn = !UIManager.Instance.recordingMode;
+        if(UIManager.Instance != null)
+            hudToggle.isOn = !UIManager.Instance.recordingMode;
         fulscreenToggle.isOn = Screen.fullScreen;
 
         //actions.Disable();
@@ -67,7 +73,8 @@ public class OptionsDialog : AbstractDialog
 
     public void SetHUDVisible(bool isHUD)
     {
-        UIManager.Instance.SetHUDVisible(isHUD);
+        if (UIManager.Instance != null)
+            UIManager.Instance.SetHUDVisible(isHUD);
     }
 
     public override void SelectFirst()
@@ -82,11 +89,28 @@ public class OptionsDialog : AbstractDialog
 
         var rebinds = actions.SaveBindingOverridesAsJson();
         PlayerPrefs.SetString("rebinds", rebinds);
+
+        try
+        {
+            AnalyticsService.Instance.RecordEvent(new SettingsDialogEvent()
+            {
+                currentLevelIndex = GameManager.Instance.CurrentLevelIndex,
+                inputRebinds = rebinds,
+                qualityLevelIndex = QualitySettings.GetQualityLevel()
+            });
+        }
+        catch (Exception e) { }
     }
 
     private void OnDisable()
     {
         var rebinds = actions.SaveBindingOverridesAsJson();
         PlayerPrefs.SetString("rebinds", rebinds);
+    }
+
+    public override void SetIcons(IconManager.InteractionIcons icons)
+    {
+        confirmIcon.sprite = icons.buttonSouth;
+        closeIcon.sprite = icons.buttonEast;
     }
 }

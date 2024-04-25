@@ -34,4 +34,7 @@ public class GameOverDialog : AbstractDialog {
     {
     }
 
+    public override void SetIcons(IconManager.InteractionIcons icons)
+    {
+    }
 }

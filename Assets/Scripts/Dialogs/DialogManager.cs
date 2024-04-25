@@ -122,7 +122,7 @@ public class DialogManager : MonoBehaviour
         if (currentEntryIndex < currentConversation.dialogEntries.Count)
         {
             DialogEntry de = currentConversation.dialogEntries[currentEntryIndex];
-            characterDialogBox.Populate(de.speaker, de.message, de.tag);
+            characterDialogBox.Populate(de.speaker, de.message, de.tag, UIManager.Instance.iconManager.currentIcons);
 
             CreateVoicelineTagAndPlay(de, currentEntryIndex);
         }
@@ -137,8 +137,14 @@ public class DialogManager : MonoBehaviour
             EnemyManager.Instance.SetUpdateEnemies(true);
             characterDialogBox.gameObject.SetActive(false);
             GameManager.Instance.PlayerInstance.submitEvent -= PressNextAction;
-            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+            
+            if (!GameManager.Instance.isTutorial)
+                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+            else
+                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("PlayerTutorial"); 
+            
             UIManager.Instance.SetHUDVisible(true);
+            GameManager.Instance.SetDuckMusicIntensity(0f);
         }
     }
 
@@ -154,14 +160,16 @@ public class DialogManager : MonoBehaviour
         DialogEntry de = currentConversation.dialogEntries[currentEntryIndex];
 
         characterDialogBox.gameObject.SetActive(true);
-        characterDialogBox.Populate(de.speaker, de.message, de.tag);
+        characterDialogBox.Populate(de.speaker, de.message, de.tag, UIManager.Instance.iconManager.currentIcons);
         
         CreateVoicelineTagAndPlay(de, currentEntryIndex);
 
         EnemyManager.Instance.SetUpdateEnemies(false);
         UIManager.Instance.SetHUDVisible(false);
+        GameManager.Instance.SetDuckMusicIntensity(1f);
 
-        if(!isAutoScroll)
+
+        if (!isAutoScroll)
             GameManager.Instance.PlayerInstance.submitEvent += PressNextAction;
     }
 

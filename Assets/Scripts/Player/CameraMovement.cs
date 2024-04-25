@@ -19,7 +19,6 @@ public class CameraMovement : MonoBehaviour {
     public CinemachineVirtualCamera shockwaveVCam;
     public CinemachineVirtualCamera DeathVCam;
 
-    public Animation screenGlitchAnim;
     public Animator animator;
 
     public CinemachineTargetGroup targetGroup;
@@ -37,9 +36,6 @@ public class CameraMovement : MonoBehaviour {
         }
         currentState = CameraState.Point;
 
-        screenGlitchAnim = GetComponentInChildren<Animation>();
-        if (screenGlitchAnim == null)
-            Debug.LogError("Could not find glitch animation.");
     }
 
     // Update is called once per frame
@@ -52,8 +48,12 @@ public class CameraMovement : MonoBehaviour {
                     targetPosition = new Vector3(target.localPosition.x, transform.localPosition.y, target.localPosition.z - 14.5f); //-8
                 else
                 {
-                    target = GameObject.FindGameObjectWithTag("Player").transform;
-                    if(target != null && targetGroup != null) targetGroup.AddMember(target, 1, 0);
+                    GameObject go = GameObject.FindGameObjectWithTag("Player");
+                    if (go != null)
+                    {
+                        target = go.transform;
+                        if (target != null && targetGroup != null) targetGroup.AddMember(target, 1, 0);
+                    }
                 }
                 break;
             case CameraState.FollowVertically:

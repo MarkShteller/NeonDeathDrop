@@ -7,7 +7,7 @@ public class WeakTileBehaviour : BaseTileBehaviour
 {
     public float timeToFall;
     public GameObject visuals;
-    private bool isSteppedOn = false;
+    public bool isSteppedOn = false;
 
     public void StepOnTile(Action callback)
     {

@@ -446,6 +446,7 @@ public class SpiderBossBehaviour : MonoBehaviour
 
         yield return new WaitForSeconds(8f);
 
+        FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.VictoryFanfare);
         UIManager.Instance.OpenEndDemoDialog();
     }
 

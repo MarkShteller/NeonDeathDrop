@@ -49,7 +49,7 @@ public class PlayerShockwaveBehavior : MonoBehaviour
 
     public IEnumerator Shockwave(float radius, bool regularShockwave)
     {
-        print("shockwaving "+ regularShockwave);
+        //print("shockwaving "+ regularShockwave);
         isDeathShockwave = regularShockwave;
 
         capsuleCollider.enabled = true;

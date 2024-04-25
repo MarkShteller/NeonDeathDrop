@@ -155,6 +155,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public Action interactionEvent;
     public Action submitEvent;
+    public Action<PlayerInput> changedInput;
 
     [HideInInspector] public PlayerInput playerInput;
     private Vector2 inputMovement;
@@ -214,8 +215,12 @@ public class PlayerBehaviour : MonoBehaviour
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(slomoSoundEvent, transform);
         
         playerInput = GetComponent<PlayerInput>();
+
+        playerInput.SwitchCurrentActionMap("PlayerTutorial");
+        playerInput.actions.FindAction("MakeHole").performed += MakeHolePrefomed;
+        playerInput.actions.FindAction("MakeHole").canceled += MakeHoleCanceled;
+
         playerInput.SwitchCurrentActionMap("Player");
-        //GetComponent<PlayerInput>().actions.FindAction("MakeHole").started += MakeHoleStarted;
         playerInput.actions.FindAction("MakeHole").performed += MakeHolePrefomed;
         playerInput.actions.FindAction("MakeHole").canceled += MakeHoleCanceled;
 
@@ -239,6 +244,14 @@ public class PlayerBehaviour : MonoBehaviour
     private void OnDrawGizmos()
     {
         //Gizmos.DrawCube(forcePushTriggerCollider.center, forcePushTriggerCollider.size);
+    }
+
+    void OnControlsChanged(PlayerInput input)
+    {
+        print("## controls changed: "+ input.devices[0].name);
+        UIManager.Instance.iconManager.UpdateControlScheme(input);
+        if(changedInput != null)
+            changedInput(input);
     }
 
     void OnSubmit(InputValue value)
@@ -429,7 +442,7 @@ public class PlayerBehaviour : MonoBehaviour
                 animator.SetFloat("DashX", moveAnimDirection.x);
                 animator.SetFloat("DashY", moveAnimDirection.y);
 
-                print("dashAnimDirection: " + moveAnimDirection);
+                //print("dashAnimDirection: " + moveAnimDirection);
 
                 //if(dashCoroutine == null)
                     dashCoroutine = StartCoroutine(DashCoroutine(dashDir, dashDuration));
@@ -676,6 +689,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void FinishSomersault()
     {
+        //print("finished heavy!");
         currentPushForce = pushForce;
         enableControlls = true;
         isDoingSomersault = false;
@@ -805,12 +819,12 @@ public class PlayerBehaviour : MonoBehaviour
         forcePushTriggerCollider.center = Vector3.zero;
         forcePushTriggerCollider.size = defaultForcePushTriggerSize;
 
-        if (Input.GetKeyDown(KeyCode.T))
+        /*if (Input.GetKeyDown(KeyCode.T))
         {
             transform.position = new Vector3(transform.position.x, transform.position.y + 25, transform.position.z);
             isFalling = true;
             animator.SetBool("Falling", isFalling);
-        }
+        }*/
 
         if (enableControlls)
         {
@@ -1068,7 +1082,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (other.CompareTag("CheckpointCube"))
         {
-            print("# setting new checkpoint: "+other.name);
             SetCheckpoint(other.transform);
 
             if (isFalling)
@@ -1226,6 +1239,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetCheckpoint(Transform checkpointTransform)
     {
+        if(checkpoint != checkpointTransform)
+            print("# setting new checkpoint: " + checkpointTransform.name);
+
         this.checkpoint = checkpointTransform;
         checkpointTransform.GetComponentInChildren<CheckpointTileBehaviour>().SetCheckpoint();
     }
@@ -1496,8 +1512,11 @@ public class PlayerBehaviour : MonoBehaviour
 
                     if (gNode.GetTileType() == TileType.Weak)
                     {
-                        print("## player weak tile broke");
-                        gNode.GetGameNodeRef().GetComponentInChildren<WeakTileBehaviour>().StepOnTile(()=> gNode.SetType(TileType.Pit));
+                        if (!gNode.GetGameNodeRef().GetComponentInChildren<WeakTileBehaviour>().isSteppedOn)
+                        {
+                            print("## player weak tile broke");
+                            gNode.GetGameNodeRef().GetComponentInChildren<WeakTileBehaviour>().StepOnTile(() => gNode.SetType(TileType.Pit));
+                        }
                     }
 
                     else if (gNode.GetTileType() != TileType.Pit)
@@ -1515,6 +1534,11 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             }
         }
+    }
+
+    public PlayerInput GetPlayerInput()
+    {
+        return playerInput;
     }
 
     private Vector2 GetMovementDirection(Vector2 moveDir, Vector2 lookDir)

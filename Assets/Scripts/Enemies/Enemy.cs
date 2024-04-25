@@ -325,7 +325,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
         if (currentAttackTimer <= 0)
         {
-            print("attacking!");
+            print("Enemy melee attacking!");
             animator.SetTrigger("Attack");
             currentAttackTimer = attackIntervalTimer;
             StartCoroutine(AttackCoroutine(0.5f));
@@ -386,7 +386,7 @@ public class Enemy : MonoBehaviour, IPooledObject {
 
     internal virtual void DyingAction()
     {
-        print("Enemy is falling...");
+        //print("Enemy is falling...");
         
         //CameraShaker.Instance.ShakeOnce(2f, 4f, 0.1f, 1f);
         GameManager.Instance.IncrementEnemyKillCount();

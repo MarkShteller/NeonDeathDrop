@@ -11,6 +11,7 @@ public class InteractableDialogObject : MonoBehaviour
     public string interactionID;
     public bool isPlayerTriggered;
     public bool isTriggeredOnce;
+    public bool isTutorial;
     //public bool isSubtitles;
 
     private bool isEnabled = true;
@@ -61,12 +62,18 @@ public class InteractableDialogObject : MonoBehaviour
     {
         if (isTriggeredOnce)
             isEnabled = false;
+        GameManager.Instance.isTutorial = isTutorial;
+
         UIManager.Instance.SetInteractableVisible(false);
 
         if (interactionID == "" || (interactionType != InteractionType.TutorialDialog && !DialogManager.Instance.IDExists(interactionID)))
         {
             Debug.LogError("Interaction ID " + interactionID + " does not exist or empty.");
-            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+            if(!GameManager.Instance.isTutorial)
+                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+            else
+                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("PlayerTutorial");
+
             return;
         }
 

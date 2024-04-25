@@ -12,6 +12,7 @@ public class TutorialDialog : AbstractDialog
     public TMP_Text body;
     public Image image;
     public Image imageBg;
+    public Image closeBtnIcon;
 
     public void Populate(TutorialObject tutorialObjRef)
     {
@@ -41,5 +42,10 @@ public class TutorialDialog : AbstractDialog
     public override void SelectFirst()
     {
         
+    }
+
+    public override void SetIcons(IconManager.InteractionIcons icons)
+    {
+        closeBtnIcon.sprite = icons.buttonEast;
     }
 }

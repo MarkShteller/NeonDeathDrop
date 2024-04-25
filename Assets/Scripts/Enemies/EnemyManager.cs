@@ -164,7 +164,8 @@ public class EnemyManager : MonoBehaviour {
             activeEnemies = sublevelEnemies[sublevel];
             foreach (var enemy in activeEnemies)
             {
-                enemy.SetGridHolder(GameManager.Instance.GetCurrentSublevel());
+                if(enemy.isActiveAndEnabled)
+                    enemy.SetGridHolder(GameManager.Instance.GetCurrentSublevel());
             }
         }
     }

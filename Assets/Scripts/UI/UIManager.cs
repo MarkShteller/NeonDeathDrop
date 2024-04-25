@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour {
     public static UIManager Instance;
 
     public bool recordingMode;
+    public IconManager iconManager;
+
     public Slider manaSlider;
     public Slider healthSlider;
     public Text scoreText;
@@ -49,16 +51,27 @@ public class UIManager : MonoBehaviour {
 
     public ProjectionCanvasController projectionCanvas;
 
+    private RebindSaveLoad rebindSaveLoad;
+
     void Awake () {
         Instance = this;
         dialogStack = new Stack();
-	}
+        rebindSaveLoad = GetComponent<RebindSaveLoad>();
+
+    }
 
     private void Start()
     {
         praiseTextEnterAnim = PraiseText.GetComponent<Animation>();
         PraiseText.gameObject.SetActive(false);
         SetRecordingMode(recordingMode);
+
+        rebindSaveLoad.OnLoad();
+        GameManager.Instance.GameManagerReady += GameManagerReady;
+    }
+
+    private void GameManagerReady()
+    {
     }
 
     /*private void Update()
@@ -160,6 +173,7 @@ public class UIManager : MonoBehaviour {
 
     public void OpenPauseDialog()
     {
+        GameManager.Instance.SetDeathSnapshotIntensity(0.5f);
         OpenDialogGeneric(pauseDialog.gameObject);
     }
 
@@ -196,11 +210,13 @@ public class UIManager : MonoBehaviour {
         }
 
         dialogStack.Push(dialog);
-        GameManager.Instance.SetDuckMusicIntensity(1f);
+        GameManager.Instance.SetDuckMusicIntensity(0.5f);
         GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+
         Time.timeScale = 0;
         dialog.SetActive(true);
         dialog.GetComponent<AbstractDialog>().SelectFirst();
+        dialog.GetComponent<AbstractDialog>().SetIcons(iconManager.currentIcons);
     }
 
     public void CloseTopDialog()
@@ -215,8 +231,13 @@ public class UIManager : MonoBehaviour {
         if (dialogStack.Count == 0)
         {
             Time.timeScale = 1;
-            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+            if (!GameManager.Instance.isTutorial)
+                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+            else
+                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("PlayerTutorial");
+            GameManager.Instance.SetDeathSnapshotIntensity(0f);
             GameManager.Instance.SetDuckMusicIntensity(0f);
+            rebindSaveLoad.OnSave();
         }
         else
         {
@@ -231,10 +252,15 @@ public class UIManager : MonoBehaviour {
         GameObject topDialog = dialogStack.Peek() as GameObject;
         topDialog.SetActive(false);
         dialogStack.Clear();
+        rebindSaveLoad.OnSave();
 
         Time.timeScale = 1;
-        GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+        if (!GameManager.Instance.isTutorial)
+            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+        else
+            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("PlayerTutorial");
         GameManager.Instance.SetDuckMusicIntensity(0f);
+        GameManager.Instance.SetDeathSnapshotIntensity(0f);
     }
 
     public void OpenEndLevelDialog(int score, float maxMultiplier, float time, int enemyCount, float damage, LevelScriptableObject level)

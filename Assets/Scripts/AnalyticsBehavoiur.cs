@@ -50,3 +50,14 @@ public class LevelFinishedEvent : Event
 	public int enemyCount { set { SetParameter("enemyCount", value); } }
 	public int damageTaken { set { SetParameter("damageTaken", value); } }
 }
+
+public class SettingsDialogEvent : Event
+{
+	public SettingsDialogEvent() : base("SettingsDialog")
+	{
+	}
+
+	public int currentLevelIndex { set { SetParameter("currentLevelIndex", value); } }
+	public int qualityLevelIndex { set { SetParameter("qualityLevelIndex", value); } }
+	public string inputRebinds { set { SetParameter("inputRebinds", value); } }
+}

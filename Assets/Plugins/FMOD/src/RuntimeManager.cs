@@ -1094,8 +1094,10 @@ retry:
             catch(EventNotFoundException)
             {
                 // Switch from exception with GUID to exception with path
-                throw new EventNotFoundException(path);
+                //throw new EventNotFoundException(path);
+                Debug.LogWarning("EventNotFoundException path: "+path);
             }
+            return new FMOD.Studio.EventInstance();
         }
 
         public static FMOD.Studio.EventInstance CreateInstance(FMOD.GUID guid)

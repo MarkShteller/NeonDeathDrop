@@ -7,12 +7,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
 using Unity.Services.Core;
 using Unity.Services.Analytics;
+using UnityEngine.Diagnostics;
 
 public class TitleScreenControls : MonoBehaviour
 {
     [HideInInspector] public PlayerInput playerInput;
     public GameManager gameManagerRef;
     public Button firstBtn;
+    public OptionsDialog optionsDialog;
     public PlayableDirector creditsTimeline;
     public PlayableDirector introTimeline;
     public AnalyticsBehavoiur analyticsBehavoiur;
@@ -29,10 +31,19 @@ public class TitleScreenControls : MonoBehaviour
         //print("TitleScreen event analyticsResult: " + analyticsResult);
     }
 
+    public void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+            Utils.ForceCrash(ForcedCrashCategory.FatalError);
+    }
+
     public void OnNewGame()
     {
         if (enableControls)
         {
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.UIRestart);
+            AudioManager.Instance.StopAllSounds();
+
             if (GameManager.Instance == null)
             {
                 gameManagerRef.CurrentLevelIndex = 0;
@@ -86,6 +97,12 @@ public class TitleScreenControls : MonoBehaviour
         }
     }
 
+    public void OnSettings()
+    {
+        optionsDialog.gameObject.SetActive(true);
+        //optionsDialog.SelectFirst();
+    }
+
     public void OnCancel()
     {
         creditsTimeline.time = 0;
@@ -94,9 +111,13 @@ public class TitleScreenControls : MonoBehaviour
 
         introTimeline.time = 5.5f;
         introTimeline.Evaluate();
-        //introTimeline.Stop();
 
-       // IntroFinished();
+        if (optionsDialog.gameObject.active)
+        {
+            optionsDialog.CloseDialog();
+            optionsDialog.gameObject.SetActive(false);
+            firstBtn.Select();
+        }
     }
 
     public void IntroFinished()
@@ -120,6 +141,7 @@ public class TitleScreenControls : MonoBehaviour
         playerInput.SwitchCurrentActionMap("UI");
         AnalyticsService.Instance.RecordEvent("TitleScreen");
         firstBtn.Select();
+        AudioManager.Instance.StartAmbiance(AudioManager.Instance.EnvAmbienceHighway); 
     }
 
     public void OnDecline()
@@ -130,6 +152,7 @@ public class TitleScreenControls : MonoBehaviour
         introTimeline.Play();
         playerInput.SwitchCurrentActionMap("UI");
         firstBtn.Select();
+        AudioManager.Instance.StartAmbiance(AudioManager.Instance.EnvAmbienceHighway);
         //enableControls = true;
     }
 
