@@ -216,9 +216,9 @@ public class PlayerBehaviour : MonoBehaviour
         
         playerInput = GetComponent<PlayerInput>();
 
-        playerInput.SwitchCurrentActionMap("PlayerTutorial");
+        /*playerInput.SwitchCurrentActionMap("PlayerTutorial");
         playerInput.actions.FindAction("MakeHole").performed += MakeHolePrefomed;
-        playerInput.actions.FindAction("MakeHole").canceled += MakeHoleCanceled;
+        playerInput.actions.FindAction("MakeHole").canceled += MakeHoleCanceled;*/
 
         playerInput.SwitchCurrentActionMap("Player");
         playerInput.actions.FindAction("MakeHole").performed += MakeHolePrefomed;
@@ -396,7 +396,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void OnSpecial(InputValue value)
     {
-        if (coresCount >= shockwaveCoreCost)
+        if (coresCount >= shockwaveCoreCost && !GameManager.Instance.isTutorial)
         {
             coresCount -= shockwaveCoreCost;
             UIManager.Instance.SetCoreCount(coresCount);

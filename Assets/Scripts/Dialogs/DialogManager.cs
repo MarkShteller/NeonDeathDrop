@@ -137,12 +137,9 @@ public class DialogManager : MonoBehaviour
             EnemyManager.Instance.SetUpdateEnemies(true);
             characterDialogBox.gameObject.SetActive(false);
             GameManager.Instance.PlayerInstance.submitEvent -= PressNextAction;
-            
-            if (!GameManager.Instance.isTutorial)
-                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
-            else
-                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("PlayerTutorial"); 
-            
+
+            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+
             UIManager.Instance.SetHUDVisible(true);
             GameManager.Instance.SetDuckMusicIntensity(0f);
         }

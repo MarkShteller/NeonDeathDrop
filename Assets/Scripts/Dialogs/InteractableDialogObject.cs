@@ -69,10 +69,7 @@ public class InteractableDialogObject : MonoBehaviour
         if (interactionID == "" || (interactionType != InteractionType.TutorialDialog && !DialogManager.Instance.IDExists(interactionID)))
         {
             Debug.LogError("Interaction ID " + interactionID + " does not exist or empty.");
-            if(!GameManager.Instance.isTutorial)
-                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
-            else
-                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("PlayerTutorial");
+            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
 
             return;
         }

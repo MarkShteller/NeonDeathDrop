@@ -231,10 +231,7 @@ public class UIManager : MonoBehaviour {
         if (dialogStack.Count == 0)
         {
             Time.timeScale = 1;
-            if (!GameManager.Instance.isTutorial)
-                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
-            else
-                GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("PlayerTutorial");
+            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
             GameManager.Instance.SetDeathSnapshotIntensity(0f);
             GameManager.Instance.SetDuckMusicIntensity(0f);
             rebindSaveLoad.OnSave();
@@ -255,10 +252,7 @@ public class UIManager : MonoBehaviour {
         rebindSaveLoad.OnSave();
 
         Time.timeScale = 1;
-        if (!GameManager.Instance.isTutorial)
-            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
-        else
-            GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("PlayerTutorial");
+        GameManager.Instance.PlayerInstance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
         GameManager.Instance.SetDuckMusicIntensity(0f);
         GameManager.Instance.SetDeathSnapshotIntensity(0f);
     }
