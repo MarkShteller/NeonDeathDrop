@@ -44,6 +44,7 @@ public class AudioManager : MonoBehaviour {
     [FMODUnity.EventRef] public string CompanionFloating = "";
     [FMODUnity.EventRef] public string BoxBreak = "";
     public EventReference AreaUnlock;
+    public EventReference EnemyBump;
 
     EventInstance LevelMusic;
     EventInstance LevelAmbiance;
@@ -183,7 +184,7 @@ public class AudioManager : MonoBehaviour {
         StopCurrentVoiceline();
         LevelMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         LevelAmbiance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        if(GameManager.Instance != null)
+        if(GameManager.Instance != null && GameManager.Instance.companion != null)
             GameManager.Instance.companion.StopFloatSound();
         LevelMusic.release();
     }

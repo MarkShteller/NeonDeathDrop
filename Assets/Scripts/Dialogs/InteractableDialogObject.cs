@@ -12,12 +12,11 @@ public class InteractableDialogObject : MonoBehaviour
     public bool isPlayerTriggered;
     public bool isTriggeredOnce;
     public bool isTutorial;
-    //public bool isSubtitles;
+    public GameManager.TutorialState tutorialState;
 
     private bool isEnabled = true;
     public UnityEvent triggerEnterEvent;
     public UnityEvent triggerExitEvent;
-   // public UnityEvent OnInteractionEndedEvent;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -63,6 +62,7 @@ public class InteractableDialogObject : MonoBehaviour
         if (isTriggeredOnce)
             isEnabled = false;
         GameManager.Instance.isTutorial = isTutorial;
+        GameManager.Instance.currentTutorialState = tutorialState;
 
         UIManager.Instance.SetInteractableVisible(false);
 

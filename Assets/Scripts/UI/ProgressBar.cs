@@ -17,6 +17,7 @@ public class ProgressBar : MonoBehaviour
     } 
 
     public Image mask;
+    public Image maskBG;
 
     /*
 #if UNITY_EDITOR
@@ -32,5 +33,7 @@ public class ProgressBar : MonoBehaviour
         float maxOffset = max - min;
         float fillAmount = currentOffset / maxOffset;
         mask.fillAmount = fillAmount;
+        if (maskBG != null) 
+            maskBG.fillAmount = fillAmount;
     }
 }

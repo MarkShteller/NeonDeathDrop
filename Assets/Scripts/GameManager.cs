@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance;
 
     public bool isTutorial;
+    public enum TutorialState { None, LightPush, HeavyPush, Holes, Pull, Special }
+    public TutorialState currentTutorialState;
 
     public Point playerPointPosition;
     public int score = 0;
@@ -478,6 +480,7 @@ public class GameManager : MonoBehaviour {
     internal void ClearLevel()
     {
         levelManager.ClearActiveLevels();
+        StopCoroutine(scoreUpdaterCoroutine);
     }
 
     

@@ -36,10 +36,25 @@ public class PlayerVisualsBehaviour : MonoBehaviour
 
             }
         }
+        if (other.tag == "Enviromental" && PlayerBehaviour.currentAttackType != PlayerBehaviour.PlayerAttackType.None)
+        {
+            print("hitting enviromental");
+            FMODUnity.RuntimeManager.PlayOneShot(AudioManager.Instance.EnemyBump, other.transform.position);
+            Vector3 dir = transform.position - other.transform.position;
+            dir = -dir.normalized;
+            other.GetComponent<Rigidbody>().AddForce(dir * PlayerBehaviour.currentPushForce * 0.7f);
+            StartCoroutine(DestroyObjectAfter(other.gameObject, 10));
+        }
         if (other.tag == "Breakable")
         {
             other.GetComponent<BreakableObject>().Break(PlayerBehaviour.transform);
         }
+    }
+
+    private IEnumerator DestroyObjectAfter(GameObject obj, float time)
+    {
+        yield return new WaitForSeconds(time);
+        obj.SetActive(false);
     }
 }
 

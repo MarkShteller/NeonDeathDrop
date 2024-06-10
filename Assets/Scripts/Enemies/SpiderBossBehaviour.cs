@@ -427,7 +427,8 @@ public class SpiderBossBehaviour : MonoBehaviour
 
     public void FinalBlow()
     {
-        StartCoroutine(FinalBlowCor());
+        if(currentState != SpiderBossState.Die)
+            StartCoroutine(FinalBlowCor());
     }
 
     public IEnumerator FinalBlowCor()

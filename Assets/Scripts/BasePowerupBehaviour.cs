@@ -48,9 +48,14 @@ public class BasePowerupBehaviour : MonoBehaviour {
 
     private IEnumerator DrawIn(Transform target)
     {
-        while (Vector3.Distance(transform.position, target.position) > 0.5f)
+        float dist = Vector3.Distance(transform.position, target.position);
+        while (dist > 0.5f)
         {
-            transform.position = Vector3.Lerp(transform.position, target.position, 0.25f);
+            transform.Rotate(new Vector3(0, 20, 0));
+            transform.position = transform.position + (transform.right * dist * 0.4f);
+            transform.position = Vector3.Slerp(transform.position, target.position, 0.25f);
+            dist = Vector3.Distance(transform.position, target.position);
+
             yield return null;
         }
         GameManager.Instance.PlayerInstance.AddPowerup(this);

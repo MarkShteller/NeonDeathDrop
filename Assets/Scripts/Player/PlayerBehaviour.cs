@@ -315,6 +315,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (manaPoints >= holeManaCost)
         {
+            EnemyManager.Instance.SetUpdateEnemies(true);
             //stop slomo and make hole
             isHoleSlomo = false;
             isChargeMana = true;
@@ -322,7 +323,6 @@ public class PlayerBehaviour : MonoBehaviour
             GameManager.Instance.EndSlomo();
 
             //isSprinting = false;
-            EnemyManager.Instance.SetUpdateEnemies(true);
 
             //TriggerMakeHoleAction();
 
@@ -757,7 +757,8 @@ public class PlayerBehaviour : MonoBehaviour
         aimAssist.gameObject.SetActive(false);
 
         enableMovement = true;
-        manaPoints -= pushManaCost;
+        if(manaPoints < totalManaPoints)
+            manaPoints -= pushManaCost;
 
         Vector3 size = new Vector3(forcePushTriggerCollider.size.x + pushRadiusWidth, forcePushTriggerCollider.size.y, forcePushTriggerCollider.size.z + pushRadius * pushRadiusMul);
         Vector3 center = new Vector3(0, 0, -pushRadius * pushRadiusMul / 2);
@@ -1020,7 +1021,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 GameManager.Instance.DashSlomo(2f);
                 GameManager.Instance.cameraRef.FastZoom(enemy.transform);
-                ObjectPooler.Instance.SpawnFromPool("HitEffect", enemy.transform.position, Quaternion.identity);
+                ObjectPooler.Instance.SpawnFromPool("HitEffect", enemy.transform.position, Quaternion.Euler(enemy.transform.localEulerAngles));
             }
             else
             {
@@ -1309,20 +1310,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     private void ManipulateFloor()
-    {
-        /*if (prevHoveredObject != null)
-        {
-            if (prevHoveredObject.tag != "WeakCube")
-            {
-                prevHoveredObject.GetComponent<BaseTileBehaviour>().DeselectPillar();
-            }
-        }*/
-
-        /*if (currHoveredObject != null)
-            if (currHoveredObject.tag != "WeakCube")
-                if(isHoleSlomo)
-                    currHoveredObject.GetComponent<BaseTileBehaviour>().SelectPillar();*/
- 
+    { 
         if (isHoleSlomo)
         {
             isChargeMana = false;
@@ -1331,6 +1319,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 isHoleSlomo = false;
                 isChargeMana = true;
+                EnemyManager.Instance.SetUpdateEnemies(true);
                 currentSlomoTriggerCooldown = slomoTriggerCooldown;
                 GameManager.Instance.EndSlomo();
             }
@@ -1397,18 +1386,29 @@ public class PlayerBehaviour : MonoBehaviour
         tile.parent.GetComponent<BaseTileBehaviour>().Drop();
     }*/
 
-    public void MakeHole()
+    public void MakeHole(Point holePos = null)
     {
-        Transform tileTransform = currHoveredObject.transform;
-        
-        //move the tile down
-        tileTransform.GetComponent<BaseTileBehaviour>().Drop();
-        string name = tileTransform.parent.name;
+        string name;
+        int[] location;
+        if (holePos == null)
+        {
+            Transform tileTransform = currHoveredObject.transform;
 
-        var location = gridHolder.GetNodeLocation(name);
+            //move the tile down
+            tileTransform.GetComponent<BaseTileBehaviour>().Drop();
+            name = tileTransform.parent.name;
+            location = gridHolder.GetNodeLocation(name);
+        }
+        else
+        {
+            //gridHolder.GetGridNode(holePos.x, holePos.y).GetGameNodeRef().GetComponent<BaseTileBehaviour>().Drop();
+            location = new int[2] { holePos.x, holePos.y };
+        }
+
         GridNode node = gridHolder.GetGridNode(location[0], location[1]);
 
         //set the selected node as a hole
+        node.GetGameNodeRef().GetComponentInChildren<BaseTileBehaviour>().Drop();
         gridHolder.SetGridNodeType(node, TileType.PlayerPit, holeTimeToRegen);
 
         //set adjacent available nodes as holes

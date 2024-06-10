@@ -48,8 +48,14 @@ public class EnemyBullet : MonoBehaviour, IPooledObject {
         }
         if (other.tag == "Enemy" && isParried)
         {
-            other.gameObject.GetComponent<Enemy>()
-                .ForcePush(-vForward, GameManager.Instance.PlayerInstance.currentPushForce, PlayerBehaviour.PlayerAttackType.ParryBullet);
+            /*other.gameObject.GetComponent<Enemy>()
+                .ForcePush(-vForward, GameManager.Instance.PlayerInstance.currentPushForce, PlayerBehaviour.PlayerAttackType.ParryBullet);*/
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                GameManager.Instance.PlayerInstance.MakeHole(enemy.GetPointPos());
+                other.GetComponent<Enemy>().lastAttackType = PlayerBehaviour.PlayerAttackType.ParryBullet;
+            }
             gameObject.SetActive(false);
         }
     }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using EZCameraShake;
 using System;
 using UnityEngine.VFX;
+using UnityEngine.VFX.Utility;
 
 public class Enemy : MonoBehaviour, IPooledObject {
 
@@ -236,8 +237,37 @@ public class Enemy : MonoBehaviour, IPooledObject {
                 killpoints += 3;
                 break;
         }
+
+        SpawnMoney(killpoints);
+
         GameManager.Instance.AddKillPoints(killpoints);
         GameManager.Instance.AddScore(pointsReward);
+    }
+
+    private void SpawnMoney(float pointMultiplier)
+    {
+        GameObject moneyObject = ObjectPooler.Instance.SpawnFromPool("MoneyEffect", transform.position, Quaternion.identity);
+        VisualEffect moneyVFX = moneyObject.GetComponent<VisualEffect>();
+        moneyVFX.SetVector3("PlayerPosition", playerObject.transform.position);
+        StartCoroutine(MoneyTrackPlayer(moneyVFX, 6f));
+        
+        moneyVFX.SetVector3("SpawnPosition", transform.position);
+        moneyVFX.SetInt("Amount", (int)(5 * pointMultiplier));
+        moneyVFX.Play();
+        //List<VFXBinderBase> binders = (List<VFXBinderBase>)moneyObject.GetComponent<VFXPropertyBinder>().GetPropertyBinders<VFXBinderBase>();
+        //binders[0].UpdateBinding()
+    }
+
+    private IEnumerator MoneyTrackPlayer(VisualEffect money, float time)
+    {
+        float t = time;
+        while (t > 0)
+        {
+            t -= Time.deltaTime;
+            //print("money tracking player: "+ playerObject.transform.position);
+            money.SetVector3("PlayerPosition", playerObject.transform.position);
+            yield return null;
+        }
     }
 
     public void UpdateEnemy(bool isTrackPlayer = true)
@@ -408,7 +438,8 @@ public class Enemy : MonoBehaviour, IPooledObject {
         stunnedRemaining -= Time.deltaTime;
         if (stunnedRemaining <= 0)
         {
-            stunnedEffect.gameObject.SetActive(false);
+            if(stunnedEffect != null)
+                stunnedEffect.gameObject.SetActive(false);
             movementStatus = MovementType.TrackingPlayer;
             //stunnedTimer = 0;
         }
@@ -417,7 +448,8 @@ public class Enemy : MonoBehaviour, IPooledObject {
     internal virtual void SuperStunnedAction()
     {
         stunnedRemaining -= Time.deltaTime;
-        stunnedEffect.gameObject.SetActive(true);
+        if(stunnedEffect != null)
+            stunnedEffect.gameObject.SetActive(true);
 
         if (stunnedRemaining <= 0)
         {
