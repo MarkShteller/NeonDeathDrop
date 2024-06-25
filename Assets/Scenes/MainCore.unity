@@ -1536,7 +1536,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!73398921 &292881480
 VFXRenderer:
   serializedVersion: 1
@@ -1545,7 +1545,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292881479}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1609,7 +1609,38 @@ VisualEffect:
     m_AnimationCurve:
       m_Array: []
     m_Gradient:
-      m_Array: []
+      m_Array:
+      - m_Value:
+          serializedVersion: 2
+          key0: {r: 11.984314, g: 0, b: 0.5019608, a: 1}
+          key1: {r: 5.992157, g: 0.53333336, b: 0.09411765, a: 1}
+          key2: {r: 5.992157, g: 4.109804, b: 0.34509805, a: 0}
+          key3: {r: 1.1607844, g: 5.992157, b: 0.65882355, a: 0}
+          key4: {r: 0.3137255, g: 1.1764706, b: 2.9960785, a: 0}
+          key5: {r: 1.2705883, g: 0, b: 2.9960785, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 193
+          ctime1: 13300
+          ctime2: 23516
+          ctime3: 31226
+          ctime4: 49344
+          ctime5: 62066
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_NumColorKeys: 6
+          m_NumAlphaKeys: 2
+        m_Name: Sparks Gradient
+        m_Overridden: 0
     m_NamedObject:
       m_Array: []
     m_Bool:
