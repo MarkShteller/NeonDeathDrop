@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ea7fb2ead670246b9572dc8cc7ff0f, type: 3}
   m_Name: Level 1-1
   m_EditorClassIdentifier: 
+  displayName: 
   additiveScene: 2
   levelMusicTrack: 1
+  startMusicWithEvent: 0
   map: {fileID: 2800000, guid: 06c83c3576af6480c948856e9dbc18de, type: 3}
-  dialogSheetName: Level 1-1 Stable
+  dialogSheetName: Dialog Mastersheet Stable v2
+  PlayerSpawnRotation: {x: 0, y: 0, z: 0}
   Spawners:
   - {fileID: 11400000, guid: b5817390fe814824facbe11a8e466ef3, type: 2}
   - {fileID: 11400000, guid: 1fadf30ba7e34214d804cbda1fff6e74, type: 2}
@@ -28,6 +31,9 @@ MonoBehaviour:
   hasSublevels: 0
   positionOffset: {x: 0, y: 0}
   linkedSublevelList: []
+  isPlayVideoOnStart: 0
+  videoClip: {fileID: 0}
+  startPlayerFalling: 0
   includeCompanion: 1
   isVRSpace: 0
   showEndLevelReport: 0

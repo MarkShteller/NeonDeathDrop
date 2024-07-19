@@ -18,8 +18,18 @@ public class CharacterDialogBox : MonoBehaviour
         speakerLable.text = speaker;
         contentLable.text = content;
         Sprite img = Resources.Load<Sprite>("Portraits/" + image);
-        portraitImage.sprite = img;
-        portraitImageShadow.sprite = img;
+        if (img != null)
+        {
+            portraitImage.gameObject.SetActive(true);
+            portraitImageShadow.gameObject.SetActive(true);
+            portraitImage.sprite = img;
+            portraitImageShadow.sprite = img;
+        }
+        else
+        {
+            portraitImage.gameObject.SetActive(false);
+            portraitImageShadow.gameObject.SetActive(false);
+        }
         nextBtnIcon.sprite = icons.buttonSouth;
     }
 
